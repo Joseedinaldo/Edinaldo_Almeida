@@ -1,0 +1,2820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edinaldo Almeida | Desenvolvedor Front-End & Técnico de Informática</title>
+    <meta name="description" content="Portfolio profissional de Edinaldo Almeida - Desenvolvedor Front-End e Técnico de Informática especializado em React, TypeScript e soluções web modernas.">
+ 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+ 
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+ 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+     
+        :root {
+            --color-bg: #0a0a0a;
+            --color-fg: #f8f8f8;
+            --color-primary: #e6c200;
+            --color-primary-dark: #ffd700;
+            --color-card: #141414;
+            --color-border: #2a2a2a;
+            --color-muted: #a0a0a0;
+            --color-accent: #ff6b6b;
+            --color-secondary: #3db8b0;
+            --transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --glass-bg: rgba(20, 20, 20, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.2);
+            --shadow-hover: 0 10px 40px rgba(230, 194, 0, 0.2);
+        }
+      
+        /* Light Mode */
+        [data-theme="light"] {
+            --color-bg: #f8f8f8;
+            --color-fg: #1a1a1a;
+            --color-primary: #e6c200;
+            --color-primary-dark: #c1a300;
+            --color-card: #ffffff;
+            --color-border: #e0e0e0;
+            --color-muted: #666666;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 10px 40px rgba(230, 194, 0, 0.3);
+        }
+     
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-fg);
+            line-height: 1.7;
+            overflow-x: hidden;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+     
+        html {
+            scroll-behavior: smooth;
+        }
+     
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: transparent;
+            transition: var(--transition);
+            border-bottom: none;
+        }
+     
+        header.scrolled {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-soft);
+            border-bottom: 1px solid var(--glass-border);
+        }
+      
+        [data-theme="light"] header.scrolled {
+            background: rgba(248, 248, 248, 0.7);
+        }
+     
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+     
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            letter-spacing: -0.03em;
+            color: var(--color-primary);
+        }
+     
+        .logo .bracket {
+            color: var(--color-fg);
+            font-weight: 400;
+        }
+     
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+      
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--color-border);
+            border-radius: 50%;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--color-fg);
+            font-size: 1.2rem;
+        }
+      
+        .theme-toggle:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            transform: scale(1.1);
+        }
+     
+        .nav-links a {
+            color: var(--color-fg);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            opacity: 0.8;
+        }
+     
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--color-primary);
+        }
+     
+        .nav-links a.active {
+            opacity: 1;
+            color: var(--color-primary);
+        }
+     
+        .btn {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            color: var(--color-primary);
+            border: 1px solid var(--color-primary);
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+     
+        .btn:hover {
+            background: var(--color-primary);
+            color: var(--color-bg);
+            box-shadow: var(--shadow-hover);
+        }
+      
+        /* CORREÇÃO DEFINITIVA: Regra específica para o botão de CV no hover */
+        .nav-links a.btn:hover {
+            color: var(--color-bg) !important; /* Força o texto a ser preto */
+            opacity: 1;
+        }
+     
+        /* --- INÍCIO DA MODIFICAÇÃO: Menu Hamburger (Animação "X" Suave Corrigida) --- */
+        .menu-toggle {
+            display: none; /* Oculto por padrão em telas grandes */
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            transition: var(--transition);
+            padding: 0;
+            position: relative;
+            width: 32px;
+            height: 32px;
+        }
+     
+        .hamburger {
+            width: 24px; /* Define a largura correta para os spans */
+            height: 2px; /* Usa a altura do span do meio */
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-fg);
+            border-radius: 2px;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            transform-origin: center;
+        }
+        .hamburger span::before,
+        .hamburger span::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-fg);
+            border-radius: 2px;
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger span::before {
+            top: -8px;
+            transform-origin: center;
+        }
+        .hamburger span::after {
+            top: 8px;
+            transform-origin: center;
+        }
+       
+        /* Animação "X" Suave CORRIGIDA */
+        .menu-toggle.active .hamburger span {
+            background: transparent; /* O traço do meio some */
+        }
+        .menu-toggle.active .hamburger span::before {
+            top: 0; /* CORREÇÃO: Move o traço superior para o centro */
+            transform: rotate(45deg); /* Gira para formar o X */
+        }
+        .menu-toggle.active .hamburger span::after {
+            top: 0; /* CORREÇÃO: Move o traço inferior para o centro */
+            transform: rotate(-45deg); /* Gira para formar o X */
+        }
+       
+        /* CORREÇÃO DEFINITIVA DO HOVER */
+        /* Efeito de hover quando o menu NÃO está ativo (muda cor de todos os traços) */
+        .menu-toggle:not(.active):hover .hamburger span,
+        .menu-toggle:not(.active):hover .hamburger span::before,
+        .menu-toggle:not(.active):hover .hamburger span::after {
+            background-color: var(--color-primary);
+        }
+       
+        /* Efeito de hover quando o menu ESTÁ ativo (muda cor apenas dos traços do X, e o do meio permanece transparente) */
+        .menu-toggle.active:hover .hamburger span::before,
+        .menu-toggle.active:hover .hamburger span::after {
+            background-color: var(--color-primary);
+        }
+       
+        /* Garante que o span central permaneça transparente no hover/active */
+        .menu-toggle.active:hover .hamburger span {
+            background: transparent;
+        }
+        /* --- FIM DA MODIFICAÇÃO --- */
+        /* Antiga regra (removida):
+        .menu-toggle:hover .hamburger span,
+        .menu-toggle:hover .hamburger span::before,
+        .menu-toggle:hover .hamburger span::after {
+            background-color: var(--color-primary);
+        }
+        */
+        .menu-toggle:hover {
+            border-color: var(--color-primary); /* Mantém o efeito visual do container */
+        }
+        .menu-toggle:hover .hamburger span,
+        .menu-toggle:hover .hamburger span::before,
+        .menu-toggle:hover .hamburger span::after {
+            /* Deixa a cor original para evitar sobrescrever a cor primária se o botão não tiver borda */
+            /* A cor do hover é controlada pelas regras mais específicas acima */
+        }
+       
+        /* Overlay para Menu Mobile */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 998;
+        }
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+     
+        /* Menu Mobile Elegante - MELHORADO COM STAGGER ANIMATION */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            transform: translateX(-100%);
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 999;
+        }
+      
+        [data-theme="light"] .mobile-menu {
+            background: rgba(248, 248, 248, 0.95);
+        }
+     
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+     
+        .mobile-menu a {
+            display: block;
+            padding: 1.25rem 2rem;
+            color: var(--color-fg);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 1.3rem;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+     
+        .mobile-menu.active a {
+            opacity: 1;
+            transform: translateX(0);
+        }
+     
+        .mobile-menu a:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu a:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu a:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu a:nth-child(4) { transition-delay: 0.4s; }
+        .mobile-menu a:nth-child(5) { transition-delay: 0.5s; }
+        .mobile-menu a:nth-child(6) { transition-delay: 0.6s; }
+        .mobile-menu a:nth-child(7) { transition-delay: 0.7s; }
+     
+        .mobile-menu a:not(.btn)::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: var(--color-primary);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+     
+        .mobile-menu a:not(.btn):hover::before {
+            transform: scaleY(1);
+        }
+     
+        .mobile-menu a:hover {
+            color: var(--color-primary);
+            background: rgba(230, 194, 0, 0.05);
+        }
+      
+        /* CORREÇÃO DEFINITIVA: Botão CV no Menu Mobile */
+        .mobile-menu a.btn:hover {
+             color: var(--color-bg) !important;
+             opacity: 1;
+        }
+     
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 1.5rem;
+            position: relative;
+            background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-card) 100%);
+            overflow: hidden;
+        }
+     
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+     
+        .hero-bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            animation: float 12s ease-in-out infinite;
+        }
+     
+        .hero-bg-circle:nth-child(1) {
+            top: -10%;
+            left: -10%;
+            width: 30rem;
+            height: 30rem;
+            background: var(--color-primary);
+        }
+     
+        .hero-bg-circle:nth-child(2) {
+            bottom: -10%;
+            right: -10%;
+            width: 35rem;
+            height: 35rem;
+            background: var(--color-secondary);
+            animation-delay: 2s;
+        }
+     
+        .hero-bg-circle:nth-child(3) {
+            top: 40%;
+            left: 60%;
+            width: 25rem;
+            height: 25rem;
+            background: var(--color-accent);
+            animation: pulse 8s ease-in-out infinite;
+        }
+     
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+     
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+     
+        .hero .name {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+     
+        /* Animação de Digitação */
+        .hero .subtitle {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--color-muted);
+            margin-bottom: 1.75rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+           
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: .15em solid var(--color-primary);
+            width: 0;
+            margin: 0 auto 1.75rem;
+           
+            opacity: 1;
+            transform: translateY(0);
+            animation:
+                typing 2.6s steps(52, end) 0.3s forwards,
+                blink-caret .75s step-end infinite 0.3s;
+        }
+     
+        .hero .description {
+            font-size: 1.3rem;
+            color: var(--color-muted);
+            max-width: 45rem;
+            margin: 0 auto 2.5rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+        }
+     
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out 0.9s forwards;
+        }
+     
+        .btn-outline {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            color: var(--color-fg);
+            border: 1px solid var(--color-border);
+            border-radius: 50px;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+     
+        .btn-outline:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            box-shadow: var(--shadow-hover);
+        }
+     
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out 1.2s forwards;
+        }
+     
+        .social-links a {
+            color: var(--color-muted);
+            text-decoration: none;
+            transition: var(--transition);
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid var(--color-border);
+        }
+     
+        .social-links a:hover {
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-hover);
+        }
+     
+        /* Section Styles */
+        section {
+            padding: 8rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+     
+        .section-dark {
+            background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-card) 100%);
+        }
+     
+        .section-light {
+            background: linear-gradient(135deg, var(--color-card) 0%, var(--color-bg) 100%);
+        }
+     
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+     
+        .section-header h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.03em;
+        }
+     
+        .section-header .highlight {
+            color: var(--color-primary);
+        }
+     
+        .section-header p {
+            font-size: 1.3rem;
+            color: var(--color-muted);
+            max-width: 48rem;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+     
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+     
+        /* About Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+     
+        .feature-card {
+            background: var(--color-card);
+            padding: 3rem 2.5rem;
+            border-radius: 1.5rem;
+            border: 1px solid var(--color-border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+     
+        .feature-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+     
+        .feature-icon {
+            width: 4rem;
+            height: 4rem;
+            margin-bottom: 1.75rem;
+            color: var(--color-primary);
+            background: rgba(230, 194, 0, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 1.5rem;
+        }
+     
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+     
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+     
+        .feature-card p {
+            color: var(--color-muted);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+     
+        .about-text {
+            background: var(--color-card);
+            padding: 3.5rem;
+            border-radius: 1.5rem;
+            border: 1px solid var(--color-border);
+            position: relative;
+            overflow: hidden;
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+     
+        .about-text::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--color-primary);
+            transform: scaleY(0);
+            transition: transform 0.8s ease-out;
+        }
+     
+        .about-text.visible::before {
+            transform: scaleY(1);
+        }
+     
+        .about-text p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+     
+        .about-text .highlight-text {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+     
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+     
+        .skill-category {
+            background: var(--color-card);
+            padding: 3rem 2.5rem;
+            border-radius: 1.5rem;
+            border: 1px solid var(--color-border);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+     
+        .skill-category:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+     
+        .skill-category h3 {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 1.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+     
+        .skill-list {
+            list-style: none;
+        }
+     
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 0;
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+     
+        .skill-item:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+     
+        .skill-item:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+     
+        .skill-item:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+     
+        .skill-item:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+     
+        .skill-item:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+     
+        .skill-item:hover {
+            color: var(--color-primary);
+            transform: translateX(5px);
+        }
+     
+        .skill-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            background: var(--color-primary);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+     
+        .skill-item:hover .skill-dot {
+            transform: scale(1.5);
+            background: var(--color-secondary);
+        }
+     
+        /* Certifications Section - MELHORADO COM GLASSMORPHISM */
+        #certifications {
+            background: var(--color-bg);
+        }
+     
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+     
+        .certification-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 2.5rem;
+            border-radius: 1.8rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out forwards;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+     
+        .certification-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(230, 194, 0, 0.05));
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+     
+        .certification-card:hover::before {
+            opacity: 1;
+        }
+     
+        .certification-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(230, 194, 0, 0.25);
+        }
+      
+        .certification-logo {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 100px;
+            height: auto;
+            opacity: 0.8;
+            transition: all 0.5s ease;
+            filter: grayscale(50%);
+        }
+      
+        .certification-card:hover .certification-logo {
+            opacity: 1;
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+     
+        .certification-icon {
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 10px rgba(230, 194, 0, 0.3));
+        }
+     
+        .certification-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+     
+        .certification-issuer {
+            color: var(--color-fg);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+     
+        .certification-date {
+            color: var(--color-muted);
+            font-size: 0.95rem;
+        }
+     
+        .certification-link {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            color: var(--color-primary);
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(230, 194, 0, 0.1);
+            border: 1px solid var(--color-primary);
+        }
+     
+        .certification-link:hover {
+            transform: translateX(5px) scale(1.05);
+            color: var(--color-primary-dark);
+            background: var(--color-primary);
+            color: var(--color-bg);
+        }
+     
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            padding: 2.5rem 0;
+            overflow: hidden;
+        }
+     
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--color-primary);
+            transform: translateX(-50%);
+            transform-origin: top;
+            animation: growLine 2s ease-out forwards;
+        }
+     
+        .experience-item {
+            display: grid;
+            grid-template-columns: 1fr 3rem 1fr;
+            gap: 2rem;
+            margin-bottom: 5rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+     
+        .experience-item:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+     
+        .experience-item:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+     
+        .experience-item:nth-child(odd) > .experience-content {
+            grid-column: 1 / 2;
+        }
+     
+        .experience-item:nth-child(odd) > .experience-spacer {
+            grid-column: 2 / 4;
+        }
+     
+        .experience-item:nth-child(even) > .experience-content {
+            grid-column: 3 / 4;
+            text-align: left;
+        }
+     
+        .experience-item:nth-child(even) > .experience-spacer {
+            grid-column: 1 / 3;
+        }
+     
+        .experience-item:nth-child(odd) .experience-content::after {
+            content: '';
+            position: absolute;
+            top: 3.5rem;
+            right: -17px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 17px solid var(--color-card);
+            z-index: 1;
+        }
+     
+        .experience-item:nth-child(even) .experience-content::after {
+            content: '';
+            position: absolute;
+            top: 3.5rem;
+            left: -17px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 17px solid var(--color-card);
+            z-index: 1;
+        }
+     
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 2.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: var(--color-primary);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(230, 194, 0, 0.4);
+            animation: pulseDot 2s infinite;
+        }
+     
+        .experience-content {
+            background: var(--color-card);
+            padding: 3rem;
+            border-radius: 1.5rem;
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+     
+        .experience-content:hover {
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-5px);
+        }
+     
+        .experience-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--color-primary);
+        }
+     
+        .experience-item:nth-child(odd) .experience-content::before {
+            left: auto;
+            right: 0;
+        }
+     
+        .experience-header {
+            display: block;
+            margin-bottom: 1.75rem;
+            align-items: flex-start;
+            overflow: hidden;
+        }
+     
+        .experience-item:nth-child(odd) .company-logo {
+            float: right;
+            margin-left: 1.5rem;
+        }
+     
+        .experience-item:nth-child(even) .company-logo {
+            float: left;
+            margin-right: 1.5rem;
+        }
+     
+        .company-logo {
+            width: 5rem;
+            height: 5rem;
+            background: white;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            transition: var(--transition);
+            flex-shrink: 0;
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+        }
+     
+        .company-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+     
+        .experience-title h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+     
+        .experience-company {
+            color: var(--color-primary);
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 0.25rem;
+        }
+     
+        .experience-period {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.75rem;
+        }
+     
+        .experience-item:nth-child(odd) .experience-period {
+            justify-content: flex-end;
+        }
+     
+        .experience-description {
+            line-height: 1.8;
+            margin-bottom: 1.75rem;
+            font-size: 1.05rem;
+            color: var(--color-muted);
+        }
+     
+        .achievements-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+     
+        .experience-item:nth-child(odd) .achievements-title {
+            justify-content: flex-end;
+        }
+     
+        .achievements-list {
+            list-style: none;
+            text-align: left;
+        }
+     
+        .achievement-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 1rem;
+            color: var(--color-fg);
+            margin-bottom: 0.85rem;
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+     
+        .experience-content.visible .achievement-item {
+            opacity: 1;
+            transform: translateX(0);
+        }
+     
+        .achievement-item:nth-child(1) {
+            transition-delay: 0.2s;
+        }
+     
+        .achievement-item:nth-child(2) {
+            transition-delay: 0.4s;
+        }
+     
+        .achievement-item:nth-child(3) {
+            transition-delay: 0.6s;
+        }
+     
+        .achievement-item:nth-child(4) {
+            transition-delay: 0.8s;
+        }
+     
+        /* Símbolo de Confirmação (Checkmark) Refinado */
+        .achievement-item::before {
+            content: '\f00c';
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--color-primary);
+            font-size: 0.9rem;
+            background: rgba(230, 194, 0, 0.05);
+           
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+           
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+            padding: 0;
+        }
+     
+        .experience-cta {
+            text-align: center;
+            margin-top: 5rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+     
+        .experience-cta p {
+            color: var(--color-muted);
+            margin-bottom: 1.75rem;
+            font-size: 1.25rem;
+        }
+     
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3.5rem;
+        }
+     
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+     
+        .contact-item {
+            display: flex;
+            gap: 1.75rem;
+            align-items: flex-start;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+     
+        .contact-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+     
+        .contact-item:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+     
+        /* Ícones de Contato Reduzidos */
+        .contact-icon {
+            background: rgba(230, 194, 0, 0.05);
+            border: 1px solid var(--color-border);
+            padding: 1rem;
+            border-radius: 50%;
+            height: 4rem;
+            width: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            flex-shrink: 0;
+            font-size: 1.25rem;
+            color: var(--color-primary);
+        }
+     
+        .contact-item:hover .contact-icon {
+            transform: scale(1.1);
+            background: var(--color-primary);
+            color: var(--color-bg);
+            box-shadow: var(--shadow-hover);
+        }
+     
+        .contact-details h3 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+     
+        .contact-details p {
+            color: var(--color-muted);
+            font-size: 1.15rem;
+        }
+     
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+     
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+     
+        .form-group:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+     
+        .form-group:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+     
+        .form-input,
+        .form-textarea {
+            padding: 1.25rem 1.5rem;
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 1rem;
+            color: var(--color-fg);
+            font-family: inherit;
+            font-size: 1.05rem;
+            transition: var(--transition);
+        }
+     
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-hover);
+        }
+     
+        .form-textarea {
+            resize: vertical;
+            min-height: 160px;
+        }
+     
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--color-muted);
+        }
+     
+        /* Snake Game Section - MELHORADO COM RESPONSIVIDADE FULL WIDTH */
+        .snake-section {
+            position: relative;
+            padding: 8rem 1.5rem;
+            background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-card) 100%);
+            overflow: hidden;
+        }
+     
+        /* Container do Jogo 50% */
+        .snake-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+     
+        .snake-header {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+     
+        .snake-header h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+        }
+     
+        .snake-header p {
+            font-size: 1.25rem;
+            color: var(--color-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+     
+        .snake-game-container {
+            position: relative;
+            width: 100%;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--color-border);
+            background: var(--color-card);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+            aspect-ratio: 3 / 2; /* Mantém proporção 600x400 = 3:2 */
+        }
+     
+        #snake-game {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg);
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+     
+        /* Botões do Jogo Elegantes e Redondos */
+        .snake-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .snake-controls .btn,
+        .snake-controls .btn-outline {
+            padding: 0.85rem 1.75rem;
+            font-size: 0.95rem;
+           
+            border-radius: 50px; /* Formato "pílula" */
+            background: var(--color-card);
+            box-shadow: var(--shadow-soft);
+            transform: translateY(0);
+            transition: all 0.3s ease-in-out;
+           
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            line-height: 1.5;
+        }
+        .snake-controls .btn {
+             color: var(--color-primary);
+             border: 1px solid var(--color-primary);
+        }
+        .snake-controls .btn-outline {
+            color: var(--color-muted);
+            border: 1px solid var(--color-border);
+        }
+       
+        .snake-controls .btn:hover,
+        .snake-controls .btn-outline:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+        .snake-controls .btn:hover {
+            background: var(--color-primary);
+            color: var(--color-bg);
+            border-color: var(--color-primary);
+        }
+       
+        .snake-controls .btn-outline:hover {
+            background: var(--color-card);
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+     
+        .snake-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 1.5rem;
+            color: var(--color-muted);
+            font-size: 1.1rem;
+        }
+     
+        .snake-stats span {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+      
+        #game-over-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(20, 20, 20, 0.9));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--color-fg);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: scale(0.9);
+        }
+      
+        #game-over-overlay.visible {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+      
+        #game-over-overlay h2 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 10px rgba(230, 194, 0, 0.5));
+        }
+      
+        #game-over-overlay p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+     
+        /* Footer */
+        footer {
+            background: var(--color-bg);
+            border-top: 1px solid var(--color-border);
+            padding: 3.5rem 1.5rem;
+        }
+     
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.75rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+     
+        .footer-text {
+            color: var(--color-muted);
+            text-align: center;
+            font-size: 1.15rem;
+        }
+     
+        .footer-text .highlight {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+     
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+        }
+     
+        .footer-links a {
+            color: var(--color-muted);
+            transition: var(--transition);
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid var(--color-border);
+        }
+     
+        .footer-links a:hover {
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+            transform: scale(1.1);
+        }
+     
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+     
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.1);
+            }
+        }
+     
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+     
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+     
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(5deg);
+            }
+        }
+     
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+     
+        @keyframes growLine {
+            from {
+                transform: scaleY(0);
+            }
+            to {
+                transform: scaleY(1);
+            }
+        }
+     
+        @keyframes pulseDot {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        /* Keyframes de Digitação */
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+       
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--color-primary); }
+        }
+     
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+     
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+         
+            .menu-toggle {
+                display: flex; /* Visível apenas em telas pequenas */
+                align-items: center;
+                justify-content: center;
+            }
+         
+            .mobile-menu-overlay {
+                display: block;
+            }
+         
+            .timeline-line {
+                left: 1.5rem;
+                transform: translateX(0);
+            }
+         
+            .timeline-dot {
+                left: 1.5rem;
+                transform: translateX(-50%);
+            }
+         
+            .experience-item {
+                grid-template-columns: 1fr;
+                padding-left: 3.5rem;
+                margin-bottom: 4rem;
+                gap: 0;
+            }
+         
+            .experience-item:nth-child(odd) > .experience-content,
+            .experience-item:nth-child(even) > .experience-content {
+                grid-column: 1 / 2;
+                text-align: left;
+            }
+         
+            .experience-spacer {
+                display: none;
+            }
+         
+            .experience-content::after {
+                display: none;
+            }
+         
+            .experience-item:nth-child(odd) .experience-content::before {
+                left: 0;
+                right: auto;
+            }
+         
+            .experience-item:nth-child(odd) .experience-header {
+                justify-content: flex-start;
+                text-align: left;
+            }
+         
+            .experience-item:nth-child(odd) .experience-period {
+                justify-content: flex-start;
+            }
+         
+            .experience-item:nth-child(odd) .achievements-title {
+                justify-content: flex-start;
+            }
+         
+            .experience-item:nth-child(odd) .achievements-list {
+                 text-align: left;
+            }
+         
+            .experience-item:nth-child(odd) .company-logo {
+                float: left;
+                margin-right: 1.5rem;
+                margin-left: 0;
+            }
+         
+            .experience-item:nth-child(odd) .achievement-item {
+                justify-content: flex-start;
+                flex-direction: row;
+            }
+         
+            .experience-item:nth-child(odd) .achievement-item::before {
+                 margin-left: 0;
+                 margin-right: 0.75rem;
+            }
+         
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+         
+            .hero-buttons .btn,
+            .hero-buttons .btn-outline {
+                width: 100%;
+                max-width: 280px;
+            }
+         
+            .company-logo {
+                width: 4rem;
+                height: 4rem;
+            }
+         
+            /* Ícones de Contato (Mobile) */
+            .contact-icon {
+                width: 3.5rem;
+                height: 3.5rem;
+                padding: 0.75rem;
+                font-size: 1rem;
+            }
+         
+            .snake-controls {
+                grid-template-columns: 1fr;
+            }
+            /* Garante que a animação de digitação quebre a linha em telas pequenas */
+            .hero .subtitle {
+                white-space: normal; /* Permite quebra de linha */
+                width: auto; /* Deixa a largura ser automática */
+                border-right: none; /* Remove o cursor */
+                animation: fadeInUp 1s ease-out 0.3s forwards; /* Volta ao fade original */
+            }
+        }
+     
+        /* Icons SVG */
+        .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+     
+        .icon-lg {
+            width: 3rem;
+            height: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <header id="mainHeader">
+        <nav>
+            <div class="logo">
+                <span class="bracket">&lt;</span>Edinaldo<span class="bracket">/&gt;</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#skills">Habilidades</a></li>
+                <li><a href="#certifications">Certificações</a></li>
+                <li><a href="#experience">Experiência</a></li>
+                <li><a href="#contact">Contato</a></li>
+                <li><a href="#snake-game-section">Jogo</a></li>
+                <li><a href="javascript:void(0);" class="btn" id="downloadCvBtn">Download CV</a></li>
+                <li><button class="theme-toggle" id="themeToggle" aria-label="Alternar tema"><i class="fas fa-moon"></i></button></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+                <div class="hamburger">
+                    <span></span>
+                </div>
+            </button>
+        </nav>
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#about">Sobre</a>
+            <a href="#skills">Habilidades</a>
+            <a href="#certifications">Certificações</a>
+            <a href="#experience">Experiência</a>
+            <a href="#contact">Contato</a>
+            <a href="#snake-game-section">Jogo</a>
+            <a href="javascript:void(0);" class="btn" id="downloadCvBtnMobile">Download CV</a>
+            <div style="display: flex; justify-content: center; padding: 1rem;">
+                <button class="theme-toggle" id="themeToggleMobile" aria-label="Alternar tema"><i class="fas fa-moon"></i></button>
+            </div>
+        </div>
+    </header>
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="hero-bg-circle"></div>
+            <div class="hero-bg-circle"></div>
+            <div class="hero-bg-circle"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-name">
+                Olá, eu sou<br>
+                <span class="name">Edinaldo Almeida</span>
+            </h1>
+            <p class="hero-subtitle subtitle">Desenvolvedor Front-End & Técnico de Informática</p>
+            <p class="description">
+                Criando experiências digitais incríveis com foco em performance, acessibilidade e design moderno.
+            </p>
+            <div class="hero-buttons">
+                <a href="#skills" class="btn">Ver Habilidades →</a>
+                <a href="#contact" class="btn-outline">Entrar em Contato</a>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/Joseedinaldo" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/edinaldo-almeida-b67194276/" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="mailto:almeidaedinaldo95@gmail.com" aria-label="Email">
+                    <i class="far fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    <section id="about" class="section-light">
+        <div class="container">
+            <div class="section-header">
+                <h2><span class="highlight">Sobre</span> Mim</h2>
+                <p>Desenvolvedor apaixonado por criar soluções digitais que fazem a diferença</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Desenvolvimento</h3>
+                    <p>Código limpo e escalável com as melhores práticas e tecnologias modernas como React, TypeScript e Node.js.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Design</h3>
+                    <p>Interfaces intuitivas e atraentes que proporcionam experiências memoráveis e acessíveis para todos os usuários.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Performance</h3>
+                    <p>Otimização constante para garantir velocidade, eficiência e responsividade em cada projeto desenvolvido.</p>
+                </div>
+            </div>
+            <div class="about-text">
+                <p>
+                    Com experiência em desenvolvimento web e suporte técnico, trabalho com diversas tecnologias e metodologias.
+                    Meu foco está em criar aplicações robustas, escaláveis e com excelente experiência do usuário.
+                    <span class="highlight-text">Adoro aprender novas tecnologias</span> e aplicá-las em projetos desafiadores,
+                    sempre buscando a melhor solução para cada problema.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section id="skills" class="section-light">
+        <div class="container">
+            <div class="section-header">
+                <h2><span class="highlight">Habilidades</span> & Tecnologias</h2>
+                <p>Ferramentas e tecnologias que domino</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i class="fas fa-laptop-code"></i> Frontend</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item">
+                            <span class="skill-dot"></span>
+                            <span>React</span>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-dot"></span>
+                            <span>TypeScript</span>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-dot"></span>
+                            <span>Tailwind CSS</span>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-dot"></span>
+                            <span>Next.js</span>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-dot"></span>
+                            <span>HTML5</span>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-dot"></span>
+                            <span>CSS3</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-server"></i> Backend</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item">
+                            <span class="skill-dot"></span>
+                            <span>Node.js</span>
+                        </li>
+                    
+                        <li class="skill-item">
+                            <span class="skill-dot"></span>
+                            <span>PostgreSQL</span>
+                        </li>
+                  
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-tools"></i> Ferramentas</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item">
+                            <span class="skill-dot"></span>
+                            <span>Git</span>
+                        </li>
+                     
+                        <li class="skill-item">
+                            <span class="skill-dot"></span>
+                            <span>VS Code</span>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-dot"></span>
+                            <span>Figma</span>
+                        </li>
+                     
+                        <li class="skill-item">
+                            <span class="skill-dot"></span>
+                            <span>Vercel</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <section id="certifications" class="section-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2>Minhas <span class="highlight">Certificações</span></h2>
+                <p>Certificados obtidos em cursos e treinamentos relevantes</p>
+            </div>
+            <div class="certifications-grid">
+                <div class="certification-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Logo_-_Descomplica.png" alt="Descomplica" class="certification-logo">
+                    <div class="certification-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h3 class="certification-title">Object-Oriented Developer</h3>
+                    <p class="certification-issuer">Faculdade Descomplica</p>
+                    <p class="certification-date">Emitido em: 29/10/2025</p>
+                    <a href="https://certificados.descomplica.com.br/graduacao/870230d8941228007d3dc9260314963d0a0dea69443bec604cfb11edc70cf227" target="_blank" class="certification-link" aria-label="Ver Certificado">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="certification-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Logo_-_Descomplica.png" alt="Descomplica" class="certification-logo">
+                    <div class="certification-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h3 class="certification-title">Programmer</h3>
+                    <p class="certification-issuer">Faculdade Descomplica</p>
+                    <p class="certification-date">Emitido em: 03/06/2025</p>
+                    <a href="https://certificados.descomplica.com.br/graduacao/9bf37fbe22d0c0d83527d1d1b1a186b3317560453ff8f287d4597ea1985e1de9" target="_blank" class="certification-link" aria-label="Ver Certificado">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="certification-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Logo_-_Descomplica.png" alt="Descomplica" class="certification-logo">
+                    <div class="certification-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h3 class="certification-title">Basic Front-End</h3>
+                    <p class="certification-issuer">Faculdade Descomplica</p>
+                    <p class="certification-date">Emitido em: 16/03/2025</p>
+                    <a href="https://certificados.descomplica.com.br/graduacao/d407ad7b5bc1be638bc09b264262e52962edc088133ac56cbf94bcbb738fbc8b" target="_blank" class="certification-link" aria-label="Ver Certificado">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <section id="experience" class="section-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Experiência <span class="highlight">Profissional</span></h2>
+                <p>Minha jornada no desenvolvimento e suporte técnico</p>
+            </div>
+            <div class="experience-timeline">
+                <div class="timeline-line"></div>
+             
+                <div class="experience-item">
+                    <div class="experience-content">
+                        <div class="experience-header">
+                            <div class="company-logo">
+                                <img src="https://framerusercontent.com/images/BxGF6omlUTZVpJQkhgoKuXgE.png" alt="Getinfo Soluções Corporativas">
+                            </div>
+                            <div class="experience-title">
+                                <h3>Técnico de Suporte N1</h3>
+                                <p class="experience-company">Getinfo Soluções Corporativas</p>
+                            </div>
+                        </div>
+                        <div class="experience-period">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Mar 2025 - Jul 2025 • No momento</span>
+                        </div>
+                        <p class="experience-description">
+                            Responsável por prestar suporte técnico de primeiro nível aos usuários do TRT20, garantindo o funcionamento adequado dos sistemas, softwares e equipamentos institucionais.
+                        </p>
+                        <div>
+                            <p class="achievements-title"><i class="fas fa-trophy"></i> Principais Responsabilidades:</p>
+                            <ul class="achievements-list">
+                                <li class="achievement-item">Atendimento N1 com foco na identificação e resolução de problemas relacionados a login, autenticação e falhas de acesso aos sistemas institucionais</li>
+                                <li class="achievement-item">Suporte a certificados digitais, incluindo instalação, validação e análise de erros relacionados à autenticação em sistemas que exigem assinatura ou identificação digital</li>
+                                <li class="achievement-item">Instalação e configuração de impressoras (em rede), assegurando o pleno funcionamento nos diversos setores da instituição</li>
+                                <li class="achievement-item">Configuração e atualização de softwares institucionais, garantindo conformidade com os padrões técnicos, operacionais e de segurança</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="experience-spacer"></div>
+                </div>
+             
+                <div class="experience-item">
+                    <div class="experience-spacer"></div>
+                    <div class="experience-content">
+                        <div class="experience-header">
+                            <div class="company-logo">
+                                <img src="https://ints.org.br/wp-content/uploads/2025/02/Logo-Vertical-PNG.png" alt="INTS - Instituto Nacional de Tecnologia e Saúde">
+                            </div>
+                            <div class="experience-title">
+                                <h3>Técnico de Informática</h3>
+                                <p class="experience-company">INTS - Instituto Nacional de Tecnologia e Saúde</p>
+                            </div>
+                        </div>
+                        <div class="experience-period">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Mar 2024 - Mar 2025 • 1 ano e 3 meses</span>
+                        </div>
+                        <p class="experience-description">
+                            Atuação como plantonista na Maternidade Municipal Lourdes Nogueira, oferecendo atendimento técnico contínuo, com foco na prontidão e excelência dos serviços de TI em ambiente hospitalar.
+                        </p>
+                        <div>
+                            <p class="achievements-title"><i class="fas fa-trophy"></i> Principais Responsabilidades:</p>
+                            <ul class="achievements-list">
+                                <li class="achievement-item">Gerenciamento de incidentes, esclarecimento de dúvidas e atendimento a solicitações por meio da plataforma GLPI</li>
+                                <li class="achievement-item">Instalação, configuração e manutenção de impressoras, garantindo pleno funcionamento dos dispositivos</li>
+                                <li class="achievement-item">Prestação de suporte técnico aos colaboradores, com foco na utilização eficiente das ferramentas do pacote Microsoft Office</li>
+                                <li class="achievement-item">Garantia da continuidade das atividades operacionais em ambiente hospitalar crítico</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+             
+                <div class="experience-item">
+                    <div class="experience-content">
+                        <div class="experience-header">
+                            <div class="company-logo">
+                                <img src="https://www.ifs.edu.br/comunicacao/images/Imagens/Marcas/IFS_puro/Marca_IFS_vertical-01.png" alt="IFS - Instituto Federal de Sergipe">
+                            </div>
+                            <div class="experience-title">
+                                <h3>Trainee</h3>
+                                <p class="experience-company">IFS - Instituto Federal de Sergipe</p>
+                            </div>
+                        </div>
+                        <div class="experience-period">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Fev 2023 - Fev 2024 • 1 ano</span>
+                        </div>
+                        <p class="experience-description">
+                            Atuação na manutenção e suporte dos laboratórios de informática, garantindo o pleno funcionamento para as atividades educacionais.
+                        </p>
+                        <div>
+                            <p class="achievements-title"><i class="fas fa-trophy"></i> Principais Responsabilidades:</p>
+                            <ul class="achievements-list">
+                                <li class="achievement-item">Execução de manutenções preventivas e corretivas nos laboratórios de informática</li>
+                                <li class="achievement-item">Instalação de softwares e programas conforme solicitado pelos educadores</li>
+                                <li class="achievement-item">Otimização e apoio às atividades em sala de aula</li>
+                                <li class="achievement-item">Garantia de que todas as ferramentas necessárias para o processo de ensino-aprendizagem estivessem devidamente configuradas</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="experience-spacer"></div>
+                </div>
+            </div>
+            <div class="experience-cta">
+                <p>Quer saber mais sobre minha experiência?</p>
+                <a href="#contact" class="btn">Vamos Conversar</a>
+            </div>
+        </div>
+    </section>
+ 
+    <section id="contact" class="section-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2>Entre em <span class="highlight">Contato</span></h2>
+                <p>Vamos conversar sobre seu próximo projeto</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="far fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p id="contact-email">almeidaedinaldo95@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Telefone</h3>
+                            <p id="contact-phone">79 999178206</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Localização</h3>
+                            <p id="contact-location">Aracaju, Sergipe, Brasil</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" class="form-input" placeholder="Seu Nome" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" class="form-input" placeholder="Seu Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" class="form-textarea" placeholder="Sua Mensagem" required></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section id="snake-game-section" class="snake-section">
+        <div class="snake-container">
+            <div class="snake-header">
+                <h2>Um Pouco de <span class="highlight">Diversão</span></h2>
+                <p>Desafie-se neste jogo da cobrinha criado com JavaScript puro. Use as setas do teclado para controlar a cobra e tente fazer a maior pontuação possível!</p>
+            </div>
+            <div class="snake-game-container">
+                <div id="game-over-overlay">
+                    <h2>Game Over</h2>
+                    <p id="final-score">Sua pontuação: 0</p>
+                    <button id="restart-game-btn" class="btn">Reiniciar</button>
+                </div>
+                <canvas id="snake-game"></canvas>
+            </div>
+            <div class="snake-stats">
+                <div>Pontuação: <span id="score">0</span></div>
+                <div>Recorde: <span id="high-score">0</span></div>
+            </div>
+            <div class="snake-controls">
+                <button id="start-game" class="btn">Iniciar Jogo</button>
+                <button id="pause-game" class="btn-outline">Pausar</button>
+                <button id="reset-game" class="btn-outline">Reiniciar</button>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">
+                © 2024 <span class="highlight">Edinaldo Almeida</span>. Todos os direitos reservados.
+            </p>
+            <div class="footer-links">
+                <a href="https://github.com/Joseedinaldo" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/edinaldo-almeida-b67194276/" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="mailto:almeidaedinaldo95@gmail.com" aria-label="Email">
+                    <i class="far fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+ 
+    <script>
+        // Inicializar AOS
+        AOS.init({
+            duration: 1200,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
+        // Animação de Digitação (Parar o cursor)
+        document.addEventListener('DOMContentLoaded', () => {
+            const subtitle = document.querySelector('.hero .subtitle');
+            if (subtitle) {
+                const typingDuration = 2600;
+                const animationDelay = 300;
+                const totalTime = typingDuration + animationDelay;
+           
+                setTimeout(() => {
+                    if (window.innerWidth > 768) {
+                        subtitle.style.animationName = 'typing';
+                        subtitle.style.animationPlayState = 'paused';
+                        subtitle.style.borderRightColor = 'transparent';
+                    }
+                }, totalTime + 500);
+            }
+        });
+     
+        // Função para animação fluida do menu hamburger
+        function toggleMobileMenu() {
+            const menuToggle = document.getElementById('menuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileOverlay = document.getElementById('mobileMenuOverlay');
+            const isActive = mobileMenu.classList.contains('active');
+         
+            if (isActive) {
+                // Animação de saída fluida
+                mobileMenu.style.transition = 'transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                mobileMenu.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                menuToggle.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', false);
+            } else {
+                // Animação de entrada fluida
+                mobileMenu.classList.add('active');
+                mobileOverlay.classList.add('active');
+                menuToggle.classList.add('active');
+                menuToggle.setAttribute('aria-expanded', true);
+            }
+        }
+     
+        // Mobile Menu Toggle - MELHORADO COM FUNÇÃO FLUIDA
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileMenuOverlay');
+     
+        menuToggle.addEventListener('click', toggleMobileMenu);
+     
+        // Fechar menu ao clicar no overlay
+        mobileOverlay.addEventListener('click', toggleMobileMenu);
+     
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (link.getAttribute('href').startsWith('#')) {
+                    toggleMobileMenu();
+                }
+            });
+        });
+     
+        // Header scroll effect
+        const header = document.getElementById('mainHeader');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+     
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const headerHeight = 80;
+                        const targetPosition = target.offsetTop - headerHeight;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+     
+        // Active nav links on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollY = window.pageYOffset;
+         
+            sections.forEach(section => {
+                const sectionHeight = section.offsetHeight;
+                const sectionTop = section.offsetTop - 100;
+                const sectionId = section.getAttribute('id');
+                const navLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
+             
+                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-links a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    if (navLink) {
+                        navLink.classList.add('active');
+                    }
+                }
+            });
+        });
+     
+        // Intersection Observer para animações
+        const experienceContents = document.querySelectorAll('.experience-content');
+        const aboutText = document.querySelector('.about-text');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.3
+        };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        experienceContents.forEach(content => {
+            observer.observe(content);
+        });
+        if (aboutText) {
+            observer.observe(aboutText);
+        }
+     
+        // EmailJS
+        (function() {
+            emailjs.init("YOUR_USER_ID"); // Substitua com seu User ID
+        })();
+     
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const templateParams = {
+                from_name: document.getElementById('name').value,
+                from_email: document.getElementById('email').value,
+                message: document.getElementById('message').value
+            };
+         
+            emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
+                .then((response) => {
+                    alert('Mensagem enviada com sucesso! Entrarei em contato em breve.');
+                    contactForm.reset();
+                }, (error) => {
+                    alert('Ocorreu um erro ao enviar a mensagem. Tente novamente.');
+                });
+        });
+     
+        // --- Geração de CV (jsPDF) ---
+        const { jsPDF } = window.jspdf;
+        function generateAndDownloadCV() {
+            try {
+                // 1. Inicializa o jsPDF
+                const doc = new jsPDF();
+                let yPos = 20; // Posição vertical inicial no PDF
+                const pageMargin = 15;
+                const pageWidth = doc.internal.pageSize.getWidth();
+              
+                // 2. Coleta de Dados do HTML (Usando os IDs que adicionamos)
+                const nome = document.querySelector('.hero .name').innerText;
+                const titulo = "Desenvolvedor Front-End & Técnico de Informática"; // Texto estático
+              
+                const email = document.getElementById('contact-email').innerText;
+                const telefone = document.getElementById('contact-phone').innerText;
+                const local = document.getElementById('contact-location').innerText;
+                // --- Título e Contato ---
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(24);
+                doc.text(nome, pageWidth / 2, yPos, { align: 'center' });
+                yPos += 10;
+              
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(14);
+                doc.text(titulo, pageWidth / 2, yPos, { align: 'center' });
+                yPos += 10;
+              
+                doc.setFontSize(11);
+                doc.text(`${email} | ${telefone} | ${local}`, pageWidth / 2, yPos, { align: 'center' });
+                yPos += 15;
+              
+                // Linha divisória (Amarelo primário)
+                doc.setDrawColor(230, 194, 0); // Cor Primária (RGB)
+                doc.setLineWidth(0.5);
+                doc.line(pageMargin, yPos, pageWidth - pageMargin, yPos);
+                yPos += 10;
+                // --- Seção de Habilidades ---
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(16);
+                doc.text('Habilidades & Tecnologias', pageMargin, yPos);
+                yPos += 8;
+              
+                const skillCategories = document.querySelectorAll('.skill-category');
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(11);
+              
+                skillCategories.forEach(category => {
+                    const categoryTitle = category.querySelector('h3').innerText.trim();
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(categoryTitle, pageMargin, yPos);
+                    yPos += 6;
+                  
+                    doc.setFont('helvetica', 'normal');
+                    const skills = category.querySelectorAll('.skill-item span:not(.skill-dot)');
+                    let skillLine = '';
+                    skills.forEach((skill, index) => {
+                        const skillText = skill.innerText.trim();
+                        if (index === skills.length - 1) {
+                            skillLine += skillText;
+                        } else {
+                            skillLine += skillText + ' | ';
+                        }
+                    });
+                    const skillsSplit = doc.splitTextToSize(skillLine, pageWidth - (pageMargin * 2));
+                    doc.text(skillsSplit, pageMargin, yPos);
+                    yPos += (skillsSplit.length * 5) + 5;
+                });
+                yPos += 5; // Espaço extra
+                // --- Seção de Experiência ---
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(16);
+                doc.text('Experiência Profissional', pageMargin, yPos);
+                yPos += 10;
+              
+                const experienceItems = document.querySelectorAll('.experience-item');
+                experienceItems.forEach(item => {
+                    const cargo = item.querySelector('.experience-title h3').innerText;
+                    const empresa = item.querySelector('.experience-company').innerText;
+                    const periodo = item.querySelector('.experience-period span').innerText;
+                    const descricao = item.querySelector('.experience-description').innerText;
+                  
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(14);
+                    doc.text(cargo, pageMargin, yPos);
+                  
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(12);
+                    doc.text(periodo, pageWidth - pageMargin, yPos, { align: 'right' });
+                    yPos += 6;
+                  
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(12);
+                    doc.setTextColor(100, 100, 100); // Cinza
+                    doc.text(empresa, pageMargin, yPos);
+                    yPos += 8;
+                  
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(11);
+                    doc.setTextColor(0, 0, 0); // Preto
+                    const descSplit = doc.splitTextToSize(descricao, pageWidth - (pageMargin * 2));
+                    doc.text(descSplit, pageMargin, yPos);
+                    yPos += (descSplit.length * 5) + 5;
+                  
+                    const responsabilidades = item.querySelectorAll('.achievement-item');
+                    if (responsabilidades.length > 0) {
+                        responsabilidades.forEach(resp => {
+                            const respText = '• ' + resp.innerText.trim(); // Remove o ícone do texto
+                            const respSplit = doc.splitTextToSize(respText, pageWidth - (pageMargin * 2) - 5);
+                            doc.text(respSplit, pageMargin + 5, yPos);
+                            yPos += (respSplit.length * 5);
+                        });
+                    }
+                    yPos += 10;
+                  
+                    // Verifica se precisa de nova página
+                    if (yPos > 270) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+                });
+                // 3. Salva o PDF
+                doc.save('Edinaldo_Almeida_CV.pdf');
+            } catch (error) {
+                console.error("Erro ao gerar PDF:", error);
+                alert("Ocorreu um erro ao gerar o CV. Verifique o console para detalhes.");
+            }
+        }
+        document.getElementById('downloadCvBtn').addEventListener('click', generateAndDownloadCV);
+        document.getElementById('downloadCvBtnMobile').addEventListener('click', generateAndDownloadCV);
+        // --- Theme Toggle Implementation ---
+        const themeToggle = document.getElementById('themeToggle');
+        const themeToggleMobile = document.getElementById('themeToggleMobile');
+        const html = document.documentElement;
+      
+        // Verifica o tema salvo no localStorage
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+      
+        function updateThemeIcon(theme) {
+            const iconDesktop = themeToggle.querySelector('i');
+            const iconMobile = themeToggleMobile.querySelector('i');
+          
+            if (theme === 'light') {
+                iconDesktop.className = 'fas fa-sun';
+                iconMobile.className = 'fas fa-sun';
+            } else {
+                iconDesktop.className = 'fas fa-moon';
+                iconMobile.className = 'fas fa-moon';
+            }
+        }
+      
+        function toggleTheme() {
+            const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+      
+        themeToggle.addEventListener('click', toggleTheme);
+        themeToggleMobile.addEventListener('click', toggleTheme);
+     
+        // --- Snake Game Implementation - MELHORADO COM RESPONSIVIDADE ---
+        const canvas = document.getElementById('snake-game');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        const highScoreElement = document.getElementById('high-score');
+        const startButton = document.getElementById('start-game');
+        const pauseButton = document.getElementById('pause-game');
+        const resetButton = document.getElementById('reset-game');
+      
+        const gameOverOverlay = document.getElementById('game-over-overlay');
+        const finalScoreElement = document.getElementById('final-score');
+        const restartGameBtn = document.getElementById('restart-game-btn');
+      
+        // Sons (Web Audio API)
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(frequency, duration, type = 'sine') {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.frequency.value = frequency;
+            oscillator.type = type;
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration);
+        }
+      
+        const gridSize = 20;
+        let tileCountX, tileCountY;
+        let snake = [];
+        let food = {};
+        let dx = 0;
+        let dy = 0;
+        let score = 0;
+        let highScore = localStorage.getItem('snakeHighScore') || 0;
+        let gameRunning = false;
+        let gameLoop;
+      
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            tileCountX = Math.floor(canvas.width / gridSize);
+            tileCountY = Math.floor(canvas.height / gridSize);
+        }
+      
+        function initGame() {
+            snake = [{x: Math.floor(tileCountX / 2), y: Math.floor(tileCountY / 2)}];
+            generateFood();
+            dx = 0;
+            dy = 0;
+            score = 0;
+            updateScore();
+            highScoreElement.textContent = highScore;
+            gameOverOverlay.classList.remove('visible');
+            gameRunning = false;
+            drawGame();
+        }
+      
+        function generateFood() {
+            food = {
+                x: Math.floor(Math.random() * tileCountX),
+                y: Math.floor(Math.random() * tileCountY)
+            };
+            for (let segment of snake) {
+                if (segment.x === food.x && segment.y === food.y) {
+                    generateFood();
+                    return;
+                }
+            }
+        }
+      
+        function updateScore() {
+            scoreElement.textContent = score;
+            if (score > highScore) {
+                highScore = score;
+                highScoreElement.textContent = highScore;
+                localStorage.setItem('snakeHighScore', highScore);
+            }
+        }
+      
+        function drawGame() {
+            // Fundo com gradiente
+            const gradientBg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradientBg.addColorStop(0, '#0a0a0a');
+            gradientBg.addColorStop(1, '#1a1a1a');
+            ctx.fillStyle = gradientBg;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+         
+            // Cobra com gradiente e sombra
+            for (let i = 0; i < snake.length; i++) {
+                const segment = snake[i];
+                const gradient = ctx.createRadialGradient(
+                    segment.x * gridSize + gridSize/2, segment.y * gridSize + gridSize/2, 0,
+                    segment.x * gridSize + gridSize/2, segment.y * gridSize + gridSize/2, gridSize/2
+                );
+                if (i === 0) {
+                    gradient.addColorStop(0, '#ffd700');
+                    gradient.addColorStop(1, '#e6c200');
+                } else {
+                    gradient.addColorStop(0, '#e6c200');
+                    gradient.addColorStop(1, '#c1a300');
+                }
+                ctx.shadowColor = 'rgba(230, 194, 0, 0.5)';
+                ctx.shadowBlur = 10;
+                ctx.fillStyle = gradient;
+                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+                ctx.shadowBlur = 0;
+            }
+         
+            // Comida com glow
+            ctx.fillStyle = '#ff6b6b';
+            ctx.shadowColor = 'rgba(255, 107, 107, 0.7)';
+            ctx.shadowBlur = 20;
+            ctx.beginPath();
+            ctx.arc(
+                food.x * gridSize + gridSize/2, food.y * gridSize + gridSize/2,
+                gridSize/2 - 2, 0, Math.PI * 2
+            );
+            ctx.fill();
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+         
+            // Grid sutil
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < tileCountX; i++) {
+                ctx.beginPath();
+                ctx.moveTo(i * gridSize, 0);
+                ctx.lineTo(i * gridSize, canvas.height);
+                ctx.stroke();
+            }
+            for (let i = 0; i < tileCountY; i++) {
+                ctx.beginPath();
+                ctx.moveTo(0, i * gridSize);
+                ctx.lineTo(canvas.width, i * gridSize);
+                ctx.stroke();
+            }
+        }
+      
+        function updateGame() {
+            if (!gameRunning) return;
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+            snake.unshift(head);
+         
+            if (head.x === food.x && head.y === food.y) {
+                score += 10;
+                updateScore();
+                generateFood();
+                playSound(440, 0.1); // Som de comida
+            } else {
+                snake.pop();
+            }
+         
+            if (
+                head.x < 0 || head.x >= tileCountX || head.y < 0 || head.y >= tileCountY ||
+                checkCollision(head, snake.slice(1))
+            ) {
+                gameOver();
+                playSound(220, 0.3, 'square'); // Som de game over
+                return;
+            }
+        }
+      
+        function checkCollision(head, body) {
+            for (let segment of body) {
+                if (head.x === segment.x && head.y === segment.y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+      
+        function gameOver() {
+            gameRunning = false;
+            clearInterval(gameLoop);
+            finalScoreElement.textContent = `Sua pontuação: ${score}`;
+            gameOverOverlay.classList.add('visible');
+        }
+      
+        function runGame() {
+            updateGame();
+            drawGame();
+        }
+      
+        // Resize listener para responsividade
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            if (gameRunning) {
+                drawGame();
+            }
+        });
+      
+        document.addEventListener('keydown', (e) => {
+            if([37, 38, 39, 40].includes(e.keyCode)) {
+                e.preventDefault();
+            }
+            // Inicia o jogo se estiver parado
+            if (!gameRunning && dx === 0 && dy === 0 && !gameOverOverlay.classList.contains('visible')) {
+                 gameRunning = true;
+                 gameLoop = setInterval(runGame, 150);
+            }
+         
+            switch(e.key) {
+                case 'ArrowUp':
+                    if (dy !== 1) { dx = 0; dy = -1; }
+                    break;
+                case 'ArrowDown':
+                    if (dy !== -1) { dx = 0; dy = 1; }
+                    break;
+                case 'ArrowLeft':
+                    if (dx !== 1) { dx = -1; dy = 0; }
+                    break;
+                case 'ArrowRight':
+                    if (dx !== -1) { dx = 1; dy = 0; }
+                    break;
+            }
+        });
+      
+        // Controles touch (melhoria)
+        let touchStartX = 0;
+        let touchStartY = 0;
+        canvas.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+      
+        canvas.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+          
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                if (deltaX > 0 && dx !== -1) { dx = 1; dy = 0; } // Direita
+                else if (deltaX < 0 && dx !== 1) { dx = -1; dy = 0; } // Esquerda
+            } else {
+                if (deltaY > 0 && dy !== -1) { dx = 0; dy = 1; } // Baixo
+                else if (deltaY < 0 && dy !== 1) { dx = 0; dy = -1; } // Cima
+            }
+          
+            if (!gameRunning) {
+                gameRunning = true;
+                gameLoop = setInterval(runGame, 150);
+            }
+        });
+      
+        startButton.addEventListener('click', () => {
+            if (!gameRunning) {
+                gameRunning = true;
+                clearInterval(gameLoop);
+                gameLoop = setInterval(runGame, 150);
+                playSound(440, 0.2); // Som de start
+            }
+        });
+      
+        pauseButton.addEventListener('click', () => {
+            gameRunning = !gameRunning;
+            if (gameRunning) {
+                clearInterval(gameLoop);
+                gameLoop = setInterval(runGame, 150);
+                playSound(523, 0.1); // Som de resume
+            } else {
+                clearInterval(gameLoop);
+            }
+        });
+      
+        function resetGame() {
+            clearInterval(gameLoop);
+            initGame();
+            gameOverOverlay.classList.remove('visible');
+        }
+      
+        resetButton.addEventListener('click', resetGame);
+        restartGameBtn.addEventListener('click', resetGame);
+     
+        // Inicialização
+        resizeCanvas();
+        initGame();
+        drawGame();
+    </script>
+</body>
+</html>
