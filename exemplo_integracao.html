@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Almoxarifado HECA - Exemplo de Integração</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- jsPDF e AutoTable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(17, 153, 142, 0.3);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+        }
+        
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+        
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .alert-info {
+            background: #e3f2fd;
+            color: #1976d2;
+            border-left: 4px solid #1976d2;
+        }
+        
+        .alert-success {
+            background: #e8f5e9;
+            color: #388e3c;
+            border-left: 4px solid #388e3c;
+        }
+        
+        .alert-warning {
+            background: #fff3e0;
+            color: #f57c00;
+            border-left: 4px solid #f57c00;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        code {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .file-structure {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            line-height: 1.8;
+        }
+        
+        .file-structure .folder {
+            color: #f39c12;
+        }
+        
+        .file-structure .file {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-warehouse"></i> Sistema de Almoxarifado HECA</h1>
+        <p class="subtitle">Exemplo de Integração Completa - Versão Atualizada</p>
+        
+        <!-- Seção 1: Informações -->
+        <div class="section">
+            <h2><i class="fas fa-info-circle"></i> Informações Importantes</h2>
+            
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle fa-2x"></i>
+                <div>
+                    <strong>Código Atualizado com Sucesso!</strong><br>
+                    O sistema foi atualizado com PDF profissional e correção de saída de materiais.
+                </div>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><i class="fas fa-file-pdf"></i> PDF Melhorado</h3>
+                    <ul style="line-height: 2;">
+                        <li>✅ Design profissional e elegante</li>
+                        <li>✅ Cores modernas e casuais</li>
+                        <li>✅ Resumo executivo completo</li>
+                        <li>✅ Cabeçalho e rodapé estilizados</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-database"></i> Saída Corrigida</h3>
+                    <ul style="line-height: 2;">
+                        <li>✅ Salvamento no banco funcionando</li>
+                        <li>✅ Validações robustas</li>
+                        <li>✅ Logs de debug completos</li>
+                        <li>✅ Atualização de estoque</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Seção 2: Estrutura de Arquivos -->
+        <div class="section">
+            <h2><i class="fas fa-folder-tree"></i> Estrutura de Arquivos</h2>
+            
+            <div class="file-structure">
+<span class="folder">projeto/</span>
+├── <span class="folder">Banco/</span>
+│   ├── <span class="file">conexao.php</span> (arquivo de conexão)
+│   ├── <span class="file">movimentacao.php</span> (entrada de materiais)
+│   └── <span class="file">movimentacao_saida.php</span> (saída de materiais - NOVO)
+├── <span class="folder">js/</span>
+│   └── <span class="file">almoxarifado-completo.js</span> (JavaScript atualizado)
+├── <span class="folder">css/</span>
+│   └── <span class="file">styles.css</span> (seus estilos)
+└── <span class="file">index.html</span> (página principal)
+            </div>
+        </div>
+        
+        <!-- Seção 3: Exemplo de Formulário de Saída -->
+        <div class="section">
+            <h2><i class="fas fa-arrow-right"></i> Exemplo: Formulário de Saída</h2>
+            
+            <div class="alert alert-info">
+                <i class="fas fa-lightbulb"></i>
+                <div>
+                    Este é um exemplo de como o formulário de saída deve estar estruturado no HTML.
+                </div>
+            </div>
+            
+            <form id="new-exit-form">
+                <div class="grid">
+                    <div class="form-group">
+                        <label for="exit-date">Data da Saída *</label>
+                        <input type="date" id="exit-date" name="data_saida" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exit-warehouse">Almoxarifado *</label>
+                        <select id="exit-warehouse" name="cod_almoxarifado" required>
+                            <option value="">Selecione...</option>
+                            <option value="1 - Almoxarifado Central">1 - Almoxarifado Central</option>
+                            <option value="2 - Almoxarifado Obra 01">2 - Almoxarifado Obra 01</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="grid">
+                    <div class="form-group">
+                        <label for="exit-requester">Solicitante *</label>
+                        <input type="text" id="exit-requester" name="solicitante" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exit-authorizer">Autorizante *</label>
+                        <input type="text" id="exit-authorizer" name="autorizante" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exit-responsible">Responsável *</label>
+                        <input type="text" id="exit-responsible" name="responsavel" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="exit-service">Serviço Associado</label>
+                    <input type="text" id="exit-service" name="servico_associado">
+                </div>
+                
+                <div class="form-group">
+                    <label for="exit-observation">Observação</label>
+                    <textarea id="exit-observation" name="observacao" rows="3"></textarea>
+                </div>
+                
+                <hr style="margin: 30px 0;">
+                
+                <h3 style="margin-bottom: 20px;"><i class="fas fa-box"></i> Adicionar Itens</h3>
+                
+                <div class="grid">
+                    <div class="form-group">
+                        <label for="exit-item-product">Produto *</label>
+                        <select id="exit-item-product">
+                            <option value="">Selecione...</option>
+                            <option value="1 - Cimento CP-II 50kg">1 - Cimento CP-II 50kg</option>
+                            <option value="2 - Areia Média m³">2 - Areia Média m³</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exit-item-unit">Unidade</label>
+                        <input type="text" id="exit-item-unit" value="UN" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exit-item-qty">Quantidade *</label>
+                        <input type="number" id="exit-item-qty" step="0.01" min="0.01">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exit-item-value">Valor Unitário</label>
+                        <input type="number" id="exit-item-value" step="0.01" min="0" value="0">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="exit-item-observation">Observação do Item</label>
+                    <input type="text" id="exit-item-observation">
+                </div>
+                
+                <button type="button" class="btn btn-success" onclick="App.addItemToExit()">
+                    <i class="fas fa-plus"></i> Adicionar Item
+                </button>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Descrição</th>
+                            <th>Origem/Destino</th>
+                            <th>Local</th>
+                            <th>Unidade</th>
+                            <th>Quantidade</th>
+                            <th>Valor Total</th>
+                            <th>Responsável</th>
+                            <th>Solic./Autor.</th>
+                            <th>Serviço</th>
+                            <th>Observação</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="exit-items-table">
+                        <!-- Itens serão adicionados aqui dinamicamente -->
+                    </tbody>
+                </table>
+                
+                <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong>Total de Itens:</strong> <span id="exit-total-items">0</span>
+                        </div>
+                        <div>
+                            <strong>Valor Total:</strong> <span id="exit-grand-total" style="color: #667eea; font-size: 1.5rem;">R$ 0,00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; display: flex; gap: 15px;">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Salvar Saída
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="App.clearExitForm()">
+                        <i class="fas fa-times"></i> Limpar Formulário
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Seção 4: Exemplo de Exportação PDF -->
+        <div class="section">
+            <h2><i class="fas fa-file-pdf"></i> Exemplo: Exportação de PDF</h2>
+            
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    Exemplo de tabela de movimentações para exportação em PDF.
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <button class="btn btn-primary" onclick="App.exportMovementsReport('pdf')">
+                    <i class="fas fa-file-pdf"></i> Exportar PDF Profissional
+                </button>
+                <button class="btn btn-success" onclick="App.exportMovementsReport('csv')">
+                    <i class="fas fa-file-csv"></i> Exportar CSV
+                </button>
+            </div>
+            
+            <table id="movimentacoes-table">
+                <thead>
+                    <tr>
+                        <th>Data/Hora</th>
+                        <th>Produto</th>
+                        <th>Tipo</th>
+                        <th>NF / OF</th>
+                        <th>Quantidade</th>
+                        <th>Valor</th>
+                        <th>Origem/Destino</th>
+                        <th>Local</th>
+                        <th>Responsável</th>
+                        <th>Solic./Autor.</th>
+                        <th>Serviço</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="movimentacoes-table">
+                    <tr>
+                        <td>15/01/2024 10:30</td>
+                        <td>Cimento CP-II 50kg</td>
+                        <td>S</td>
+                        <td>-</td>
+                        <td>100</td>
+                        <td>R$ 3.500,00</td>
+                        <td>Obra Residencial</td>
+                        <td>Galpão A</td>
+                        <td>João Silva</td>
+                        <td>Maria Santos / Pedro Costa</td>
+                        <td>Fundação</td>
+                        <td><button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>14/01/2024 14:15</td>
+                        <td>Areia Média m³</td>
+                        <td>E</td>
+                        <td>NF-12345</td>
+                        <td>50</td>
+                        <td>R$ 7.500,00</td>
+                        <td>Fornecedor ABC</td>
+                        <td>Almoxarifado Central</td>
+                        <td>Carlos Oliveira</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Seção 5: Instruções de Uso -->
+        <div class="section">
+            <h2><i class="fas fa-book"></i> Instruções de Uso</h2>
+            
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <strong>Importante:</strong> Siga os passos abaixo para implementar corretamente.
+                </div>
+            </div>
+            
+            <ol style="line-height: 2.5; font-size: 1.1rem;">
+                <li>
+                    <strong>Substitua o JavaScript:</strong> Use o arquivo <code>almoxarifado-completo.js</code>
+                </li>
+                <li>
+                    <strong>Configure o Backend:</strong> Copie <code>movimentacao_saida.php</code> para <code>../Banco/</code>
+                </li>
+                <li>
+                    <strong>Configure a Conexão:</strong> Ajuste <code>conexao.php</code> com suas credenciais
+                </li>
+                <li>
+                    <strong>Crie as Tabelas:</strong> Execute o script <code>database_schema.sql</code>
+                </li>
+                <li>
+                    <strong>Teste o Sistema:</strong> Faça uma saída de teste e verifique os logs
+                </li>
+                <li>
+                    <strong>Exporte PDF:</strong> Teste a exportação e veja o novo visual
+                </li>
+            </ol>
+        </div>
+        
+        <!-- Seção 6: Verificação -->
+        <div class="section">
+            <h2><i class="fas fa-check-double"></i> Checklist de Verificação</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Frontend</h3>
+                    <ul style="line-height: 2;">
+                        <li>☐ JavaScript atualizado</li>
+                        <li>☐ jsPDF carregado</li>
+                        <li>☐ Formulários com IDs corretos</li>
+                        <li>☐ Console sem erros</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Backend</h3>
+                    <ul style="line-height: 2;">
+                        <li>☐ PHP configurado</li>
+                        <li>☐ Conexão funcionando</li>
+                        <li>☐ Tabelas criadas</li>
+                        <li>☐ Logs habilitados</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Testes</h3>
+                    <ul style="line-height: 2;">
+                        <li>☐ Entrada funcionando</li>
+                        <li>☐ Saída salvando</li>
+                        <li>☐ PDF gerando</li>
+                        <li>☐ Estoque atualizando</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Incluir o JavaScript atualizado -->
+    <script src="almoxarifado-completo.js"></script>
+    
+    <script>
+        // Definir data padrão
+        document.getElementById('exit-date').value = new Date().toISOString().split('T')[0];
+        
+        // Exemplo de como o sistema funciona
+        console.log('%c🎉 Sistema de Almoxarifado HECA - Versão Atualizada', 'color: #667eea; font-size: 20px; font-weight: bold;');
+        console.log('%c✅ PDF Profissional e Elegante', 'color: #11998e; font-size: 14px;');
+        console.log('%c✅ Saída de Materiais Corrigida', 'color: #11998e; font-size: 14px;');
+        console.log('%c📚 Leia o arquivo ALTERACOES_REALIZADAS.md para mais detalhes', 'color: #f39c12; font-size: 14px;');
+    </script>
+</body>
+</html>
