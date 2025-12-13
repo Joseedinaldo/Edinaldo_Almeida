@@ -2372,136 +2372,33 @@
                 });
         });
      
-        // --- Geração de CV (jsPDF) ---
-        const { jsPDF } = window.jspdf;
-        function generateAndDownloadCV() {
+        // --- Download do CV em PDF ---
+        function downloadCV() {
             try {
-                // 1. Inicializa o jsPDF
-                const doc = new jsPDF();
-                let yPos = 20; // Posição vertical inicial no PDF
-                const pageMargin = 15;
-                const pageWidth = doc.internal.pageSize.getWidth();
-              
-                // 2. Coleta de Dados do HTML (Usando os IDs que adicionamos)
-                const nome = document.querySelector('.hero .name').innerText;
-                const titulo = "Desenvolvedor Front-End & Técnico de Informática"; // Texto estático
-              
-                const email = document.getElementById('contact-email').innerText;
-                const telefone = document.getElementById('contact-phone').innerText;
-                const local = document.getElementById('contact-location').innerText;
-                // --- Título e Contato ---
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(24);
-                doc.text(nome, pageWidth / 2, yPos, { align: 'center' });
-                yPos += 10;
-              
-                doc.setFont('helvetica', 'normal');
-                doc.setFontSize(14);
-                doc.text(titulo, pageWidth / 2, yPos, { align: 'center' });
-                yPos += 10;
-              
-                doc.setFontSize(11);
-                doc.text(`${email} | ${telefone} | ${local}`, pageWidth / 2, yPos, { align: 'center' });
-                yPos += 15;
-              
-                // Linha divisória (Amarelo primário)
-                doc.setDrawColor(230, 194, 0); // Cor Primária (RGB)
-                doc.setLineWidth(0.5);
-                doc.line(pageMargin, yPos, pageWidth - pageMargin, yPos);
-                yPos += 10;
-                // --- Seção de Habilidades ---
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(16);
-                doc.text('Habilidades & Tecnologias', pageMargin, yPos);
-                yPos += 8;
-              
-                const skillCategories = document.querySelectorAll('.skill-category');
-                doc.setFont('helvetica', 'normal');
-                doc.setFontSize(11);
-              
-                skillCategories.forEach(category => {
-                    const categoryTitle = category.querySelector('h3').innerText.trim();
-                    doc.setFont('helvetica', 'bold');
-                    doc.text(categoryTitle, pageMargin, yPos);
-                    yPos += 6;
-                  
-                    doc.setFont('helvetica', 'normal');
-                    const skills = category.querySelectorAll('.skill-item span:not(.skill-dot)');
-                    let skillLine = '';
-                    skills.forEach((skill, index) => {
-                        const skillText = skill.innerText.trim();
-                        if (index === skills.length - 1) {
-                            skillLine += skillText;
-                        } else {
-                            skillLine += skillText + ' | ';
-                        }
-                    });
-                    const skillsSplit = doc.splitTextToSize(skillLine, pageWidth - (pageMargin * 2));
-                    doc.text(skillsSplit, pageMargin, yPos);
-                    yPos += (skillsSplit.length * 5) + 5;
-                });
-                yPos += 5; // Espaço extra
-                // --- Seção de Experiência ---
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(16);
-                doc.text('Experiência Profissional', pageMargin, yPos);
-                yPos += 10;
-              
-                const experienceItems = document.querySelectorAll('.experience-item');
-                experienceItems.forEach(item => {
-                    const cargo = item.querySelector('.experience-title h3').innerText;
-                    const empresa = item.querySelector('.experience-company').innerText;
-                    const periodo = item.querySelector('.experience-period span').innerText;
-                    const descricao = item.querySelector('.experience-description').innerText;
-                  
-                    doc.setFont('helvetica', 'bold');
-                    doc.setFontSize(14);
-                    doc.text(cargo, pageMargin, yPos);
-                  
-                    doc.setFont('helvetica', 'normal');
-                    doc.setFontSize(12);
-                    doc.text(periodo, pageWidth - pageMargin, yPos, { align: 'right' });
-                    yPos += 6;
-                  
-                    doc.setFont('helvetica', 'bold');
-                    doc.setFontSize(12);
-                    doc.setTextColor(100, 100, 100); // Cinza
-                    doc.text(empresa, pageMargin, yPos);
-                    yPos += 8;
-                  
-                    doc.setFont('helvetica', 'normal');
-                    doc.setFontSize(11);
-                    doc.setTextColor(0, 0, 0); // Preto
-                    const descSplit = doc.splitTextToSize(descricao, pageWidth - (pageMargin * 2));
-                    doc.text(descSplit, pageMargin, yPos);
-                    yPos += (descSplit.length * 5) + 5;
-                  
-                    const responsabilidades = item.querySelectorAll('.achievement-item');
-                    if (responsabilidades.length > 0) {
-                        responsabilidades.forEach(resp => {
-                            const respText = '• ' + resp.innerText.trim(); // Remove o ícone do texto
-                            const respSplit = doc.splitTextToSize(respText, pageWidth - (pageMargin * 2) - 5);
-                            doc.text(respSplit, pageMargin + 5, yPos);
-                            yPos += (respSplit.length * 5);
-                        });
-                    }
-                    yPos += 10;
-                  
-                    // Verifica se precisa de nova página
-                    if (yPos > 270) {
-                        doc.addPage();
-                        yPos = 20;
-                    }
-                });
-                // 3. Salva o PDF
-                doc.save('Edinaldo_Almeida_CV.pdf');
+                // URL do PDF (agora com o nome correto: curriculo_edinaldo.pdf)
+                const pdfUrl = 'curriculo_edinaldo.pdf';
+                
+                // Criar link temporário para download
+                const link = document.createElement('a');
+                link.href = pdfUrl;
+                link.download = 'Edinaldo_Almeida_Curriculo.pdf'; // Nome do arquivo ao baixar
+                link.target = '_blank';
+                
+                // Simular clique no link
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
             } catch (error) {
-                console.error("Erro ao gerar PDF:", error);
-                alert("Ocorreu um erro ao gerar o CV. Verifique o console para detalhes.");
+                console.error("Erro ao baixar PDF:", error);
+                alert("Ocorreu um erro ao baixar o CV. Verifique se o arquivo 'curriculo_edinaldo.pdf' está na mesma pasta do site.");
             }
         }
-        document.getElementById('downloadCvBtn').addEventListener('click', generateAndDownloadCV);
-        document.getElementById('downloadCvBtnMobile').addEventListener('click', generateAndDownloadCV);
+
+        // Atribuir a função aos botões de download
+        document.getElementById('downloadCvBtn').addEventListener('click', downloadCV);
+        document.getElementById('downloadCvBtnMobile').addEventListener('click', downloadCV);
+     
         // --- Theme Toggle Implementation ---
         const themeToggle = document.getElementById('themeToggle');
         const themeToggleMobile = document.getElementById('themeToggleMobile');
@@ -2816,5 +2713,19 @@
         initGame();
         drawGame();
     </script>
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PE57EL5GRG');
+</script>
+
+
 </body>
 </html>
