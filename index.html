@@ -157,11 +157,7 @@
             font-size: 1.2rem;
         }
         
-        .settings-btn:hover {
-            border-color: var(--color-primary);
-            color: var(--color-primary);
-            transform: scale(1.1);
-        }
+       
         
         .settings-dropdown {
             position: absolute;
@@ -292,21 +288,21 @@
         .menu-toggle {
             display: none; /* Oculto por padrão em telas grandes */
             align-items: center;
-            justify-content: center;
-            background: none;
+            background: transparent;
             border: none;
+            border-radius: 50%;
             cursor: pointer;
             z-index: 1001;
             transition: var(--transition);
-            padding: 0;
             position: relative;
-            width: 32px;
-            height: 32px;
+            width: 3rem;
+            height: 3rem;
+            margin-left: auto;
         }
      
         .hamburger {
-            width: 24px; /* Define a largura correta para os spans */
-            height: 2px; /* Usa a altura do span do meio */
+            width: 24px;
+            height: 2px;
             position: relative;
             display: flex;
             align-items: center;
@@ -343,26 +339,25 @@
        
         /* Animação "X" Suave CORRIGIDA */
         .menu-toggle.active .hamburger span {
-            background: transparent; /* O traço do meio some */
+            background: transparent;
         }
         .menu-toggle.active .hamburger span::before {
-            top: 0; /* CORREÇÃO: Move o traço superior para o centro */
-            transform: rotate(45deg); /* Gira para formar o X */
+            top: 0;
+            transform: rotate(45deg);
         }
         .menu-toggle.active .hamburger span::after {
-            top: 0; /* CORREÇÃO: Move o traço inferior para o centro */
-            transform: rotate(-45deg); /* Gira para formar o X */
+            top: 0;
+            transform: rotate(-45deg);
         }
        
         /* CORREÇÃO DEFINITIVA DO HOVER */
-        /* Efeito de hover quando o menu NÃO está ativo (muda cor de todos os traços) */
         .menu-toggle:not(.active):hover .hamburger span,
         .menu-toggle:not(.active):hover .hamburger span::before,
         .menu-toggle:not(.active):hover .hamburger span::after {
             background-color: var(--color-primary);
         }
        
-        /* Efeito de hover quando o menu ESTÁ ativo (muda cor apenas dos traços do X, e o do meio permanece transparente) */
+        /* Efeito de hover quando o menu ESTÁ ativo */
         .menu-toggle.active:hover .hamburger span::before,
         .menu-toggle.active:hover .hamburger span::after {
             background-color: var(--color-primary);
@@ -372,19 +367,15 @@
         .menu-toggle.active:hover .hamburger span {
             background: transparent;
         }
-        /* --- FIM DA MODIFICAÇÃO --- */
-        .menu-toggle:hover {
-            border-color: var(--color-primary);
-        }
        
-        /* Overlay para Menu Mobile */
+        /* Overlay para Menu Mobile CORRIGIDO */
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(5px);
             opacity: 0;
             visibility: hidden;
@@ -396,54 +387,65 @@
             visibility: visible;
         }
      
-        /* Menu Mobile Elegante - MELHORADO COM STAGGER ANIMATION */
+        /* Menu Mobile Elegante - CORRIGIDO */
         .mobile-menu {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 2rem;
+            gap: 1.5rem;
             transform: translateX(-100%);
             transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             z-index: 999;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
         }
       
         [data-theme="light"] .mobile-menu {
-            background: rgba(248, 249, 250, 0.95);
+            background: rgba(248, 249, 250, 0.98);
         }
      
         .mobile-menu.active {
             transform: translateX(0);
+            opacity: 1;
+            visibility: visible;
         }
      
+        /* Links do menu mobile - CORRIGIDO */
         .mobile-menu a {
             display: block;
-            padding: 1.25rem 2rem;
+            padding: 1.2rem 2.5rem;
             color: var(--color-fg);
             text-decoration: none;
             transition: var(--transition);
             font-weight: 500;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             position: relative;
             overflow: hidden;
             opacity: 0;
-            transform: translateX(-30px);
+            transform: translateY(20px);
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-align: center;
+            width: 100%;
+            max-width: 300px;
+            border-radius: 1rem;
         }
      
         .mobile-menu.active a {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateY(0);
         }
      
+        /* Delays de animação corrigidos */
         .mobile-menu a:nth-child(1) { transition-delay: 0.1s; }
         .mobile-menu a:nth-child(2) { transition-delay: 0.2s; }
         .mobile-menu a:nth-child(3) { transition-delay: 0.3s; }
@@ -451,7 +453,7 @@
         .mobile-menu a:nth-child(5) { transition-delay: 0.5s; }
         .mobile-menu a:nth-child(6) { transition-delay: 0.6s; }
         .mobile-menu a:nth-child(7) { transition-delay: 0.7s; }
-        .mobile-menu a:nth-child(8) { transition-delay: 0.8s; } /* Adicionado para IA */
+        .mobile-menu a:nth-child(8) { transition-delay: 0.8s; }
      
         .mobile-menu a:not(.btn)::before {
             content: '';
@@ -475,18 +477,27 @@
         }
       
         /* CORREÇÃO DEFINITIVA: Botão CV no Menu Mobile */
+        .mobile-menu a.btn {
+            background: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+        
         .mobile-menu a.btn:hover {
-             color: var(--color-bg) !important;
-             opacity: 1;
+            background: var(--color-primary) !important;
+            color: var(--color-bg) !important;
+            opacity: 1 !important;
         }
      
-        /* Hero Section */
+        /* Hero Section - CORREÇÕES RESPONSIVAS */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 5rem 1.5rem;
+            padding: 6rem 1.5rem 4rem;
             position: relative;
             background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-card) 100%);
             overflow: hidden;
@@ -540,12 +551,13 @@
             z-index: 10;
         }
      
+        /* Ajuste do título principal */
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
             font-weight: 800;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             line-height: 1.1;
-            letter-spacing: -0.04em;
+            letter-spacing: -0.03em;
             opacity: 0;
             transform: translateY(50px);
             animation: fadeInUp 1s ease-out forwards;
@@ -559,45 +571,47 @@
      
         /* ANIMAÇÃO DE DIGITAÇÃO MELHORADA para todas as telas */
         .hero .subtitle {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-size: clamp(1.2rem, 4vw, 2.2rem);
             color: var(--color-muted);
-            margin-bottom: 1.75rem;
+            margin-bottom: 1.5rem;
             font-weight: 300;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.08em;
            
             display: inline-block;
             overflow: hidden;
             white-space: nowrap;
             border-right: .15em solid var(--color-primary);
             width: 0;
-            margin: 0 auto 1.75rem;
+            margin: 0 auto 1.5rem;
            
             opacity: 1;
             transform: translateY(0);
            
-            /* Animação aprimorada */
             animation: 
-                typing 3.5s steps(40, end) 0.3s forwards,
+                typing 2.8s steps(30, end) 0.3s forwards,
                 blink-caret 0.75s step-end infinite 0.3s,
                 fadeInUp 0.5s ease-out 0.3s forwards;
         }
      
+        /* Ajuste do texto de descrição */
         .hero .description {
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 3vw, 1.3rem);
             color: var(--color-muted);
             max-width: 45rem;
-            margin: 0 auto 2.5rem;
+            margin: 0 auto 2rem;
             opacity: 0;
             transform: translateY(50px);
             animation: fadeInUp 1s ease-out 0.6s forwards;
+            line-height: 1.6;
         }
      
+        /* Botões hero - Ajuste para mobile */
         .hero-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.25rem;
+            gap: 1rem;
             justify-content: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             opacity: 0;
             transform: translateY(50px);
             animation: fadeInUp 1s ease-out 0.9s forwards;
@@ -1068,9 +1082,9 @@
             transition: all 0.5s ease;
             filter: grayscale(30%) brightness(1.2);
             z-index: 2;
-            border: none !important; /* Remove bordas */
-            background: none !important; /* Remove fundo */
-            border-radius: 0 !important; /* Remove bordas arredondadas */
+            border: none !important;
+            background: none !important;
+            border-radius: 0 !important;
         }
       
         .certification-card:hover .certification-logo {
@@ -1321,15 +1335,15 @@
             transition: var(--transition);
             flex-shrink: 0;
             overflow: hidden;
-            border: none !important; /* Remove bordas */
-            background: none !important; /* Remove fundo */
+            border: none !important;
+            background: none !important;
         }
      
         .company-logo img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            border: none !important; /* Remove bordas das imagens */
+            border: none !important;
         }
      
         .experience-title h3 {
@@ -1621,7 +1635,7 @@
             opacity: 0;
             transform: translateY(50px);
             animation: fadeInUp 1s ease-out 0.3s forwards;
-            aspect-ratio: 3 / 2; /* Mantém proporção 600x400 = 3:2 */
+            aspect-ratio: 3 / 2;
         }
      
         #snake-game {
@@ -1646,7 +1660,7 @@
             padding: 0.85rem 1.75rem;
             font-size: 0.95rem;
            
-            border-radius: 50px; /* Formato "pílula" */
+            border-radius: 50px;
             background: var(--color-card);
             box-shadow: var(--shadow-soft);
             transform: translateY(0);
@@ -1899,6 +1913,79 @@
             animation: fadeInUp 0.8s ease-out;
         }
      
+        /* Container de configurações mobile - CORRIGIDO */
+        .mobile-settings-container {
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .mobile-menu.active .mobile-settings-container {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 1s;
+        }
+        
+        /* Botão de configurações mobile */
+        .mobile-settings-btn {
+            background: transparent;
+            border: 2px solid var(--color-border);
+            border-radius: 50%;
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--color-fg);
+            font-size: 1.3rem;
+        }
+        
+        .mobile-settings-btn:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            transform: scale(1.1);
+        }
+        
+        /* Dropdown de configurações mobile */
+        .mobile-settings-dropdown {
+            background: var(--color-card);
+            border-radius: 1rem;
+            border: 1px solid var(--color-border);
+            padding: 1.25rem;
+            width: 100%;
+            max-width: 280px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+            margin-top: 0;
+        }
+        
+        .mobile-settings-dropdown.active {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
+        /* Tamanho pré-definido para todas as logos da seção AI */
+        .ai-section .ai-logo {
+            width: 120px !important;
+            height: 120px !important;
+            padding: 0 !important;
+            object-fit: contain !important;
+            background: none !important;
+            border: none !important;
+        }
+
         /* Responsive */
         @media (max-width: 992px) {
             /* Telas médias - Engrenagem visível */
@@ -1918,21 +2005,53 @@
             }
          
             .menu-toggle {
-                display: flex; /* Visível apenas em telas pequenas */
-                align-items: center;
-                justify-content: center;
+                display: flex;
             }
          
             .mobile-menu-overlay {
                 display: block;
             }
             
-            /* Engrenagem VISÍVEL no mobile também - posicionada ao lado do menu hamburger */
+            /* Engrenagem VISÍVEL no mobile - posição corrigida */
             .settings-menu {
-                display: inline-block;
+                display: inline-block !important;
                 position: absolute;
                 top: 1.25rem;
-                right: 4rem;
+                right: 4.5rem;
+                z-index: 1002;
+            }
+            
+            .settings-btn {
+                width: 2.8rem;
+                height: 2.8rem;
+                font-size: 1.1rem;
+            }
+            
+            /* Círculos de fundo ajustados para mobile */
+            .hero-bg-circle {
+                filter: blur(80px);
+                opacity: 0.3;
+            }
+            
+            .hero-bg-circle:nth-child(1) {
+                width: 20rem;
+                height: 20rem;
+                top: -20%;
+                left: -20%;
+            }
+            
+            .hero-bg-circle:nth-child(2) {
+                width: 25rem;
+                height: 25rem;
+                bottom: -20%;
+                right: -20%;
+            }
+            
+            .hero-bg-circle:nth-child(3) {
+                width: 18rem;
+                height: 18rem;
+                top: 30%;
+                left: 50%;
             }
             
             /* Ajuste da animação de digitação para mobile */
@@ -2068,6 +2187,12 @@
                 width: 200px;
                 right: -50px;
             }
+            
+            /* AI logos ajustados para mobile */
+            .ai-section .ai-logo {
+                width: 96px !important;
+                height: 96px !important;
+            }
         }
      
         @media (max-width: 576px) {
@@ -2084,11 +2209,56 @@
             
             /* Ajuste fino na animação de digitação para telas muito pequenas */
             .hero .subtitle {
-                font-size: clamp(1.2rem, 4vw, 1.5rem);
+                letter-spacing: 0.05em;
+                font-size: 1.1rem;
                 animation: 
                     typing 2.2s steps(25, end) 0.3s forwards,
                     blink-caret 0.75s step-end infinite 0.3s,
                     fadeInUp 0.5s ease-out 0.3s forwards;
+            }
+            
+            .mobile-menu a {
+                font-size: 1.2rem;
+                padding: 1rem 2rem;
+            }
+            
+            .menu-toggle {
+                width: 2.8rem;
+                height: 2.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-bg-circle {
+                filter: blur(60px);
+            }
+            
+            .hero-bg-circle:nth-child(1) {
+                width: 15rem;
+                height: 15rem;
+            }
+            
+            .hero-bg-circle:nth-child(2) {
+                width: 20rem;
+                height: 20rem;
+            }
+            
+            .hero-bg-circle:nth-child(3) {
+                width: 15rem;
+                height: 15rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+            
+            .hero-buttons .btn,
+            .hero-buttons .btn-outline {
+                width: 100%;
+                max-width: 280px;
+                padding: 0.9rem 1.5rem;
             }
         }
      
@@ -2107,79 +2277,6 @@
             width: 3rem;
             height: 3rem;
         }
-        
-        /* Menu Mobile - Engrenagem e Configurações */
-        .mobile-settings-container {
-            margin-top: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .mobile-menu.active .mobile-settings-container {
-            opacity: 1;
-            transform: translateX(0);
-            transition-delay: 0.9s;
-        }
-        
-        .mobile-settings-btn {
-            background: transparent;
-            border: 1px solid var(--color-border);
-            border-radius: 50%;
-            width: 3rem;
-            height: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--color-fg);
-            font-size: 1.3rem;
-        }
-        
-        .mobile-settings-btn:hover {
-            border-color: var(--color-primary);
-            color: var(--color-primary);
-            transform: scale(1.1);
-        }
-        
-        .mobile-settings-dropdown {
-            background: var(--color-card);
-            border-radius: 1rem;
-            border: 1px solid var(--color-border);
-            padding: 1.25rem;
-            width: 220px;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            opacity: 0;
-        }
-        
-        .mobile-settings-dropdown.active {
-            max-height: 300px;
-            opacity: 1;
-            margin-top: 1rem;
-        }
-
-           /* Tamanho pré-definido para todas as logos da seção AI */
-            .ai-section .ai-logo {
-                width: 120px !important;
-                height: 120px !important;
-                padding: 0 !important;
-                object-fit: contain !important;
-                background: none !important;
-                border: none !important;
-            }
-            @media (max-width: 576px){
-                .ai-section .ai-logo {
-                    width: 96px !important;
-                    height: 96px !important;
-                }
-            }
     </style>
 </head>
 <body>
@@ -2243,7 +2340,7 @@
             <a href="#snake-game-section">Jogo</a>
             <a href="javascript:void(0);" class="btn" id="downloadCvBtnMobile">Download CV</a>
             
-            <!-- Configurações no menu mobile - CORRIGIDO: APENAS A ENGRENAGEM -->
+            <!-- Configurações no menu mobile - CORRIGIDO -->
             <div class="mobile-settings-container">
                 <button class="mobile-settings-btn" id="mobileSettingsBtn" aria-label="Configurações">
                     <i class="fas fa-cog"></i>
@@ -2421,7 +2518,6 @@
     </section>
     <!-- NOVA SEÇÃO: Entusiasta de IA - CORRIGIDA -->
     <section id="ai" class="ai-section section-light">
-      
         <div class="container">
             <div class="section-header">
                 <h2><span class="highlight">Entusiasta</span> de IA</h2>
@@ -2779,8 +2875,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const subtitle = document.querySelector('.hero .subtitle');
             if (subtitle) {
-                // A animação agora funciona perfeitamente em todas as telas
-                // O CSS já cuida das diferentes velocidades por media query
                 const typingDuration = 3500;
                 const animationDelay = 300;
                 const totalTime = typingDuration + animationDelay;
@@ -2792,32 +2886,39 @@
             }
         });
      
-        // Função para animação fluida do menu hamburger
+        // CORREÇÃO DA FUNÇÃO DO MENU MOBILE
         function toggleMobileMenu() {
             const menuToggle = document.getElementById('menuToggle');
             const mobileMenu = document.getElementById('mobileMenu');
             const mobileOverlay = document.getElementById('mobileMenuOverlay');
             const mobileSettingsDropdown = document.getElementById('mobileSettingsDropdown');
             const isActive = mobileMenu.classList.contains('active');
-         
+            
+            // Garantir que o dropdown de configurações seja fechado
+            mobileSettingsDropdown.classList.remove('active');
+            
             if (isActive) {
-                // Animação de saída fluida
-                mobileMenu.style.transition = 'transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                // Fechar menu
                 mobileMenu.classList.remove('active');
-                mobileOverlay.classList.remove('active');
+                setTimeout(() => {
+                    mobileOverlay.classList.remove('active');
+                }, 300);
                 menuToggle.classList.remove('active');
                 menuToggle.setAttribute('aria-expanded', false);
-                mobileSettingsDropdown.classList.remove('active');
+                document.body.style.overflow = 'auto';
             } else {
-                // Animação de entrada fluida
-                mobileMenu.classList.add('active');
+                // Abrir menu
                 mobileOverlay.classList.add('active');
+                setTimeout(() => {
+                    mobileMenu.classList.add('active');
+                }, 50);
                 menuToggle.classList.add('active');
                 menuToggle.setAttribute('aria-expanded', true);
+                document.body.style.overflow = 'hidden';
             }
         }
      
-        // Mobile Menu Toggle - MELHORADO COM FUNÇÃO FLUIDA
+        // Mobile Menu Toggle
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileOverlay = document.getElementById('mobileMenuOverlay');
@@ -2949,16 +3050,12 @@
         // --- Download do CV em PDF ---
         function downloadCV() {
             try {
-                // URL do PDF (agora com o nome correto: curriculo_edinaldo.pdf)
                 const pdfUrl = 'curriculo_edinaldo.pdf';
-                
-                // Criar link temporário para download
                 const link = document.createElement('a');
                 link.href = pdfUrl;
-                link.download = 'Edinaldo_Almeida_Curriculo.pdf'; // Nome do arquivo ao baixar
+                link.download = 'Edinaldo_Almeida_Curriculo.pdf';
                 link.target = '_blank';
                 
-                // Simular clique no link
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -3016,9 +3113,8 @@
             toggleTheme();
         });
         
-        // --- Sistema de Idioma - TRADUÇÕES MELHORADAS ---
+        // --- Sistema de Idioma ---
         function updateLanguage(lang) {
-            // Atualizar botões de idioma
             document.querySelectorAll('.language-btn').forEach(btn => {
                 if (btn.dataset.lang === lang) {
                     btn.classList.add('active');
@@ -3027,39 +3123,30 @@
                 }
             });
             
-            // Salvar idioma no localStorage
             localStorage.setItem('language', lang);
-            
-            // Traduzir conteúdo
             translateContent(lang);
         }
         
         function translateContent(lang) {
-            // Dicionário de traduções MELHORADAS
             const translations = {
                 'pt': {
-                    // Títulos e navegação
                     'title': 'Edinaldo Almeida | Desenvolvedor Front-End & Técnico de Informática',
                     'about': 'Sobre',
                     'skills': 'Habilidades',
-                    'ai': 'IA', // NOVA TRADUÇÃO
+                    'ai': 'IA',
                     'certifications': 'Certificações',
                     'experience': 'Experiência',
                     'contact': 'Contato',
                     'game': 'Jogo',
                     'downloadCv': 'Download CV',
-                    
-                    // Hero Section
                     'heroTitle': 'Olá, eu sou<br><span class="name">Edinaldo Almeida</span>',
                     'heroSubtitle': 'Desenvolvedor Front-End & Técnico de Informática',
                     'heroDescription': 'Criando experiências digitais incríveis com foco em performance, acessibilidade e design moderno.',
-                    
-                    // Seções
                     'aboutTitle': '<span class="highlight">Sobre</span> Mim',
                     'aboutSubtitle': 'Desenvolvedor apaixonado por criar soluções digitais que fazem a diferença',
                     'skillsTitle': '<span class="highlight">Habilidades</span> & Tecnologias',
                     'skillsSubtitle': 'Ferramentas e tecnologias que domino',
-                    'aiTitle': '<span class="highlight">Entusiasta</span> de IA', // NOVA SEÇÃO
+                    'aiTitle': '<span class="highlight">Entusiasta</span> de IA',
                     'aiSubtitle': 'Explorando e aplicando as mais avançadas ferramentas de Inteligência Artificial',
                     'certificationsTitle': 'Minhas <span class="highlight">Certificações</span>',
                     'certificationsSubtitle': 'Certificados obtidos em cursos e treinamentos relevantes',
@@ -3069,19 +3156,13 @@
                     'contactSubtitle': 'Vamos conversar sobre seu próximo projeto',
                     'gameTitle': 'Um Pouco de <span class="highlight">Diversão</span>',
                     'gameDescription': 'Desafie-se neste jogo da cobrinha criado com JavaScript puro. Use as setas do teclado para controlar a cobra e tente fazer a maior pontuação possível!',
-                    
-                    // Cards de recursos
                     'developmentTitle': 'Desenvolvimento',
                     'developmentText': 'Código limpo e escalável com as melhores práticas e tecnologias modernas como React, TypeScript e Node.js.',
                     'designTitle': 'Design',
                     'designText': 'Interfaces intuitivas e atraentes que proporcionam experiências memoráveis e acessíveis para todos os usuários.',
                     'performanceTitle': 'Performance',
                     'performanceText': 'Otimização constante para garantir velocidade, eficiência e responsividade em cada projeto desenvolvido.',
-                    
-                    // Footer
                     'footerText': '© 2024 <span class="highlight">Edinaldo Almeida</span>. Todos os direitos reservados.',
-                    
-                    // Botões
                     'sendMessage': 'Enviar Mensagem',
                     'viewSkills': 'Ver Habilidades →',
                     'contactMe': 'Entrar em Contato',
@@ -3090,52 +3171,39 @@
                     'pauseGame': 'Pausar',
                     'resetGame': 'Reiniciar',
                     'restartGame': 'Reiniciar',
-                    
-                    // Formulário
                     'namePlaceholder': 'Seu Nome',
                     'emailPlaceholder': 'Seu Email',
                     'messagePlaceholder': 'Sua Mensagem',
-                    
-                    // Texto sobre
                     'aboutText': 'Com experiência em desenvolvimento web e suporte técnico, trabalho com diversas tecnologias e metodologias. Meu foco está em criar aplicações robustas, escaláveis e com excelente experiência do usuário. <span class="highlight-text">Adoro aprender novas tecnologias</span> e aplicá-las em projetos desafiadores, sempre buscando a melhor solução para cada problema.',
-                    
-                    // Experiência profissional
                     'current': 'No momento',
                     'year': 'ano',
                     'years': 'anos',
                     'months': 'meses',
                     'mainResponsibilities': 'Principais Responsabilidades:',
                     'knowMore': 'Quer saber mais sobre minha experiência?',
-                    
-                    // Jogo
                     'score': 'Pontuação',
                     'highScore': 'Recorde',
                     'gameOver': 'Game Over',
                     'finalScore': 'Sua pontuação'
                 },
                 'en': {
-                    // Titles and navigation
                     'title': 'Edinaldo Almeida | Front-End Developer & IT Technician',
                     'about': 'About',
                     'skills': 'Skills',
-                    'ai': 'AI', // NOVA TRADUÇÃO
+                    'ai': 'AI',
                     'certifications': 'Certifications',
                     'experience': 'Experience',
                     'contact': 'Contact',
                     'game': 'Game',
                     'downloadCv': 'Download CV',
-                    
-                    // Hero Section
                     'heroTitle': 'Hello, I\'m<br><span class="name">Edinaldo Almeida</span>',
                     'heroSubtitle': 'Front-End Developer & IT Technician',
                     'heroDescription': 'Creating amazing digital experiences with a focus on performance, accessibility, and modern design.',
-                    
-                    // Sections
                     'aboutTitle': '<span class="highlight">About</span> Me',
                     'aboutSubtitle': 'Developer passionate about creating digital solutions that make a difference',
                     'skillsTitle': '<span class="highlight">Skills</span> & Technologies',
                     'skillsSubtitle': 'Tools and technologies I master',
-                    'aiTitle': 'AI <span class="highlight">Enthusiast</span>', // NOVA SEÇÃO
+                    'aiTitle': 'AI <span class="highlight">Enthusiast</span>',
                     'aiSubtitle': 'Exploring and applying the most advanced Artificial Intelligence tools',
                     'certificationsTitle': 'My <span class="highlight">Certifications</span>',
                     'certificationsSubtitle': 'Certificates obtained from relevant courses and training',
@@ -3145,19 +3213,13 @@
                     'contactSubtitle': 'Let\'s discuss your next project',
                     'gameTitle': 'A Bit of <span class="highlight">Fun</span>',
                     'gameDescription': 'Challenge yourself in this snake game created with pure JavaScript. Use the arrow keys to control the snake and try to achieve the highest score possible!',
-                    
-                    // Feature cards
                     'developmentTitle': 'Development',
                     'developmentText': 'Clean and scalable code using best practices and modern technologies like React, TypeScript, and Node.js.',
                     'designTitle': 'Design',
                     'designText': 'Intuitive and attractive interfaces that provide memorable and accessible experiences for all users.',
                     'performanceTitle': 'Performance',
                     'performanceText': 'Constant optimization to ensure speed, efficiency, and responsiveness in every developed project.',
-                    
-                    // Footer
                     'footerText': '© 2024 <span class="highlight">Edinaldo Almeida</span>. All rights reserved.',
-                    
-                    // Buttons
                     'sendMessage': 'Send Message',
                     'viewSkills': 'View Skills →',
                     'contactMe': 'Contact Me',
@@ -3166,52 +3228,39 @@
                     'pauseGame': 'Pause',
                     'resetGame': 'Reset',
                     'restartGame': 'Restart',
-                    
-                    // Form
                     'namePlaceholder': 'Your Name',
                     'emailPlaceholder': 'Your Email',
                     'messagePlaceholder': 'Your Message',
-                    
-                    // About text
                     'aboutText': 'With experience in web development and technical support, I work with various technologies and methodologies. My focus is on creating robust, scalable applications with excellent user experience. <span class="highlight-text">I love learning new technologies</span> and applying them to challenging projects, always seeking the best solution for each problem.',
-                    
-                    // Professional experience
                     'current': 'Currently',
                     'year': 'year',
                     'years': 'years',
                     'months': 'months',
                     'mainResponsibilities': 'Main Responsibilities:',
                     'knowMore': 'Want to know more about my experience?',
-                    
-                    // Game
                     'score': 'Score',
                     'highScore': 'High Score',
                     'gameOver': 'Game Over',
                     'finalScore': 'Your score'
                 },
                 'es': {
-                    // Títulos y navegación
                     'title': 'Edinaldo Almeida | Desarrollador Front-End & Técnico de Informática',
                     'about': 'Sobre',
                     'skills': 'Habilidades',
-                    'ai': 'IA', // NOVA TRADUÇÃO
+                    'ai': 'IA',
                     'certifications': 'Certificaciones',
                     'experience': 'Experiencia',
                     'contact': 'Contacto',
                     'game': 'Juego',
                     'downloadCv': 'Descargar CV',
-                    
-                    // Hero Section
                     'heroTitle': 'Hola, soy<br><span class="name">Edinaldo Almeida</span>',
                     'heroSubtitle': 'Desarrollador Front-End & Técnico de Informática',
                     'heroDescription': 'Creando experiencias digitales increíbles con enfoque en rendimiento, accesibilidad y diseño moderno.',
-                    
-                    // Secciones
                     'aboutTitle': '<span class="highlight">Sobre</span> Mí',
                     'aboutSubtitle': 'Desarrollador apasionado por crear soluciones digitales que marcan la diferencia',
                     'skillsTitle': '<span class="highlight">Habilidades</span> & Tecnologías',
                     'skillsSubtitle': 'Herramientas y tecnologías que domino',
-                    'aiTitle': '<span class="highlight">Entusiasta</span> de IA', // NOVA SEÇÃO
+                    'aiTitle': '<span class="highlight">Entusiasta</span> de IA',
                     'aiSubtitle': 'Explorando y aplicando las herramientas más avanzadas de Inteligencia Artificial',
                     'certificationsTitle': 'Mis <span class="highlight">Certificaciones</span>',
                     'certificationsSubtitle': 'Certificados obtenidos en cursos y entrenamientos relevantes',
@@ -3221,45 +3270,31 @@
                     'contactSubtitle': 'Hablemos sobre tu próximo proyecto',
                     'gameTitle': 'Un Poco de <span class="highlight">Diversión</span>',
                     'gameDescription': 'Desafíate en este juego de la serpiente creado con JavaScript puro. Usa las flechas del teclado para controlar la serpiente e intenta conseguir la puntuación más alta posible.',
-                    
-                    // Tarjetas de características
                     'developmentTitle': 'Desarrollo',
                     'developmentText': 'Código limpio y escalable con las mejores prácticas y tecnologías modernas como React, TypeScript y Node.js.',
                     'designTitle': 'Diseño',
                     'designText': 'Interfaces intuitivas y atractivas que proporcionan experiencias memorables y accesibles para todos los usuarios.',
                     'performanceTitle': 'Rendimiento',
                     'performanceText': 'Optimización constante para garantizar velocidad, eficiencia y capacidad de respuesta en cada proyecto desarrollado.',
-                    
-                    // Footer
                     'footerText': '© 2024 <span class="highlight">Edinaldo Almeida</span>. Todos los derechos reservados.',
-                    
-                    // Botones
                     'sendMessage': 'Enviar Mensaje',
                     'viewSkills': 'Ver Habilidades →',
                     'contactMe': 'Contactarme',
                     'letsTalk': 'Hablemos',
-                    'startGame': 'Iniciar Juego',
+                    'startGame': 'Iniciar Jogo',
                     'pauseGame': 'Pausar',
                     'resetGame': 'Reiniciar',
                     'restartGame': 'Reiniciar',
-                    
-                    // Formulario
                     'namePlaceholder': 'Tu Nombre',
                     'emailPlaceholder': 'Tu Email',
                     'messagePlaceholder': 'Tu Mensaje',
-                    
-                    // Texto sobre
-                    'aboutText': 'Con experiencia en desarrollo web y soporte técnico, trabajo con diversas tecnologías y metodologías. Mi enfoque está en crear aplicaciones robustas, escalables y con excelente experiencia de usuario. <span class="highlight-text">Me encanta aprender nuevas tecnologías</span> y aplicarlas en proyectos desafiantes, siempre buscando la mejor solución para cada problema.',
-                    
-                    // Experiencia profesional
+                    'aboutText': 'Con experiencia en desarrollo web y soporte técnico, trabajo con diversas tecnologías y metodologías. Mi enfoque está en crear aplicaciones robustas, escalables y com excelente experiencia de usuario. <span class="highlight-text">Me encanta aprender nuevas tecnologías</span> y aplicarlas en proyectos desafiantes, siempre buscando la mejor solución para cada problema.',
                     'current': 'Actualmente',
                     'year': 'año',
                     'years': 'años',
                     'months': 'meses',
                     'mainResponsibilities': 'Principales Responsabilidades:',
                     'knowMore': '¿Quieres saber más sobre mi experiencia?',
-                    
-                    // Juego
                     'score': 'Puntuación',
                     'highScore': 'Récord',
                     'gameOver': 'Game Over',
@@ -3269,31 +3304,27 @@
             
             const t = translations[lang];
             
-            // Atualizar título da página
             document.title = t.title;
             
-            // Atualizar elementos de navegação
             document.querySelectorAll('a[href="#about"]').forEach(el => el.textContent = t.about);
             document.querySelectorAll('a[href="#skills"]').forEach(el => el.textContent = t.skills);
-            document.querySelectorAll('a[href="#ai"]').forEach(el => el.textContent = t.ai); // NOVO
+            document.querySelectorAll('a[href="#ai"]').forEach(el => el.textContent = t.ai);
             document.querySelectorAll('a[href="#certifications"]').forEach(el => el.textContent = t.certifications);
             document.querySelectorAll('a[href="#experience"]').forEach(el => el.textContent = t.experience);
             document.querySelectorAll('a[href="#contact"]').forEach(el => el.textContent = t.contact);
             document.querySelectorAll('a[href="#snake-game-section"]').forEach(el => el.textContent = t.game);
             document.querySelectorAll('#downloadCvBtn, #downloadCvBtnMobile').forEach(el => el.textContent = t.downloadCv);
             
-            // Atualizar hero section
             document.querySelector('.hero h1').innerHTML = t.heroTitle;
             document.querySelector('.hero .subtitle').textContent = t.heroSubtitle;
             document.querySelector('.hero .description').textContent = t.heroDescription;
             
-            // Atualizar seções
             document.querySelector('#about .section-header h2').innerHTML = t.aboutTitle;
             document.querySelector('#about .section-header p').textContent = t.aboutSubtitle;
             document.querySelector('#skills .section-header h2').innerHTML = t.skillsTitle;
             document.querySelector('#skills .section-header p').textContent = t.skillsSubtitle;
-            document.querySelector('#ai .section-header h2').innerHTML = t.aiTitle; // NOVO
-            document.querySelector('#ai .section-header p').textContent = t.aiSubtitle; // NOVO
+            document.querySelector('#ai .section-header h2').innerHTML = t.aiTitle;
+            document.querySelector('#ai .section-header p').textContent = t.aiSubtitle;
             document.querySelector('#certifications .section-header h2').innerHTML = t.certificationsTitle;
             document.querySelector('#certifications .section-header p').textContent = t.certificationsSubtitle;
             document.querySelector('#experience .section-header h2').innerHTML = t.experienceTitle;
@@ -3303,7 +3334,6 @@
             document.querySelector('#snake-game-section .snake-header h2').innerHTML = t.gameTitle;
             document.querySelector('#snake-game-section .snake-header p').textContent = t.gameDescription;
             
-            // Atualizar cards de recursos
             const featureCards = document.querySelectorAll('.feature-card');
             if (featureCards.length >= 3) {
                 featureCards[0].querySelector('h3').textContent = t.developmentTitle;
@@ -3314,26 +3344,19 @@
                 featureCards[2].querySelector('p').textContent = t.performanceText;
             }
             
-            // Atualizar texto sobre
             document.querySelector('.about-text p').innerHTML = t.aboutText;
-            
-            // Atualizar footer
             document.querySelector('.footer-text').innerHTML = t.footerText;
-            
-            // Atualizar botões
             document.querySelector('#contactForm button[type="submit"]').textContent = t.sendMessage;
             document.querySelector('.hero-buttons a[href="#skills"]').textContent = t.viewSkills;
             document.querySelector('.hero-buttons a[href="#contact"]').textContent = t.contactMe;
             document.querySelector('.experience-cta a').textContent = t.letsTalk;
             document.querySelector('.experience-cta p').textContent = t.knowMore;
             
-            // Atualizar botões do jogo
             document.querySelector('#start-game').textContent = t.startGame;
             document.querySelector('#pause-game').textContent = t.pauseGame;
             document.querySelector('#reset-game').textContent = t.resetGame;
             document.querySelector('#restart-game-btn').textContent = t.restartGame;
             
-            // Atualizar labels do jogo
             const snakeStats = document.querySelectorAll('.snake-stats div');
             if (snakeStats.length >= 2) {
                 snakeStats[0].innerHTML = t.score + ': <span id="score">0</span>';
@@ -3341,13 +3364,10 @@
             }
             
             document.querySelector('#game-over-overlay h2').textContent = t.gameOver;
-            
-            // Atualizar placeholders do formulário
             document.querySelector('#name').placeholder = t.namePlaceholder;
             document.querySelector('#email').placeholder = t.emailPlaceholder;
             document.querySelector('#message').placeholder = t.messagePlaceholder;
             
-            // Atualizar textos de experiência
             document.querySelectorAll('.achievements-title').forEach(el => {
                 const icon = el.querySelector('i');
                 if (icon) {
@@ -3355,7 +3375,6 @@
                 }
             });
             
-            // Atualizar datas em experiência
             document.querySelectorAll('.experience-period span').forEach(el => {
                 const text = el.textContent;
                 if (text.includes('No momento')) {
@@ -3391,14 +3410,13 @@
             settingsMenu.classList.toggle('active');
         });
         
-        // Fechar menu ao clicar fora
         document.addEventListener('click', (e) => {
             if (!settingsMenu.contains(e.target)) {
                 settingsMenu.classList.remove('active');
             }
         });
         
-        // --- Snake Game Implementation - MELHORADO COM RESPONSIVIDADE ---
+        // --- Snake Game Implementation ---
         const canvas = document.getElementById('snake-game');
         const ctx = canvas.getContext('2d');
         const scoreElement = document.getElementById('score');
@@ -3480,14 +3498,12 @@
         }
       
         function drawGame() {
-            // Fundo com gradiente
             const gradientBg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
             gradientBg.addColorStop(0, '#0a0a0a');
             gradientBg.addColorStop(1, '#1a1a1a');
             ctx.fillStyle = gradientBg;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
          
-            // Cobra com gradiente e sombra
             for (let i = 0; i < snake.length; i++) {
                 const segment = snake[i];
                 const gradient = ctx.createRadialGradient(
@@ -3508,7 +3524,6 @@
                 ctx.shadowBlur = 0;
             }
          
-            // Comida com glow
             ctx.fillStyle = '#ff6b6b';
             ctx.shadowColor = 'rgba(255, 107, 107, 0.7)';
             ctx.shadowBlur = 20;
@@ -3521,7 +3536,6 @@
             ctx.shadowColor = 'transparent';
             ctx.shadowBlur = 0;
          
-            // Grid sutil
             ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
             ctx.lineWidth = 1;
             for (let i = 0; i < tileCountX; i++) {
@@ -3547,7 +3561,7 @@
                 score += 10;
                 updateScore();
                 generateFood();
-                playSound(440, 0.1); // Som de comida
+                playSound(440, 0.1);
             } else {
                 snake.pop();
             }
@@ -3557,7 +3571,7 @@
                 checkCollision(head, snake.slice(1))
             ) {
                 gameOver();
-                playSound(220, 0.3, 'square'); // Som de game over
+                playSound(220, 0.3, 'square');
                 return;
             }
         }
@@ -3583,7 +3597,6 @@
             drawGame();
         }
       
-        // Resize listener para responsividade
         window.addEventListener('resize', () => {
             resizeCanvas();
             if (gameRunning) {
@@ -3595,7 +3608,6 @@
             if([37, 38, 39, 40].includes(e.keyCode)) {
                 e.preventDefault();
             }
-            // Inicia o jogo se estiver parado
             if (!gameRunning && dx === 0 && dy === 0 && !gameOverOverlay.classList.contains('visible')) {
                  gameRunning = true;
                  gameLoop = setInterval(runGame, 150);
@@ -3617,7 +3629,6 @@
             }
         });
       
-        // Controles touch (melhoria)
         let touchStartX = 0;
         let touchStartY = 0;
         canvas.addEventListener('touchstart', (e) => {
@@ -3632,11 +3643,11 @@
             const deltaY = touchEndY - touchStartY;
           
             if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                if (deltaX > 0 && dx !== -1) { dx = 1; dy = 0; } // Direita
-                else if (deltaX < 0 && dx !== 1) { dx = -1; dy = 0; } // Esquerda
+                if (deltaX > 0 && dx !== -1) { dx = 1; dy = 0; }
+                else if (deltaX < 0 && dx !== 1) { dx = -1; dy = 0; }
             } else {
-                if (deltaY > 0 && dy !== -1) { dx = 0; dy = 1; } // Baixo
-                else if (deltaY < 0 && dy !== 1) { dx = 0; dy = -1; } // Cima
+                if (deltaY > 0 && dy !== -1) { dx = 0; dy = 1; }
+                else if (deltaY < 0 && dy !== 1) { dx = 0; dy = -1; }
             }
           
             if (!gameRunning) {
@@ -3650,7 +3661,7 @@
                 gameRunning = true;
                 clearInterval(gameLoop);
                 gameLoop = setInterval(runGame, 150);
-                playSound(440, 0.2); // Som de start
+                playSound(440, 0.2);
             }
         });
       
@@ -3659,7 +3670,7 @@
             if (gameRunning) {
                 clearInterval(gameLoop);
                 gameLoop = setInterval(runGame, 150);
-                playSound(523, 0.1); // Som de resume
+                playSound(523, 0.1);
             } else {
                 clearInterval(gameLoop);
             }
@@ -3674,7 +3685,6 @@
         resetButton.addEventListener('click', resetGame);
         restartGameBtn.addEventListener('click', resetGame);
      
-        // Inicialização
         resizeCanvas();
         initGame();
         drawGame();
@@ -3686,7 +3696,7 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-PE57EL5GRG');
+      gtag('config', 'G-PE57EL5GRG'); 
     </script>
 
 </body>
