@@ -157,8 +157,6 @@
             font-size: 1.2rem;
         }
         
-       
-        
         .settings-dropdown {
             position: absolute;
             top: 100%;
@@ -569,28 +567,57 @@
             -webkit-text-fill-color: transparent;
         }
      
-        /* ANIMAÇÃO DE DIGITAÇÃO MELHORADA para todas as telas */
+        /* ANIMAÇÃO DE DIGITAÇÃO MUITO MELHORADA E FLUIDA */
         .hero .subtitle {
-            font-size: clamp(1.2rem, 4vw, 2.2rem);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
             color: var(--color-muted);
             margin-bottom: 1.5rem;
             font-weight: 300;
-            letter-spacing: 0.08em;
-           
+            letter-spacing: 0.05em;
+            
+            /* Contêiner para animação */
             display: inline-block;
             overflow: hidden;
             white-space: nowrap;
-            border-right: .15em solid var(--color-primary);
-            width: 0;
+            
+            /* Centraliza */
             margin: 0 auto 1.5rem;
-           
-            opacity: 1;
-            transform: translateY(0);
-           
+            
+            /* Animações aprimoradas */
+            opacity: 0;
+            transform: translateY(30px);
             animation: 
-                typing 2.8s steps(30, end) 0.3s forwards,
-                blink-caret 0.75s step-end infinite 0.3s,
-                fadeInUp 0.5s ease-out 0.3s forwards;
+                fadeInUp 0.8s ease-out 0.5s forwards,
+                typing 3.5s steps(40, end) 1s forwards,
+                blink-caret 0.75s step-end infinite 1s;
+            
+            /* Adiciona cursor */
+            border-right: 3px solid var(--color-primary);
+            padding-right: 4px;
+        }
+        
+        /* Efeito de gradiente suave no texto */
+        .hero .subtitle::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(230, 194, 0, 0.1) 30%, 
+                rgba(230, 194, 0, 0.05) 70%, 
+                transparent 100%);
+            animation: shimmer 3s ease-in-out infinite;
+            opacity: 0.3;
+        }
+        
+        /* Remover cursor após animação */
+        .hero .subtitle.typing-complete {
+            animation: none;
+            border-right: none;
+            padding-right: 0;
         }
      
         /* Ajuste do texto de descrição */
@@ -601,7 +628,7 @@
             margin: 0 auto 2rem;
             opacity: 0;
             transform: translateY(50px);
-            animation: fadeInUp 1s ease-out 0.6s forwards;
+            animation: fadeInUp 1s ease-out 4.5s forwards;
             line-height: 1.6;
         }
      
@@ -614,7 +641,7 @@
             margin-bottom: 2.5rem;
             opacity: 0;
             transform: translateY(50px);
-            animation: fadeInUp 1s ease-out 0.9s forwards;
+            animation: fadeInUp 1s ease-out 5s forwards;
         }
      
         .btn-outline {
@@ -641,7 +668,7 @@
             justify-content: center;
             opacity: 0;
             transform: translateY(50px);
-            animation: fadeInUp 1s ease-out 1.2s forwards;
+            animation: fadeInUp 1s ease-out 5.3s forwards;
         }
      
         .social-links a {
@@ -1805,7 +1832,7 @@
             transform: scale(1.1);
         }
      
-        /* Animations */
+        /* Animations - MELHORADAS */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -1890,7 +1917,8 @@
                 transform: scale(1);
             }
         }
-        /* Keyframes de Digitação - PERFEITAS e suaves */
+        
+        /* Keyframes de Digitação - MUITO MELHORADAS */
         @keyframes typing {
             from { 
                 width: 0; 
@@ -1906,6 +1934,38 @@
             }
             50% { 
                 border-color: var(--color-primary); 
+            }
+        }
+        
+        /* Nova animação de brilho suave */
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        
+        /* Animação de fade in suave para o texto */
+        @keyframes textReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Animação de gradiente pulsante no texto */
+        @keyframes gradientPulse {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
             }
         }
      
@@ -2056,10 +2116,11 @@
             
             /* Ajuste da animação de digitação para mobile */
             .hero .subtitle {
+                font-size: clamp(1.3rem, 4vw, 2rem);
                 animation: 
-                    typing 2.8s steps(30, end) 0.3s forwards,
-                    blink-caret 0.75s step-end infinite 0.3s,
-                    fadeInUp 0.5s ease-out 0.3s forwards;
+                    fadeInUp 0.8s ease-out 0.5s forwards,
+                    typing 2.8s steps(30, end) 1s forwards,
+                    blink-caret 0.75s step-end infinite 1s;
             }
          
             .timeline-line {
@@ -2209,12 +2270,11 @@
             
             /* Ajuste fino na animação de digitação para telas muito pequenas */
             .hero .subtitle {
-                letter-spacing: 0.05em;
                 font-size: 1.1rem;
                 animation: 
-                    typing 2.2s steps(25, end) 0.3s forwards,
-                    blink-caret 0.75s step-end infinite 0.3s,
-                    fadeInUp 0.5s ease-out 0.3s forwards;
+                    fadeInUp 0.8s ease-out 0.5s forwards,
+                    typing 2.2s steps(25, end) 1s forwards,
+                    blink-caret 0.75s step-end infinite 1s;
             }
             
             .mobile-menu a {
@@ -2259,6 +2319,14 @@
                 width: 100%;
                 max-width: 280px;
                 padding: 0.9rem 1.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1rem;
+                animation: 
+                    fadeInUp 0.8s ease-out 0.5s forwards,
+                    typing 2s steps(20, end) 1s forwards,
+                    blink-caret 0.75s step-end infinite 1s;
             }
         }
      
@@ -2381,9 +2449,9 @@
                 Olá, eu sou<br>
                 <span class="name">Edinaldo Almeida</span>
             </h1>
-            <p class="hero-subtitle subtitle">Desenvolvedor Front-End & Técnico de Informática</p>
+            <p class="hero-subtitle subtitle" id="typing-text">Desenvolvedor Front-End & Técnico de Informática</p>
             <p class="description">
-                Criando experiências digitais incríveis com foco em performance, acessibilidade e design moderno.
+                Tecnico em informatica & Desenvolvedor Front-End criando experiências digitais incríveis com foco em performance, acessibilidade e design moderno.
             </p>
             <div class="hero-buttons">
                 <a href="#skills" class="btn">Ver Habilidades →</a>
@@ -2871,18 +2939,52 @@
         // Inicializar Lucide Icons
         lucide.createIcons();
         
-        // Animação de Digitação PERFEITA para todas as telas
+        // ANIMAÇÃO DE DIGITAÇÃO MELHORADA
         document.addEventListener('DOMContentLoaded', () => {
             const subtitle = document.querySelector('.hero .subtitle');
-            if (subtitle) {
-                const typingDuration = 3500;
-                const animationDelay = 300;
-                const totalTime = typingDuration + animationDelay;
-           
-                // Remove o cursor após a animação
+            const typingText = document.getElementById('typing-text');
+            
+            if (subtitle && typingText) {
+                const text = typingText.textContent;
+                typingText.textContent = '';
+                
+                // Adiciona uma div de overlay para efeitos
+                const overlay = document.createElement('div');
+                overlay.style.cssText = `
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, 
+                        transparent 0%, 
+                        rgba(230, 194, 0, 0.1) 30%, 
+                        rgba(230, 194, 0, 0.05) 70%, 
+                        transparent 100%);
+                    animation: shimmer 3s ease-in-out infinite;
+                    opacity: 0.3;
+                    pointer-events: none;
+                `;
+                
+                // Adiciona posição relativa ao container
+                typingText.style.position = 'relative';
+                typingText.appendChild(overlay);
+                
+                // Temporizador para remover cursor após animação
                 setTimeout(() => {
-                    subtitle.style.borderRightColor = 'transparent';
-                }, totalTime + 500);
+                    subtitle.classList.add('typing-complete');
+                    
+                    // Adiciona um efeito de brilho suave após a digitação
+                    setTimeout(() => {
+                        typingText.style.transition = 'all 0.5s ease';
+                        typingText.style.textShadow = '0 0 20px rgba(230, 194, 0, 0.3)';
+                        
+                        setTimeout(() => {
+                            typingText.style.textShadow = 'none';
+                        }, 1000);
+                    }, 500);
+                    
+                }, 4500); // Tempo total da animação
             }
         });
      
@@ -3141,7 +3243,7 @@
                     'downloadCv': 'Download CV',
                     'heroTitle': 'Olá, eu sou<br><span class="name">Edinaldo Almeida</span>',
                     'heroSubtitle': 'Desenvolvedor Front-End & Técnico de Informática',
-                    'heroDescription': 'Criando experiências digitais incríveis com foco em performance, acessibilidade e design moderno.',
+                    'heroDescription': 'Técnico em Informática & Desenvolvedor Front-End criando experiências digitais incríveis com foco em performance, acessibilidade e design moderno.',
                     'aboutTitle': '<span class="highlight">Sobre</span> Mim',
                     'aboutSubtitle': 'Desenvolvedor apaixonado por criar soluções digitais que fazem a diferença',
                     'skillsTitle': '<span class="highlight">Habilidades</span> & Tecnologias',
@@ -3696,7 +3798,7 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-PE57EL5GRG'); 
+      gtag('config', 'G-PE57EL5GRG');
     </script>
 
 </body>
