@@ -282,7 +282,7 @@
             opacity: 1;
         }
      
-        /* --- INÍCIO DA MODIFICAÇÃO: Menu Hamburger (Animação "X" Suave Corrigida) --- */
+        /* --- MENU HAMBURGUER PERFEITO E COMPLETO --- */
         .menu-toggle {
             display: none; /* Oculto por padrão em telas grandes */
             align-items: center;
@@ -549,7 +549,7 @@
             z-index: 10;
         }
      
-        /* Ajuste do título principal */
+        /* Ajuste do título principal - AGORA MAIS RÁPIDO */
         .hero h1 {
             font-size: clamp(2.5rem, 8vw, 5.5rem);
             font-weight: 800;
@@ -558,7 +558,7 @@
             letter-spacing: -0.03em;
             opacity: 0;
             transform: translateY(50px);
-            animation: fadeInUp 1s ease-out forwards;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards; /* Mais rápido */
         }
      
         .hero .name {
@@ -567,7 +567,7 @@
             -webkit-text-fill-color: transparent;
         }
      
-        /* ANIMAÇÃO DE DIGITAÇÃO MUITO MELHORADA E FLUIDA */
+        /* ANIMAÇÃO DE DIGITAÇÃO MUITO MAIS RÁPIDA (1.5s em vez de 4.5s) */
         .hero .subtitle {
             font-size: clamp(1.5rem, 4vw, 2.5rem);
             color: var(--color-muted);
@@ -583,13 +583,13 @@
             /* Centraliza */
             margin: 0 auto 1.5rem;
             
-            /* Animações aprimoradas */
+            /* Animações MUITO mais rápidas */
             opacity: 0;
             transform: translateY(30px);
             animation: 
-                fadeInUp 0.8s ease-out 0.5s forwards,
-                typing 3.5s steps(40, end) 1s forwards,
-                blink-caret 0.75s step-end infinite 1s;
+                fadeInUp 0.6s ease-out 0.5s forwards,
+                typing 1.8s steps(30, end) 0.8s forwards, /* Reduzido de 3.5s para 1.8s */
+                blink-caret 0.75s step-end infinite 0.8s;
             
             /* Adiciona cursor */
             border-right: 3px solid var(--color-primary);
@@ -613,14 +613,14 @@
             opacity: 0.3;
         }
         
-        /* Remover cursor após animação */
+        /* Remover cursor após animação - AGORA MAIS RÁPIDO */
         .hero .subtitle.typing-complete {
             animation: none;
             border-right: none;
             padding-right: 0;
         }
      
-        /* Ajuste do texto de descrição */
+        /* Ajuste do texto de descrição - AGORA MAIS RÁPIDO */
         .hero .description {
             font-size: clamp(1rem, 3vw, 1.3rem);
             color: var(--color-muted);
@@ -628,11 +628,11 @@
             margin: 0 auto 2rem;
             opacity: 0;
             transform: translateY(50px);
-            animation: fadeInUp 1s ease-out 4.5s forwards;
+            animation: fadeInUp 0.8s ease-out 1.5s forwards; /* Reduzido de 4.5s para 1.5s */
             line-height: 1.6;
         }
      
-        /* Botões hero - Ajuste para mobile */
+        /* Botões hero - Ajuste para mobile - AGORA MAIS RÁPIDO */
         .hero-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -641,7 +641,7 @@
             margin-bottom: 2.5rem;
             opacity: 0;
             transform: translateY(50px);
-            animation: fadeInUp 1s ease-out 5s forwards;
+            animation: fadeInUp 0.8s ease-out 1.8s forwards; /* Reduzido de 5s para 1.8s */
         }
      
         .btn-outline {
@@ -668,7 +668,7 @@
             justify-content: center;
             opacity: 0;
             transform: translateY(50px);
-            animation: fadeInUp 1s ease-out 5.3s forwards;
+            animation: fadeInUp 0.8s ease-out 2s forwards; /* Reduzido de 5.3s para 2s */
         }
      
         .social-links a {
@@ -1918,7 +1918,7 @@
             }
         }
         
-        /* Keyframes de Digitação - MUITO MELHORADAS */
+        /* Keyframes de Digitação - MUITO MAIS RÁPIDAS */
         @keyframes typing {
             from { 
                 width: 0; 
@@ -2046,7 +2046,7 @@
             border: none !important;
         }
 
-        /* Responsive */
+        /* Responsive - MELHORADO PARA MENU HAMBÚRGUER */
         @media (max-width: 992px) {
             /* Telas médias - Engrenagem visível */
             .settings-menu {
@@ -2066,6 +2066,8 @@
          
             .menu-toggle {
                 display: flex;
+                width: 2.8rem;
+                height: 2.8rem;
             }
          
             .mobile-menu-overlay {
@@ -2114,13 +2116,13 @@
                 left: 50%;
             }
             
-            /* Ajuste da animação de digitação para mobile */
+            /* Ajuste da animação de digitação para mobile - MAIS RÁPIDO */
             .hero .subtitle {
                 font-size: clamp(1.3rem, 4vw, 2rem);
                 animation: 
-                    fadeInUp 0.8s ease-out 0.5s forwards,
-                    typing 2.8s steps(30, end) 1s forwards,
-                    blink-caret 0.75s step-end infinite 1s;
+                    fadeInUp 0.6s ease-out 0.5s forwards,
+                    typing 1.5s steps(25, end) 0.8s forwards,
+                    blink-caret 0.75s step-end infinite 0.8s;
             }
          
             .timeline-line {
@@ -2257,7 +2259,7 @@
         }
      
         @media (max-width: 576px) {
-            /* Telas muito pequenas */
+            /* Telas muito pequenas - MENU HAMBÚRGUER OTIMIZADO */
             .settings-btn {
                 width: 2.2rem;
                 height: 2.2rem;
@@ -2268,27 +2270,49 @@
                 right: 3.5rem;
             }
             
+            .menu-toggle {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+            
+            .hamburger {
+                width: 20px;
+            }
+            
+            .hamburger span::before {
+                top: -7px;
+            }
+            
+            .hamburger span::after {
+                top: 7px;
+            }
+            
             /* Ajuste fino na animação de digitação para telas muito pequenas */
             .hero .subtitle {
                 font-size: 1.1rem;
                 animation: 
-                    fadeInUp 0.8s ease-out 0.5s forwards,
-                    typing 2.2s steps(25, end) 1s forwards,
-                    blink-caret 0.75s step-end infinite 1s;
+                    fadeInUp 0.6s ease-out 0.5s forwards,
+                    typing 1.2s steps(20, end) 0.8s forwards,
+                    blink-caret 0.75s step-end infinite 0.8s;
             }
             
             .mobile-menu a {
                 font-size: 1.2rem;
                 padding: 1rem 2rem;
             }
-            
-            .menu-toggle {
-                width: 2.8rem;
-                height: 2.8rem;
-            }
         }
 
         @media (max-width: 480px) {
+            /* Menu hambúrguer para telas muito pequenas */
+            .menu-toggle {
+                width: 2.3rem;
+                height: 2.3rem;
+            }
+            
+            .hamburger {
+                width: 18px;
+            }
+            
             .hero-bg-circle {
                 filter: blur(60px);
             }
@@ -2324,9 +2348,34 @@
             .hero .subtitle {
                 font-size: 1rem;
                 animation: 
-                    fadeInUp 0.8s ease-out 0.5s forwards,
-                    typing 2s steps(20, end) 1s forwards,
-                    blink-caret 0.75s step-end infinite 1s;
+                    fadeInUp 0.6s ease-out 0.5s forwards,
+                    typing 1s steps(18, end) 0.8s forwards,
+                    blink-caret 0.75s step-end infinite 0.8s;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            /* Extremamente pequeno - ajustes finais do menu */
+            .menu-toggle {
+                width: 2.1rem;
+                height: 2.1rem;
+            }
+            
+            .hamburger {
+                width: 16px;
+            }
+            
+            .hamburger span::before {
+                top: -6px;
+            }
+            
+            .hamburger span::after {
+                top: 6px;
+            }
+            
+            .mobile-menu a {
+                font-size: 1.1rem;
+                padding: 0.9rem 1.8rem;
             }
         }
      
@@ -2939,7 +2988,7 @@
         // Inicializar Lucide Icons
         lucide.createIcons();
         
-        // ANIMAÇÃO DE DIGITAÇÃO MELHORADA
+        // ANIMAÇÃO DE DIGITAÇÃO MUITO MAIS RÁPIDA (1.5s em vez de 4.5s)
         document.addEventListener('DOMContentLoaded', () => {
             const subtitle = document.querySelector('.hero .subtitle');
             const typingText = document.getElementById('typing-text');
@@ -2970,7 +3019,7 @@
                 typingText.style.position = 'relative';
                 typingText.appendChild(overlay);
                 
-                // Temporizador para remover cursor após animação
+                // Temporizador para remover cursor após animação - AGORA MAIS RÁPIDO (2.3s em vez de 4.5s)
                 setTimeout(() => {
                     subtitle.classList.add('typing-complete');
                     
@@ -2984,11 +3033,11 @@
                         }, 1000);
                     }, 500);
                     
-                }, 4500); // Tempo total da animação
+                }, 2300); // Reduzido de 4500ms para 2300ms
             }
         });
      
-        // CORREÇÃO DA FUNÇÃO DO MENU MOBILE
+        // CORREÇÃO DA FUNÇÃO DO MENU MOBILE - MELHORADA
         function toggleMobileMenu() {
             const menuToggle = document.getElementById('menuToggle');
             const mobileMenu = document.getElementById('mobileMenu');
@@ -2999,6 +3048,9 @@
             // Garantir que o dropdown de configurações seja fechado
             mobileSettingsDropdown.classList.remove('active');
             
+            // Impedir scroll do body quando menu aberto
+            document.body.style.overflow = isActive ? 'auto' : 'hidden';
+            
             if (isActive) {
                 // Fechar menu
                 mobileMenu.classList.remove('active');
@@ -3007,7 +3059,6 @@
                 }, 300);
                 menuToggle.classList.remove('active');
                 menuToggle.setAttribute('aria-expanded', false);
-                document.body.style.overflow = 'auto';
             } else {
                 // Abrir menu
                 mobileOverlay.classList.add('active');
@@ -3016,27 +3067,54 @@
                 }, 50);
                 menuToggle.classList.add('active');
                 menuToggle.setAttribute('aria-expanded', true);
-                document.body.style.overflow = 'hidden';
             }
         }
      
-        // Mobile Menu Toggle
+        // Mobile Menu Toggle - EVENTOS MELHORADOS
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileOverlay = document.getElementById('mobileMenuOverlay');
         const mobileSettingsBtn = document.getElementById('mobileSettingsBtn');
         const mobileSettingsDropdown = document.getElementById('mobileSettingsDropdown');
      
-        menuToggle.addEventListener('click', toggleMobileMenu);
+        // Prevenir clique duplo
+        let menuClickTimeout;
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            clearTimeout(menuClickTimeout);
+            menuClickTimeout = setTimeout(() => {
+                toggleMobileMenu();
+            }, 100);
+        });
      
         // Fechar menu ao clicar no overlay
-        mobileOverlay.addEventListener('click', toggleMobileMenu);
+        mobileOverlay.addEventListener('click', (e) => {
+            if (e.target === mobileOverlay) {
+                toggleMobileMenu();
+            }
+        });
      
         // Close mobile menu when clicking on a link
         document.querySelectorAll('.mobile-menu a').forEach(link => {
             link.addEventListener('click', (e) => {
                 if (link.getAttribute('href') && link.getAttribute('href').startsWith('#')) {
-                    toggleMobileMenu();
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const target = document.querySelector(targetId);
+                    
+                    if (target) {
+                        toggleMobileMenu();
+                        
+                        // Scroll suave após fechar menu
+                        setTimeout(() => {
+                            const headerHeight = 80;
+                            const targetPosition = target.offsetTop - headerHeight;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }, 500);
+                    }
                 }
             });
         });
@@ -3064,7 +3142,7 @@
             }
         });
      
-        // Smooth scroll
+        // Smooth scroll melhorado
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 if (this.getAttribute('href').startsWith('#')) {
@@ -3077,6 +3155,12 @@
                             top: targetPosition,
                             behavior: 'smooth'
                         });
+                        
+                        // Atualizar link ativo
+                        document.querySelectorAll('.nav-links a').forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        this.classList.add('active');
                     }
                 }
             });
@@ -3712,6 +3796,7 @@
             }
             if (!gameRunning && dx === 0 && dy === 0 && !gameOverOverlay.classList.contains('visible')) {
                  gameRunning = true;
+                 clearInterval(gameLoop);
                  gameLoop = setInterval(runGame, 150);
             }
          
@@ -3754,6 +3839,7 @@
           
             if (!gameRunning) {
                 gameRunning = true;
+                clearInterval(gameLoop);
                 gameLoop = setInterval(runGame, 150);
             }
         });
