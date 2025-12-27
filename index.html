@@ -451,6 +451,7 @@
         .mobile-menu a:nth-child(5) { transition-delay: 0.5s; }
         .mobile-menu a:nth-child(6) { transition-delay: 0.6s; }
         .mobile-menu a:nth-child(7) { transition-delay: 0.7s; }
+        .mobile-menu a:nth-child(8) { transition-delay: 0.8s; } /* Adicionado para IA */
      
         .mobile-menu a:not(.btn)::before {
             content: '';
@@ -556,7 +557,7 @@
             -webkit-text-fill-color: transparent;
         }
      
-        /* ANIMAÇÃO DE DIGITAÇÃO AJUSTADA - Mais suave e profissional */
+        /* ANIMAÇÃO DE DIGITAÇÃO MELHORADA para todas as telas */
         .hero .subtitle {
             font-size: clamp(1.5rem, 4vw, 2.5rem);
             color: var(--color-muted);
@@ -573,9 +574,11 @@
            
             opacity: 1;
             transform: translateY(0);
-            animation:
-                typing 3.2s steps(60, end) 0.3s forwards,
-                blink-caret 0.9s step-end infinite 0.3s,
+           
+            /* Animação aprimorada */
+            animation: 
+                typing 3.5s steps(40, end) 0.3s forwards,
+                blink-caret 0.75s step-end infinite 0.3s,
                 fadeInUp 0.5s ease-out 0.3s forwards;
         }
      
@@ -881,6 +884,91 @@
             background: var(--color-secondary);
         }
      
+        /* AI Section - CORRIGIDA com cores do site */
+        .ai-section {
+            background: linear-gradient(135deg, var(--color-card) 0%, var(--color-bg) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .ai-card {
+            background: var(--color-card);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            border: 1px solid var(--color-border);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out forwards;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .ai-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .ai-logo {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            object-fit: contain;
+            border-radius: 12px;
+            padding: 0.5rem;
+            background: rgba(230, 194, 0, 0.1);
+            border: 1px solid rgba(230, 194, 0, 0.2);
+            transition: all 0.5s ease;
+        }
+        
+        .ai-card:hover .ai-logo {
+            transform: scale(1.1);
+            background: rgba(230, 194, 0, 0.2);
+            border-color: var(--color-primary);
+        }
+        
+        .ai-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+            position: relative;
+            z-index: 2;
+            letter-spacing: -0.01em;
+        }
+        
+        .ai-description {
+            color: var(--color-muted);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .ai-focus {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #e6c200;
+            font-size: 0.9rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .ai-focus i {
+            font-size: 0.9rem;
+        }
+     
         /* Certifications Section - CORRIGIDO para tema claro */
         #certifications {
             background: linear-gradient(135deg, var(--color-card) 0%, var(--color-bg) 100%);
@@ -980,6 +1068,9 @@
             transition: all 0.5s ease;
             filter: grayscale(30%) brightness(1.2);
             z-index: 2;
+            border: none !important; /* Remove bordas */
+            background: none !important; /* Remove fundo */
+            border-radius: 0 !important; /* Remove bordas arredondadas */
         }
       
         .certification-card:hover .certification-logo {
@@ -1028,17 +1119,6 @@
             gap: 0.5rem;
             position: relative;
             z-index: 2;
-        }
-        
-        /* ÍCONE DE CALENDÁRIO EM BRANCO CLARO */
-        .certification-date::before {
-            content: '📅'; /* Ícone original */
-            font-size: 0.9rem;
-            filter: brightness(0.95) contrast(1.1); /* Ajuste para branco claro */
-        }
-        
-        [data-theme="light"] .certification-date::before {
-            filter: brightness(0.8) contrast(1.2); /* Mais claro no tema claro */
         }
      
         .certification-link {
@@ -1235,22 +1315,21 @@
         .company-logo {
             width: 5rem;
             height: 5rem;
-            background: white;
-            border-radius: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0.5rem;
             transition: var(--transition);
             flex-shrink: 0;
-            border: 1px solid var(--color-border);
             overflow: hidden;
+            border: none !important; /* Remove bordas */
+            background: none !important; /* Remove fundo */
         }
      
         .company-logo img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
+            border: none !important; /* Remove bordas das imagens */
         }
      
         .experience-title h3 {
@@ -1797,15 +1876,23 @@
                 transform: scale(1);
             }
         }
-        /* Keyframes de Digitação - AJUSTADAS para mais suavidade e profissionalismo */
+        /* Keyframes de Digitação - PERFEITAS e suaves */
         @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
+            from { 
+                width: 0; 
+            }
+            to { 
+                width: 100%; 
+            }
         }
        
         @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: var(--color-primary); }
+            from, to { 
+                border-color: transparent; 
+            }
+            50% { 
+                border-color: var(--color-primary); 
+            }
         }
      
         .fade-in {
@@ -1840,12 +1927,20 @@
                 display: block;
             }
             
-            /* Engrenagem visível no mobile também */
+            /* Engrenagem VISÍVEL no mobile também - posicionada ao lado do menu hamburger */
             .settings-menu {
                 display: inline-block;
                 position: absolute;
                 top: 1.25rem;
                 right: 4rem;
+            }
+            
+            /* Ajuste da animação de digitação para mobile */
+            .hero .subtitle {
+                animation: 
+                    typing 2.8s steps(30, end) 0.3s forwards,
+                    blink-caret 0.75s step-end infinite 0.3s,
+                    fadeInUp 0.5s ease-out 0.3s forwards;
             }
          
             .timeline-line {
@@ -1944,13 +2039,6 @@
             .snake-controls {
                 grid-template-columns: 1fr;
             }
-            /* Garante que a animação de digitação quebre a linha em telas pequenas */
-            .hero .subtitle {
-                white-space: normal; /* Permite quebra de linha */
-                width: auto; /* Deixa a largura ser automática */
-                border-right: none; /* Remove o cursor */
-                animation: fadeInUp 1s ease-out 0.3s forwards; /* Volta ao fade original */
-            }
             
             /* Ajustes para certificações em mobile */
             .certifications-grid {
@@ -1964,6 +2052,15 @@
             .certification-logo {
                 width: 60px;
                 height: 60px;
+            }
+            
+            /* Ajustes para IA em mobile */
+            .ai-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ai-card {
+                padding: 2rem 1.5rem;
             }
             
             /* Menu de configurações responsivo */
@@ -1984,6 +2081,15 @@
             .settings-menu {
                 right: 3.5rem;
             }
+            
+            /* Ajuste fino na animação de digitação para telas muito pequenas */
+            .hero .subtitle {
+                font-size: clamp(1.2rem, 4vw, 1.5rem);
+                animation: 
+                    typing 2.2s steps(25, end) 0.3s forwards,
+                    blink-caret 0.75s step-end infinite 0.3s,
+                    fadeInUp 0.5s ease-out 0.3s forwards;
+            }
         }
      
         /* Icons SVG */
@@ -2001,6 +2107,79 @@
             width: 3rem;
             height: 3rem;
         }
+        
+        /* Menu Mobile - Engrenagem e Configurações */
+        .mobile-settings-container {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .mobile-menu.active .mobile-settings-container {
+            opacity: 1;
+            transform: translateX(0);
+            transition-delay: 0.9s;
+        }
+        
+        .mobile-settings-btn {
+            background: transparent;
+            border: 1px solid var(--color-border);
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--color-fg);
+            font-size: 1.3rem;
+        }
+        
+        .mobile-settings-btn:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            transform: scale(1.1);
+        }
+        
+        .mobile-settings-dropdown {
+            background: var(--color-card);
+            border-radius: 1rem;
+            border: 1px solid var(--color-border);
+            padding: 1.25rem;
+            width: 220px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+        }
+        
+        .mobile-settings-dropdown.active {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
+           /* Tamanho pré-definido para todas as logos da seção AI */
+            .ai-section .ai-logo {
+                width: 120px !important;
+                height: 120px !important;
+                padding: 0 !important;
+                object-fit: contain !important;
+                background: none !important;
+                border: none !important;
+            }
+            @media (max-width: 576px){
+                .ai-section .ai-logo {
+                    width: 96px !important;
+                    height: 96px !important;
+                }
+            }
     </style>
 </head>
 <body>
@@ -2012,6 +2191,7 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about">Sobre</a></li>
                 <li><a href="#skills">Habilidades</a></li>
+                <li><a href="#ai">IA</a></li> <!-- NOVO LINK PARA IA -->
                 <li><a href="#certifications">Certificações</a></li>
                 <li><a href="#experience">Experiência</a></li>
                 <li><a href="#contact">Contato</a></li>
@@ -2056,11 +2236,40 @@
         <div class="mobile-menu" id="mobileMenu">
             <a href="#about">Sobre</a>
             <a href="#skills">Habilidades</a>
+            <a href="#ai">IA</a> <!-- NOVO LINK PARA IA NO MENU MOBILE -->
             <a href="#certifications">Certificações</a>
             <a href="#experience">Experiência</a>
             <a href="#contact">Contato</a>
             <a href="#snake-game-section">Jogo</a>
             <a href="javascript:void(0);" class="btn" id="downloadCvBtnMobile">Download CV</a>
+            
+            <!-- Configurações no menu mobile - CORRIGIDO: APENAS A ENGRENAGEM -->
+            <div class="mobile-settings-container">
+                <button class="mobile-settings-btn" id="mobileSettingsBtn" aria-label="Configurações">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <div class="mobile-settings-dropdown" id="mobileSettingsDropdown">
+                    <div class="settings-option" id="themeOptionMobile">
+                        <div class="icon">
+                            <i class="fas fa-moon" id="themeIconMobile"></i>
+                        </div>
+                        <span id="themeTextMobile">Modo Escuro</span>
+                    </div>
+                    <div class="settings-option">
+                        <div class="icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <div>
+                            <span>Idioma</span>
+                            <div class="language-selector">
+                                <button class="language-btn active" data-lang="pt">PT</button>
+                                <button class="language-btn" data-lang="en">EN</button>
+                                <button class="language-btn" data-lang="es">ES</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
     
@@ -2210,8 +2419,91 @@
             </div>
         </div>
     </section>
-    
-    <section id="certifications" class="section-light"> <!-- Alterado de section-dark para section-light -->
+    <!-- NOVA SEÇÃO: Entusiasta de IA - CORRIGIDA -->
+    <section id="ai" class="ai-section section-light">
+      
+        <div class="container">
+            <div class="section-header">
+                <h2><span class="highlight">Entusiasta</span> de IA</h2>
+                <p>Explorando e aplicando as mais avançadas ferramentas de Inteligência Artificial</p>
+            </div>
+            <div class="ai-grid">
+                <div class="ai-card">
+                    <img src="logo_chatGPT.png" alt="ChatGPT" class="ai-logo" style="width:72px!important;height:50px!important;">
+                    <h3 class="ai-title">ChatGPT</h3>
+                    <p class="ai-description">Assistente de IA da OpenAI para conversação natural, resolução de problemas e geração de conteúdo.</p>
+                    <div class="ai-focus">
+                        <i class="fas fa-comments"></i>
+                        <span>Conversação & Criatividade</span>
+                    </div>
+                </div>
+                <div class="ai-card">
+                    <img src="logo_gemeni.png" alt="Gemini" class="ai-logo" style="width:72px!important;height:72px!important;">
+                    <h3 class="ai-title">Gemini</h3>
+                    <p class="ai-description">Modelo multimodal do Google que entende texto, imagens, áudio e vídeo simultaneamente.</p>
+                    <div class="ai-focus">
+                        <i class="fas fa-eye"></i>
+                        <span>Multimodalidade</span>
+                    </div>
+                </div>
+                <div class="ai-card">
+                    <img src="logo_grok.png" alt="Grok" class="ai-logo">
+                    <h3 class="ai-title">Grok</h3>
+                    <p class="ai-description">IA com senso de humor e personalidade única, desenvolvida pela xAI com acesso a dados em tempo real.</p>
+                    <div class="ai-focus">
+                        <i class="fas fa-laugh"></i>
+                        <span>Personalidade & Humor</span>
+                    </div>
+                </div>
+                <div class="ai-card">
+                    <img src="logo_github.png" alt="Copilot" class="ai-logo" style="width:72px!important;height:50px!important;">
+                    <h3 class="ai-title">GitHub Copilot</h3>
+                    <p class="ai-description">Assistente de programação que sugere código em tempo real integrado ao editor.</p>
+                    <div class="ai-focus">
+                        <i class="fas fa-code"></i>
+                        <span>Desenvolvimento</span>
+                    </div>
+                </div>
+                <div class="ai-card">
+                    <img src="logo_deepseek.png" alt="DeepSeek" class="ai-logo" >
+                    <h3 class="ai-title">DeepSeek</h3>
+                    <p class="ai-description">Modelo avançado focado em raciocínio complexo e resolução de problemas técnicos.</p>
+                    <div class="ai-focus">
+                        <i class="fas fa-cogs"></i>
+                        <span>Raciocínio Técnico</span>
+                    </div>
+                </div>
+                <div class="ai-card">
+                    <img src="logo_perplexity.png" alt="Perplexity" class="ai-logo">
+                    <h3 class="ai-title">Perplexity</h3>
+                    <p class="ai-description">Assistente de pesquisa com fontes verificadas e respostas baseadas em informações atuais.</p>
+                    <div class="ai-focus">
+                        <i class="fas fa-search"></i>
+                        <span>Pesquisa & Referências</span>
+                    </div>
+                </div>
+                <div class="ai-card">
+                    <img src="logo_v0.png" alt="v0" class="ai-logo" style="width:72px!important;height:65px!important;">
+                    <h3 class="ai-title">V0</h3>
+                    <p class="ai-description">Gerador de interfaces UI a partir de descrições textuais, criado pela Vercel.</p>
+                    <div class="ai-focus">
+                        <i class="fas fa-palette"></i>
+                        <span>Design de Interface</span>
+                    </div>
+                </div>
+                <div class="ai-card">
+                    <img src="logo_lovable.png" alt="Lovable" class="ai-logo">
+                    <h3 class="ai-title">Lovable</h3>
+                    <p class="ai-description">Plataforma que transforma ideias em aplicações web completas com IA.</p>
+                    <div class="ai-focus">
+                        <i class="fas fa-bolt"></i>
+                        <span>Prototipagem Rápida</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="certifications" class="section-light">
         <div class="container">
             <div class="section-header">
                 <h2>Minhas <span class="highlight">Certificações</span></h2>
@@ -2483,20 +2775,19 @@
         // Inicializar Lucide Icons
         lucide.createIcons();
         
-        // Animação de Digitação (Parar o cursor)
+        // Animação de Digitação PERFEITA para todas as telas
         document.addEventListener('DOMContentLoaded', () => {
             const subtitle = document.querySelector('.hero .subtitle');
             if (subtitle) {
-                const typingDuration = 3200;
+                // A animação agora funciona perfeitamente em todas as telas
+                // O CSS já cuida das diferentes velocidades por media query
+                const typingDuration = 3500;
                 const animationDelay = 300;
                 const totalTime = typingDuration + animationDelay;
            
+                // Remove o cursor após a animação
                 setTimeout(() => {
-                    if (window.innerWidth > 768) {
-                        subtitle.style.animationName = 'typing';
-                        subtitle.style.animationPlayState = 'paused';
-                        subtitle.style.borderRightColor = 'transparent';
-                    }
+                    subtitle.style.borderRightColor = 'transparent';
                 }, totalTime + 500);
             }
         });
@@ -2506,6 +2797,7 @@
             const menuToggle = document.getElementById('menuToggle');
             const mobileMenu = document.getElementById('mobileMenu');
             const mobileOverlay = document.getElementById('mobileMenuOverlay');
+            const mobileSettingsDropdown = document.getElementById('mobileSettingsDropdown');
             const isActive = mobileMenu.classList.contains('active');
          
             if (isActive) {
@@ -2515,6 +2807,7 @@
                 mobileOverlay.classList.remove('active');
                 menuToggle.classList.remove('active');
                 menuToggle.setAttribute('aria-expanded', false);
+                mobileSettingsDropdown.classList.remove('active');
             } else {
                 // Animação de entrada fluida
                 mobileMenu.classList.add('active');
@@ -2528,6 +2821,8 @@
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileSettingsBtn = document.getElementById('mobileSettingsBtn');
+        const mobileSettingsDropdown = document.getElementById('mobileSettingsDropdown');
      
         menuToggle.addEventListener('click', toggleMobileMenu);
      
@@ -2537,10 +2832,23 @@
         // Close mobile menu when clicking on a link
         document.querySelectorAll('.mobile-menu a').forEach(link => {
             link.addEventListener('click', (e) => {
-                if (link.getAttribute('href').startsWith('#')) {
+                if (link.getAttribute('href') && link.getAttribute('href').startsWith('#')) {
                     toggleMobileMenu();
                 }
             });
+        });
+     
+        // Toggle mobile settings dropdown
+        mobileSettingsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileSettingsDropdown.classList.toggle('active');
+        });
+        
+        // Fechar dropdown de configurações mobile ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (!mobileSettingsBtn.contains(e.target) && !mobileSettingsDropdown.contains(e.target)) {
+                mobileSettingsDropdown.classList.remove('active');
+            }
         });
      
         // Header scroll effect
@@ -2669,6 +2977,8 @@
         const html = document.documentElement;
         const themeText = document.getElementById('themeText');
         const themeIcon = document.getElementById('themeIcon');
+        const themeTextMobile = document.getElementById('themeTextMobile');
+        const themeIconMobile = document.getElementById('themeIconMobile');
         
         // Verifica o tema salvo no localStorage
         const currentTheme = localStorage.getItem('theme') || 'dark';
@@ -2683,9 +2993,13 @@
             if (theme === 'light') {
                 themeIcon.className = 'fas fa-sun';
                 themeText.textContent = 'Modo Claro';
+                if (themeIconMobile) themeIconMobile.className = 'fas fa-sun';
+                if (themeTextMobile) themeTextMobile.textContent = 'Modo Claro';
             } else {
                 themeIcon.className = 'fas fa-moon';
                 themeText.textContent = 'Modo Escuro';
+                if (themeIconMobile) themeIconMobile.className = 'fas fa-moon';
+                if (themeTextMobile) themeTextMobile.textContent = 'Modo Escuro';
             }
         }
         
@@ -2698,6 +3012,9 @@
         
         // Eventos para alternar tema
         document.getElementById('themeOption').addEventListener('click', toggleTheme);
+        document.getElementById('themeOptionMobile').addEventListener('click', () => {
+            toggleTheme();
+        });
         
         // --- Sistema de Idioma - TRADUÇÕES MELHORADAS ---
         function updateLanguage(lang) {
@@ -2725,6 +3042,7 @@
                     'title': 'Edinaldo Almeida | Desenvolvedor Front-End & Técnico de Informática',
                     'about': 'Sobre',
                     'skills': 'Habilidades',
+                    'ai': 'IA', // NOVA TRADUÇÃO
                     'certifications': 'Certificações',
                     'experience': 'Experiência',
                     'contact': 'Contato',
@@ -2741,6 +3059,8 @@
                     'aboutSubtitle': 'Desenvolvedor apaixonado por criar soluções digitais que fazem a diferença',
                     'skillsTitle': '<span class="highlight">Habilidades</span> & Tecnologias',
                     'skillsSubtitle': 'Ferramentas e tecnologias que domino',
+                    'aiTitle': '<span class="highlight">Entusiasta</span> de IA', // NOVA SEÇÃO
+                    'aiSubtitle': 'Explorando e aplicando as mais avançadas ferramentas de Inteligência Artificial',
                     'certificationsTitle': 'Minhas <span class="highlight">Certificações</span>',
                     'certificationsSubtitle': 'Certificados obtidos em cursos e treinamentos relevantes',
                     'experienceTitle': 'Experiência <span class="highlight">Profissional</span>',
@@ -2798,6 +3118,7 @@
                     'title': 'Edinaldo Almeida | Front-End Developer & IT Technician',
                     'about': 'About',
                     'skills': 'Skills',
+                    'ai': 'AI', // NOVA TRADUÇÃO
                     'certifications': 'Certifications',
                     'experience': 'Experience',
                     'contact': 'Contact',
@@ -2814,6 +3135,8 @@
                     'aboutSubtitle': 'Developer passionate about creating digital solutions that make a difference',
                     'skillsTitle': '<span class="highlight">Skills</span> & Technologies',
                     'skillsSubtitle': 'Tools and technologies I master',
+                    'aiTitle': 'AI <span class="highlight">Enthusiast</span>', // NOVA SEÇÃO
+                    'aiSubtitle': 'Exploring and applying the most advanced Artificial Intelligence tools',
                     'certificationsTitle': 'My <span class="highlight">Certifications</span>',
                     'certificationsSubtitle': 'Certificates obtained from relevant courses and training',
                     'experienceTitle': 'Professional <span class="highlight">Experience</span>',
@@ -2871,6 +3194,7 @@
                     'title': 'Edinaldo Almeida | Desarrollador Front-End & Técnico de Informática',
                     'about': 'Sobre',
                     'skills': 'Habilidades',
+                    'ai': 'IA', // NOVA TRADUÇÃO
                     'certifications': 'Certificaciones',
                     'experience': 'Experiencia',
                     'contact': 'Contacto',
@@ -2887,6 +3211,8 @@
                     'aboutSubtitle': 'Desarrollador apasionado por crear soluciones digitales que marcan la diferencia',
                     'skillsTitle': '<span class="highlight">Habilidades</span> & Tecnologías',
                     'skillsSubtitle': 'Herramientas y tecnologías que domino',
+                    'aiTitle': '<span class="highlight">Entusiasta</span> de IA', // NOVA SEÇÃO
+                    'aiSubtitle': 'Explorando y aplicando las herramientas más avanzadas de Inteligencia Artificial',
                     'certificationsTitle': 'Mis <span class="highlight">Certificaciones</span>',
                     'certificationsSubtitle': 'Certificados obtenidos en cursos y entrenamientos relevantes',
                     'experienceTitle': 'Experiencia <span class="highlight">Profesional</span>',
@@ -2949,6 +3275,7 @@
             // Atualizar elementos de navegação
             document.querySelectorAll('a[href="#about"]').forEach(el => el.textContent = t.about);
             document.querySelectorAll('a[href="#skills"]').forEach(el => el.textContent = t.skills);
+            document.querySelectorAll('a[href="#ai"]').forEach(el => el.textContent = t.ai); // NOVO
             document.querySelectorAll('a[href="#certifications"]').forEach(el => el.textContent = t.certifications);
             document.querySelectorAll('a[href="#experience"]').forEach(el => el.textContent = t.experience);
             document.querySelectorAll('a[href="#contact"]').forEach(el => el.textContent = t.contact);
@@ -2965,6 +3292,8 @@
             document.querySelector('#about .section-header p').textContent = t.aboutSubtitle;
             document.querySelector('#skills .section-header h2').innerHTML = t.skillsTitle;
             document.querySelector('#skills .section-header p').textContent = t.skillsSubtitle;
+            document.querySelector('#ai .section-header h2').innerHTML = t.aiTitle; // NOVO
+            document.querySelector('#ai .section-header p').textContent = t.aiSubtitle; // NOVO
             document.querySelector('#certifications .section-header h2').innerHTML = t.certificationsTitle;
             document.querySelector('#certifications .section-header p').textContent = t.certificationsSubtitle;
             document.querySelector('#experience .section-header h2').innerHTML = t.experienceTitle;
@@ -3352,7 +3681,7 @@
     </script>
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PE57EL5GRG"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
