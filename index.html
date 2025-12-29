@@ -395,27 +395,69 @@
         }
      
         /* Menu Mobile Premium - CORREÇÃO: Aumentado z-index para 1000 */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 1.5rem;
-            transform: translateX(-100%);
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            z-index: 1000; /* AUMENTADO de 999 para 1000 */
-            padding: 2rem;
-            opacity: 0;
-            visibility: hidden;
-        }
+       /* CORREÇÃO: Scroll no Menu Mobile */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Mudado de center para flex-start */
+    align-items: center;
+    padding: 100px 2rem 2rem; /* Espaço no topo para o header fixo */
+    gap: 1rem;
+    transform: translateX(-100%);
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    overflow-y: auto; /* ATIVA O SCROLL VERTICAL */
+    overflow-x: hidden;
+}
+
+/* Estiliza a barra de rolagem (WebKit - Chrome, Safari, Edge) */
+.mobile-menu::-webkit-scrollbar {
+    width: 8px;
+}
+
+.mobile-menu::-webkit-scrollbar-track {
+    background: rgba(20, 20, 20, 0.5);
+    border-radius: 10px;
+}
+
+.mobile-menu::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(230, 194, 0, 0.4);
+}
+
+.mobile-menu::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-dark);
+}
+
+/* Para Firefox */
+.mobile-menu {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) rgba(20, 20, 20, 0.5);
+}
+
+/* Ajuste no light mode */
+[data-theme="light"] .mobile-menu {
+    background: rgba(245, 247, 250, 0.98);
+}
+
+[data-theme="light"] .mobile-menu::-webkit-scrollbar-track {
+    background: rgba(230, 230, 230, 0.5);
+}
+
+[data-theme="light"] .mobile-menu::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+}
       
         [data-theme="light"] .mobile-menu {
             background: rgba(245, 247, 250, 0.98);
