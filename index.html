@@ -394,7 +394,7 @@
             visibility: visible;
         }
      
-        /* Menu Mobile Premium */
+        /* Menu Mobile Premium - CORREÇÃO: Aumentado z-index para 1000 */
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -411,7 +411,7 @@
             gap: 1.5rem;
             transform: translateX(-100%);
             transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            z-index: 999;
+            z-index: 1000; /* AUMENTADO de 999 para 1000 */
             padding: 2rem;
             opacity: 0;
             visibility: hidden;
@@ -1150,7 +1150,7 @@
             z-index: 3;
         }
      
-        /* Experience Section */
+        /* Experience Section - CORREÇÃO: Melhor responsividade */
         .experience-timeline {
             position: relative;
             padding: 2.5rem 0;
@@ -1247,7 +1247,7 @@
      
         .experience-content {
             background: var(--color-card);
-            padding: 3rem;
+            padding: 2.5rem; /* REDUZIDO de 3rem para 2.5rem */
             border-radius: 1.5rem;
             border: 1px solid var(--color-border);
             box-shadow: var(--shadow-soft);
@@ -1955,7 +1955,7 @@
             animation: scaleIn 0.6s ease-out;
         }
      
-        /* Container de configurações mobile */
+        /* Container de configurações mobile - CORREÇÃO: Aumentado z-index */
         .mobile-settings-container {
             margin-top: 3rem;
             display: flex;
@@ -1967,6 +1967,8 @@
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             width: 100%;
             max-width: 320px;
+            position: relative;
+            z-index: 1001; /* AUMENTADO para ficar acima do menu */
         }
         
         .mobile-menu.active .mobile-settings-container {
@@ -1997,7 +1999,7 @@
             transform: scale(1.1) rotate(30deg);
         }
         
-        /* Dropdown de configurações mobile */
+        /* Dropdown de configurações mobile - CORREÇÃO: Aumentado z-index e ajustado posicionamento */
         .mobile-settings-dropdown {
             background: var(--color-card);
             border-radius: 1rem;
@@ -2010,6 +2012,8 @@
             transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             opacity: 0;
             margin-top: 0;
+            position: relative;
+            z-index: 1002; /* AUMENTADO para garantir visibilidade */
         }
         
         .mobile-settings-dropdown.active {
@@ -2017,6 +2021,7 @@
             opacity: 1;
             margin-top: 1rem;
             animation: scaleIn 0.4s ease-out;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
 
         /* Tamanho pré-definido para todas as logos da seção AI */
@@ -2048,6 +2053,16 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1200px) {
+            .experience-item {
+                gap: 1.5rem;
+            }
+            
+            .experience-content {
+                padding: 2rem; /* Mais reduzido para telas menores */
+            }
+        }
+     
         @media (max-width: 992px) {
             .settings-menu {
                 display: inline-block;
@@ -2056,6 +2071,15 @@
             .settings-dropdown {
                 width: 200px;
                 right: 0;
+            }
+            
+            .experience-content {
+                padding: 1.75rem;
+            }
+            
+            .experience-description,
+            .achievement-item {
+                font-size: 0.95rem;
             }
         }
      
@@ -2087,6 +2111,17 @@
                 width: 2.8rem;
                 height: 2.8rem;
                 font-size: 1.1rem;
+            }
+            
+            /* CORREÇÃO: Ajuste do dropdown de configurações para mobile */
+            .settings-dropdown {
+                position: fixed;
+                top: 5rem;
+                right: 1.5rem;
+                left: 1.5rem;
+                width: auto;
+                max-width: calc(100% - 3rem);
+                z-index: 1003; /* MAIS ALTO para ficar acima do menu mobile */
             }
             
             /* Ajustes de layout para mobile */
@@ -2140,20 +2175,19 @@
                 height: 20px;
             }
          
+            /* CORREÇÃO COMPLETA: Timeline para mobile - simplificada */
             .timeline-line {
-                left: 1.5rem;
-                transform: translateX(0);
+                display: none;
             }
          
             .timeline-dot {
-                left: 1.5rem;
-                transform: translateX(-50%);
+                display: none;
             }
          
             .experience-item {
                 grid-template-columns: 1fr;
-                padding-left: 3.5rem;
-                margin-bottom: 4rem;
+                padding-left: 0;
+                margin-bottom: 3rem;
                 gap: 0;
             }
          
@@ -2161,6 +2195,7 @@
             .experience-item:nth-child(even) > .experience-content {
                 grid-column: 1 / 2;
                 text-align: left;
+                padding: 1.5rem; /* REDUZIDO para mobile */
             }
          
             .experience-spacer {
@@ -2174,39 +2209,85 @@
             .experience-item:nth-child(odd) .experience-content::before {
                 left: 0;
                 right: auto;
+                width: 4px;
             }
          
-            .experience-item:nth-child(odd) .experience-header {
+            .experience-item:nth-child(even) .experience-content::before {
+                left: 0;
+                right: auto;
+                width: 4px;
+            }
+         
+            .experience-item:nth-child(odd) .experience-header,
+            .experience-item:nth-child(even) .experience-header {
                 justify-content: flex-start;
                 text-align: left;
+                flex-direction: column;
             }
          
-            .experience-item:nth-child(odd) .experience-period {
+            .experience-item:nth-child(odd) .experience-period,
+            .experience-item:nth-child(even) .experience-period {
                 justify-content: flex-start;
             }
          
-            .experience-item:nth-child(odd) .achievements-title {
+            .experience-item:nth-child(odd) .achievements-title,
+            .experience-item:nth-child(even) .achievements-title {
                 justify-content: flex-start;
             }
          
-            .experience-item:nth-child(odd) .achievements-list {
+            .experience-item:nth-child(odd) .achievements-list,
+            .experience-item:nth-child(even) .achievements-list {
                  text-align: left;
             }
          
-            .experience-item:nth-child(odd) .company-logo {
-                float: left;
-                margin-right: 1.5rem;
-                margin-left: 0;
+            /* Ajuste das logos da empresa para mobile */
+            .company-logo {
+                width: 3.5rem;
+                height: 3.5rem;
+                float: none !important;
+                margin: 0 auto 1rem !important;
+                display: block;
             }
-         
-            .experience-item:nth-child(odd) .achievement-item {
-                justify-content: flex-start;
-                flex-direction: row;
+            
+            .experience-header {
+                text-align: center;
             }
-         
-            .experience-item:nth-child(odd) .achievement-item::before {
-                 margin-left: 0;
-                 margin-right: 0.75rem;
+            
+            .experience-title h3 {
+                font-size: 1.3rem;
+                text-align: center;
+            }
+            
+            .experience-company {
+                font-size: 1rem;
+                text-align: center;
+            }
+            
+            .experience-period {
+                justify-content: center !important;
+                font-size: 0.9rem;
+            }
+            
+            .experience-description {
+                font-size: 0.95rem;
+                text-align: justify;
+            }
+            
+            .achievements-title {
+                font-size: 1rem;
+                justify-content: center;
+            }
+            
+            .achievement-item {
+                font-size: 0.9rem;
+                line-height: 1.5;
+                margin-bottom: 0.75rem;
+            }
+            
+            .achievement-item::before {
+                width: 1.5rem;
+                height: 1.5rem;
+                font-size: 0.8rem;
             }
          
             .hero-buttons {
@@ -2218,11 +2299,6 @@
             .hero-buttons .btn-outline {
                 width: 100%;
                 max-width: 280px;
-            }
-         
-            .company-logo {
-                width: 4rem;
-                height: 4rem;
             }
          
             /* Ícones de Contato (Mobile) */
@@ -2260,16 +2336,20 @@
                 padding: 2rem 1.5rem;
             }
             
-            /* Menu de configurações responsivo */
-            .settings-dropdown {
-                width: 200px;
-                right: -50px;
-            }
-            
             /* AI logos ajustados para mobile */
             .ai-section .ai-logo {
                 width: 96px !important;
                 height: 96px !important;
+            }
+            
+            /* Configurações mobile com mais espaço */
+            .mobile-settings-container {
+                margin-top: 2rem;
+                max-width: 300px;
+            }
+            
+            .mobile-settings-dropdown {
+                max-width: 300px;
             }
         }
      
@@ -2317,6 +2397,37 @@
                 font-size: 0.9rem;
                 width: 18px;
                 height: 18px;
+            }
+            
+            /* CORREÇÃO: Ajuste da timeline para telas muito pequenas */
+            .experience-content {
+                padding: 1.25rem;
+            }
+            
+            .experience-title h3 {
+                font-size: 1.2rem;
+            }
+            
+            .experience-company {
+                font-size: 0.95rem;
+            }
+            
+            .experience-description {
+                font-size: 0.9rem;
+            }
+            
+            .achievement-item {
+                font-size: 0.85rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .achievement-item::before {
+                margin: 0 auto;
+            }
+            
+            .experience-cta p {
+                font-size: 1.1rem;
             }
         }
 
@@ -2391,6 +2502,28 @@
                 max-width: 260px;
                 padding: 1rem;
             }
+            
+            /* CORREÇÃO: Timeline ainda mais compacta */
+            .experience-content {
+                padding: 1rem;
+            }
+            
+            .company-logo {
+                width: 3rem;
+                height: 3rem;
+            }
+            
+            .experience-title h3 {
+                font-size: 1.1rem;
+            }
+            
+            .achievements-list {
+                padding-left: 0;
+            }
+            
+            .achievement-item {
+                margin-bottom: 0.5rem;
+            }
         }
         
         @media (max-width: 360px) {
@@ -2442,6 +2575,35 @@
             .settings-option {
                 padding: 0.6rem 0;
                 font-size: 0.9rem;
+            }
+            
+            /* CORREÇÃO FINAL: Timeline para telas muito pequenas */
+            .experience-content {
+                padding: 0.75rem;
+            }
+            
+            .experience-title h3 {
+                font-size: 1rem;
+            }
+            
+            .experience-company {
+                font-size: 0.9rem;
+            }
+            
+            .experience-period {
+                font-size: 0.8rem;
+            }
+            
+            .experience-description {
+                font-size: 0.85rem;
+            }
+            
+            .achievements-title {
+                font-size: 0.9rem;
+            }
+            
+            .achievement-item {
+                font-size: 0.8rem;
             }
         }
      
@@ -2870,6 +3032,7 @@
                 <div class="timeline-line"></div>
                 
                 <div class="experience-item">
+                    <div class="timeline-dot"></div>
                     <div class="experience-content">
                         <div class="experience-header">
                             <div class="company-logo">
@@ -2902,6 +3065,7 @@
                 
                 <div class="experience-item">
                     <div class="experience-spacer"></div>
+                    <div class="timeline-dot"></div>
                     <div class="experience-content">
                         <div class="experience-header">
                             <div class="company-logo">
@@ -2932,6 +3096,7 @@
                 </div>
                 
                 <div class="experience-item">
+                    <div class="timeline-dot"></div>
                     <div class="experience-content">
                         <div class="experience-header">
                             <div class="company-logo">
@@ -3134,10 +3299,13 @@
             const mobileMenu = document.getElementById('mobileMenu');
             const mobileOverlay = document.getElementById('mobileMenuOverlay');
             const mobileSettingsDropdown = document.getElementById('mobileSettingsDropdown');
+            const settingsDropdown = document.getElementById('settingsDropdown');
+            const settingsMenu = document.getElementById('settingsMenu');
             const isActive = mobileMenu.classList.contains('active');
             
-            // Garantir que o dropdown de configurações seja fechado
+            // Garantir que os dropdowns sejam fechados
             mobileSettingsDropdown.classList.remove('active');
+            settingsMenu.classList.remove('active');
             
             // Impedir scroll do body quando menu aberto
             document.body.style.overflow = isActive ? 'auto' : 'hidden';
@@ -3167,6 +3335,9 @@
         const mobileOverlay = document.getElementById('mobileMenuOverlay');
         const mobileSettingsBtn = document.getElementById('mobileSettingsBtn');
         const mobileSettingsDropdown = document.getElementById('mobileSettingsDropdown');
+        const settingsMenu = document.getElementById('settingsMenu');
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsDropdown = document.getElementById('settingsDropdown');
      
         // Prevenir clique duplo
         let menuClickTimeout;
@@ -3221,6 +3392,17 @@
             if (!mobileSettingsBtn.contains(e.target) && !mobileSettingsDropdown.contains(e.target)) {
                 mobileSettingsDropdown.classList.remove('active');
             }
+            
+            // Fechar dropdown principal ao clicar fora
+            if (!settingsMenu.contains(e.target)) {
+                settingsMenu.classList.remove('active');
+            }
+        });
+        
+        // CORREÇÃO: Toggle do menu de configurações principal
+        settingsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            settingsMenu.classList.toggle('active');
         });
      
         // Header scroll effect
@@ -3565,7 +3747,7 @@
                     'namePlaceholder': 'Tu Nombre',
                     'emailPlaceholder': 'Tu Email',
                     'messagePlaceholder': 'Tu Mensaje',
-                    'aboutText': 'Con experiencia en desarrollo web y soporte técnico, trabajo con diversas tecnologías y metodologías. Mi enfoque está en criar aplicações robustas, escaláveis e com excelente experiencia de usuario. <span class="highlight-text">Me encanta aprender nuevas tecnologías</span> y aplicarlas en proyectos desafiantes, siempre buscando la mejor solución para cada problema.',
+                    'aboutText': 'Con experiencia en desarrollo web y soporte técnico, trabalho com diversas tecnologías y metodologías. Mi enfoque está en criar aplicações robustas, escaláveis e com excelente experiencia de usuario. <span class="highlight-text">Me encanta aprender nuevas tecnologías</span> y aplicarlas en proyectos desafiantes, siempre buscando la mejor solución para cada problema.',
                     'current': 'Actualmente',
                     'year': 'año',
                     'years': 'años',
@@ -3675,22 +3857,6 @@
                 const lang = btn.dataset.lang;
                 updateLanguage(lang);
             });
-        });
-        
-        // --- Menu de Configurações ---
-        const settingsMenu = document.getElementById('settingsMenu');
-        const settingsBtn = document.getElementById('settingsBtn');
-        const settingsDropdown = document.getElementById('settingsDropdown');
-        
-        settingsBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            settingsMenu.classList.toggle('active');
-        });
-        
-        document.addEventListener('click', (e) => {
-            if (!settingsMenu.contains(e.target)) {
-                settingsMenu.classList.remove('active');
-            }
         });
         
         // --- Snake Game Implementation ---
