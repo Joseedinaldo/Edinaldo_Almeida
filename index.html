@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edinaldo Almeida | Desenvolvedor Front-End & Técnico de Informática</title>
     <meta name="description" content="Portfolio profissional de Edinaldo Almeida - Desenvolvedor Front-End e Técnico de Informática especializado em React, TypeScript e soluções web modernas.">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
  
     <!-- Biblioteca de ícones moderna (Font Awesome 6) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,7 +20,7 @@
  
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
  
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
  
@@ -24,6 +30,14 @@
     
     <!-- Biblioteca de ícones Lucide para ícones mais modernos -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- SweetAlert2 para notificações modernas -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- GSAP para animações avançadas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
     
     <style>
         * {
@@ -47,6 +61,9 @@
             --glass-border: rgba(255, 255, 255, 0.1);
             --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.2);
             --shadow-hover: 0 10px 40px rgba(230, 194, 0, 0.2);
+            --header-height: 80px;
+            --menu-bg: rgba(5, 5, 5, 0.98);
+            --menu-blur: blur(30px);
         }
       
         /* Light Mode - CINZA PROFISSIONAL */
@@ -64,6 +81,7 @@
             --glass-border: rgba(0, 0, 0, 0.1);
             --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
             --shadow-hover: 0 10px 40px rgba(230, 194, 0, 0.15);
+            --menu-bg: rgba(255, 255, 255, 0.98);
         }
      
         body {
@@ -74,11 +92,87 @@
             overflow-x: hidden;
             font-weight: 400;
             letter-spacing: -0.01em;
-            transition: background 0.3s ease, color 0.3s ease;
+            transition: background 0.5s ease, color 0.5s ease;
+            cursor: default;
         }
      
         html {
             scroll-behavior: smooth;
+        }
+     
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .preloader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .preloader-content {
+            text-align: center;
+        }
+        
+        .preloader-logo {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .preloader-progress {
+            width: 200px;
+            height: 4px;
+            background: var(--color-border);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .preloader-progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--color-primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+     
+        /* Page Transitions */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-primary);
+            z-index: 9998;
+            transform: translateX(100%);
+            pointer-events: none;
+        }
+        
+        .page-transition.active {
+            animation: slideIn 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+        }
+        
+        .page-transition.reverse {
+            animation: slideOut 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
         }
      
         /* Header */
@@ -91,6 +185,8 @@
             background: transparent;
             transition: var(--transition);
             border-bottom: none;
+            height: var(--header-height);
+            backdrop-filter: blur(0px);
         }
      
         header.scrolled {
@@ -106,22 +202,24 @@
         }
      
         nav {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 1.25rem 1.5rem;
+            padding: 1.25rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
      
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.8rem;
+            font-weight: 900;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             letter-spacing: -0.03em;
             color: var(--color-primary);
+            position: relative;
+            overflow: hidden;
         }
      
         .logo .bracket {
@@ -131,12 +229,12 @@
      
         .nav-links {
             display: flex;
-            gap: 1.5rem;
+            gap: 2rem;
             list-style: none;
             align-items: center;
         }
         
-        /* Configurações do menu de configurações - VISÍVEL EM TODOS OS DISPOSITIVOS */
+        /* Menu de Configurações */
         .settings-menu {
             position: relative;
             display: inline-block;
@@ -146,8 +244,8 @@
             background: transparent;
             border: 1px solid var(--color-border);
             border-radius: 50%;
-            width: 2.5rem;
-            height: 2.5rem;
+            width: 3rem;
+            height: 3rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -155,46 +253,49 @@
             transition: var(--transition);
             color: var(--color-fg);
             font-size: 1.2rem;
+            position: relative;
         }
         
         .settings-btn:hover {
             border-color: var(--color-primary);
             color: var(--color-primary);
             transform: rotate(30deg);
+            box-shadow: 0 0 20px rgba(230, 194, 0, 0.3);
         }
         
         .settings-dropdown {
             position: absolute;
             top: 100%;
             right: 0;
-            width: 220px;
+            width: 240px;
             background: var(--color-card);
-            border-radius: 1rem;
+            border-radius: 1.5rem;
             border: 1px solid var(--color-border);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            padding: 1.25rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(-20px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             z-index: 1001;
+            backdrop-filter: blur(20px);
         }
         
         [data-theme="light"] .settings-dropdown {
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
         }
         
         .settings-menu.active .settings-dropdown {
             opacity: 1;
             visibility: visible;
-            transform: translateY(10px);
+            transform: translateY(10px) scale(1);
         }
         
         .settings-option {
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 0.75rem 0;
+            padding: 1rem 0;
             cursor: pointer;
             transition: var(--transition);
             border-bottom: 1px solid var(--color-border);
@@ -206,30 +307,33 @@
         
         .settings-option:hover {
             color: var(--color-primary);
+            transform: translateX(5px);
         }
         
         .settings-option .icon {
-            width: 1.25rem;
-            height: 1.25rem;
+            width: 1.5rem;
+            height: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: var(--transition);
         }
         
         .language-selector {
             display: flex;
             gap: 0.5rem;
-            margin-top: 0.5rem;
+            margin-top: 0.75rem;
         }
         
         .language-btn {
-            padding: 0.4rem 0.75rem;
+            padding: 0.5rem 1rem;
             background: transparent;
             border: 1px solid var(--color-border);
-            border-radius: 0.5rem;
+            border-radius: 0.75rem;
             cursor: pointer;
             transition: var(--transition);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 500;
         }
         
         .language-btn:hover,
@@ -237,10 +341,8 @@
             background: var(--color-primary);
             color: var(--color-bg);
             border-color: var(--color-primary);
-        }
-      
-        .theme-toggle {
-            display: none; /* Escondido porque agora está no menu de configurações */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 194, 0, 0.3);
         }
      
         .nav-links a {
@@ -251,6 +353,24 @@
             font-size: 0.95rem;
             letter-spacing: 0.05em;
             opacity: 0.8;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+     
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width 0.3s ease;
+        }
+     
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
         }
      
         .nav-links a:hover {
@@ -262,130 +382,414 @@
             opacity: 1;
             color: var(--color-primary);
         }
-     
-        .btn {
-            padding: 0.75rem 1.5rem;
-            background: transparent;
-            color: var(--color-primary);
-            border: 1px solid var(--color-primary);
-            border-radius: 50px;
-            font-weight: 500;
+
+        /* ===================================================
+           BOTÃO DOWNLOAD CV SUPER PREMIUM COM ANIMAÇÃO ESPETACULAR
+           =================================================== */
+        .cv-download-btn {
+            padding: 1rem 2.8rem;
+            background: linear-gradient(135deg, 
+                #e6c200 0%, 
+                #ffd700 25%, 
+                #ffed4e 50%, 
+                #ffd700 75%, 
+                #e6c200 100%);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 60px;
+            font-weight: 900;
             cursor: pointer;
             text-decoration: none;
-            transition: var(--transition);
-            font-size: 0.95rem;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            letter-spacing: 0.02em;
+            box-shadow: 
+                0 0 0 2px rgba(230, 194, 0, 0.3),
+                0 10px 40px rgba(230, 194, 0, 0.25),
+                0 0 0 4px rgba(255, 255, 255, 0.05);
+            z-index: 1;
+            text-transform: uppercase;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
-     
-        .btn:hover {
-            background: var(--color-primary);
-            color: var(--color-bg);
-            box-shadow: var(--shadow-hover);
+
+        /* Brilho pulsante no fundo */
+        .cv-download-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                transparent 70%);
+            background-size: 200% 200%;
+            border-radius: 60px;
+            z-index: -1;
+            animation: btn-pulse 3s ease-in-out infinite;
+            opacity: 0.6;
         }
-      
-        /* CORREÇÃO DEFINITIVA: Regra específica para o botão de CV no hover */
-        .nav-links a.btn:hover {
-            color: var(--color-bg) !important; /* Força o texto a ser preto */
+
+        /* Anel dourado externo animado */
+        .cv-download-btn::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(45deg, 
+                #e6c200, 
+                #ffd700, 
+                #ffed4e, 
+                #ffd700, 
+                #e6c200);
+            background-size: 400% 400%;
+            border-radius: 64px;
+            z-index: -2;
+            animation: btn-ring-rotate 4s linear infinite;
+            opacity: 0.7;
+            filter: blur(2px);
+        }
+
+        /* Efeito de partículas douradas */
+        .cv-download-btn .particles {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffed4e;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            box-shadow: 
+                0 0 10px #ffed4e,
+                0 0 20px #ffed4e,
+                0 0 30px #ffed4e;
+        }
+
+        /* Efeito hover - expansão e brilho intenso */
+        .cv-download-btn:hover {
+            transform: translateY(-8px) scale(1.08);
+            box-shadow: 
+                0 0 0 3px rgba(230, 194, 0, 0.5),
+                0 20px 60px rgba(230, 194, 0, 0.4),
+                0 0 30px rgba(255, 237, 78, 0.3);
+            letter-spacing: 0.05em;
+        }
+
+        .cv-download-btn:hover::before {
+            opacity: 0.8;
+            animation: btn-pulse 1.5s ease-in-out infinite;
+        }
+
+        .cv-download-btn:hover::after {
+            opacity: 0.9;
+            animation: btn-ring-rotate 2s linear infinite;
+            filter: blur(1px);
+        }
+
+        /* Icon animation */
+        .cv-download-btn .btn-icon {
+            font-size: 1.3rem;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 10px rgba(255, 237, 78, 0.5);
+        }
+
+        .cv-download-btn:hover .btn-icon {
+            transform: translateY(3px) rotate(15deg) scale(1.2);
+            filter: drop-shadow(0 0 15px rgba(255, 237, 78, 0.8));
+        }
+
+        .cv-download-btn .btn-text {
+            position: relative;
+            z-index: 2;
+            font-weight: 900;
+            background: linear-gradient(90deg, #0a0a0a, #333, #0a0a0a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
+            padding: 0.2em 0;
+            letter-spacing: 0.05em;
+        }
+
+        /* Animações do botão */
+        @keyframes btn-pulse {
+            0%, 100% {
+                background-position: 0% 50%;
+                opacity: 0.6;
+            }
+            50% {
+                background-position: 100% 50%;
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes btn-ring-rotate {
+            0% {
+                background-position: 0% 50%;
+                transform: rotate(0deg);
+            }
+            100% {
+                background-position: 400% 50%;
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Versão Mobile */
+        .cv-download-btn.mobile {
+            width: 100%;
+            justify-content: center;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            background: linear-gradient(135deg, 
+                #e6c200 0%, 
+                #ffd700 25%, 
+                #ffed4e 50%, 
+                #ffd700 75%, 
+                #e6c200 100%);
+        }
+
+        .cv-download-btn.mobile:hover {
+            background: linear-gradient(135deg, 
+                #ffd700 0%, 
+                #ffed4e 25%, 
+                #ffff6b 50%, 
+                #ffed4e 75%, 
+                #ffd700 100%);
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        /* ===================================================
+           BOTÃO ENVIAR MENSAGEM - LADO A LADO
+           =================================================== */
+        .form-submit-btn {
+            padding: 1rem 2.8rem;
+            background: linear-gradient(135deg, 
+                var(--color-primary) 0%, 
+                var(--color-primary-dark) 100%);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 60px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            letter-spacing: 0.02em;
+            box-shadow: 
+                0 8px 30px rgba(230, 194, 0, 0.3),
+                0 0 0 1px rgba(230, 194, 0, 0.2);
+            z-index: 1;
+            text-transform: uppercase;
+            margin: 1rem auto 0;
+            min-width: 220px;
+            width: auto;
+        }
+
+        /* Container para ícone e texto lado a lado */
+        .form-submit-btn .btn-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-submit-btn .btn-icon {
+            font-size: 1.2rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: inline-block;
+            line-height: 1;
+        }
+
+        .form-submit-btn .btn-text {
+            font-weight: 800;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            line-height: 1;
+            letter-spacing: 0.03em;
+        }
+
+        /* Efeito de brilho interno */
+        .form-submit-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                #e6c200, #ffd700, #ffed4e, #ffd700, #e6c200);
+            background-size: 400% 400%;
+            border-radius: 62px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            animation: btn-shine 3s linear infinite;
+        }
+
+        /* Efeito de expansão de luz amarela ao clicar */
+        .form-submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, 
+                rgba(255, 237, 78, 0.6) 0%,
+                rgba(255, 215, 0, 0.4) 30%,
+                rgba(230, 194, 0, 0.2) 50%,
+                transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                        height 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 0;
+        }
+
+        /* Efeito hover */
+        .form-submit-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 15px 40px rgba(230, 194, 0, 0.4),
+                0 0 20px rgba(255, 215, 0, 0.3),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+            letter-spacing: 0.04em;
+        }
+
+        /* Ativar brilho no hover */
+        .form-submit-btn:hover::before {
             opacity: 1;
         }
+
+        /* Efeito de clique - luz se expande */
+        .form-submit-btn:active::after {
+            width: 250px;
+            height: 250px;
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        .form-submit-btn:hover .btn-icon {
+            transform: translateY(2px) rotate(10deg);
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+        }
+
+        /* Animação do brilho da borda */
+        @keyframes btn-shine {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 400% 0%;
+            }
+        }
      
-        /* --- MENU HAMBURGUER PREMIUM --- */
+        /* ===================================================
+           MENU HAMBURGUER PROFISSIONAL ELEGANTE - CORRIGIDO
+           =================================================== */
         .menu-toggle {
-            display: none; /* Oculto por padrão em telas grandes */
+            display: none;
             align-items: center;
             background: transparent;
             border: none;
-            border-radius: 50%;
             cursor: pointer;
             z-index: 1001;
             transition: var(--transition);
             position: relative;
-            width: 3rem;
-            height: 3rem;
+            width: 48px;
+            height: 48px;
             margin-left: auto;
+            border-radius: 50%;
+            padding: 0;
         }
      
+        .menu-toggle:hover {
+            background: rgba(230, 194, 0, 0.1);
+        }
+        
+        /* Hamburger Lines minimalista e elegante */
         .hamburger {
-            width: 24px;
-            height: 2px;
+            width: 32px;
+            height: 32px;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
         
-        .hamburger span {
-            display: block;
-            width: 100%;
-            height: 100%;
-            background-color: var(--color-fg);
-            border-radius: 2px;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            position: relative;
-            transform-origin: center;
-        }
-        
-        .hamburger span::before,
-        .hamburger span::after {
-            content: '';
+        .hamburger-line {
             position: absolute;
             width: 100%;
-            height: 100%;
-            background-color: var(--color-fg);
-            border-radius: 2px;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        
-        .hamburger span::before {
-            top: -8px;
+            height: 3px;
+            background: var(--color-fg);
+            border-radius: 3px;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             transform-origin: center;
         }
         
-        .hamburger span::after {
+        .hamburger-line:nth-child(1) {
             top: 8px;
-            transform-origin: center;
-        }
-       
-        /* Animação "X" Premium com rotação */
-        .menu-toggle.active .hamburger span {
-            background: transparent;
+            transform: translateY(0) rotate(0deg);
         }
         
-        .menu-toggle.active .hamburger span::before {
-            top: 0;
-            transform: rotate(45deg);
-            animation: line1Anim 0.3s forwards;
+        .hamburger-line:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%) scaleX(1);
+            opacity: 1;
         }
         
-        .menu-toggle.active .hamburger span::after {
-            top: 0;
-            transform: rotate(-45deg);
-            animation: line2Anim 0.3s forwards;
+        .hamburger-line:nth-child(3) {
+            bottom: 8px;
+            transform: translateY(0) rotate(0deg);
         }
         
-        /* Hover premium */
-        .menu-toggle:not(.active):hover .hamburger span,
-        .menu-toggle:not(.active):hover .hamburger span::before,
-        .menu-toggle:not(.active):hover .hamburger span::after {
-            background-color: var(--color-primary);
+        /* Animação "X" suave e elegante - SOMENTE AS LINHAS VIREM AMARELAS */
+        .menu-toggle.active .hamburger-line:nth-child(1) {
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            background: var(--color-primary);
+        }
+        
+        .menu-toggle.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: translateY(-50%) scaleX(0);
+        }
+        
+        .menu-toggle.active .hamburger-line:nth-child(3) {
+            bottom: 50%;
+            transform: translateY(50%) rotate(-45deg);
+            background: var(--color-primary);
+        }
+        
+        .menu-toggle.active .hamburger {
+            transform: rotate(180deg);
         }
        
-        .menu-toggle.active:hover .hamburger span::before,
-        .menu-toggle.active:hover .hamburger span::after {
-            background-color: var(--color-primary);
-        }
-       
-        /* Overlay para Menu Mobile - PREMIUM */
+        /* Overlay para Menu Mobile com efeito de vidro ESCURO */
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 998;
         }
         
@@ -394,100 +798,89 @@
             visibility: visible;
         }
      
-        /* Menu Mobile Premium - CORREÇÃO: Aumentado z-index para 1000 */
-       /* CORREÇÃO: Scroll no Menu Mobile */
-.mobile-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Mudado de center para flex-start */
-    align-items: center;
-    padding: 100px 2rem 2rem; /* Espaço no topo para o header fixo */
-    gap: 1rem;
-    transform: translateX(-100%);
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    overflow-y: auto; /* ATIVA O SCROLL VERTICAL */
-    overflow-x: hidden;
-}
-
-/* Estiliza a barra de rolagem (WebKit - Chrome, Safari, Edge) */
-.mobile-menu::-webkit-scrollbar {
-    width: 8px;
-}
-
-.mobile-menu::-webkit-scrollbar-track {
-    background: rgba(20, 20, 20, 0.5);
-    border-radius: 10px;
-}
-
-.mobile-menu::-webkit-scrollbar-thumb {
-    background: var(--color-primary);
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(230, 194, 0, 0.4);
-}
-
-.mobile-menu::-webkit-scrollbar-thumb:hover {
-    background: var(--color-primary-dark);
-}
-
-/* Para Firefox */
-.mobile-menu {
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-primary) rgba(20, 20, 20, 0.5);
-}
-
-/* Ajuste no light mode */
-[data-theme="light"] .mobile-menu {
-    background: rgba(245, 247, 250, 0.98);
-}
-
-[data-theme="light"] .mobile-menu::-webkit-scrollbar-track {
-    background: rgba(230, 230, 230, 0.5);
-}
-
-[data-theme="light"] .mobile-menu::-webkit-scrollbar-thumb {
-    background: var(--color-primary);
-}
-      
+        /* Menu Mobile Profissional - FUNDO MAIS ESCURO E OPACO */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 380px;
+            height: 100vh;
+            background: rgba(5, 5, 5, 0.98);
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            transition: right 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-shadow: -10px 0 50px rgba(0, 0, 0, 0.95);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
         [data-theme="light"] .mobile-menu {
-            background: rgba(245, 247, 250, 0.98);
+            background: rgba(255, 255, 255, 0.98);
         }
-     
+        
         .mobile-menu.active {
-            transform: translateX(0);
-            opacity: 1;
-            visibility: visible;
+            right: 0;
+        }
+        
+        /* REMOVIDO O HEADER COM BOTÃO DE FECHAR DUPLICADO */
+        .mobile-menu-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(5, 5, 5, 0.95);
+        }
+        
+        [data-theme="light"] .mobile-menu-header {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .mobile-logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .mobile-logo .bracket {
+            color: var(--color-fg);
+            font-weight: 400;
         }
      
-        /* Links do menu mobile - PREMIUM COM ÍCONES */
+        /* Container principal do menu mobile */
+        .mobile-nav-container {
+            padding: 1.5rem 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            background: rgba(5, 5, 5, 0.95);
+        }
+     
+        /* Links do menu mobile melhorados */
         .mobile-nav-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1.2rem 2.5rem;
+            gap: 1.2rem;
+            padding: 1.1rem 1.5rem;
             color: var(--color-fg);
             text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 500;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-            width: 100%;
-            max-width: 320px;
-            border-radius: 1rem;
-            background: transparent;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 0.5rem;
         }
         
         .mobile-nav-item .nav-icon {
@@ -497,68 +890,183 @@
             align-items: center;
             justify-content: center;
             font-size: 1.1rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--color-primary);
+            background: rgba(230, 194, 0, 0.1);
+            border-radius: 8px;
+            padding: 0.5rem;
+            flex-shrink: 0;
         }
      
-        .mobile-menu.active .mobile-nav-item {
-            opacity: 1;
-            transform: translateY(0);
-        }
-     
-        /* Delays de animação refinados */
-        .mobile-nav-item:nth-child(1) { transition-delay: 0.1s; }
-        .mobile-nav-item:nth-child(2) { transition-delay: 0.15s; }
-        .mobile-nav-item:nth-child(3) { transition-delay: 0.2s; }
-        .mobile-nav-item:nth-child(4) { transition-delay: 0.25s; }
-        .mobile-nav-item:nth-child(5) { transition-delay: 0.3s; }
-        .mobile-nav-item:nth-child(6) { transition-delay: 0.35s; }
-        .mobile-nav-item:nth-child(7) { transition-delay: 0.4s; }
-        .mobile-nav-item:nth-child(8) { transition-delay: 0.45s; }
-        .mobile-nav-item:nth-child(9) { transition-delay: 0.5s; }
-     
-        .mobile-nav-item:not(.btn)::before {
+        .mobile-nav-item::before {
             content: '';
             position: absolute;
-            left: 0;
             top: 0;
-            height: 100%;
+            left: 0;
             width: 4px;
+            height: 100%;
             background: var(--color-primary);
             transform: scaleY(0);
-            transition: transform 0.3s ease;
-            border-radius: 0 4px 4px 0;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
      
-        .mobile-nav-item:not(.btn):hover::before {
+        .mobile-nav-item:hover::before {
             transform: scaleY(1);
         }
      
         .mobile-nav-item:hover {
             color: var(--color-primary);
             background: rgba(230, 194, 0, 0.08);
-            transform: translateX(10px);
+            transform: translateX(5px);
+            border-color: rgba(230, 194, 0, 0.2);
         }
         
         .mobile-nav-item:hover .nav-icon {
-            transform: scale(1.2);
-            color: var(--color-primary);
-        }
-      
-        /* Botão CV no Menu Mobile */
-        .mobile-nav-item.btn {
-            background: transparent;
-            color: var(--color-primary);
-            border: 2px solid var(--color-primary);
-            margin-top: 1rem;
-            font-size: 1.2rem;
-            justify-content: center;
+            transform: scale(1.1);
+            background: rgba(230, 194, 0, 0.2);
         }
         
-        .mobile-nav-item.btn:hover {
-            background: var(--color-primary) !important;
-            color: var(--color-bg) !important;
-            opacity: 1 !important;
-            transform: translateY(-5px) scale(1.05);
+        /* Indicador ativo no menu */
+        .mobile-nav-item.active {
+            color: var(--color-primary);
+            background: rgba(230, 194, 0, 0.1);
+            border-color: rgba(230, 194, 0, 0.3);
+        }
+        
+        .mobile-nav-item.active .nav-icon {
+            transform: scale(1.1);
+            background: rgba(230, 194, 0, 0.2);
+        }
+        
+        /* Botão CV no Menu Mobile */
+        .mobile-nav-item.cv-download-btn {
+            background: linear-gradient(135deg, 
+                #e6c200 0%, 
+                #ffd700 25%, 
+                #ffed4e 50%, 
+                #ffd700 75%, 
+                #e6c200 100%);
+            color: #0a0a0a;
+            border: none;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            justify-content: center;
+            padding: 1.1rem;
+            font-weight: 700;
+            gap: 1rem;
+            box-shadow: 
+                0 0 0 2px rgba(230, 194, 0, 0.3),
+                0 8px 25px rgba(230, 194, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-nav-item.cv-download-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                transparent 70%);
+            background-size: 200% 200%;
+            border-radius: 12px;
+            z-index: 1;
+            animation: btn-pulse 3s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        .mobile-nav-item.cv-download-btn:hover {
+            background: linear-gradient(135deg, 
+                #ffd700 0%, 
+                #ffed4e 25%, 
+                #ffff6b 50%, 
+                #ffed4e 75%, 
+                #ffd700 100%);
+            transform: translateY(-2px) translateX(5px);
+            box-shadow: 
+                0 0 0 3px rgba(230, 194, 0, 0.5),
+                0 12px 35px rgba(230, 194, 0, 0.4);
+        }
+
+        .mobile-nav-item.cv-download-btn:hover .nav-icon {
+            transform: translateY(2px) rotate(10deg);
+            filter: drop-shadow(0 0 8px rgba(255, 237, 78, 0.5));
+        }
+
+        .mobile-nav-item.cv-download-btn .nav-icon {
+            background: rgba(0, 0, 0, 0.2);
+            color: #0a0a0a;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mobile-nav-item.cv-download-btn .btn-text {
+            position: relative;
+            z-index: 2;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+        
+        /* Configurações Mobile */
+        .mobile-settings-container {
+            margin-top: auto;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(5, 5, 5, 0.95);
+        }
+        
+        [data-theme="light"] .mobile-settings-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .mobile-settings-btn {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--color-fg);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .mobile-settings-btn:hover {
+            border-color: rgba(230, 194, 0, 0.3);
+            color: var(--color-primary);
+            background: rgba(230, 194, 0, 0.08);
+        }
+        
+        .mobile-settings-dropdown {
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            margin-top: 0.5rem;
+        }
+        
+        [data-theme="light"] .mobile-settings-dropdown {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .mobile-settings-dropdown.active {
+            max-height: 400px;
+            opacity: 1;
+            margin-top: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
      
         /* Seção Hero com animações suaves */
@@ -567,7 +1075,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 6rem 1.5rem 4rem;
+            padding: calc(var(--header-height) + 4rem) 2rem 4rem;
             position: relative;
             background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-card) 100%);
             overflow: hidden;
@@ -623,19 +1131,29 @@
      
         .hero h1 {
             font-size: clamp(2.5rem, 8vw, 5.5rem);
-            font-weight: 800;
+            font-weight: 900;
             margin-bottom: 1rem;
             line-height: 1.1;
             letter-spacing: -0.03em;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 0.8s ease-out 0.2s forwards;
         }
      
         .hero .name {
             background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero .name::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
         }
      
         .hero .subtitle {
@@ -645,17 +1163,6 @@
             font-weight: 300;
             letter-spacing: 0.05em;
             display: inline-block;
-            overflow: hidden;
-            white-space: nowrap;
-            margin: 0 auto 1.5rem;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: 
-                fadeInUp 0.6s ease-out 0.5s forwards,
-                typing 1.8s steps(30, end) 0.8s forwards,
-                blink-caret 0.75s step-end infinite 0.8s;
-            border-right: 3px solid var(--color-primary);
-            padding-right: 4px;
         }
         
         .hero .description {
@@ -663,9 +1170,6 @@
             color: var(--color-muted);
             max-width: 45rem;
             margin: 0 auto 2rem;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 0.8s ease-out 1.5s forwards;
             line-height: 1.6;
         }
      
@@ -675,54 +1179,75 @@
             gap: 1rem;
             justify-content: center;
             margin-bottom: 2.5rem;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 0.8s ease-out 1.8s forwards;
         }
      
         .btn-outline {
-            padding: 0.75rem 1.5rem;
+            padding: 0.85rem 2rem;
             background: transparent;
             color: var(--color-fg);
-            border: 1px solid var(--color-border);
+            border: 2px solid var(--color-border);
             border-radius: 50px;
             font-weight: 500;
             transition: var(--transition);
             font-size: 0.95rem;
             text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
      
         .btn-outline:hover {
             border-color: var(--color-primary);
             color: var(--color-primary);
             box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
         }
      
         .social-links {
             display: flex;
             gap: 1rem;
             justify-content: center;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 0.8s ease-out 2s forwards;
         }
      
         .social-links a {
             color: var(--color-muted);
             text-decoration: none;
             transition: var(--transition);
-            width: 2.5rem;
-            height: 2.5rem;
+            width: 3rem;
+            height: 3rem;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
             background: transparent;
             border: 1px solid var(--color-border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--color-primary);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+            z-index: -1;
+        }
+     
+        .social-links a:hover::before {
+            width: 100%;
+            height: 100%;
         }
      
         .social-links a:hover {
-            color: var(--color-primary);
+            color: var(--color-bg);
             border-color: var(--color-primary);
             transform: scale(1.1) rotate(5deg);
             box-shadow: var(--shadow-hover);
@@ -730,7 +1255,7 @@
      
         /* Section Styles com animações suaves */
         section {
-            padding: 8rem 1.5rem;
+            padding: 8rem 2rem;
             position: relative;
             overflow: hidden;
             transition: all 0.5s ease;
@@ -747,16 +1272,27 @@
         .section-header {
             text-align: center;
             margin-bottom: 5rem;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s ease-out forwards;
         }
      
         .section-header h2 {
             font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 1.25rem;
             letter-spacing: -0.03em;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--color-primary);
+            border-radius: 2px;
         }
      
         .section-header .highlight {
@@ -767,7 +1303,7 @@
             font-size: 1.3rem;
             color: var(--color-muted);
             max-width: 48rem;
-            margin: 0 auto;
+            margin: 2rem auto 0;
             line-height: 1.7;
         }
      
@@ -789,12 +1325,9 @@
             padding: 3rem 2.5rem;
             border-radius: 1.5rem;
             border: 1px solid var(--color-border);
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(50px) scale(0.95);
-            animation: fadeInUp 1s ease-out forwards;
         }
      
         .feature-card:hover {
@@ -819,6 +1352,8 @@
      
         .feature-card:hover .feature-icon {
             transform: scale(1.1) rotate(5deg);
+            background: rgba(230, 194, 0, 0.15);
+            box-shadow: 0 0 30px rgba(230, 194, 0, 0.3);
         }
      
         .feature-card h3 {
@@ -842,9 +1377,6 @@
             position: relative;
             overflow: hidden;
             line-height: 1.8;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s ease-out 0.3s forwards;
         }
      
         .about-text::before {
@@ -855,12 +1387,6 @@
             width: 5px;
             height: 100%;
             background: var(--color-primary);
-            transform: scaleY(0);
-            transition: transform 0.8s ease-out;
-        }
-     
-        .about-text.visible::before {
-            transform: scaleY(1);
         }
      
         .about-text p {
@@ -885,10 +1411,7 @@
             padding: 3rem 2.5rem;
             border-radius: 1.5rem;
             border: 1px solid var(--color-border);
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            opacity: 0;
-            transform: translateY(50px) scale(0.95);
-            animation: fadeInUp 1s ease-out forwards;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
      
         .skill-category:hover {
@@ -917,18 +1440,9 @@
             align-items: center;
             gap: 0.75rem;
             padding: 0.85rem 0;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border-bottom: 1px solid rgba(255,255,255,0.03);
-            opacity: 0;
-            transform: translateX(-20px);
-            animation: slideInLeft 0.8s ease-out forwards;
         }
-     
-        .skill-item:nth-child(2) { animation-delay: 0.1s; }
-        .skill-item:nth-child(3) { animation-delay: 0.2s; }
-        .skill-item:nth-child(4) { animation-delay: 0.3s; }
-        .skill-item:nth-child(5) { animation-delay: 0.4s; }
-        .skill-item:nth-child(6) { animation-delay: 0.5s; }
      
         .skill-item:hover {
             color: var(--color-primary);
@@ -966,10 +1480,7 @@
             padding: 2.5rem;
             border-radius: 1.5rem;
             border: 1px solid var(--color-border);
-            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            opacity: 0;
-            transform: translateY(50px) scale(0.95);
-            animation: fadeInUp 1s ease-out forwards;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow-soft);
@@ -977,25 +1488,23 @@
         
         .ai-card:hover {
             border-color: var(--color-primary);
-            transform: translateY(-15px) scale(1.03);
+            transform: translateY(-15px);
             box-shadow: var(--shadow-hover);
         }
         
         .ai-logo {
-            width: 60px;
-            height: 60px;
+            width: 72px;
+            height: 72px;
             margin-bottom: 1.5rem;
             object-fit: contain;
             border-radius: 12px;
             padding: 0.5rem;
             background: rgba(230, 194, 0, 0.1);
             border: 1px solid rgba(230, 194, 0, 0.2);
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
         
         .ai-card:hover .ai-logo {
-            transform: scale(1.1) rotate(5deg);
-            background: rgba(230, 194, 0, 0.2);
+            background: rgba(230, 194, 0, 0.15);
             border-color: var(--color-primary);
         }
         
@@ -1067,10 +1576,7 @@
             padding: 2.5rem;
             border-radius: 1.8rem;
             border: 1px solid var(--glass-border);
-            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            opacity: 0;
-            transform: translateY(50px) scale(0.95);
-            animation: fadeInUp 1s ease-out forwards;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -1083,7 +1589,7 @@
         
         .certification-card:hover {
             border-color: var(--color-primary);
-            transform: translateY(-15px) scale(1.03);
+            transform: translateY(-15px);
             box-shadow: 0 25px 60px rgba(230, 194, 0, 0.25);
         }
       
@@ -1095,17 +1601,13 @@
             height: 80px;
             object-fit: contain;
             opacity: 0.6;
-            transition: all 0.5s ease;
+            transition: all 0.3s ease;
             filter: grayscale(30%) brightness(1.2);
             z-index: 2;
-            border: none !important;
-            background: none !important;
-            border-radius: 0 !important;
         }
       
         .certification-card:hover .certification-logo {
             opacity: 1;
-            transform: scale(1.1) rotate(5deg);
             filter: grayscale(0%) brightness(1.3);
         }
      
@@ -1125,6 +1627,7 @@
             background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
             position: relative;
             z-index: 2;
             letter-spacing: -0.02em;
@@ -1158,7 +1661,7 @@
             color: var(--color-primary);
             font-size: 1.5rem;
             text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             width: 45px;
             height: 45px;
             border-radius: 50%;
@@ -1171,7 +1674,7 @@
         }
      
         .certification-link:hover {
-            transform: translateX(5px) scale(1.1) rotate(10deg);
+            transform: translateX(5px) scale(1.1);
             background: var(--color-primary);
             color: var(--color-bg);
             box-shadow: 0 0 20px rgba(230, 194, 0, 0.4);
@@ -1192,7 +1695,7 @@
             z-index: 3;
         }
      
-        /* Experience Section - CORREÇÃO: Melhor responsividade */
+        /* Experience Section */
         .experience-timeline {
             position: relative;
             padding: 2.5rem 0;
@@ -1208,7 +1711,6 @@
             background: var(--color-primary);
             transform: translateX(-50%);
             transform-origin: top;
-            animation: growLine 2s ease-out forwards;
         }
      
         .experience-item {
@@ -1217,17 +1719,14 @@
             gap: 2rem;
             margin-bottom: 5rem;
             position: relative;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s ease-out forwards;
         }
      
         .experience-item:nth-child(2) {
-            animation-delay: 0.3s;
+            transition-delay: 0.2s;
         }
      
         .experience-item:nth-child(3) {
-            animation-delay: 0.6s;
+            transition-delay: 0.4s;
         }
      
         .experience-item:nth-child(odd) > .experience-content {
@@ -1289,11 +1788,11 @@
      
         .experience-content {
             background: var(--color-card);
-            padding: 2.5rem; /* REDUZIDO de 3rem para 2.5rem */
+            padding: 2.5rem;
             border-radius: 1.5rem;
             border: 1px solid var(--color-border);
             box-shadow: var(--shadow-soft);
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
@@ -1345,15 +1844,12 @@
             transition: var(--transition);
             flex-shrink: 0;
             overflow: hidden;
-            border: none !important;
-            background: none !important;
         }
      
         .company-logo img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            border: none !important;
         }
      
         .experience-title h3 {
@@ -1417,30 +1913,6 @@
             color: var(--color-fg);
             margin-bottom: 0.85rem;
             line-height: 1.6;
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-     
-        .experience-content.visible .achievement-item {
-            opacity: 1;
-            transform: translateX(0);
-        }
-     
-        .achievement-item:nth-child(1) {
-            transition-delay: 0.2s;
-        }
-     
-        .achievement-item:nth-child(2) {
-            transition-delay: 0.4s;
-        }
-     
-        .achievement-item:nth-child(3) {
-            transition-delay: 0.6s;
-        }
-     
-        .achievement-item:nth-child(4) {
-            transition-delay: 0.8s;
         }
      
         .achievement-item::before {
@@ -1464,9 +1936,6 @@
         .experience-cta {
             text-align: center;
             margin-top: 5rem;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s ease-out forwards;
         }
      
         .experience-cta p {
@@ -1476,6 +1945,10 @@
         }
      
         /* Contact Section */
+        #contact {
+            padding: 6rem 2rem;
+        }
+        
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -1492,17 +1965,6 @@
             display: flex;
             gap: 1.75rem;
             align-items: flex-start;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s ease-out forwards;
-        }
-     
-        .contact-item:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-     
-        .contact-item:nth-child(3) {
-            animation-delay: 0.4s;
         }
      
         .contact-icon {
@@ -1543,36 +2005,30 @@
         .contact-form {
             display: flex;
             flex-direction: column;
-            gap: 1.75rem;
+            gap: 1.5rem;
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
         }
      
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s ease-out forwards;
-        }
-     
-        .form-group:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-     
-        .form-group:nth-child(3) {
-            animation-delay: 0.4s;
         }
      
         .form-input,
         .form-textarea {
-            padding: 1.25rem 1.5rem;
+            padding: 1rem 1.5rem;
             background: var(--color-card);
             border: 1px solid var(--color-border);
             border-radius: 1rem;
             color: var(--color-fg);
             font-family: inherit;
-            font-size: 1.05rem;
+            font-size: 1rem;
             transition: var(--transition);
+            position: relative;
+            z-index: 1;
         }
      
         .form-input:focus,
@@ -1585,18 +2041,18 @@
      
         .form-textarea {
             resize: vertical;
-            min-height: 160px;
+            min-height: 140px;
         }
      
         .form-input::placeholder,
         .form-textarea::placeholder {
             color: var(--color-muted);
         }
-     
+        
         /* Snake Game Section */
         .snake-section {
             position: relative;
-            padding: 8rem 1.5rem;
+            padding: 8rem 2rem;
             background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-card) 100%);
             overflow: hidden;
         }
@@ -1610,9 +2066,6 @@
      
         .snake-header {
             margin-bottom: 3rem;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s ease-out forwards;
         }
      
         .snake-header h2 {
@@ -1638,9 +2091,6 @@
             box-shadow: var(--shadow-soft);
             border: 1px solid var(--color-border);
             background: var(--color-card);
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s ease-out 0.3s forwards;
             aspect-ratio: 3 / 2;
         }
      
@@ -1658,7 +2108,6 @@
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 1rem;
             margin-top: 2rem;
-            flex-wrap: wrap;
         }
         
         .snake-controls .btn,
@@ -1669,7 +2118,7 @@
             background: var(--color-card);
             box-shadow: var(--shadow-soft);
             transform: translateY(0);
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 500;
             text-decoration: none;
             cursor: pointer;
@@ -1733,15 +2182,10 @@
             justify-content: center;
             align-items: center;
             z-index: 100;
-            opacity: 0;
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            transform: scale(0.9);
         }
       
         #game-over-overlay.visible {
             display: flex;
-            opacity: 1;
-            transform: scale(1);
         }
       
         #game-over-overlay h2 {
@@ -1762,7 +2206,7 @@
         footer {
             background: var(--color-bg);
             border-top: 1px solid var(--color-border);
-            padding: 3.5rem 1.5rem;
+            padding: 3.5rem 2rem;
         }
      
         .footer-content {
@@ -1772,9 +2216,6 @@
             flex-direction: column;
             align-items: center;
             gap: 1.75rem;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s ease-out forwards;
         }
      
         .footer-text {
@@ -1796,23 +2237,44 @@
         .footer-links a {
             color: var(--color-muted);
             transition: var(--transition);
-            width: 2.5rem;
-            height: 2.5rem;
+            width: 3rem;
+            height: 3rem;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
             background: transparent;
             border: 1px solid var(--color-border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-links a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--color-primary);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+            z-index: -1;
+        }
+     
+        .footer-links a:hover::before {
+            width: 100%;
+            height: 100%;
         }
      
         .footer-links a:hover {
-            color: var(--color-primary);
+            color: var(--color-bg);
             border-color: var(--color-primary);
             transform: scale(1.1) rotate(5deg);
         }
      
-        /* Animations PREMIUM */
+        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -1888,13 +2350,13 @@
      
         @keyframes pulseDot {
             0% {
-                transform: scale(1);
+                transform: translateX(-50%) scale(1);
             }
             50% {
-                transform: scale(1.2);
+                transform: translateX(-50%) scale(1.2);
             }
             100% {
-                transform: scale(1);
+                transform: translateX(-50%) scale(1);
             }
         }
         
@@ -1925,56 +2387,30 @@
             }
         }
         
-        @keyframes textReveal {
+        @keyframes expandLine {
             from {
-                opacity: 0;
-                transform: translateY(20px);
+                transform: scaleX(0);
             }
             to {
-                opacity: 1;
-                transform: translateY(0);
+                transform: scaleX(1);
             }
         }
         
-        /* Animações específicas do menu hambúrguer */
-        @keyframes line1Anim {
-            0% {
-                top: -8px;
-                transform: rotate(0deg);
-            }
-            50% {
-                top: 0;
-                transform: rotate(0deg);
-            }
-            100% {
-                top: 0;
-                transform: rotate(45deg);
-            }
-        }
-        
-        @keyframes line2Anim {
-            0% {
-                top: 8px;
-                transform: rotate(0deg);
-            }
-            50% {
-                top: 0;
-                transform: rotate(0deg);
-            }
-            100% {
-                top: 0;
-                transform: rotate(-45deg);
-            }
-        }
-        
-        @keyframes slideInMenuItem {
+        @keyframes slideIn {
             from {
-                opacity: 0;
-                transform: translateX(-30px);
+                transform: translateX(100%);
             }
             to {
-                opacity: 1;
                 transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-100%);
             }
         }
         
@@ -1990,95 +2426,24 @@
         }
      
         .fade-in {
-            animation: fadeInUp 0.8s ease-out;
+            animation: fadeInUp 0.8s ease-out forwards;
         }
         
         .scale-in {
-            animation: scaleIn 0.6s ease-out;
-        }
-     
-        /* Container de configurações mobile - CORREÇÃO: Aumentado z-index */
-        .mobile-settings-container {
-            margin-top: 3rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            width: 100%;
-            max-width: 320px;
-            position: relative;
-            z-index: 1001; /* AUMENTADO para ficar acima do menu */
+            animation: scaleIn 0.6s ease-out forwards;
         }
         
-        .mobile-menu.active .mobile-settings-container {
-            opacity: 1;
-            transform: translateY(0);
-            transition-delay: 1s;
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out forwards;
         }
         
-        /* Botão de configurações mobile */
-        .mobile-settings-btn {
-            background: transparent;
-            border: 2px solid var(--color-border);
-            border-radius: 50%;
-            width: 3.5rem;
-            height: 3.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--color-fg);
-            font-size: 1.3rem;
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out forwards;
         }
         
-        .mobile-settings-btn:hover {
-            border-color: var(--color-primary);
-            color: var(--color-primary);
-            transform: scale(1.1) rotate(30deg);
-        }
-        
-        /* Dropdown de configurações mobile - CORREÇÃO: Aumentado z-index e ajustado posicionamento */
-        .mobile-settings-dropdown {
-            background: var(--color-card);
-            border-radius: 1rem;
-            border: 1px solid var(--color-border);
-            padding: 1.25rem;
-            width: 100%;
-            max-width: 280px;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            opacity: 0;
-            margin-top: 0;
-            position: relative;
-            z-index: 1002; /* AUMENTADO para garantir visibilidade */
-        }
-        
-        .mobile-settings-dropdown.active {
-            max-height: 500px;
-            opacity: 1;
-            margin-top: 1rem;
-            animation: scaleIn 0.4s ease-out;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Tamanho pré-definido para todas as logos da seção AI */
-        .ai-section .ai-logo {
-            width: 120px !important;
-            height: 120px !important;
-            padding: 0 !important;
-            object-fit: contain !important;
-            background: none !important;
-            border: none !important;
-        }
-
         /* Scrollbar personalizada */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 12px;
         }
         
         ::-webkit-scrollbar-track {
@@ -2087,13 +2452,20 @@
         
         ::-webkit-scrollbar-thumb {
             background: var(--color-primary);
-            border-radius: 5px;
+            border-radius: 6px;
+            border: 3px solid var(--color-bg);
         }
         
         ::-webkit-scrollbar-thumb:hover {
             background: var(--color-primary-dark);
         }
-
+        
+        /* Para Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-primary) var(--color-bg);
+        }
+     
         /* Responsive Design */
         @media (max-width: 1200px) {
             .experience-item {
@@ -2101,7 +2473,7 @@
             }
             
             .experience-content {
-                padding: 2rem; /* Mais reduzido para telas menores */
+                padding: 2rem;
             }
         }
      
@@ -2132,15 +2504,12 @@
          
             .menu-toggle {
                 display: flex;
-                width: 2.8rem;
-                height: 2.8rem;
             }
          
             .mobile-menu-overlay {
                 display: block;
             }
             
-            /* Engrenagem VISÍVEL no mobile */
             .settings-menu {
                 display: inline-block !important;
                 position: absolute;
@@ -2155,18 +2524,16 @@
                 font-size: 1.1rem;
             }
             
-            /* CORREÇÃO: Ajuste do dropdown de configurações para mobile */
-            .settings-dropdown {
-                position: fixed;
-                top: 5rem;
-                right: 1.5rem;
-                left: 1.5rem;
-                width: auto;
-                max-width: calc(100% - 3rem);
-                z-index: 1003; /* MAIS ALTO para ficar acima do menu mobile */
+            .mobile-menu {
+                max-width: 380px;
+                width: 85%;
             }
             
-            /* Ajustes de layout para mobile */
+            .mobile-nav-item {
+                font-size: 1.1rem;
+                padding: 1rem 1.2rem;
+            }
+            
             .hero-bg-circle {
                 filter: blur(80px);
                 opacity: 0.3;
@@ -2193,31 +2560,6 @@
                 left: 50%;
             }
             
-            /* Menu mobile ajustado */
-            .mobile-nav-item {
-                font-size: 1.2rem;
-                padding: 1rem 1.5rem;
-                width: 90%;
-                max-width: 300px;
-                white-space: normal;
-                text-overflow: clip;
-                overflow: visible;
-                line-height: 1.4;
-            }
-            
-            .mobile-nav-item.btn {
-                font-size: 1.1rem;
-                padding: 1rem 1.5rem;
-                white-space: nowrap;
-            }
-            
-            .mobile-nav-item .nav-icon {
-                font-size: 1rem;
-                width: 20px;
-                height: 20px;
-            }
-         
-            /* CORREÇÃO COMPLETA: Timeline para mobile - simplificada */
             .timeline-line {
                 display: none;
             }
@@ -2237,7 +2579,7 @@
             .experience-item:nth-child(even) > .experience-content {
                 grid-column: 1 / 2;
                 text-align: left;
-                padding: 1.5rem; /* REDUZIDO para mobile */
+                padding: 1.5rem;
             }
          
             .experience-spacer {
@@ -2248,41 +2590,13 @@
                 display: none;
             }
          
-            .experience-item:nth-child(odd) .experience-content::before {
-                left: 0;
-                right: auto;
-                width: 4px;
-            }
-         
+            .experience-item:nth-child(odd) .experience-content::before,
             .experience-item:nth-child(even) .experience-content::before {
                 left: 0;
                 right: auto;
                 width: 4px;
             }
          
-            .experience-item:nth-child(odd) .experience-header,
-            .experience-item:nth-child(even) .experience-header {
-                justify-content: flex-start;
-                text-align: left;
-                flex-direction: column;
-            }
-         
-            .experience-item:nth-child(odd) .experience-period,
-            .experience-item:nth-child(even) .experience-period {
-                justify-content: flex-start;
-            }
-         
-            .experience-item:nth-child(odd) .achievements-title,
-            .experience-item:nth-child(even) .achievements-title {
-                justify-content: flex-start;
-            }
-         
-            .experience-item:nth-child(odd) .achievements-list,
-            .experience-item:nth-child(even) .achievements-list {
-                 text-align: left;
-            }
-         
-            /* Ajuste das logos da empresa para mobile */
             .company-logo {
                 width: 3.5rem;
                 height: 3.5rem;
@@ -2326,24 +2640,17 @@
                 margin-bottom: 0.75rem;
             }
             
-            .achievement-item::before {
-                width: 1.5rem;
-                height: 1.5rem;
-                font-size: 0.8rem;
-            }
-         
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
             }
          
-            .hero-buttons .btn,
+            .hero-buttons .cv-download-btn,
             .hero-buttons .btn-outline {
                 width: 100%;
                 max-width: 280px;
             }
          
-            /* Ícones de Contato (Mobile) */
             .contact-icon {
                 width: 3.5rem;
                 height: 3.5rem;
@@ -2355,7 +2662,6 @@
                 grid-template-columns: 1fr;
             }
             
-            /* Ajustes para certificações em mobile */
             .certifications-grid {
                 grid-template-columns: 1fr;
             }
@@ -2369,7 +2675,6 @@
                 height: 60px;
             }
             
-            /* Ajustes para IA em mobile */
             .ai-grid {
                 grid-template-columns: 1fr;
             }
@@ -2378,25 +2683,21 @@
                 padding: 2rem 1.5rem;
             }
             
-            /* AI logos ajustados para mobile */
-            .ai-section .ai-logo {
-                width: 96px !important;
-                height: 96px !important;
+            .contact-grid {
+                grid-template-columns: 1fr;
             }
             
-            /* Configurações mobile com mais espaço */
-            .mobile-settings-container {
-                margin-top: 2rem;
-                max-width: 300px;
+            .contact-form {
+                max-width: 100%;
             }
             
-            .mobile-settings-dropdown {
-                max-width: 300px;
+            .form-submit-btn {
+                width: 100%;
+                max-width: 100%;
             }
         }
      
         @media (max-width: 576px) {
-            /* Telas muito pequenas */
             .settings-btn {
                 width: 2.2rem;
                 height: 2.2rem;
@@ -2416,32 +2717,35 @@
                 width: 20px;
             }
             
-            .hamburger span::before {
-                top: -7px;
+            .hamburger-line {
+                height: 2px;
             }
             
-            .hamburger span::after {
-                top: 7px;
+            .mobile-menu {
+                width: 85%;
+                max-width: 320px;
+            }
+            
+            .mobile-nav-container {
+                padding: 1.5rem;
             }
             
             .mobile-nav-item {
-                font-size: 1.1rem;
-                padding: 0.9rem 1.2rem;
-                max-width: 280px;
+                font-size: 1rem;
+                padding: 0.9rem 1rem;
             }
             
-            .mobile-nav-item.btn {
-                font-size: 1.05rem;
-                padding: 0.9rem 1rem;
+            .mobile-nav-item.cv-download-btn {
+                font-size: 0.95rem;
+                padding: 0.9rem;
             }
             
             .mobile-nav-item .nav-icon {
                 font-size: 0.9rem;
-                width: 18px;
-                height: 18px;
+                width: 20px;
+                height: 20px;
             }
             
-            /* CORREÇÃO: Ajuste da timeline para telas muito pequenas */
             .experience-content {
                 padding: 1.25rem;
             }
@@ -2460,21 +2764,15 @@
             
             .achievement-item {
                 font-size: 0.85rem;
-                flex-direction: column;
-                gap: 0.5rem;
             }
             
-            .achievement-item::before {
-                margin: 0 auto;
-            }
-            
-            .experience-cta p {
-                font-size: 1.1rem;
+            .form-submit-btn {
+                padding: 0.75rem 2rem;
+                font-size: 0.9rem;
             }
         }
-
+        
         @media (max-width: 480px) {
-            /* Menu hambúrguer para telas muito pequenas */
             .menu-toggle {
                 width: 2.3rem;
                 height: 2.3rem;
@@ -2509,7 +2807,7 @@
                 width: 100%;
             }
             
-            .hero-buttons .btn,
+            .hero-buttons .cv-download-btn,
             .hero-buttons .btn-outline {
                 width: 100%;
                 max-width: 280px;
@@ -2517,35 +2815,15 @@
             }
             
             .mobile-nav-item {
-                font-size: 1rem;
-                padding: 0.85rem 1rem;
-                max-width: 260px;
+                font-size: 0.95rem;
+                padding: 0.8rem 0.9rem;
             }
             
-            .mobile-nav-item.btn {
-                font-size: 1rem;
-                padding: 0.85rem 0.9rem;
+            .mobile-nav-item.cv-download-btn {
+                font-size: 0.9rem;
+                padding: 0.8rem;
             }
             
-            /* Configurações mobile ajustadas */
-            .mobile-settings-container {
-                width: 92%;
-                max-width: 260px;
-            }
-            
-            .mobile-settings-btn {
-                width: 2.8rem;
-                height: 2.8rem;
-                font-size: 1.1rem;
-            }
-            
-            .mobile-settings-dropdown {
-                width: 100%;
-                max-width: 260px;
-                padding: 1rem;
-            }
-            
-            /* CORREÇÃO: Timeline ainda mais compacta */
             .experience-content {
                 padding: 1rem;
             }
@@ -2559,17 +2837,22 @@
                 font-size: 1.1rem;
             }
             
-            .achievements-list {
-                padding-left: 0;
-            }
-            
             .achievement-item {
                 margin-bottom: 0.5rem;
+            }
+            
+            .contact-form {
+                gap: 1rem;
+            }
+            
+            .form-input,
+            .form-textarea {
+                padding: 0.9rem 1.25rem;
+                font-size: 0.95rem;
             }
         }
         
         @media (max-width: 360px) {
-            /* Extremamente pequeno - ajustes finais */
             .menu-toggle {
                 width: 2.1rem;
                 height: 2.1rem;
@@ -2579,39 +2862,20 @@
                 width: 16px;
             }
             
-            .hamburger span::before {
-                top: -6px;
-            }
-            
-            .hamburger span::after {
-                top: 6px;
-            }
-            
             .mobile-nav-item {
-                font-size: 0.95rem;
-                padding: 0.8rem 0.9rem;
-                max-width: 240px;
+                font-size: 0.9rem;
+                padding: 0.7rem 0.8rem;
             }
             
-            .mobile-nav-item.btn {
-                font-size: 0.95rem;
-                padding: 0.8rem 0.8rem;
+            .mobile-nav-item.cv-download-btn {
+                font-size: 0.85rem;
+                padding: 0.7rem;
             }
             
             .mobile-nav-item .nav-icon {
                 font-size: 0.85rem;
-                width: 16px;
-                height: 16px;
-            }
-            
-            .mobile-settings-container {
-                width: 95%;
-                max-width: 240px;
-            }
-            
-            .mobile-settings-dropdown {
-                max-width: 240px;
-                padding: 0.9rem;
+                width: 18px;
+                height: 18px;
             }
             
             .settings-option {
@@ -2619,7 +2883,6 @@
                 font-size: 0.9rem;
             }
             
-            /* CORREÇÃO FINAL: Timeline para telas muito pequenas */
             .experience-content {
                 padding: 0.75rem;
             }
@@ -2649,7 +2912,7 @@
             }
         }
      
-        /* Icons SVG */
+        /* Icons */
         .icon {
             width: 1.5rem;
             height: 1.5rem;
@@ -2664,9 +2927,58 @@
             width: 3rem;
             height: 3rem;
         }
+        
+        /* Estilos personalizados para SweetAlert */
+        .swal-custom-popup {
+            background: var(--color-card) !important;
+            border: 1px solid var(--color-border) !important;
+            border-radius: 1.5rem !important;
+            color: var(--color-fg) !important;
+        }
+        
+        .swal-custom-title {
+            color: var(--color-primary) !important;
+            font-weight: 600 !important;
+        }
+        
+        .swal-custom-confirm-button {
+            background: var(--color-primary) !important;
+            color: #0a0a0a !important;
+            border: none !important;
+            border-radius: 50px !important;
+            padding: 0.75rem 2rem !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .swal-custom-confirm-button:hover {
+            background: #ffd700 !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 5px 15px rgba(230, 194, 0, 0.3) !important;
+        }
+        
+        .swal-custom-icon {
+            border-color: var(--color-primary) !important;
+            color: var(--color-primary) !important;
+        }
     </style>
 </head>
 <body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <span class="bracket">&lt;</span>Edinaldo<span class="bracket">/&gt;</span>
+            </div>
+            <div class="preloader-progress">
+                <div class="preloader-progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Page Transition Overlay -->
+    <div class="page-transition" id="pageTransition"></div>
+    
     <header id="mainHeader">
         <nav>
             <div class="logo">
@@ -2680,7 +2992,12 @@
                 <li><a href="#experience">Experiência</a></li>
                 <li><a href="#contact">Contato</a></li>
                 <li><a href="#snake-game-section">Jogo</a></li>
-                <li><a href="javascript:void(0);" class="btn" id="downloadCvBtn">Download CV</a></li>
+                <li>
+                    <a href="javascript:void(0);" class="cv-download-btn" id="downloadCvBtn">
+                        <i class="fas fa-download btn-icon"></i>
+                        <span class="btn-text">DOWNLOAD CV</span>
+                    </a>
+                </li>
                 
                 <!-- Menu de Configurações -->
                 <li class="settings-menu" id="settingsMenu">
@@ -2712,50 +3029,63 @@
             </ul>
             <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
                 <div class="hamburger">
-                    <span></span>
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
                 </div>
             </button>
         </nav>
         <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
         <div class="mobile-menu" id="mobileMenu">
-            <!-- Links do menu mobile com ícones -->
-            <a href="#about" class="mobile-nav-item">
-                <span class="nav-icon"><i class="fas fa-user"></i></span>
-                <span>Sobre</span>
-            </a>
-            <a href="#skills" class="mobile-nav-item">
-                <span class="nav-icon"><i class="fas fa-code"></i></span>
-                <span>Habilidades</span>
-            </a>
-            <a href="#ai" class="mobile-nav-item">
-                <span class="nav-icon"><i class="fas fa-brain"></i></span>
-                <span>IA</span>
-            </a>
-            <a href="#certifications" class="mobile-nav-item">
-                <span class="nav-icon"><i class="fas fa-certificate"></i></span>
-                <span>Certificações</span>
-            </a>
-            <a href="#experience" class="mobile-nav-item">
-                <span class="nav-icon"><i class="fas fa-briefcase"></i></span>
-                <span>Experiência</span>
-            </a>
-            <a href="#contact" class="mobile-nav-item">
-                <span class="nav-icon"><i class="fas fa-envelope"></i></span>
-                <span>Contato</span>
-            </a>
-            <a href="#snake-game-section" class="mobile-nav-item">
-                <span class="nav-icon"><i class="fas fa-gamepad"></i></span>
-                <span>Jogo</span>
-            </a>
-            <a href="javascript:void(0);" class="mobile-nav-item btn" id="downloadCvBtnMobile">
-                <span class="nav-icon"><i class="fas fa-download"></i></span>
-                <span>Download CV</span>
-            </a>
+            <!-- Header simplificado do menu mobile -->
+            <div class="mobile-menu-header">
+                <div class="mobile-logo">
+                    <span class="bracket">&lt;</span>Edinaldo<span class="bracket">/&gt;</span>
+                </div>
+            </div>
+            
+            <!-- Container principal do menu mobile -->
+            <div class="mobile-nav-container">
+                <!-- Links do menu mobile com ícones -->
+                <a href="#about" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-user"></i></span>
+                    <span>Sobre</span>
+                </a>
+                <a href="#skills" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-code"></i></span>
+                    <span>Habilidades</span>
+                </a>
+                <a href="#ai" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-brain"></i></span>
+                    <span>IA</span>
+                </a>
+                <a href="#certifications" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-certificate"></i></span>
+                    <span>Certificações</span>
+                </a>
+                <a href="#experience" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-briefcase"></i></span>
+                    <span>Experiência</span>
+                </a>
+                <a href="#contact" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-envelope"></i></span>
+                    <span>Contato</span>
+                </a>
+                <a href="#snake-game-section" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-gamepad"></i></span>
+                    <span>Jogo</span>
+                </a>
+                <a href="javascript:void(0);" class="mobile-nav-item cv-download-btn mobile" id="downloadCvBtnMobile">
+                    <span class="nav-icon"><i class="fas fa-download"></i></span>
+                    <span class="btn-text">DOWNLOAD CV</span>
+                </a>
+            </div>
             
             <!-- Configurações no menu mobile -->
             <div class="mobile-settings-container">
                 <button class="mobile-settings-btn" id="mobileSettingsBtn" aria-label="Configurações">
-                    <i class="fas fa-cog"></i>
+                    <span>Configurações</span>
+                    <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="mobile-settings-dropdown" id="mobileSettingsDropdown">
                     <div class="settings-option" id="themeOptionMobile">
@@ -2795,10 +3125,10 @@
             </h1>
             <p class="hero-subtitle subtitle" id="typing-text">Desenvolvedor Front-End & Técnico de Informática</p>
             <p class="description">
-                Tecnico em informatica & Desenvolvedor Front-End criando experiências digitais incríveis com foco em performance, acessibilidade e design moderno.
+                Técnico em informática & Desenvolvedor Front-End criando experiências digitais incríveis com foco em performance, acessibilidade e design moderno.
             </p>
             <div class="hero-buttons">
-                <a href="#skills" class="btn">Ver Habilidades →</a>
+                <a href="#skills" class="cv-download-btn">Ver Habilidades →</a>
                 <a href="#contact" class="btn-outline">Entrar em Contato</a>
             </div>
             <div class="social-links">
@@ -2928,7 +3258,7 @@
             </div>
         </div>
     </section>
-    <!-- NOVA SEÇÃO: Entusiasta de IA -->
+    
     <section id="ai" class="ai-section section-light">
         <div class="container">
             <div class="section-header">
@@ -2937,7 +3267,7 @@
             </div>
             <div class="ai-grid">
                 <div class="ai-card">
-                    <img src="logo_chatGPT.png" alt="ChatGPT" class="ai-logo" style="width:72px!important;height:50px!important;">
+                    <img src="logo_chatGPT.png" alt="ChatGPT" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:70px;height:70px;">
                     <h3 class="ai-title">ChatGPT</h3>
                     <p class="ai-description">Assistente de IA da OpenAI para conversação natural, resolução de problemas e geração de conteúdo.</p>
                     <div class="ai-focus">
@@ -2946,7 +3276,7 @@
                     </div>
                 </div>
                 <div class="ai-card">
-                    <img src="logo_gemeni.png" alt="Gemini" class="ai-logo" style="width:72px!important;height:72px!important;">
+                    <img src="logo_gemeni.png" alt="Gemini" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:100px;height:90px;">
                     <h3 class="ai-title">Gemini</h3>
                     <p class="ai-description">Modelo multimodal do Google que entende texto, imagens, áudio e vídeo simultaneamente.</p>
                     <div class="ai-focus">
@@ -2955,7 +3285,7 @@
                     </div>
                 </div>
                 <div class="ai-card">
-                    <img src="logo_grok.png" alt="Grok" class="ai-logo">
+                    <img src="logo_grok.png" alt="Grok" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:100px;height:120px;">
                     <h3 class="ai-title">Grok</h3>
                     <p class="ai-description">IA com senso de humor e personalidade única, desenvolvida pela xAI com acesso a dados em tempo real.</p>
                     <div class="ai-focus">
@@ -2964,7 +3294,7 @@
                     </div>
                 </div>
                 <div class="ai-card">
-                    <img src="logo_github.png" alt="Copilot" class="ai-logo" style="width:72px!important;height:45px!important;">
+                    <img src="logo_github.png" alt="Copilot" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:60px;height:60px;">
                     <h3 class="ai-title">GitHub Copilot</h3>
                     <p class="ai-description">Assistente de programação que sugere código em tempo real integrado ao editor.</p>
                     <div class="ai-focus">
@@ -2973,7 +3303,7 @@
                     </div>
                 </div>
                 <div class="ai-card">
-                    <img src="logo_deepseek.png" alt="DeepSeek" class="ai-logo" >
+                    <img src="logo_deepseek.png" alt="DeepSeek" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:130px;height:130px;">
                     <h3 class="ai-title">DeepSeek</h3>
                     <p class="ai-description">Modelo avançado focado em raciocínio complexo e resolução de problemas técnicos.</p>
                     <div class="ai-focus">
@@ -2982,7 +3312,7 @@
                     </div>
                 </div>
                 <div class="ai-card">
-                    <img src="logo_perplexity.png" alt="Perplexity" class="ai-logo">
+                    <img src="logo_perplexity.png" alt="Perplexity" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:140px;height:140px;">
                     <h3 class="ai-title">Perplexity</h3>
                     <p class="ai-description">Assistente de pesquisa com fontes verificadas e respostas baseadas em informações atuais.</p>
                     <div class="ai-focus">
@@ -2991,7 +3321,7 @@
                     </div>
                 </div>
                 <div class="ai-card">
-                    <img src="logo_V0.png" alt="v0" class="ai-logo" style="width:72px!important;height:65px!important;">
+                    <img src="logo_V0.png" alt="v0" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:100px;height:100px;">
                     <h3 class="ai-title">V0</h3>
                     <p class="ai-description">Gerador de interfaces UI a partir de descrições textuais, criado pela Vercel.</p>
                     <div class="ai-focus">
@@ -3000,7 +3330,7 @@
                     </div>
                 </div>
                 <div class="ai-card">
-                    <img src="logo_lovable.png" alt="Lovable" class="ai-logo">
+                    <img src="logo_lovable.png" alt="Lovable" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:140px;height:140px;">
                     <h3 class="ai-title">Lovable</h3>
                     <p class="ai-description">Plataforma que transforma ideias em aplicações web completas com IA.</p>
                     <div class="ai-focus">
@@ -3011,6 +3341,7 @@
             </div>
         </div>
     </section>
+    
     <section id="certifications" class="section-light">
         <div class="container">
             <div class="section-header">
@@ -3018,7 +3349,6 @@
                 <p>Certificados obtidos em cursos e treinamentos relevantes</p>
             </div>
             <div class="certifications-grid">
-                <!-- Novo Card do IFS -->
                 <div class="certification-card">
                     <img src="https://www.ifs.edu.br/comunicacao/images/Imagens/Marcas/IFS_puro/Marca_IFS_vertical-01.png" alt="Instituto Federal de Sergipe" class="certification-logo">
                     <div class="certification-icon"><i class="fas fa-graduation-cap"></i></div>
@@ -3171,7 +3501,7 @@
             </div>
             <div class="experience-cta">
                 <p>Quer saber mais sobre minha experiência?</p>
-                <a href="#contact" class="btn">Vamos Conversar</a>
+                <a href="#contact" class="cv-download-btn">Vamos Conversar</a>
             </div>
         </div>
     </section>
@@ -3222,7 +3552,12 @@
                     <div class="form-group">
                         <textarea id="message" class="form-textarea" placeholder="Sua Mensagem" required></textarea>
                     </div>
-                    <button type="submit" class="btn" style="width: 100%;">Enviar Mensagem</button>
+                    <button type="submit" class="form-submit-btn">
+                        <div class="btn-content">
+                            <i class="fas fa-paper-plane btn-icon"></i>
+                            <span class="btn-text">ENVIAR MENSAGEM</span>
+                        </div>
+                    </button>
                 </form>
             </div>
         </div>
@@ -3238,7 +3573,7 @@
                 <div id="game-over-overlay">
                     <h2>Game Over</h2>
                     <p id="final-score">Sua pontuação: 0</p>
-                    <button id="restart-game-btn" class="btn">Reiniciar</button>
+                    <button id="restart-game-btn" class="cv-download-btn">Reiniciar</button>
                 </div>
                 <canvas id="snake-game"></canvas>
             </div>
@@ -3247,7 +3582,7 @@
                 <div>Recorde: <span id="high-score">0</span></div>
             </div>
             <div class="snake-controls">
-                <button id="start-game" class="btn">Iniciar Jogo</button>
+                <button id="start-game" class="cv-download-btn">Iniciar Jogo</button>
                 <button id="pause-game" class="btn-outline">Pausar</button>
                 <button id="reset-game" class="btn-outline">Reiniciar</button>
             </div>
@@ -3275,85 +3610,83 @@
     
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Inicializar AOS
-        AOS.init({
-            duration: 1200,
-            easing: 'ease-in-out',
-            once: true,
-            mirror: false
-        });
+        // ====================
+        // 1. PRELOADER
+        // ====================
+        const preloader = document.getElementById('preloader');
+        const progressBar = document.getElementById('progressBar');
         
-        // Inicializar Lucide Icons
-        lucide.createIcons();
-        
-        // ANIMAÇÃO DE DIGITAÇÃO
-        document.addEventListener('DOMContentLoaded', () => {
-            const subtitle = document.querySelector('.hero .subtitle');
-            const typingText = document.getElementById('typing-text');
-            
-            if (subtitle && typingText) {
-                const text = typingText.textContent;
-                typingText.textContent = '';
+        function hidePreloader() {
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 20;
+                if (progress > 100) progress = 100;
+                progressBar.style.width = `${progress}%`;
                 
-                // Adiciona uma div de overlay para efeitos
-                const overlay = document.createElement('div');
-                overlay.style.cssText = `
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: linear-gradient(90deg, 
-                        transparent 0%, 
-                        rgba(230, 194, 0, 0.1) 30%, 
-                        rgba(230, 194, 0, 0.05) 70%, 
-                        transparent 100%);
-                    animation: shimmer 3s ease-in-out infinite;
-                    opacity: 0.3;
-                    pointer-events: none;
-                `;
-                
-                // Adiciona posição relativa ao container
-                typingText.style.position = 'relative';
-                typingText.appendChild(overlay);
-                
-                // Temporizador para remover cursor após animação
-                setTimeout(() => {
-                    subtitle.classList.add('typing-complete');
-                    
-                    // Adiciona um efeito de brilho suave após a digitação
+                if (progress >= 100) {
+                    clearInterval(interval);
                     setTimeout(() => {
-                        typingText.style.transition = 'all 0.5s ease';
-                        typingText.style.textShadow = '0 0 20px rgba(230, 194, 0, 0.3)';
+                        preloader.classList.add('hidden');
+                        initAnimations();
+                    }, 500);
+                }
+            }, 100);
+        }
+        
+        // ====================
+        // 2. PAGE TRANSITIONS
+        // ====================
+        const pageTransition = document.getElementById('pageTransition');
+        
+        function navigateWithTransition(targetUrl) {
+            pageTransition.classList.add('active');
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 600);
+        }
+        
+        function navigateToSection(sectionId) {
+            pageTransition.classList.add('active');
+            setTimeout(() => {
+                const section = document.querySelector(sectionId);
+                if (section) {
+                    const headerHeight = document.getElementById('mainHeader').offsetHeight;
+                    const targetPosition = section.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    setTimeout(() => {
+                        pageTransition.classList.remove('active');
+                        pageTransition.classList.add('reverse');
                         
                         setTimeout(() => {
-                            typingText.style.textShadow = 'none';
-                        }, 1000);
-                    }, 500);
-                    
-                }, 2300); // Reduzido de 4500ms para 2300ms
-            }
-        });
-     
-        // CORREÇÃO DA FUNÇÃO DO MENU MOBILE - MELHORADA
+                            pageTransition.classList.remove('reverse');
+                        }, 600);
+                    }, 300);
+                }
+            }, 300);
+        }
+        
+        // ====================
+        // 3. MENU HAMBURGUER PROFISSIONAL MELHORADO
+        // ====================
         function toggleMobileMenu() {
             const menuToggle = document.getElementById('menuToggle');
             const mobileMenu = document.getElementById('mobileMenu');
             const mobileOverlay = document.getElementById('mobileMenuOverlay');
             const mobileSettingsDropdown = document.getElementById('mobileSettingsDropdown');
-            const settingsDropdown = document.getElementById('settingsDropdown');
             const settingsMenu = document.getElementById('settingsMenu');
             const isActive = mobileMenu.classList.contains('active');
             
-            // Garantir que os dropdowns sejam fechados
             mobileSettingsDropdown.classList.remove('active');
             settingsMenu.classList.remove('active');
             
-            // Impedir scroll do body quando menu aberto
             document.body.style.overflow = isActive ? 'auto' : 'hidden';
             
             if (isActive) {
-                // Fechar menu
                 mobileMenu.classList.remove('active');
                 setTimeout(() => {
                     mobileOverlay.classList.remove('active');
@@ -3361,7 +3694,6 @@
                 menuToggle.classList.remove('active');
                 menuToggle.setAttribute('aria-expanded', false);
             } else {
-                // Abrir menu
                 mobileOverlay.classList.add('active');
                 setTimeout(() => {
                     mobileMenu.classList.add('active');
@@ -3370,8 +3702,8 @@
                 menuToggle.setAttribute('aria-expanded', true);
             }
         }
-     
-        // Mobile Menu Toggle - EVENTOS MELHORADOS
+        
+        // Event Listeners para Menu Mobile MELHORADO
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileOverlay = document.getElementById('mobileMenuOverlay');
@@ -3380,210 +3712,412 @@
         const settingsMenu = document.getElementById('settingsMenu');
         const settingsBtn = document.getElementById('settingsBtn');
         const settingsDropdown = document.getElementById('settingsDropdown');
-     
-        // Prevenir clique duplo
-        let menuClickTimeout;
+        
         menuToggle.addEventListener('click', (e) => {
             e.stopPropagation();
-            clearTimeout(menuClickTimeout);
-            menuClickTimeout = setTimeout(() => {
-                toggleMobileMenu();
-            }, 100);
+            toggleMobileMenu();
         });
-     
-        // Fechar menu ao clicar no overlay
+        
         mobileOverlay.addEventListener('click', (e) => {
             if (e.target === mobileOverlay) {
                 toggleMobileMenu();
             }
         });
-     
-        // Close mobile menu when clicking on a link
+        
         document.querySelectorAll('.mobile-nav-item').forEach(link => {
             link.addEventListener('click', (e) => {
                 if (link.getAttribute('href') && link.getAttribute('href').startsWith('#')) {
                     e.preventDefault();
                     const targetId = link.getAttribute('href');
-                    const target = document.querySelector(targetId);
                     
-                    if (target) {
-                        toggleMobileMenu();
-                        
-                        // Scroll suave após fechar menu
-                        setTimeout(() => {
-                            const headerHeight = 80;
-                            const targetPosition = target.offsetTop - headerHeight;
-                            window.scrollTo({
-                                top: targetPosition,
-                                behavior: 'smooth'
-                            });
-                        }, 500);
-                    }
+                    toggleMobileMenu();
+                    
+                    setTimeout(() => {
+                        navigateToSection(targetId);
+                    }, 500);
                 }
             });
         });
-     
+        
         // Toggle mobile settings dropdown
         mobileSettingsBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             mobileSettingsDropdown.classList.toggle('active');
         });
         
-        // Fechar dropdown de configurações mobile ao clicar fora
+        // Toggle desktop settings dropdown
+        settingsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            settingsMenu.classList.toggle('active');
+        });
+        
+        // Fechar dropdowns ao clicar fora
         document.addEventListener('click', (e) => {
             if (!mobileSettingsBtn.contains(e.target) && !mobileSettingsDropdown.contains(e.target)) {
                 mobileSettingsDropdown.classList.remove('active');
             }
             
-            // Fechar dropdown principal ao clicar fora
             if (!settingsMenu.contains(e.target)) {
                 settingsMenu.classList.remove('active');
             }
         });
         
-        // CORREÇÃO: Toggle do menu de configurações principal
-        settingsBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            settingsMenu.classList.toggle('active');
+        // Fechar menu ao pressionar ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
         });
-     
-        // Header scroll effect
+        
+        // ====================
+        // 4. BOTÃO DOWNLOAD CV ELEGANTE MELHORADO
+        // ====================
+        function downloadCV() {
+            try {
+                const pdfUrl = 'curriculo_edinaldo.pdf';
+                
+                // Mostrar alerta de preparação
+                Swal.fire({
+                    title: 'Preparando download...',
+                    text: 'Seu currículo está sendo preparado.',
+                    icon: 'info',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    background: '#141414',
+                    color: '#f8f8f8',
+                    customClass: {
+                        popup: 'swal-custom-popup',
+                        title: 'swal-custom-title',
+                        timerProgressBar: 'swal-custom-progress'
+                    }
+                });
+                
+                // Efeito de clique no botão com animação de luz
+                const buttons = document.querySelectorAll('.cv-download-btn, .form-submit-btn');
+                buttons.forEach(btn => {
+                    if (btn.contains(event.target) || btn === event.target) {
+                        // Simular clique para ativar a animação de luz
+                        btn.style.setProperty('--click-animation', 'running');
+                        
+                        // Criar elemento de luz expandida
+                        const lightEffect = document.createElement('div');
+                        lightEffect.style.cssText = `
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            width: 0;
+                            height: 0;
+                            border-radius: 50%;
+                            background: radial-gradient(circle, 
+                                rgba(255, 237, 78, 0.8) 0%,
+                                rgba(255, 215, 0, 0.6) 30%,
+                                rgba(230, 194, 0, 0.4) 50%,
+                                transparent 70%);
+                            transform: translate(-50%, -50%);
+                            z-index: 0;
+                            pointer-events: none;
+                        `;
+                        btn.appendChild(lightEffect);
+                        
+                        // Animar expansão da luz
+                        setTimeout(() => {
+                            lightEffect.style.transition = 'width 0.3s ease, height 0.3s ease';
+                            lightEffect.style.width = '400px';
+                            lightEffect.style.height = '400px';
+                        }, 10);
+                        
+                        // Remover efeito após animação
+                        setTimeout(() => {
+                            lightEffect.style.opacity = '0';
+                            setTimeout(() => {
+                                if (lightEffect.parentNode) {
+                                    lightEffect.parentNode.removeChild(lightEffect);
+                                }
+                            }, 400);
+                        }, 500);
+                    }
+                });
+                
+                // Download do arquivo
+                setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = pdfUrl;
+                    link.download = 'Edinaldo_Almeida_Curriculo.pdf';
+                    link.target = '_blank';
+                    
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    // Alert de sucesso com tema personalizado
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Download realizado!',
+                        text: 'O currículo foi baixado com sucesso.',
+                        confirmButtonText: 'OK',
+                        background: '#141414',
+                        color: '#f8f8f8',
+                        iconColor: '#e6c200',
+                        confirmButtonColor: '#e6c200',
+                        customClass: {
+                            popup: 'swal-custom-popup',
+                            title: 'swal-custom-title',
+                            confirmButton: 'swal-custom-confirm-button',
+                            icon: 'swal-custom-icon'
+                        }
+                    });
+                    
+                }, 1500);
+                
+            } catch (error) {
+                console.error("Erro ao baixar PDF:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro ao baixar',
+                    text: 'Ocorreu um erro ao baixar o CV. Verifique se o arquivo está disponível.',
+                    confirmButtonText: 'Entendi',
+                    background: '#141414',
+                    color: '#f8f8f8',
+                    iconColor: '#e6c200',
+                    confirmButtonColor: '#e6c200',
+                    customClass: {
+                        popup: 'swal-custom-popup',
+                        title: 'swal-custom-title',
+                        confirmButton: 'swal-custom-confirm-button',
+                        icon: 'swal-custom-icon'
+                    }
+                });
+            }
+        }
+        
+        // Eventos para os botões de download
+        document.getElementById('downloadCvBtn').addEventListener('click', downloadCV);
+        document.getElementById('downloadCvBtnMobile').addEventListener('click', downloadCV);
+        
+        // Efeito de hover suave para todos os botões
+        document.querySelectorAll('.cv-download-btn, .form-submit-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                btn.style.transform = 'translateY(-5px) scale(1.05)';
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // ====================
+        // 5. SCROLL ANIMATIONS
+        // ====================
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    }
+                });
+            }, observerOptions);
+            
+            const elementsToObserve = document.querySelectorAll('.feature-card, .skill-category, .ai-card, .certification-card, .experience-item');
+            
+            elementsToObserve.forEach(element => {
+                if (element) observer.observe(element);
+            });
+        }
+        
+        // ====================
+        // 6. HEADER SCROLL EFFECT
+        // ====================
         const header = document.getElementById('mainHeader');
-        window.addEventListener('scroll', () => {
+        
+        function updateHeaderOnScroll() {
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
             }
-        });
-     
-        // Smooth scroll melhorado
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                if (this.getAttribute('href').startsWith('#')) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        const headerHeight = 80;
-                        const targetPosition = target.offsetTop - headerHeight;
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Atualizar link ativo
-                        document.querySelectorAll('.nav-links a').forEach(link => {
-                            link.classList.remove('active');
-                        });
-                        this.classList.add('active');
-                    }
-                }
-            });
-        });
-     
-        // Active nav links on scroll
-        window.addEventListener('scroll', () => {
+            
             const sections = document.querySelectorAll('section[id]');
-            const scrollY = window.pageYOffset;
-         
+            const scrollY = window.pageYOffset + 100;
+            
             sections.forEach(section => {
                 const sectionHeight = section.offsetHeight;
-                const sectionTop = section.offsetTop - 100;
+                const sectionTop = section.offsetTop;
                 const sectionId = section.getAttribute('id');
-                const navLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
-             
+                
                 if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
                     document.querySelectorAll('.nav-links a').forEach(link => {
                         link.classList.remove('active');
                     });
+                    
+                    const navLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
                     if (navLink) {
                         navLink.classList.add('active');
                     }
+                    
+                    document.querySelectorAll('.mobile-nav-item').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
                 }
             });
-        });
-     
-        // Intersection Observer para animações
-        const experienceContents = document.querySelectorAll('.experience-content');
-        const aboutText = document.querySelector('.about-text');
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.3
-        };
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-        experienceContents.forEach(content => {
-            observer.observe(content);
-        });
-        if (aboutText) {
-            observer.observe(aboutText);
         }
-     
-        // EmailJS
-        (function() {
-            emailjs.init("YOUR_USER_ID"); // Substitua com seu User ID
-        })();
-     
+        
+        // ====================
+        // 7. SMOOTH SCROLL
+        // ====================
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    if (this.getAttribute('href').startsWith('#') && 
+                        this.getAttribute('href') !== '#') {
+                        e.preventDefault();
+                        navigateToSection(this.getAttribute('href'));
+                    }
+                });
+            });
+        }
+        
+        // ====================
+        // 8. EMAILJS CONFIGURAÇÃO
+        // ====================
+        // Substitua pelos seus dados reais do EmailJS:
+        // Exemplo: emailjs.init("abc123xyz456");
+        emailjs.init("SEU_PUBLIC_KEY_AQUI");
+        
         const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', (e) => {
+        
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            const templateParams = {
+            
+            const formData = {
                 from_name: document.getElementById('name').value,
                 from_email: document.getElementById('email').value,
-                message: document.getElementById('message').value
+                message: document.getElementById('message').value,
+                to_email: 'almeidaedinaldo95@gmail.com'
             };
-         
-            emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
-                .then((response) => {
-                    alert('Mensagem enviada com sucesso! Entrarei em contato em breve.');
-                    contactForm.reset();
-                }, (error) => {
-                    alert('Ocorreu um erro ao enviar a mensagem. Tente novamente.');
+            
+            if (!formData.from_name || !formData.from_email || !formData.message) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Campos obrigatórios',
+                    text: 'Por favor, preencha todos os campos.',
+                    confirmButtonText: 'OK',
+                    background: '#141414',
+                    color: '#f8f8f8',
+                    iconColor: '#e6c200',
+                    confirmButtonColor: '#e6c200',
+                    customClass: {
+                        popup: 'swal-custom-popup',
+                        title: 'swal-custom-title',
+                        confirmButton: 'swal-custom-confirm-button',
+                        icon: 'swal-custom-icon'
+                    }
                 });
-        });
-     
-        // --- Download do CV em PDF ---
-        function downloadCV() {
+                return;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(formData.from_email)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Email inválido',
+                    text: 'Por favor, insira um email válido.',
+                    confirmButtonText: 'OK',
+                    background: '#141414',
+                    color: '#f8f8f8',
+                    iconColor: '#e6c200',
+                    confirmButtonColor: '#e6c200',
+                    customClass: {
+                        popup: 'swal-custom-popup',
+                        title: 'swal-custom-title',
+                        confirmButton: 'swal-custom-confirm-button',
+                        icon: 'swal-custom-icon'
+                    }
+                });
+                return;
+            }
+            
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalHtml = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="btn-content"><i class="fas fa-spinner fa-spin btn-icon"></i><span class="btn-text">ENVIANDO...</span></div>';
+            submitBtn.disabled = true;
+            
             try {
-                const pdfUrl = 'curriculo_edinaldo.pdf';
-                const link = document.createElement('a');
-                link.href = pdfUrl;
-                link.download = 'Edinaldo_Almeida_Curriculo.pdf';
-                link.target = '_blank';
+                // Substitua pelos seus IDs reais do EmailJS:
+                // Exemplo: emailjs.send("service_abc123", "template_xyz456", formData)
+                const response = await emailjs.send(
+                    "SEU_SERVICE_ID_AQUI",
+                    "SEU_TEMPLATE_ID_AQUI",
+                    formData
+                );
                 
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Mensagem enviada!',
+                    text: 'Obrigado pelo seu contato. Retornarei em breve!',
+                    confirmButtonText: 'OK',
+                    background: '#141414',
+                    color: '#f8f8f8',
+                    iconColor: '#e6c200',
+                    confirmButtonColor: '#e6c200',
+                    customClass: {
+                        popup: 'swal-custom-popup',
+                        title: 'swal-custom-title',
+                        confirmButton: 'swal-custom-confirm-button',
+                        icon: 'swal-custom-icon'
+                    }
+                });
+                
+                contactForm.reset();
                 
             } catch (error) {
-                console.error("Erro ao baixar PDF:", error);
-                alert("Ocorreu um erro ao baixar o CV. Verifique se o arquivo 'curriculo_edinaldo.pdf' está na mesma pasta do site.");
+                console.error('Erro ao enviar email:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro ao enviar',
+                    text: 'Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.',
+                    confirmButtonText: 'OK',
+                    background: '#141414',
+                    color: '#f8f8f8',
+                    iconColor: '#e6c200',
+                    confirmButtonColor: '#e6c200',
+                    customClass: {
+                        popup: 'swal-custom-popup',
+                        title: 'swal-custom-title',
+                        confirmButton: 'swal-custom-confirm-button',
+                        icon: 'swal-custom-icon'
+                    }
+                });
+            } finally {
+                submitBtn.innerHTML = originalHtml;
+                submitBtn.disabled = false;
             }
-        }
-
-        // Atribuir a função aos botões de download
-        document.getElementById('downloadCvBtn').addEventListener('click', downloadCV);
-        document.getElementById('downloadCvBtnMobile').addEventListener('click', downloadCV);
-     
-        // --- Sistema de Tema e Idioma ---
+        });
+        
+        // ====================
+        // 9. TEMA E IDIOMA
+        // ====================
         const html = document.documentElement;
         const themeText = document.getElementById('themeText');
         const themeIcon = document.getElementById('themeIcon');
         const themeTextMobile = document.getElementById('themeTextMobile');
         const themeIconMobile = document.getElementById('themeIconMobile');
         
-        // Verifica o tema salvo no localStorage
         const currentTheme = localStorage.getItem('theme') || 'dark';
         html.setAttribute('data-theme', currentTheme);
         updateThemeUI(currentTheme);
         
-        // Verifica o idioma salvo no localStorage
         const currentLang = localStorage.getItem('language') || 'pt';
         updateLanguage(currentLang);
         
@@ -3608,13 +4142,9 @@
             updateThemeUI(newTheme);
         }
         
-        // Eventos para alternar tema
         document.getElementById('themeOption').addEventListener('click', toggleTheme);
-        document.getElementById('themeOptionMobile').addEventListener('click', () => {
-            toggleTheme();
-        });
+        document.getElementById('themeOptionMobile').addEventListener('click', toggleTheme);
         
-        // --- Sistema de Idioma ---
         function updateLanguage(lang) {
             document.querySelectorAll('.language-btn').forEach(btn => {
                 if (btn.dataset.lang === lang) {
@@ -3631,7 +4161,6 @@
         function translateContent(lang) {
             const translations = {
                 'pt': {
-                    'title': 'Edinaldo Almeida | Desenvolvedor Front-End & Técnico de Informática',
                     'about': 'Sobre',
                     'skills': 'Habilidades',
                     'ai': 'IA',
@@ -3639,56 +4168,10 @@
                     'experience': 'Experiência',
                     'contact': 'Contato',
                     'game': 'Jogo',
-                    'downloadCv': 'Download CV',
-                    'heroTitle': 'Olá, eu sou<br><span class="name">Edinaldo Almeida</span>',
-                    'heroSubtitle': 'Desenvolvedor Front-End & Técnico de Informática',
-                    'heroDescription': 'Técnico em Informática & Desenvolvedor Front-End criando experiências digitais incríveis com foco em performance, acessibilidade e design moderno.',
-                    'aboutTitle': '<span class="highlight">Sobre</span> Mim',
-                    'aboutSubtitle': 'Desenvolvedor apaixonado por criar soluções digitais que fazem a diferença',
-                    'skillsTitle': '<span class="highlight">Habilidades</span> & Tecnologias',
-                    'skillsSubtitle': 'Ferramentas e tecnologias que domino',
-                    'aiTitle': '<span class="highlight">Entusiasta</span> de IA',
-                    'aiSubtitle': 'Explorando e aplicando as mais avançadas ferramentas de Inteligência Artificial',
-                    'certificationsTitle': 'Minhas <span class="highlight">Certificações</span>',
-                    'certificationsSubtitle': 'Certificados obtidos em cursos e treinamentos relevantes',
-                    'experienceTitle': 'Experiência <span class="highlight">Profissional</span>',
-                    'experienceSubtitle': 'Minha jornada no desenvolvimento e suporte técnico',
-                    'contactTitle': 'Entre em <span class="highlight">Contato</span>',
-                    'contactSubtitle': 'Vamos conversar sobre seu próximo projeto',
-                    'gameTitle': 'Um Pouco de <span class="highlight">Diversão</span>',
-                    'gameDescription': 'Desafie-se neste jogo da cobrinha criado com JavaScript puro. Use as setas do teclado para controlar a cobra e tente fazer a maior pontuação possível!',
-                    'developmentTitle': 'Desenvolvimento',
-                    'developmentText': 'Código limpo e escalável com as melhores práticas e tecnologias modernas como React, TypeScript e Node.js.',
-                    'designTitle': 'Design',
-                    'designText': 'Interfaces intuitivas e atraentes que proporcionam experiências memoráveis e acessíveis para todos os usuários.',
-                    'performanceTitle': 'Performance',
-                    'performanceText': 'Otimização constante para garantir velocidade, eficiência e responsividade em cada projeto desenvolvido.',
-                    'footerText': '© 2024 <span class="highlight">Edinaldo Almeida</span>. Todos os direitos reservados.',
-                    'sendMessage': 'Enviar Mensagem',
-                    'viewSkills': 'Ver Habilidades →',
-                    'contactMe': 'Entrar em Contato',
-                    'letsTalk': 'Vamos Conversar',
-                    'startGame': 'Iniciar Jogo',
-                    'pauseGame': 'Pausar',
-                    'resetGame': 'Reiniciar',
-                    'restartGame': 'Reiniciar',
-                    'namePlaceholder': 'Seu Nome',
-                    'emailPlaceholder': 'Seu Email',
-                    'messagePlaceholder': 'Sua Mensagem',
-                    'aboutText': 'Com experiência em desenvolvimento web e suporte técnico, trabalho com diversas tecnologias e metodologias. Meu foco está em criar aplicações robustas, escaláveis e com excelente experiência do usuário. <span class="highlight-text">Adoro aprender novas tecnologias</span> e aplicá-las em projetos desafiadores, sempre buscando a melhor solução para cada problema.',
-                    'current': 'No momento',
-                    'year': 'ano',
-                    'years': 'anos',
-                    'months': 'meses',
-                    'mainResponsibilities': 'Principais Responsabilidades:',
-                    'knowMore': 'Quer saber mais sobre minha experiência?',
-                    'score': 'Pontuação',
-                    'highScore': 'Recorde',
-                    'gameOver': 'Game Over',
-                    'finalScore': 'Sua pontuação'
+                    'downloadCv': 'DOWNLOAD CV',
+                    'sendMessage': 'ENVIAR MENSAGEM'
                 },
                 'en': {
-                    'title': 'Edinaldo Almeida | Front-End Developer & IT Technician',
                     'about': 'About',
                     'skills': 'Skills',
                     'ai': 'AI',
@@ -3696,56 +4179,10 @@
                     'experience': 'Experience',
                     'contact': 'Contact',
                     'game': 'Game',
-                    'downloadCv': 'Download CV',
-                    'heroTitle': 'Hello, I\'m<br><span class="name">Edinaldo Almeida</span>',
-                    'heroSubtitle': 'Front-End Developer & IT Technician',
-                    'heroDescription': 'Creating amazing digital experiences with a focus on performance, accessibility, and modern design.',
-                    'aboutTitle': '<span class="highlight">About</span> Me',
-                    'aboutSubtitle': 'Developer passionate about creating digital solutions that make a difference',
-                    'skillsTitle': '<span class="highlight">Skills</span> & Technologies',
-                    'skillsSubtitle': 'Tools and technologies I master',
-                    'aiTitle': 'AI <span class="highlight">Enthusiast</span>',
-                    'aiSubtitle': 'Exploring and applying the most advanced Artificial Intelligence tools',
-                    'certificationsTitle': 'My <span class="highlight">Certifications</span>',
-                    'certificationsSubtitle': 'Certificates obtained from relevant courses and training',
-                    'experienceTitle': 'Professional <span class="highlight">Experience</span>',
-                    'experienceSubtitle': 'My journey in development and technical support',
-                    'contactTitle': 'Get in <span class="highlight">Touch</span>',
-                    'contactSubtitle': 'Let\'s discuss your next project',
-                    'gameTitle': 'A Bit of <span class="highlight">Fun</span>',
-                    'gameDescription': 'Challenge yourself in this snake game created with pure JavaScript. Use the arrow keys to control the snake and try to achieve the highest score possible!',
-                    'developmentTitle': 'Development',
-                    'developmentText': 'Clean and scalable code using best practices and modern technologies like React, TypeScript, and Node.js.',
-                    'designTitle': 'Design',
-                    'designText': 'Intuitive and attractive interfaces that provide memorable and accessible experiences for all users.',
-                    'performanceTitle': 'Performance',
-                    'performanceText': 'Constant optimization to ensure speed, efficiency, and responsiveness in every developed project.',
-                    'footerText': '© 2024 <span class="highlight">Edinaldo Almeida</span>. All rights reserved.',
-                    'sendMessage': 'Send Message',
-                    'viewSkills': 'View Skills →',
-                    'contactMe': 'Contact Me',
-                    'letsTalk': 'Let\'s Talk',
-                    'startGame': 'Start Game',
-                    'pauseGame': 'Pause',
-                    'resetGame': 'Reset',
-                    'restartGame': 'Restart',
-                    'namePlaceholder': 'Your Name',
-                    'emailPlaceholder': 'Your Email',
-                    'messagePlaceholder': 'Your Message',
-                    'aboutText': 'With experience in web development and technical support, I work with various technologies and methodologies. My focus is on creating robust, scalable applications with excellent user experience. <span class="highlight-text">I love learning new technologies</span> and applying them to challenging projects, always seeking the best solution for each problem.',
-                    'current': 'Currently',
-                    'year': 'year',
-                    'years': 'years',
-                    'months': 'months',
-                    'mainResponsibilities': 'Main Responsibilities:',
-                    'knowMore': 'Want to know more about my experience?',
-                    'score': 'Score',
-                    'highScore': 'High Score',
-                    'gameOver': 'Game Over',
-                    'finalScore': 'Your score'
+                    'downloadCv': 'DOWNLOAD CV',
+                    'sendMessage': 'SEND MESSAGE'
                 },
                 'es': {
-                    'title': 'Edinaldo Almeida | Desarrollador Front-End & Técnico de Informática',
                     'about': 'Sobre',
                     'skills': 'Habilidades',
                     'ai': 'IA',
@@ -3753,59 +4190,12 @@
                     'experience': 'Experiencia',
                     'contact': 'Contacto',
                     'game': 'Juego',
-                    'downloadCv': 'Descargar CV',
-                    'heroTitle': 'Hola, soy<br><span class="name">Edinaldo Almeida</span>',
-                    'heroSubtitle': 'Desarrollador Front-End & Técnico de Informática',
-                    'heroDescription': 'Creando experiencias digitales increíbles con enfoque en rendimiento, accesibilidad y diseño moderno.',
-                    'aboutTitle': '<span class="highlight">Sobre</span> Mí',
-                    'aboutSubtitle': 'Desarrollador apasionado por crear soluciones digitales que marcan la diferencia',
-                    'skillsTitle': '<span class="highlight">Habilidades</span> & Tecnologías',
-                    'skillsSubtitle': 'Herramientas y tecnologías que domino',
-                    'aiTitle': '<span class="highlight">Entusiasta</span> de IA',
-                    'aiSubtitle': 'Explorando y aplicando las herramientas más avanzadas de Inteligencia Artificial',
-                    'certificationsTitle': 'Mis <span class="highlight">Certificaciones</span>',
-                    'certificationsSubtitle': 'Certificados obtenidos en cursos y entrenamientos relevantes',
-                    'experienceTitle': 'Experiencia <span class="highlight">Profesional</span>',
-                    'experienceSubtitle': 'Mi trayecto en desarrollo y soporte técnico',
-                    'contactTitle': 'Ponte en <span class="highlight">Contacto</span>',
-                    'contactSubtitle': 'Hablemos sobre tu próximo proyecto',
-                    'gameTitle': 'Un Poco de <span class="highlight">Diversión</span>',
-                    'gameDescription': 'Desafíate en este juego de la serpiente creado con JavaScript puro. Usa las flechas del teclado para controlar la serpiente e intenta conseguir la puntuación más alta posible.',
-                    'developmentTitle': 'Desarrollo',
-                    'developmentText': 'Código limpio e escalable con las mejores prácticas y tecnologías modernas como React, TypeScript y Node.js.',
-                    'designTitle': 'Diseño',
-                    'designText': 'Interfaces intuitivas y atractivas que proporcionan experiencias memorables y accesibles para todos los usuarios.',
-                    'performanceTitle': 'Rendimiento',
-                    'performanceText': 'Optimización constante para garantizar velocidad, eficiencia y capacidad de respuesta en cada proyecto desarrollado.',
-                    'footerText': '© 2024 <span class="highlight">Edinaldo Almeida</span>. Todos los derechos reservados.',
-                    'sendMessage': 'Enviar Mensaje',
-                    'viewSkills': 'Ver Habilidades →',
-                    'contactMe': 'Contactarme',
-                    'letsTalk': 'Hablemos',
-                    'startGame': 'Iniciar Jogo',
-                    'pauseGame': 'Pausar',
-                    'resetGame': 'Reiniciar',
-                    'restartGame': 'Reiniciar',
-                    'namePlaceholder': 'Tu Nombre',
-                    'emailPlaceholder': 'Tu Email',
-                    'messagePlaceholder': 'Tu Mensaje',
-                    'aboutText': 'Con experiencia en desarrollo web y soporte técnico, trabalho com diversas tecnologías y metodologías. Mi enfoque está en criar aplicações robustas, escaláveis e com excelente experiencia de usuario. <span class="highlight-text">Me encanta aprender nuevas tecnologías</span> y aplicarlas en proyectos desafiantes, siempre buscando la mejor solución para cada problema.',
-                    'current': 'Actualmente',
-                    'year': 'año',
-                    'years': 'años',
-                    'months': 'meses',
-                    'mainResponsibilities': 'Principales Responsabilidades:',
-                    'knowMore': '¿Quieres saber más sobre mi experiencia?',
-                    'score': 'Puntuación',
-                    'highScore': 'Récord',
-                    'gameOver': 'Game Over',
-                    'finalScore': 'Tu puntuación'
+                    'downloadCv': 'DESCARGAR CV',
+                    'sendMessage': 'ENVIAR MENSAJE'
                 }
             };
             
-            const t = translations[lang];
-            
-            document.title = t.title;
+            const t = translations[lang] || translations['pt'];
             
             document.querySelectorAll('a[href="#about"]').forEach(el => el.textContent = t.about);
             document.querySelectorAll('a[href="#skills"]').forEach(el => el.textContent = t.skills);
@@ -3814,86 +4204,16 @@
             document.querySelectorAll('a[href="#experience"]').forEach(el => el.textContent = t.experience);
             document.querySelectorAll('a[href="#contact"]').forEach(el => el.textContent = t.contact);
             document.querySelectorAll('a[href="#snake-game-section"]').forEach(el => el.textContent = t.game);
-            document.querySelectorAll('#downloadCvBtn, #downloadCvBtnMobile').forEach(el => el.textContent = t.downloadCv);
-            
-            document.querySelector('.hero h1').innerHTML = t.heroTitle;
-            document.querySelector('.hero .subtitle').textContent = t.heroSubtitle;
-            document.querySelector('.hero .description').textContent = t.heroDescription;
-            
-            document.querySelector('#about .section-header h2').innerHTML = t.aboutTitle;
-            document.querySelector('#about .section-header p').textContent = t.aboutSubtitle;
-            document.querySelector('#skills .section-header h2').innerHTML = t.skillsTitle;
-            document.querySelector('#skills .section-header p').textContent = t.skillsSubtitle;
-            document.querySelector('#ai .section-header h2').innerHTML = t.aiTitle;
-            document.querySelector('#ai .section-header p').textContent = t.aiSubtitle;
-            document.querySelector('#certifications .section-header h2').innerHTML = t.certificationsTitle;
-            document.querySelector('#certifications .section-header p').textContent = t.certificationsSubtitle;
-            document.querySelector('#experience .section-header h2').innerHTML = t.experienceTitle;
-            document.querySelector('#experience .section-header p').textContent = t.experienceSubtitle;
-            document.querySelector('#contact .section-header h2').innerHTML = t.contactTitle;
-            document.querySelector('#contact .section-header p').textContent = t.contactSubtitle;
-            document.querySelector('#snake-game-section .snake-header h2').innerHTML = t.gameTitle;
-            document.querySelector('#snake-game-section .snake-header p').textContent = t.gameDescription;
-            
-            const featureCards = document.querySelectorAll('.feature-card');
-            if (featureCards.length >= 3) {
-                featureCards[0].querySelector('h3').textContent = t.developmentTitle;
-                featureCards[0].querySelector('p').textContent = t.developmentText;
-                featureCards[1].querySelector('h3').textContent = t.designTitle;
-                featureCards[1].querySelector('p').textContent = t.designText;
-                featureCards[2].querySelector('h3').textContent = t.performanceTitle;
-                featureCards[2].querySelector('p').textContent = t.performanceText;
-            }
-            
-            document.querySelector('.about-text p').innerHTML = t.aboutText;
-            document.querySelector('.footer-text').innerHTML = t.footerText;
-            document.querySelector('#contactForm button[type="submit"]').textContent = t.sendMessage;
-            document.querySelector('.hero-buttons a[href="#skills"]').textContent = t.viewSkills;
-            document.querySelector('.hero-buttons a[href="#contact"]').textContent = t.contactMe;
-            document.querySelector('.experience-cta a').textContent = t.letsTalk;
-            document.querySelector('.experience-cta p').textContent = t.knowMore;
-            
-            document.querySelector('#start-game').textContent = t.startGame;
-            document.querySelector('#pause-game').textContent = t.pauseGame;
-            document.querySelector('#reset-game').textContent = t.resetGame;
-            document.querySelector('#restart-game-btn').textContent = t.restartGame;
-            
-            const snakeStats = document.querySelectorAll('.snake-stats div');
-            if (snakeStats.length >= 2) {
-                snakeStats[0].innerHTML = t.score + ': <span id="score">0</span>';
-                snakeStats[1].innerHTML = t.highScore + ': <span id="high-score">0</span>';
-            }
-            
-            document.querySelector('#game-over-overlay h2').textContent = t.gameOver;
-            document.querySelector('#name').placeholder = t.namePlaceholder;
-            document.querySelector('#email').placeholder = t.emailPlaceholder;
-            document.querySelector('#message').placeholder = t.messagePlaceholder;
-            
-            document.querySelectorAll('.achievements-title').forEach(el => {
-                const icon = el.querySelector('i');
-                if (icon) {
-                    el.innerHTML = `<i class="fas fa-trophy"></i> ${t.mainResponsibilities}`;
-                }
+            document.querySelectorAll('#downloadCvBtn .btn-text, #downloadCvBtnMobile .btn-text').forEach(el => {
+                el.textContent = t.downloadCv;
             });
             
-            document.querySelectorAll('.experience-period span').forEach(el => {
-                const text = el.textContent;
-                if (text.includes('No momento')) {
-                    el.textContent = text.replace('No momento', t.current);
-                }
-                if (text.includes('ano')) {
-                    el.textContent = text.replace('ano', t.year);
-                }
-                if (text.includes('anos')) {
-                    el.textContent = text.replace('anos', t.years);
-                }
-                if (text.includes('meses')) {
-                    el.textContent = text.replace('meses', t.months);
-                }
-            });
+            const submitBtn = document.querySelector('.form-submit-btn .btn-text');
+            if (submitBtn) {
+                submitBtn.textContent = t.sendMessage;
+            }
         }
         
-        // Eventos para botões de idioma
         document.querySelectorAll('.language-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const lang = btn.dataset.lang;
@@ -3901,7 +4221,9 @@
             });
         });
         
-        // --- Snake Game Implementation ---
+        // ====================
+        // 10. SNAKE GAME
+        // ====================
         const canvas = document.getElementById('snake-game');
         const ctx = canvas.getContext('2d');
         const scoreElement = document.getElementById('score');
@@ -3909,26 +4231,10 @@
         const startButton = document.getElementById('start-game');
         const pauseButton = document.getElementById('pause-game');
         const resetButton = document.getElementById('reset-game');
-      
         const gameOverOverlay = document.getElementById('game-over-overlay');
         const finalScoreElement = document.getElementById('final-score');
         const restartGameBtn = document.getElementById('restart-game-btn');
-      
-        // Sons (Web Audio API)
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        function playSound(frequency, duration, type = 'sine') {
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            oscillator.frequency.value = frequency;
-            oscillator.type = type;
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + duration);
-        }
-      
+        
         const gridSize = 20;
         let tileCountX, tileCountY;
         let snake = [];
@@ -3939,14 +4245,14 @@
         let highScore = localStorage.getItem('snakeHighScore') || 0;
         let gameRunning = false;
         let gameLoop;
-      
+        
         function resizeCanvas() {
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
             tileCountX = Math.floor(canvas.width / gridSize);
             tileCountY = Math.floor(canvas.height / gridSize);
         }
-      
+        
         function initGame() {
             snake = [{x: Math.floor(tileCountX / 2), y: Math.floor(tileCountY / 2)}];
             generateFood();
@@ -3959,12 +4265,13 @@
             gameRunning = false;
             drawGame();
         }
-      
+        
         function generateFood() {
             food = {
                 x: Math.floor(Math.random() * tileCountX),
                 y: Math.floor(Math.random() * tileCountY)
             };
+            
             for (let segment of snake) {
                 if (segment.x === food.x && segment.y === food.y) {
                     generateFood();
@@ -3972,7 +4279,7 @@
                 }
             }
         }
-      
+        
         function updateScore() {
             scoreElement.textContent = score;
             if (score > highScore) {
@@ -3981,20 +4288,21 @@
                 localStorage.setItem('snakeHighScore', highScore);
             }
         }
-      
+        
         function drawGame() {
             const gradientBg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
             gradientBg.addColorStop(0, '#0a0a0a');
             gradientBg.addColorStop(1, '#1a1a1a');
             ctx.fillStyle = gradientBg;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-         
+            
             for (let i = 0; i < snake.length; i++) {
                 const segment = snake[i];
                 const gradient = ctx.createRadialGradient(
                     segment.x * gridSize + gridSize/2, segment.y * gridSize + gridSize/2, 0,
                     segment.x * gridSize + gridSize/2, segment.y * gridSize + gridSize/2, gridSize/2
                 );
+                
                 if (i === 0) {
                     gradient.addColorStop(0, '#ffd700');
                     gradient.addColorStop(1, '#e6c200');
@@ -4002,13 +4310,14 @@
                     gradient.addColorStop(0, '#e6c200');
                     gradient.addColorStop(1, '#c1a300');
                 }
+                
                 ctx.shadowColor = 'rgba(230, 194, 0, 0.5)';
                 ctx.shadowBlur = 10;
                 ctx.fillStyle = gradient;
                 ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
                 ctx.shadowBlur = 0;
             }
-         
+            
             ctx.fillStyle = '#ff6b6b';
             ctx.shadowColor = 'rgba(255, 107, 107, 0.7)';
             ctx.shadowBlur = 20;
@@ -4020,7 +4329,7 @@
             ctx.fill();
             ctx.shadowColor = 'transparent';
             ctx.shadowBlur = 0;
-         
+            
             ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
             ctx.lineWidth = 1;
             for (let i = 0; i < tileCountX; i++) {
@@ -4036,31 +4345,31 @@
                 ctx.stroke();
             }
         }
-      
+        
         function updateGame() {
             if (!gameRunning) return;
+            
             const head = {x: snake[0].x + dx, y: snake[0].y + dy};
             snake.unshift(head);
-         
+            
             if (head.x === food.x && head.y === food.y) {
                 score += 10;
                 updateScore();
                 generateFood();
-                playSound(440, 0.1);
             } else {
                 snake.pop();
             }
-         
+            
             if (
-                head.x < 0 || head.x >= tileCountX || head.y < 0 || head.y >= tileCountY ||
+                head.x < 0 || head.x >= tileCountX || 
+                head.y < 0 || head.y >= tileCountY ||
                 checkCollision(head, snake.slice(1))
             ) {
                 gameOver();
-                playSound(220, 0.3, 'square');
                 return;
             }
         }
-      
+        
         function checkCollision(head, body) {
             for (let segment of body) {
                 if (head.x === segment.x && head.y === segment.y) {
@@ -4069,36 +4378,30 @@
             }
             return false;
         }
-      
+        
         function gameOver() {
             gameRunning = false;
             clearInterval(gameLoop);
             finalScoreElement.textContent = `Sua pontuação: ${score}`;
             gameOverOverlay.classList.add('visible');
         }
-      
+        
         function runGame() {
             updateGame();
             drawGame();
         }
-      
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            if (gameRunning) {
-                drawGame();
-            }
-        });
-      
+        
         document.addEventListener('keydown', (e) => {
             if([37, 38, 39, 40].includes(e.keyCode)) {
                 e.preventDefault();
             }
+            
             if (!gameRunning && dx === 0 && dy === 0 && !gameOverOverlay.classList.contains('visible')) {
-                 gameRunning = true;
-                 clearInterval(gameLoop);
-                 gameLoop = setInterval(runGame, 150);
+                gameRunning = true;
+                clearInterval(gameLoop);
+                gameLoop = setInterval(runGame, 150);
             }
-         
+            
             switch(e.key) {
                 case 'ArrowUp':
                     if (dy !== 1) { dx = 0; dy = -1; }
@@ -4114,20 +4417,21 @@
                     break;
             }
         });
-      
+        
         let touchStartX = 0;
         let touchStartY = 0;
+        
         canvas.addEventListener('touchstart', (e) => {
             touchStartX = e.touches[0].clientX;
             touchStartY = e.touches[0].clientY;
         });
-      
+        
         canvas.addEventListener('touchend', (e) => {
             const touchEndX = e.changedTouches[0].clientX;
             const touchEndY = e.changedTouches[0].clientY;
             const deltaX = touchEndX - touchStartX;
             const deltaY = touchEndY - touchStartY;
-          
+            
             if (Math.abs(deltaX) > Math.abs(deltaY)) {
                 if (deltaX > 0 && dx !== -1) { dx = 1; dy = 0; }
                 else if (deltaX < 0 && dx !== 1) { dx = -1; dy = 0; }
@@ -4135,56 +4439,135 @@
                 if (deltaY > 0 && dy !== -1) { dx = 0; dy = 1; }
                 else if (deltaY < 0 && dy !== 1) { dx = 0; dy = -1; }
             }
-          
+            
             if (!gameRunning) {
                 gameRunning = true;
                 clearInterval(gameLoop);
                 gameLoop = setInterval(runGame, 150);
             }
         });
-      
+        
         startButton.addEventListener('click', () => {
             if (!gameRunning) {
                 gameRunning = true;
                 clearInterval(gameLoop);
                 gameLoop = setInterval(runGame, 150);
-                playSound(440, 0.2);
             }
         });
-      
+        
         pauseButton.addEventListener('click', () => {
             gameRunning = !gameRunning;
             if (gameRunning) {
                 clearInterval(gameLoop);
                 gameLoop = setInterval(runGame, 150);
-                playSound(523, 0.1);
+                pauseButton.textContent = 'Pausar';
             } else {
                 clearInterval(gameLoop);
+                pauseButton.textContent = 'Continuar';
             }
         });
-      
+        
         function resetGame() {
             clearInterval(gameLoop);
             initGame();
             gameOverOverlay.classList.remove('visible');
+            gameRunning = false;
         }
-      
+        
         resetButton.addEventListener('click', resetGame);
         restartGameBtn.addEventListener('click', resetGame);
-     
-        resizeCanvas();
-        initGame();
-        drawGame();
+        
+        // ====================
+        // 11. INITIALIZATION
+        // ====================
+        function initAnimations() {
+            AOS.init({
+                duration: 1200,
+                easing: 'ease-in-out',
+                once: true,
+                mirror: false
+            });
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+            
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+                
+                gsap.from('.hero h1', {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1.2,
+                    ease: 'power3.out',
+                    delay: 0.2
+                });
+                
+                gsap.from('.hero .description', {
+                    y: 30,
+                    opacity: 0,
+                    duration: 1,
+                    delay: 0.8,
+                    ease: 'power3.out'
+                });
+                
+                gsap.utils.toArray('section').forEach((section, i) => {
+                    gsap.from(section, {
+                        scrollTrigger: {
+                            trigger: section,
+                            start: 'top 80%',
+                            end: 'bottom 20%',
+                            toggleActions: 'play none none reverse'
+                        },
+                        y: 50,
+                        opacity: 0,
+                        duration: 1,
+                        delay: i * 0.1,
+                        ease: 'power2.out'
+                    });
+                });
+            }
+            
+            initScrollAnimations();
+            initSmoothScroll();
+            
+            window.addEventListener('scroll', updateHeaderOnScroll);
+            updateHeaderOnScroll();
+            
+            resizeCanvas();
+            initGame();
+            drawGame();
+            
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                if (gameRunning) {
+                    drawGame();
+                }
+            });
+            
+            const typingText = document.getElementById('typing-text');
+            if (typingText) {
+                const text = typingText.textContent;
+                typingText.textContent = '';
+                
+                gsap.to(typingText, {
+                    text: {
+                        value: text,
+                        speed: 1
+                    },
+                    duration: 2,
+                    ease: 'power2.out',
+                    delay: 0.5
+                });
+            }
+        }
+        
+        // ====================
+        // 12. START EVERYTHING
+        // ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            hidePreloader();
+        });
     </script>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PE57EL5GRG"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-PE57EL5GRG');
-    </script>
-
 </body>
 </html>
