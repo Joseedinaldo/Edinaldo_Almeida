@@ -234,7 +234,9 @@
             align-items: center;
         }
         
-        /* Menu de Configurações */
+        /* ===================================================
+           MENU DE CONFIGURAÇÕES - CORRIGIDO: SEM OVERFLOW
+           =================================================== */
         .settings-menu {
             position: relative;
             display: inline-block;
@@ -250,17 +252,18 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s ease;
             color: var(--color-fg);
             font-size: 1.2rem;
             position: relative;
+            background: rgba(255, 255, 255, 0.03);
         }
         
         .settings-btn:hover {
             border-color: var(--color-primary);
             color: var(--color-primary);
+            background: rgba(230, 194, 0, 0.1);
             transform: rotate(30deg);
-            box-shadow: 0 0 20px rgba(230, 194, 0, 0.3);
         }
         
         .settings-dropdown {
@@ -275,10 +278,11 @@
             padding: 1.5rem;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(-20px) scale(0.95);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
             z-index: 1001;
             backdrop-filter: blur(20px);
+            overflow: hidden; /* CORREÇÃO: Evita conteúdo saindo do card */
         }
         
         [data-theme="light"] .settings-dropdown {
@@ -288,7 +292,7 @@
         .settings-menu.active .settings-dropdown {
             opacity: 1;
             visibility: visible;
-            transform: translateY(10px) scale(1);
+            transform: translateY(10px);
         }
         
         .settings-option {
@@ -297,7 +301,7 @@
             gap: 1rem;
             padding: 1rem 0;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.2s ease;
             border-bottom: 1px solid var(--color-border);
         }
         
@@ -305,9 +309,13 @@
             border-bottom: none;
         }
         
+        /* REMOVIDA A ANIMAÇÃO DE MOVIMENTO DO TEXTO */
         .settings-option:hover {
             color: var(--color-primary);
-            transform: translateX(5px);
+        }
+        
+        .settings-option:hover .icon {
+            color: var(--color-primary);
         }
         
         .settings-option .icon {
@@ -323,6 +331,7 @@
             display: flex;
             gap: 0.5rem;
             margin-top: 0.75rem;
+            flex-wrap: wrap; /* CORREÇÃO: Permite que os idiomas quebrem linha se necessário */
         }
         
         .language-btn {
@@ -341,8 +350,6 @@
             background: var(--color-primary);
             color: var(--color-bg);
             border-color: var(--color-primary);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(230, 194, 0, 0.3);
         }
      
         .nav-links a {
@@ -384,200 +391,100 @@
         }
 
         /* ===================================================
-           BOTÃO DOWNLOAD CV SUPER PREMIUM COM ANIMAÇÃO ESPETACULAR
+           BOTÃO DOWNLOAD CV - PROFISSIONAL E REFINADO
            =================================================== */
         .cv-download-btn {
-            padding: 1rem 2.8rem;
+            padding: 1rem 2.2rem;
             background: linear-gradient(135deg, 
-                #e6c200 0%, 
-                #ffd700 25%, 
-                #ffed4e 50%, 
-                #ffd700 75%, 
-                #e6c200 100%);
+                rgba(230, 194, 0, 0.95) 0%, 
+                rgba(255, 215, 0, 0.9) 100%);
             color: #0a0a0a;
             border: none;
-            border-radius: 60px;
-            font-weight: 900;
+            border-radius: 12px;
+            font-weight: 600;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 0.95rem;
             position: relative;
             overflow: hidden;
             display: inline-flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
             letter-spacing: 0.02em;
             box-shadow: 
-                0 0 0 2px rgba(230, 194, 0, 0.3),
-                0 10px 40px rgba(230, 194, 0, 0.25),
-                0 0 0 4px rgba(255, 255, 255, 0.05);
+                0 4px 12px rgba(230, 194, 0, 0.2),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
             z-index: 1;
             text-transform: uppercase;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            min-width: 180px;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* Brilho pulsante no fundo */
-        .cv-download-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(45deg, 
-                transparent 30%, 
-                rgba(255, 255, 255, 0.2) 50%, 
-                transparent 70%);
-            background-size: 200% 200%;
-            border-radius: 60px;
-            z-index: -1;
-            animation: btn-pulse 3s ease-in-out infinite;
-            opacity: 0.6;
-        }
-
-        /* Anel dourado externo animado */
-        .cv-download-btn::after {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            background: linear-gradient(45deg, 
-                #e6c200, 
-                #ffd700, 
-                #ffed4e, 
-                #ffd700, 
-                #e6c200);
-            background-size: 400% 400%;
-            border-radius: 64px;
-            z-index: -2;
-            animation: btn-ring-rotate 4s linear infinite;
-            opacity: 0.7;
-            filter: blur(2px);
-        }
-
-        /* Efeito de partículas douradas */
-        .cv-download-btn .particles {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #ffed4e;
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0;
-            box-shadow: 
-                0 0 10px #ffed4e,
-                0 0 20px #ffed4e,
-                0 0 30px #ffed4e;
-        }
-
-        /* Efeito hover - expansão e brilho intenso */
+        /* Efeito hover sutil e elegante */
         .cv-download-btn:hover {
-            transform: translateY(-8px) scale(1.08);
+            transform: translateY(-2px);
             box-shadow: 
-                0 0 0 3px rgba(230, 194, 0, 0.5),
-                0 20px 60px rgba(230, 194, 0, 0.4),
-                0 0 30px rgba(255, 237, 78, 0.3);
-            letter-spacing: 0.05em;
+                0 8px 20px rgba(230, 194, 0, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 0.95) 0%, 
+                rgba(255, 237, 78, 0.9) 100%);
         }
 
-        .cv-download-btn:hover::before {
-            opacity: 0.8;
-            animation: btn-pulse 1.5s ease-in-out infinite;
+        /* Efeito de clique sutil */
+        .cv-download-btn:active {
+            transform: translateY(0);
+            box-shadow: 
+                0 2px 8px rgba(230, 194, 0, 0.2),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
         }
 
-        .cv-download-btn:hover::after {
-            opacity: 0.9;
-            animation: btn-ring-rotate 2s linear infinite;
-            filter: blur(1px);
-        }
-
-        /* Icon animation */
+        /* Ícone discreto */
         .cv-download-btn .btn-icon {
-            font-size: 1.3rem;
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-            z-index: 2;
-            text-shadow: 0 0 10px rgba(255, 237, 78, 0.5);
+            font-size: 1rem;
+            transition: transform 0.3s ease;
         }
 
         .cv-download-btn:hover .btn-icon {
-            transform: translateY(3px) rotate(15deg) scale(1.2);
-            filter: drop-shadow(0 0 15px rgba(255, 237, 78, 0.8));
+            transform: translateY(1px);
         }
 
         .cv-download-btn .btn-text {
             position: relative;
             z-index: 2;
-            font-weight: 900;
-            background: linear-gradient(90deg, #0a0a0a, #333, #0a0a0a);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: none;
-            padding: 0.2em 0;
-            letter-spacing: 0.05em;
-        }
-
-        /* Animações do botão */
-        @keyframes btn-pulse {
-            0%, 100% {
-                background-position: 0% 50%;
-                opacity: 0.6;
-            }
-            50% {
-                background-position: 100% 50%;
-                opacity: 0.8;
-            }
-        }
-
-        @keyframes btn-ring-rotate {
-            0% {
-                background-position: 0% 50%;
-                transform: rotate(0deg);
-            }
-            100% {
-                background-position: 400% 50%;
-                transform: rotate(360deg);
-            }
+            font-weight: 600;
         }
 
         /* Versão Mobile */
         .cv-download-btn.mobile {
             width: 100%;
             justify-content: center;
-            padding: 1.2rem 2.5rem;
-            font-size: 1.1rem;
-            margin-top: 1rem;
-            background: linear-gradient(135deg, 
-                #e6c200 0%, 
-                #ffd700 25%, 
-                #ffed4e 50%, 
-                #ffd700 75%, 
-                #e6c200 100%);
+            padding: 1rem 1.5rem;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
         }
 
         .cv-download-btn.mobile:hover {
-            background: linear-gradient(135deg, 
-                #ffd700 0%, 
-                #ffed4e 25%, 
-                #ffff6b 50%, 
-                #ffed4e 75%, 
-                #ffd700 100%);
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-2px);
         }
 
         /* ===================================================
-           BOTÃO ENVIAR MENSAGEM - LADO A LADO
+           BOTÃO ENVIAR MENSAGEM - REFINADO
            =================================================== */
         .form-submit-btn {
-            padding: 1rem 2.8rem;
+            padding: 1rem 2rem;
             background: linear-gradient(135deg, 
-                var(--color-primary) 0%, 
-                var(--color-primary-dark) 100%);
+                rgba(230, 194, 0, 0.95) 0%, 
+                rgba(255, 215, 0, 0.9) 100%);
             color: #0a0a0a;
             border: none;
-            border-radius: 60px;
-            font-weight: 900;
+            border-radius: 12px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 0.95rem;
             position: relative;
             overflow: hidden;
             display: inline-flex;
@@ -586,13 +493,13 @@
             gap: 0.75rem;
             letter-spacing: 0.02em;
             box-shadow: 
-                0 8px 30px rgba(230, 194, 0, 0.3),
-                0 0 0 1px rgba(230, 194, 0, 0.2);
+                0 4px 12px rgba(230, 194, 0, 0.2);
             z-index: 1;
             text-transform: uppercase;
             margin: 1rem auto 0;
-            min-width: 220px;
+            min-width: 200px;
             width: auto;
+            font-family: 'Inter', sans-serif;
         }
 
         /* Container para ícone e texto lado a lado */
@@ -606,97 +513,39 @@
         }
 
         .form-submit-btn .btn-icon {
-            font-size: 1.2rem;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            display: inline-block;
-            line-height: 1;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
         }
 
         .form-submit-btn .btn-text {
-            font-weight: 800;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            font-weight: 600;
             display: inline-block;
-            line-height: 1;
-            letter-spacing: 0.03em;
+            letter-spacing: 0.02em;
         }
 
-        /* Efeito de brilho interno */
-        .form-submit-btn::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                #e6c200, #ffd700, #ffed4e, #ffd700, #e6c200);
-            background-size: 400% 400%;
-            border-radius: 62px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            animation: btn-shine 3s linear infinite;
-        }
-
-        /* Efeito de expansão de luz amarela ao clicar */
-        .form-submit-btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: radial-gradient(circle, 
-                rgba(255, 237, 78, 0.6) 0%,
-                rgba(255, 215, 0, 0.4) 30%,
-                rgba(230, 194, 0, 0.2) 50%,
-                transparent 70%);
-            transform: translate(-50%, -50%);
-            transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                        height 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-            z-index: 0;
-        }
-
-        /* Efeito hover */
+        /* Efeito hover refinado */
         .form-submit-btn:hover {
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-2px);
             box-shadow: 
-                0 15px 40px rgba(230, 194, 0, 0.4),
-                0 0 20px rgba(255, 215, 0, 0.3),
-                inset 0 0 20px rgba(255, 255, 255, 0.1);
-            letter-spacing: 0.04em;
-        }
-
-        /* Ativar brilho no hover */
-        .form-submit-btn:hover::before {
-            opacity: 1;
-        }
-
-        /* Efeito de clique - luz se expande */
-        .form-submit-btn:active::after {
-            width: 250px;
-            height: 250px;
-            transition: width 0.3s ease, height 0.3s ease;
+                0 8px 20px rgba(230, 194, 0, 0.3);
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 0.95) 0%, 
+                rgba(255, 237, 78, 0.9) 100%);
         }
 
         .form-submit-btn:hover .btn-icon {
-            transform: translateY(2px) rotate(10deg);
-            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+            transform: translateY(1px);
         }
 
-        /* Animação do brilho da borda */
-        @keyframes btn-shine {
-            0% {
-                background-position: 0% 0%;
-            }
-            100% {
-                background-position: 400% 0%;
-            }
+        /* Efeito de clique */
+        .form-submit-btn:active {
+            transform: translateY(0);
+            box-shadow: 
+                0 2px 8px rgba(230, 194, 0, 0.2);
         }
      
         /* ===================================================
-           MENU HAMBURGUER PROFISSIONAL ELEGANTE - CORRIGIDO
+           MENU HAMBURGUER PROFISSIONAL E ELEGANTE - CORRIGIDO: SEM QUADRADO TRANSPARENTE
            =================================================== */
         .menu-toggle {
             display: none;
@@ -705,23 +554,26 @@
             border: none;
             cursor: pointer;
             z-index: 1001;
-            transition: var(--transition);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             margin-left: auto;
-            border-radius: 50%;
+            border-radius: 12px;
             padding: 0;
+            border:none;
         }
      
         .menu-toggle:hover {
             background: rgba(230, 194, 0, 0.1);
+            border-color: var(--color-primary);
+            transform: rotate(90deg);
         }
         
         /* Hamburger Lines minimalista e elegante */
         .hamburger {
-            width: 32px;
-            height: 32px;
+            width: 24px;
+            height: 24px;
             position: relative;
             display: flex;
             align-items: center;
@@ -732,34 +584,43 @@
         .hamburger-line {
             position: absolute;
             width: 100%;
-            height: 3px;
+            height: 2px;
             background: var(--color-fg);
-            border-radius: 3px;
+            border-radius: 2px;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             transform-origin: center;
+            opacity: 0.9;
         }
         
         .hamburger-line:nth-child(1) {
-            top: 8px;
+            top: 6px;
             transform: translateY(0) rotate(0deg);
+            width: 80%;
+            left: 10%;
         }
         
         .hamburger-line:nth-child(2) {
             top: 50%;
             transform: translateY(-50%) scaleX(1);
             opacity: 1;
+            width: 100%;
         }
         
         .hamburger-line:nth-child(3) {
-            bottom: 8px;
+            bottom: 6px;
             transform: translateY(0) rotate(0deg);
+            width: 60%;
+            left: 20%;
         }
         
-        /* Animação "X" suave e elegante - SOMENTE AS LINHAS VIREM AMARELAS */
+        /* Animação "X" suave e elegante */
         .menu-toggle.active .hamburger-line:nth-child(1) {
             top: 50%;
             transform: translateY(-50%) rotate(45deg);
             background: var(--color-primary);
+            width: 100%;
+            left: 0;
+            opacity: 1;
         }
         
         .menu-toggle.active .hamburger-line:nth-child(2) {
@@ -771,6 +632,9 @@
             bottom: 50%;
             transform: translateY(50%) rotate(-45deg);
             background: var(--color-primary);
+            width: 100%;
+            left: 0;
+            opacity: 1;
         }
         
         .menu-toggle.active .hamburger {
@@ -784,12 +648,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 998;
         }
         
@@ -803,21 +667,20 @@
             position: fixed;
             top: 0;
             right: -100%;
-            width: 85%;
-            max-width: 380px;
+            width: 320px;
             height: 100vh;
-            background: rgba(5, 5, 5, 0.98);
-            backdrop-filter: blur(50px);
-            -webkit-backdrop-filter: blur(50px);
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             display: flex;
             flex-direction: column;
             padding: 0;
-            transition: right 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 999;
             overflow-y: auto;
             overflow-x: hidden;
-            box-shadow: -10px 0 50px rgba(0, 0, 0, 0.95);
-            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         [data-theme="light"] .mobile-menu {
@@ -828,9 +691,9 @@
             right: 0;
         }
         
-        /* REMOVIDO O HEADER COM BOTÃO DE FECHAR DUPLICADO */
+        /* Header do menu mobile */
         .mobile-menu-header {
-            padding: 1.5rem 2rem;
+            padding: 1.5rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             background: rgba(5, 5, 5, 0.95);
         }
@@ -841,7 +704,7 @@
         }
         
         .mobile-logo {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: var(--color-primary);
             display: flex;
@@ -856,7 +719,7 @@
      
         /* Container principal do menu mobile */
         .mobile-nav-container {
-            padding: 1.5rem 2rem;
+            padding: 1.5rem;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -868,13 +731,13 @@
         .mobile-nav-item {
             display: flex;
             align-items: center;
-            gap: 1.2rem;
-            padding: 1.1rem 1.5rem;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
             color: var(--color-fg);
             text-decoration: none;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 500;
-            font-size: 1.1rem;
+            font-size: 1rem;
             position: relative;
             overflow: hidden;
             border-radius: 12px;
@@ -884,17 +747,17 @@
         }
         
         .mobile-nav-item .nav-icon {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             color: var(--color-primary);
             background: rgba(230, 194, 0, 0.1);
-            border-radius: 8px;
-            padding: 0.5rem;
+            border-radius: 6px;
+            padding: 0.4rem;
             flex-shrink: 0;
         }
      
@@ -903,7 +766,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
+            width: 3px;
             height: 100%;
             background: var(--color-primary);
             transform: scaleY(0);
@@ -917,12 +780,10 @@
         .mobile-nav-item:hover {
             color: var(--color-primary);
             background: rgba(230, 194, 0, 0.08);
-            transform: translateX(5px);
             border-color: rgba(230, 194, 0, 0.2);
         }
         
         .mobile-nav-item:hover .nav-icon {
-            transform: scale(1.1);
             background: rgba(230, 194, 0, 0.2);
         }
         
@@ -934,64 +795,35 @@
         }
         
         .mobile-nav-item.active .nav-icon {
-            transform: scale(1.1);
             background: rgba(230, 194, 0, 0.2);
         }
         
         /* Botão CV no Menu Mobile */
         .mobile-nav-item.cv-download-btn {
             background: linear-gradient(135deg, 
-                #e6c200 0%, 
-                #ffd700 25%, 
-                #ffed4e 50%, 
-                #ffd700 75%, 
-                #e6c200 100%);
+                rgba(230, 194, 0, 0.95) 0%, 
+                rgba(255, 215, 0, 0.9) 100%);
             color: #0a0a0a;
             border: none;
             margin-top: 1rem;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             justify-content: center;
-            padding: 1.1rem;
-            font-weight: 700;
-            gap: 1rem;
+            padding: 1rem;
+            font-weight: 600;
+            gap: 0.75rem;
             box-shadow: 
-                0 0 0 2px rgba(230, 194, 0, 0.3),
-                0 8px 25px rgba(230, 194, 0, 0.3);
+                0 4px 12px rgba(230, 194, 0, 0.2);
             position: relative;
             overflow: hidden;
         }
 
-        .mobile-nav-item.cv-download-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(45deg, 
-                transparent 30%, 
-                rgba(255, 255, 255, 0.2) 50%, 
-                transparent 70%);
-            background-size: 200% 200%;
-            border-radius: 12px;
-            z-index: 1;
-            animation: btn-pulse 3s ease-in-out infinite;
-            opacity: 0.6;
-        }
-
         .mobile-nav-item.cv-download-btn:hover {
             background: linear-gradient(135deg, 
-                #ffd700 0%, 
-                #ffed4e 25%, 
-                #ffff6b 50%, 
-                #ffed4e 75%, 
-                #ffd700 100%);
-            transform: translateY(-2px) translateX(5px);
+                rgba(255, 215, 0, 0.95) 0%, 
+                rgba(255, 237, 78, 0.9) 100%);
+            transform: translateY(-2px);
             box-shadow: 
-                0 0 0 3px rgba(230, 194, 0, 0.5),
-                0 12px 35px rgba(230, 194, 0, 0.4);
-        }
-
-        .mobile-nav-item.cv-download-btn:hover .nav-icon {
-            transform: translateY(2px) rotate(10deg);
-            filter: drop-shadow(0 0 8px rgba(255, 237, 78, 0.5));
+                0 8px 20px rgba(230, 194, 0, 0.3);
         }
 
         .mobile-nav-item.cv-download-btn .nav-icon {
@@ -1004,14 +836,14 @@
         .mobile-nav-item.cv-download-btn .btn-text {
             position: relative;
             z-index: 2;
-            font-weight: 700;
+            font-weight: 600;
             letter-spacing: 0.02em;
         }
         
         /* Configurações Mobile */
         .mobile-settings-container {
             margin-top: auto;
-            padding: 1.5rem 2rem;
+            padding: 1.5rem;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             background: rgba(5, 5, 5, 0.95);
         }
@@ -1023,17 +855,17 @@
         
         .mobile-settings-btn {
             width: 100%;
-            padding: 1rem 1.5rem;
+            padding: 0.9rem 1.25rem;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.2s ease;
             color: var(--color-fg);
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 500;
         }
         
@@ -1046,12 +878,12 @@
         .mobile-settings-dropdown {
             background: rgba(5, 5, 5, 0.95);
             backdrop-filter: blur(20px);
-            border-radius: 12px;
+            border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 0;
             max-height: 0;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             opacity: 0;
             margin-top: 0.5rem;
         }
@@ -1065,7 +897,7 @@
             max-height: 400px;
             opacity: 1;
             margin-top: 0.75rem;
-            padding: 1.5rem;
+            padding: 1.25rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
      
@@ -1182,26 +1014,29 @@
         }
      
         .btn-outline {
-            padding: 0.85rem 2rem;
+            padding: 1rem 1.8rem;
             background: transparent;
-            color: var(--color-fg);
+            color: var(--color-muted);
             border: 2px solid var(--color-border);
-            border-radius: 50px;
+            border-radius: 12px;
             font-weight: 500;
-            transition: var(--transition);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             font-size: 0.95rem;
             text-decoration: none;
             position: relative;
             overflow: hidden;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 0.75rem;
+            min-width: 180px;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
         }
      
         .btn-outline:hover {
             border-color: var(--color-primary);
             color: var(--color-primary);
-            box-shadow: var(--shadow-hover);
+            background: rgba(230, 194, 0, 0.05);
             transform: translateY(-2px);
         }
      
@@ -2103,54 +1938,61 @@
             image-rendering: crisp-edges;
         }
      
+        /* CONTROLES DO JOGO MELHORADOS */
         .snake-controls {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
             margin-top: 2rem;
+            justify-content: center;
+            align-items: center;
         }
         
-        .snake-controls .btn,
+        .snake-controls .cv-download-btn,
         .snake-controls .btn-outline {
-            padding: 0.85rem 1.75rem;
-            font-size: 0.95rem;
-            border-radius: 50px;
-            background: var(--color-card);
-            box-shadow: var(--shadow-soft);
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            border-radius: 12px;
             transform: translateY(0);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 500;
+            font-weight: 600;
             text-decoration: none;
             cursor: pointer;
             line-height: 1.5;
+            min-width: 140px;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
         }
         
-        .snake-controls .btn {
-            color: var(--color-primary);
-            border: 1px solid var(--color-primary);
+        .snake-controls .cv-download-btn {
+            background: linear-gradient(135deg, 
+                rgba(230, 194, 0, 0.95) 0%, 
+                rgba(255, 215, 0, 0.9) 100%);
+            color: #0a0a0a;
+            border: none;
         }
         
         .snake-controls .btn-outline {
+            background: transparent;
             color: var(--color-muted);
-            border: 1px solid var(--color-border);
+            border: 2px solid var(--color-border);
         }
        
-        .snake-controls .btn:hover,
+        .snake-controls .cv-download-btn:hover,
         .snake-controls .btn-outline:hover {
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
         }
         
-        .snake-controls .btn:hover {
-            background: var(--color-primary);
-            color: var(--color-bg);
-            border-color: var(--color-primary);
+        .snake-controls .cv-download-btn:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 0.95) 0%, 
+                rgba(255, 237, 78, 0.9) 100%);
         }
        
         .snake-controls .btn-outline:hover {
-            background: var(--color-card);
-            color: var(--color-primary);
             border-color: var(--color-primary);
+            color: var(--color-primary);
+            background: rgba(230, 194, 0, 0.05);
         }
      
         .snake-stats {
@@ -2173,7 +2015,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(20, 20, 20, 0.9));
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(20, 20, 20, 0.95));
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             color: var(--color-fg);
@@ -2182,6 +2024,7 @@
             justify-content: center;
             align-items: center;
             z-index: 100;
+            padding: 2rem;
         }
       
         #game-over-overlay.visible {
@@ -2200,6 +2043,11 @@
         #game-over-overlay p {
             font-size: 1.5rem;
             margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        #game-over-overlay .cv-download-btn {
+            margin-top: 1rem;
         }
      
         /* Footer */
@@ -2274,6 +2122,162 @@
             transform: scale(1.1) rotate(5deg);
         }
      
+        /* ===================================================
+           ESTILO CONSISTENTE PARA TODOS OS BOTÕES
+           =================================================== */
+
+        /* Bordas levemente arredondadas para todos os botões */
+        button:not(.menu-toggle),
+        a[class*="btn"],
+        .cv-download-btn,
+        .form-submit-btn,
+        .btn-outline,
+        .language-btn,
+        #start-game,
+        #pause-game,
+        #reset-game,
+        #restart-game-btn,
+        .snake-controls .btn-outline {
+            border-radius: 12px !important;
+        }
+
+        /* Sombras suaves e consistentes */
+        button:not(.menu-toggle):not(.settings-btn),
+        a[class*="btn"],
+        .cv-download-btn,
+        .form-submit-btn,
+        .btn-outline,
+        .language-btn.active,
+        #start-game,
+        #pause-game,
+        #reset-game,
+        #restart-game-btn {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+        }
+
+        /* Hover consistente */
+        button:not(.menu-toggle):not(.settings-btn):hover,
+        a[class*="btn"]:hover,
+        .cv-download-btn:hover,
+        .form-submit-btn:hover,
+        .btn-outline:hover,
+        .language-btn:hover,
+        #start-game:hover,
+        #pause-game:hover,
+        #reset-game:hover,
+        #restart-game-btn:hover,
+        .snake-controls .btn-outline:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        /* Estado ativo/clique */
+        button:not(.menu-toggle):not(.settings-btn):active,
+        a[class*="btn"]:active,
+        .cv-download-btn:active,
+        .form-submit-btn:active,
+        .btn-outline:active,
+        .language-btn:active,
+        #start-game:active,
+        #pause-game:active,
+        #reset-game:active,
+        #restart-game-btn:active,
+        .snake-controls .btn-outline:active {
+            transform: translateY(0) !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        /* Botões outline específicos */
+        .btn-outline,
+        #pause-game,
+        #reset-game,
+        .snake-controls .btn-outline {
+            border: 2px solid var(--color-border) !important;
+            background: transparent !important;
+            color: var(--color-muted) !important;
+        }
+
+        .btn-outline:hover,
+        #pause-game:hover,
+        #reset-game:hover,
+        .snake-controls .btn-outline:hover {
+            border-color: var(--color-primary) !important;
+            color: var(--color-primary) !important;
+            background: rgba(230, 194, 0, 0.05) !important;
+        }
+
+        /* Botões primários */
+        .cv-download-btn,
+        .form-submit-btn,
+        #start-game,
+        #restart-game-btn,
+        .language-btn.active,
+        .snake-controls .cv-download-btn {
+            background: linear-gradient(135deg, 
+                rgba(230, 194, 0, 0.95) 0%, 
+                rgba(255, 215, 0, 0.9) 100%) !important;
+            color: #0a0a0a !important;
+            border: none !important;
+            font-weight: 600 !important;
+        }
+
+        .cv-download-btn:hover,
+        .form-submit-btn:hover,
+        #start-game:hover,
+        #restart-game-btn:hover,
+        .snake-controls .cv-download-btn:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 0.95) 0%, 
+                rgba(255, 237, 78, 0.9) 100%) !important;
+        }
+
+        /* Ícones nos botões */
+        .cv-download-btn .btn-icon,
+        .form-submit-btn .btn-icon {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .cv-download-btn:hover .btn-icon,
+        .form-submit-btn:hover .btn-icon {
+            transform: translateY(1px);
+        }
+
+        /* Tipografia consistente */
+        button:not(.menu-toggle),
+        a[class*="btn"],
+        .cv-download-btn,
+        .form-submit-btn,
+        .btn-outline,
+        .language-btn {
+            font-family: 'Inter', sans-serif !important;
+            font-weight: 500 !important;
+            letter-spacing: 0.02em !important;
+            font-size: 0.95rem !important;
+        }
+
+        /* Padding consistente */
+        button:not(.menu-toggle):not(.settings-btn),
+        a[class*="btn"]:not(.mobile-nav-item),
+        .cv-download-btn:not(.mobile),
+        .form-submit-btn,
+        .btn-outline:not(.mobile-nav-item) {
+            padding: 1rem 1.8rem !important;
+        }
+
+        /* Altura mínima consistente */
+        button:not(.menu-toggle):not(.settings-btn),
+        a[class*="btn"],
+        .cv-download-btn,
+        .form-submit-btn,
+        .btn-outline {
+            min-height: 48px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -2525,13 +2529,12 @@
             }
             
             .mobile-menu {
-                max-width: 380px;
-                width: 85%;
+                width: 320px;
             }
             
             .mobile-nav-item {
-                font-size: 1.1rem;
-                padding: 1rem 1.2rem;
+                font-size: 1rem;
+                padding: 0.9rem 1.25rem;
             }
             
             .hero-bg-circle {
@@ -2650,16 +2653,23 @@
                 width: 100%;
                 max-width: 280px;
             }
+
+            .snake-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .snake-controls .cv-download-btn,
+            .snake-controls .btn-outline {
+                width: 100%;
+                max-width: 280px;
+            }
          
             .contact-icon {
                 width: 3.5rem;
                 height: 3.5rem;
                 padding: 0.75rem;
                 font-size: 1rem;
-            }
-         
-            .snake-controls {
-                grid-template-columns: 1fr;
             }
             
             .certifications-grid {
@@ -2709,8 +2719,8 @@
             }
             
             .menu-toggle {
-                width: 2.5rem;
-                height: 2.5rem;
+                width: 40px;
+                height: 40px;
             }
             
             .hamburger {
@@ -2723,27 +2733,27 @@
             
             .mobile-menu {
                 width: 85%;
-                max-width: 320px;
+                max-width: 280px;
             }
             
             .mobile-nav-container {
-                padding: 1.5rem;
+                padding: 1.25rem;
             }
             
             .mobile-nav-item {
-                font-size: 1rem;
-                padding: 0.9rem 1rem;
+                font-size: 0.95rem;
+                padding: 0.8rem 1rem;
             }
             
             .mobile-nav-item.cv-download-btn {
-                font-size: 0.95rem;
-                padding: 0.9rem;
+                font-size: 0.9rem;
+                padding: 0.8rem;
             }
             
             .mobile-nav-item .nav-icon {
                 font-size: 0.9rem;
-                width: 20px;
-                height: 20px;
+                width: 18px;
+                height: 18px;
             }
             
             .experience-content {
@@ -2767,15 +2777,22 @@
             }
             
             .form-submit-btn {
-                padding: 0.75rem 2rem;
+                padding: 0.9rem 1.5rem;
                 font-size: 0.9rem;
+            }
+
+            .snake-controls .cv-download-btn,
+            .snake-controls .btn-outline {
+                padding: 0.7rem 1.25rem;
+                font-size: 0.85rem;
+                min-width: 120px;
             }
         }
         
         @media (max-width: 480px) {
             .menu-toggle {
-                width: 2.3rem;
-                height: 2.3rem;
+                width: 36px;
+                height: 36px;
             }
             
             .hamburger {
@@ -2810,18 +2827,18 @@
             .hero-buttons .cv-download-btn,
             .hero-buttons .btn-outline {
                 width: 100%;
-                max-width: 280px;
+                max-width: 260px;
                 padding: 0.9rem 1.5rem;
             }
             
             .mobile-nav-item {
-                font-size: 0.95rem;
-                padding: 0.8rem 0.9rem;
+                font-size: 0.9rem;
+                padding: 0.75rem 0.9rem;
             }
             
             .mobile-nav-item.cv-download-btn {
-                font-size: 0.9rem;
-                padding: 0.8rem;
+                font-size: 0.85rem;
+                padding: 0.75rem;
             }
             
             .experience-content {
@@ -2850,12 +2867,23 @@
                 padding: 0.9rem 1.25rem;
                 font-size: 0.95rem;
             }
+
+            .snake-controls {
+                gap: 0.75rem;
+            }
+
+            .snake-controls .cv-download-btn,
+            .snake-controls .btn-outline {
+                width: 100%;
+                max-width: 260px;
+                padding: 0.7rem 1.25rem;
+            }
         }
         
         @media (max-width: 360px) {
             .menu-toggle {
-                width: 2.1rem;
-                height: 2.1rem;
+                width: 34px;
+                height: 34px;
             }
             
             .hamburger {
@@ -2863,19 +2891,19 @@
             }
             
             .mobile-nav-item {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 padding: 0.7rem 0.8rem;
             }
             
             .mobile-nav-item.cv-download-btn {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
                 padding: 0.7rem;
             }
             
             .mobile-nav-item .nav-icon {
                 font-size: 0.85rem;
-                width: 18px;
-                height: 18px;
+                width: 16px;
+                height: 16px;
             }
             
             .settings-option {
@@ -2909,6 +2937,13 @@
             
             .achievement-item {
                 font-size: 0.8rem;
+            }
+
+            .snake-controls .cv-download-btn,
+            .snake-controls .btn-outline {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+                min-width: 110px;
             }
         }
      
@@ -2945,8 +2980,8 @@
             background: var(--color-primary) !important;
             color: #0a0a0a !important;
             border: none !important;
-            border-radius: 50px !important;
-            padding: 0.75rem 2rem !important;
+            border-radius: 12px !important;
+            padding: 0.75rem 1.5rem !important;
             font-weight: 600 !important;
             transition: all 0.3s ease !important;
         }
@@ -2999,7 +3034,7 @@
                     </a>
                 </li>
                 
-                <!-- Menu de Configurações -->
+                <!-- Menu de Configurações - CORRIGIDO: 5 IDIOMAS COMPLETOS -->
                 <li class="settings-menu" id="settingsMenu">
                     <button class="settings-btn" id="settingsBtn" aria-label="Configurações">
                         <i class="fas fa-cog"></i>
@@ -3018,9 +3053,11 @@
                             <div>
                                 <span>Idioma</span>
                                 <div class="language-selector">
-                                    <button class="language-btn active" data-lang="pt">PT</button>
-                                    <button class="language-btn" data-lang="en">EN</button>
-                                    <button class="language-btn" data-lang="es">ES</button>
+                                    <button class="language-btn active" data-lang="pt">Português</button>
+                                    <button class="language-btn" data-lang="en">English</button>
+                                    <button class="language-btn" data-lang="es">Español</button>
+                                    <button class="language-btn" data-lang="fr">Français</button>
+                                    <button class="language-btn" data-lang="de">Deutsch</button>
                                 </div>
                             </div>
                         </div>
@@ -3081,7 +3118,7 @@
                 </a>
             </div>
             
-            <!-- Configurações no menu mobile -->
+            <!-- Configurações no menu mobile - CORRIGIDO: 5 IDIOMAS COMPLETOS -->
             <div class="mobile-settings-container">
                 <button class="mobile-settings-btn" id="mobileSettingsBtn" aria-label="Configurações">
                     <span>Configurações</span>
@@ -3101,9 +3138,11 @@
                         <div>
                             <span>Idioma</span>
                             <div class="language-selector">
-                                <button class="language-btn active" data-lang="pt">PT</button>
-                                <button class="language-btn" data-lang="en">EN</button>
-                                <button class="language-btn" data-lang="es">ES</button>
+                                <button class="language-btn active" data-lang="pt">Português</button>
+                                <button class="language-btn" data-lang="en">English</button>
+                                <button class="language-btn" data-lang="es">Español</button>
+                                <button class="language-btn" data-lang="fr">Français</button>
+                                <button class="language-btn" data-lang="de">Deutsch</button>
                             </div>
                         </div>
                     </div>
@@ -3671,7 +3710,7 @@
         }
         
         // ====================
-        // 3. MENU HAMBURGUER PROFISSIONAL MELHORADO
+        // 3. MENU HAMBURGUER PROFISSIONAL MELHORADO - CORRIGIDO
         // ====================
         function toggleMobileMenu() {
             const menuToggle = document.getElementById('menuToggle');
@@ -3773,7 +3812,7 @@
         });
         
         // ====================
-        // 4. BOTÃO DOWNLOAD CV ELEGANTE MELHORADO
+        // 4. BOTÃO DOWNLOAD CV REFINADO
         // ====================
         function downloadCV() {
             try {
@@ -3796,16 +3835,13 @@
                     }
                 });
                 
-                // Efeito de clique no botão com animação de luz
+                // Efeito de clique no botão
                 const buttons = document.querySelectorAll('.cv-download-btn, .form-submit-btn');
                 buttons.forEach(btn => {
                     if (btn.contains(event.target) || btn === event.target) {
-                        // Simular clique para ativar a animação de luz
-                        btn.style.setProperty('--click-animation', 'running');
-                        
-                        // Criar elemento de luz expandida
-                        const lightEffect = document.createElement('div');
-                        lightEffect.style.cssText = `
+                        // Criar elemento de efeito de clique
+                        const clickEffect = document.createElement('div');
+                        clickEffect.style.cssText = `
                             position: absolute;
                             top: 50%;
                             left: 50%;
@@ -3813,29 +3849,30 @@
                             height: 0;
                             border-radius: 50%;
                             background: radial-gradient(circle, 
-                                rgba(255, 237, 78, 0.8) 0%,
-                                rgba(255, 215, 0, 0.6) 30%,
-                                rgba(230, 194, 0, 0.4) 50%,
+                                rgba(255, 237, 78, 0.6) 0%,
+                                rgba(255, 215, 0, 0.4) 30%,
+                                rgba(230, 194, 0, 0.2) 50%,
                                 transparent 70%);
                             transform: translate(-50%, -50%);
                             z-index: 0;
                             pointer-events: none;
+                            transition: width 0.3s ease, height 0.3s ease;
                         `;
-                        btn.appendChild(lightEffect);
+                        btn.style.position = 'relative';
+                        btn.appendChild(clickEffect);
                         
-                        // Animar expansão da luz
+                        // Animar expansão do efeito
                         setTimeout(() => {
-                            lightEffect.style.transition = 'width 0.3s ease, height 0.3s ease';
-                            lightEffect.style.width = '400px';
-                            lightEffect.style.height = '400px';
+                            clickEffect.style.width = '200px';
+                            clickEffect.style.height = '200px';
                         }, 10);
                         
                         // Remover efeito após animação
                         setTimeout(() => {
-                            lightEffect.style.opacity = '0';
+                            clickEffect.style.opacity = '0';
                             setTimeout(() => {
-                                if (lightEffect.parentNode) {
-                                    lightEffect.parentNode.removeChild(lightEffect);
+                                if (clickEffect.parentNode) {
+                                    clickEffect.parentNode.removeChild(clickEffect);
                                 }
                             }, 400);
                         }, 500);
@@ -3901,11 +3938,11 @@
         // Efeito de hover suave para todos os botões
         document.querySelectorAll('.cv-download-btn, .form-submit-btn').forEach(btn => {
             btn.addEventListener('mouseenter', () => {
-                btn.style.transform = 'translateY(-5px) scale(1.05)';
+                btn.style.transform = 'translateY(-2px)';
             });
             
             btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'translateY(0) scale(1)';
+                btn.style.transform = 'translateY(0)';
             });
         });
         
@@ -4106,7 +4143,7 @@
         });
         
         // ====================
-        // 9. TEMA E IDIOMA
+        // 9. TEMA E IDIOMA - CORRIGIDO: 5 IDIOMAS COMPLETOS
         // ====================
         const html = document.documentElement;
         const themeText = document.getElementById('themeText');
@@ -4192,6 +4229,28 @@
                     'game': 'Juego',
                     'downloadCv': 'DESCARGAR CV',
                     'sendMessage': 'ENVIAR MENSAJE'
+                },
+                'fr': {
+                    'about': 'À propos',
+                    'skills': 'Compétences',
+                    'ai': 'IA',
+                    'certifications': 'Certifications',
+                    'experience': 'Expérience',
+                    'contact': 'Contact',
+                    'game': 'Jeu',
+                    'downloadCv': 'TÉLÉCHARGER CV',
+                    'sendMessage': 'ENVOYER MESSAGE'
+                },
+                'de': {
+                    'about': 'Über',
+                    'skills': 'Fähigkeiten',
+                    'ai': 'KI',
+                    'certifications': 'Zertifizierungen',
+                    'experience': 'Erfahrung',
+                    'contact': 'Kontakt',
+                    'game': 'Spiel',
+                    'downloadCv': 'CV HERUNTERLADEN',
+                    'sendMessage': 'NACHRICHT SENDEN'
                 }
             };
             
