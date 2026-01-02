@@ -1264,9 +1264,10 @@
             overflow: hidden;
         }
 
+        /* Aumentando a largura mínima dos cards de IA de 250px para 350px */
         .ai-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 1.8rem;
         }
 
@@ -1369,6 +1370,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             padding: 2rem 1.8rem;
+            padding-bottom: 4.5rem;
             border-radius: 1.5rem;
             border: 1px solid var(--glass-border);
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1447,32 +1449,52 @@
             gap: 0.4rem;
             position: relative;
             z-index: 2;
+            margin-bottom: 1rem;
         }
 
-        .certification-link {
+        /* Novo estilo para o botão "Ver Certificado" */
+        .certification-view-btn {
             position: absolute;
             bottom: 1.2rem;
-            right: 1.2rem;
-            color: var(--color-primary);
-            font-size: 1.3rem;
+            left: 1.8rem;
+            right: 1.8rem;
+            padding: 0.7rem 1.2rem;
+            background: linear-gradient(135deg, 
+                rgba(230, 194, 0, 0.95) 0%, 
+                rgba(255, 215, 0, 0.9) 100%);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
             text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 0.85rem;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: rgba(230, 194, 0, 0.15);
-            border: 1px solid var(--color-primary);
+            gap: 0.5rem;
+            letter-spacing: 0.02em;
+            box-shadow: 0 3px 10px rgba(230, 194, 0, 0.2);
             z-index: 3;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
         }
 
-        .certification-link:hover {
-            transform: translateX(4px) scale(1.1);
-            background: var(--color-primary);
-            color: var(--color-bg);
-            box-shadow: 0 0 15px rgba(230, 194, 0, 0.3);
+        .certification-view-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(230, 194, 0, 0.3);
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 0.95) 0%, 
+                rgba(255, 237, 78, 0.9) 100%);
+        }
+
+        .certification-view-btn:active {
+            transform: translateY(0);
+        }
+
+        .certification-view-btn i {
+            font-size: 0.9rem;
         }
 
         .certification-badge {
@@ -1488,6 +1510,162 @@
             letter-spacing: 0.5px;
             box-shadow: 0 3px 12px rgba(230, 194, 0, 0.25);
             z-index: 3;
+        }
+
+        /* Modal/Popup para visualizar certificados */
+        .certificate-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .certificate-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .certificate-modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            background: var(--color-card);
+            border-radius: 1.2rem;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .certificate-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-bg);
+        }
+
+        .certificate-modal-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .certificate-modal-close {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--color-border);
+            color: var(--color-fg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .certificate-modal-close:hover {
+            background: var(--color-primary);
+            color: #0a0a0a;
+            border-color: var(--color-primary);
+            transform: rotate(90deg);
+        }
+
+        .certificate-modal-body {
+            padding: 1.5rem;
+            max-height: calc(90vh - 80px);
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--color-bg);
+        }
+
+        .certificate-modal-body img {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .certificate-modal-body iframe {
+            width: 100%;
+            height: 70vh;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .certificate-external-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .certificate-external-link i {
+            font-size: 4rem;
+            color: var(--color-primary);
+        }
+
+        .certificate-external-link p {
+            color: var(--color-muted);
+            font-size: 1rem;
+            max-width: 400px;
+        }
+
+        .certificate-external-link a {
+            padding: 0.8rem 1.8rem;
+            background: linear-gradient(135deg, 
+                rgba(230, 194, 0, 0.95) 0%, 
+                rgba(255, 215, 0, 0.9) 100%);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-transform: uppercase;
+        }
+
+        .certificate-external-link a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(230, 194, 0, 0.3);
         }
 
         /* Experience Section */
@@ -2455,6 +2633,7 @@
 
             .certification-card {
                 padding: 1.8rem 1.2rem;
+                padding-bottom: 4.5rem;
             }
 
             .certification-logo {
@@ -2462,6 +2641,7 @@
                 height: 55px;
             }
 
+            /* Ajuste responsivo para cards de IA em mobile */
             .ai-grid {
                 grid-template-columns: 1fr;
             }
@@ -2481,6 +2661,19 @@
             .form-submit-btn {
                 width: 100%;
                 max-width: 100%;
+            }
+
+            /* Modal responsivo */
+            .certificate-modal-content {
+                max-width: 95vw;
+            }
+
+            .certificate-modal-body {
+                padding: 1rem;
+            }
+
+            .certificate-modal-body img {
+                max-height: 60vh;
             }
         }
 
@@ -2528,15 +2721,15 @@
             }
 
             .experience-company {
-                font-size: 0.9rem;
+                font-size: 0.95rem;
             }
 
             .experience-description {
-                font-size: 0.85rem;
+                font-size: 0.9rem;
             }
 
             .achievement-item {
-                font-size: 0.8rem;
+                font-size: 0.85rem;
             }
 
             .form-submit-btn {
@@ -2617,6 +2810,12 @@
                 padding: 0.65rem;
             }
 
+            .mobile-nav-item .nav-icon {
+                font-size: 0.8rem;
+                width: 16px;
+                height: 16px;
+            }
+
             .experience-content {
                 padding: 0.9rem;
             }
@@ -2676,7 +2875,7 @@
             }
 
             .mobile-nav-item {
-                font-size: 0.8rem;
+                font-size: 0.85rem;
                 padding: 0.6rem 0.7rem;
             }
 
@@ -2800,6 +2999,24 @@
 
     <!-- Page Transition Overlay -->
     <div class="page-transition" id="pageTransition"></div>
+
+    <!-- Modal para visualizar certificados -->
+    <div class="certificate-modal" id="certificateModal">
+        <div class="certificate-modal-content">
+            <div class="certificate-modal-header">
+                <div class="certificate-modal-title">
+                    <i class="fas fa-certificate"></i>
+                    <span id="modalCertificateTitle">Certificado</span>
+                </div>
+                <button class="certificate-modal-close" id="closeCertificateModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="certificate-modal-body" id="certificateModalBody">
+                <!-- Conteúdo do certificado será inserido aqui -->
+            </div>
+        </div>
+    </div>
 
     <header id="mainHeader">
         <nav>
@@ -3067,7 +3284,7 @@
             </div>
             <div class="ai-grid">
                 <div class="ai-card">
-                    <img src="logo_chatGPT.png" alt="ChatGPT" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:70px;height:70px;">
+                    <img src="logo_chatGPT.png" alt="ChatGPT" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:60px;height:60px;">
                     <h3 class="ai-title">ChatGPT</h3>
                     <p class="ai-description">Assistente de IA da OpenAI para conversação natural, resolução de problemas e geração de conteúdo.</p>
                     <div class="ai-focus">
@@ -3094,7 +3311,7 @@
                     </div>
                 </div>
                 <div class="ai-card">
-                    <img src="logo_github.png" alt="Copilot" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:60px;height:60px;">
+                    <img src="logo_github.png" alt="Copilot" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:50px;height:50px;">
                     <h3 class="ai-title">GitHub Copilot</h3>
                     <p class="ai-description">Assistente de programação que sugere código em tempo real integrado ao editor.</p>
                     <div class="ai-focus">
@@ -3103,35 +3320,17 @@
                     </div>
                 </div>
                 <div class="ai-card">
-                    <img src="logo_deepseek.png" alt="DeepSeek" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:130px;height:130px;">
-                    <h3 class="ai-title">DeepSeek</h3>
-                    <p class="ai-description">Modelo avançado focado em raciocínio complexo e resolução de problemas técnicos.</p>
+                    <img src="logo_v0.png" alt="v0" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:60px;height:60px;">
+                    <h3 class="ai-title">v0 by Vercel</h3>
+                    <p class="ai-description">Gerador de interfaces com React e Tailwind a partir de prompts de texto natural.</p>
                     <div class="ai-focus">
-                        <i class="fas fa-cogs"></i>
-                        <span>Raciocínio Técnico</span>
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                        <span>UI Generation</span>
                     </div>
                 </div>
                 <div class="ai-card">
-                    <img src="logo_perplexity.png" alt="Perplexity" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:140px;height:140px;">
-                    <h3 class="ai-title">Perplexity</h3>
-                    <p class="ai-description">Assistente de pesquisa com fontes verificadas e respostas baseadas em informações atuais.</p>
-                    <div class="ai-focus">
-                        <i class="fas fa-search"></i>
-                        <span>Pesquisa & Referências</span>
-                    </div>
-                </div>
-                <div class="ai-card">
-                    <img src="logo_V0.png" alt="v0" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:100px;height:100px;">
-                    <h3 class="ai-title">V0</h3>
-                    <p class="ai-description">Gerador de interfaces UI a partir de descrições textuais, criado pela Vercel.</p>
-                    <div class="ai-focus">
-                        <i class="fas fa-palette"></i>
-                        <span>Design de Interface</span>
-                    </div>
-                </div>
-                <div class="ai-card">
-                    <img src="logo_lovable.png" alt="Lovable" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:140px;height:140px;">
-                    <h3 class="ai-title">Lovable</h3>
+                    <img src="logo_lovable.png" alt="Claude" class="ai-logo" style="background:transparent;box-shadow:none;border:none;width:120px;height:120px;">
+                    <h3 class="ai-title">Claude</h3>
                     <p class="ai-description">Plataforma que transforma ideias em aplicações web completas com IA.</p>
                     <div class="ai-focus">
                         <i class="fas fa-bolt"></i>
@@ -3155,9 +3354,10 @@
                     <h3 class="certification-title">Técnico em Informática</h3>
                     <p class="certification-issuer">Instituto Federal de Sergipe - IFS</p>
                     <p class="certification-date">Emitido em: 19/01/2024</p>
-                    <a href="certificado_ifs.jpeg" target="_blank" class="certification-link" aria-label="Ver Certificado">
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <button class="certification-view-btn" onclick="openCertificateModal('Técnico em Informática', 'certificado_ifs.jpeg', 'image')">
+                        <i class="fas fa-eye"></i>
+                        <span>Ver Certificado</span>
+                    </button>
                 </div>
 
                 <div class="certification-card">
@@ -3166,19 +3366,22 @@
                     <h3 class="certification-title">Object-Oriented Developer</h3>
                     <p class="certification-issuer">Faculdade Descomplica</p>
                     <p class="certification-date">Emitido em: 29/10/2025</p>
-                    <a href="https://certificados.descomplica.com.br/graduacao/870230d8941228007d3dc9260314963d0a0dea69443bec604cfb11edc70cf227" target="_blank" class="certification-link" aria-label="Ver Certificado">
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <button class="certification-view-btn" onclick="openCertificateModal('Object-Oriented Developer', 'Object_Oriented.png', 'image')">
+                        <i class="fas fa-eye"></i>
+                        <span>Ver Certificado</span>
+                    </button>
                 </div>
+
                 <div class="certification-card">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Logo_-_Descomplica.png" alt="Descomplica" class="certification-logo">
                     <div class="certification-icon"><i class="fas fa-laptop-code"></i></div>
                     <h3 class="certification-title">Programmer</h3>
                     <p class="certification-issuer">Faculdade Descomplica</p>
                     <p class="certification-date">Emitido em: 03/06/2025</p>
-                    <a href="https://certificados.descomplica.com.br/graduacao/9bf37fbe22d0c0d83527d1d1b1a186b3317560453ff8f287d4597ea1985e1de9" target="_blank" class="certification-link" aria-label="Ver Certificado">
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <button class="certification-view-btn" onclick="openCertificateModal('Programmer', 'Programmer.png', 'image')">
+                        <i class="fas fa-eye"></i>
+                        <span>Ver Certificado</span>
+                    </button>
                 </div>
                 <div class="certification-card">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Logo_-_Descomplica.png" alt="Descomplica" class="certification-logo">
@@ -3186,19 +3389,20 @@
                     <h3 class="certification-title">Basic Front-End</h3>
                     <p class="certification-issuer">Faculdade Descomplica</p>
                     <p class="certification-date">Emitido em: 16/03/2025</p>
-                    <a href="https://certificados.descomplica.com.br/graduacao/d407ad7b5bc1be638bc09b264262e52962edc088133ac56cbf94bcbb738fbc8b" target="_blank" class="certification-link" aria-label="Ver Certificado">
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <button class="certification-view-btn" onclick="openCertificateModal('Basic Front-End', 'Basic_frontend.png', 'image')">
+                        <i class="fas fa-eye"></i>
+                        <span>Ver Certificado</span>
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="experience" class="section-light">
+    <section id="experience" class="section-dark">
         <div class="container">
             <div class="section-header">
-                <h2>Experiência <span class="highlight">Profissional</span></h2>
-                <p>Minha jornada no desenvolvimento e suporte técnico</p>
+                <h2><span class="highlight">Experiência</span> Profissional</h2>
+                <p>Minha trajetória profissional em tecnologia</p>
             </div>
             <div class="experience-timeline">
                 <div class="timeline-line"></div>
@@ -3208,19 +3412,19 @@
                     <div class="experience-content">
                         <div class="experience-header">
                             <div class="company-logo">
-                                <img src="https://framerusercontent.com/images/BxGF6omlUTZVpJQkhgoKuXgE.png" alt="Getinfo Soluções Corporativas">
+                                <img src="https://media.licdn.com/dms/image/v2/D4D0BAQFefylTkgG8Vg/company-logo_200_200/B4DZXZH.RTHkAI-/0/1743104501348/getinfocolucoes_logo?e=2147483647&v=beta&t=XpwW4-O_gUTRu0BAkWkwo9KKUfjNV-4B-EHuWRVspNM" alt="Getinfo" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
                             </div>
                             <div class="experience-title">
-                                <h3>Técnico de Suporte N1</h3>
-                                <p class="experience-company">Getinfo Soluções Corporativas</p>
+                                <h3>Técnico de Suporte</h3>
+                                <p class="experience-company">Getinfo</p>
                             </div>
                         </div>
                         <div class="experience-period">
                             <i class="far fa-calendar-alt"></i>
-                            <span>Mar 2025 - Jul 2025 • No momento</span>
+                            <span>Mar 2025 • O momento</span>
                         </div>
                         <p class="experience-description">
-                            Responsável por prestar suporte técnico de primeiro nível aos usuários do TRT20, garantindo o funcionamento adequado dos sistemas, softwares e equipamentos institucionais.
+                            Atuação como plantonista na Maternidade Municipal Lourdes Nogueira, oferecendo atendimento técnico contínuo, com foco na prontidão e excelência dos serviços de TI em ambiente hospitalar.
                         </p>
                         <div>
                             <p class="achievements-title"><i class="fas fa-trophy"></i> Principais Responsabilidades:</p>
@@ -3236,16 +3440,16 @@
                 </div>
 
                 <div class="experience-item">
-                    <div class="experience-spacer"></div>
                     <div class="timeline-dot"></div>
+                    <div class="experience-spacer"></div>
                     <div class="experience-content">
                         <div class="experience-header">
                             <div class="company-logo">
-                                <img src="https://ints.org.br/wp-content/uploads/2025/02/Logo-Vertical-PNG.png" alt="INTS - Instituto Nacional de Tecnologia e Saúde">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSievfN3m-g75onZaJGf151tW-UfS7-v4R7Jw&s" alt="SUS" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
                             </div>
                             <div class="experience-title">
                                 <h3>Técnico de Informática</h3>
-                                <p class="experience-company">INTS - Instituto Nacional de Tecnologia e Saúde</p>
+                                <p class="experience-company">INTS - Instituto Nacional de Técnologia e Saúde</p>
                             </div>
                         </div>
                         <div class="experience-period">
@@ -3272,7 +3476,7 @@
                     <div class="experience-content">
                         <div class="experience-header">
                             <div class="company-logo">
-                                <img src="https://www.ifs.edu.br/comunicacao/images/Imagens/Marcas/IFS_puro/Marca_IFS_vertical-01.png" alt="IFS - Instituto Federal de Sergipe">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5rP7dCLZQoHoJvotNphHuSoFO5sdpJXCufw&s" alt="IFS - Instituto Federal de Sergipe" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
                             </div>
                             <div class="experience-title">
                                 <h3>Trainee</h3>
@@ -3542,11 +3746,66 @@
                 if (mobileMenu.classList.contains('active')) {
                     toggleMobileMenu();
                 }
+                // Fechar modal de certificado também
+                const certModal = document.getElementById('certificateModal');
+                if (certModal.classList.contains('active')) {
+                    closeCertificateModal();
+                }
             }
         });
 
         // ====================
-        // 4. BOTÃO DOWNLOAD CV
+        // 4. MODAL DE CERTIFICADOS
+        // ====================
+        const certificateModal = document.getElementById('certificateModal');
+        const modalTitle = document.getElementById('modalCertificateTitle');
+        const modalBody = document.getElementById('certificateModalBody');
+        const closeModalBtn = document.getElementById('closeCertificateModal');
+
+        function openCertificateModal(title, url, type) {
+            modalTitle.textContent = title;
+            
+            if (type === 'image') {
+                // Para imagens locais (como certificado_ifs.jpeg)
+                modalBody.innerHTML = `<img src="${url}" alt="${title}" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'certificate-external-link\\'><i class=\\'fas fa-exclamation-triangle\\'></i><p>Não foi possível carregar a imagem do certificado.</p><a href=\\'${url}\\' target=\\'_blank\\'><i class=\\'fas fa-external-link-alt\\'></i> Abrir em nova aba</a></div>';">`;
+            } else if (type === 'external') {
+                // Para links externos (como Descomplica)
+                modalBody.innerHTML = `
+                    <div class="certificate-external-link">
+                        <i class="fas fa-certificate"></i>
+                        <p>Este certificado está hospedado em uma plataforma externa. Clique no botão abaixo para visualizá-lo.</p>
+                        <a href="${url}" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            Abrir Certificado
+                        </a>
+                    </div>
+                `;
+            }
+            
+            certificateModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCertificateModal() {
+            certificateModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            // Limpar conteúdo após a animação
+            setTimeout(() => {
+                modalBody.innerHTML = '';
+            }, 300);
+        }
+
+        closeModalBtn.addEventListener('click', closeCertificateModal);
+
+        // Fechar modal ao clicar fora do conteúdo
+        certificateModal.addEventListener('click', (e) => {
+            if (e.target === certificateModal) {
+                closeCertificateModal();
+            }
+        });
+
+        // ====================
+        // 5. BOTÃO DOWNLOAD CV
         // ====================
         function downloadCV() {
             try {
@@ -3627,7 +3886,7 @@
         document.getElementById('downloadCvBtnHero').addEventListener('click', downloadCV);
 
         // ====================
-        // 5. SCROLL ANIMATIONS
+        // 6. SCROLL ANIMATIONS
         // ====================
         function initScrollAnimations() {
             const observerOptions = {
@@ -3651,7 +3910,7 @@
         }
 
         // ====================
-        // 6. HEADER SCROLL EFFECT
+        // 7. HEADER SCROLL EFFECT
         // ====================
         const header = document.getElementById('mainHeader');
 
@@ -3691,7 +3950,7 @@
         }
 
         // ====================
-        // 7. SMOOTH SCROLL
+        // 8. SMOOTH SCROLL
         // ====================
         function initSmoothScroll() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -3706,156 +3965,86 @@
         }
 
         // ====================
-        // 8. EMAILJS CONFIGURAÇÃO
+        // 9. THEME TOGGLE
         // ====================
-        // Substitua pelos seus dados reais do EmailJS:
-        emailjs.init("SEU_PUBLIC_KEY_AQUI");
-
-        const contactForm = document.getElementById('contactForm');
-
-        contactForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const formData = {
-                from_name: document.getElementById('name').value,
-                from_email: document.getElementById('email').value,
-                message: document.getElementById('message').value,
-                to_email: 'almeidaedinaldo95@gmail.com'
-            };
-
-            if (!formData.from_name || !formData.from_email || !formData.message) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Campos obrigatórios',
-                    text: 'Por favor, preencha todos os campos.',
-                    confirmButtonText: 'OK',
-                    background: '#141414',
-                    color: '#f8f8f8',
-                    iconColor: '#e6c200',
-                    confirmButtonColor: '#e6c200',
-                    customClass: {
-                        popup: 'swal-custom-popup',
-                        title: 'swal-custom-title',
-                        confirmButton: 'swal-custom-confirm-button',
-                        icon: 'swal-custom-icon'
-                    }
-                });
-                return;
-            }
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(formData.from_email)) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Email inválido',
-                    text: 'Por favor, insira um email válido.',
-                    confirmButtonText: 'OK',
-                    background: '#141414',
-                    color: '#f8f8f8',
-                    iconColor: '#e6c200',
-                    confirmButtonColor: '#e6c200',
-                    customClass: {
-                        popup: 'swal-custom-popup',
-                        title: 'swal-custom-title',
-                        confirmButton: 'swal-custom-confirm-button',
-                        icon: 'swal-custom-icon'
-                    }
-                });
-                return;
-            }
-
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const originalHtml = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<div class="btn-content"><i class="fas fa-spinner fa-spin btn-icon"></i><span class="btn-text">ENVIANDO...</span></div>';
-            submitBtn.disabled = true;
-
-            try {
-                const response = await emailjs.send(
-                    "SEU_SERVICE_ID_AQUI",
-                    "SEU_TEMPLATE_ID_AQUI",
-                    formData
-                );
-
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Mensagem enviada!',
-                    text: 'Obrigado pelo seu contato. Retornarei em breve!',
-                    confirmButtonText: 'OK',
-                    background: '#141414',
-                    color: '#f8f8f8',
-                    iconColor: '#e6c200',
-                    confirmButtonColor: '#e6c200',
-                    customClass: {
-                        popup: 'swal-custom-popup',
-                        title: 'swal-custom-title',
-                        confirmButton: 'swal-custom-confirm-button',
-                        icon: 'swal-custom-icon'
-                    }
-                });
-
-                contactForm.reset();
-
-            } catch (error) {
-                console.error('Erro ao enviar email:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro ao enviar',
-                    text: 'Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.',
-                    confirmButtonText: 'OK',
-                    background: '#141414',
-                    color: '#f8f8f8',
-                    iconColor: '#e6c200',
-                    confirmButtonColor: '#e6c200',
-                    customClass: {
-                        popup: 'swal-custom-popup',
-                        title: 'swal-custom-title',
-                        confirmButton: 'swal-custom-confirm-button',
-                        icon: 'swal-custom-icon'
-                    }
-                });
-            } finally {
-                submitBtn.innerHTML = originalHtml;
-                submitBtn.disabled = false;
-            }
-        });
-
-        // ====================
-        // 9. TEMA - NOVO SISTEMA SIMPLIFICADO
-        // ====================
-        const html = document.documentElement;
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const mobileThemeToggle = document.getElementById('mobileThemeToggle');
         const themeIcon = document.getElementById('themeIcon');
         const themeIconMobile = document.getElementById('themeIconMobile');
         const themeTextMobile = document.getElementById('themeTextMobile');
 
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        html.setAttribute('data-theme', currentTheme);
-        updateThemeUI(currentTheme);
-
-        function updateThemeUI(theme) {
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            
             if (theme === 'light') {
-                if (themeIcon) themeIcon.className = 'fas fa-sun';
-                if (themeIconMobile) themeIconMobile.className = 'fas fa-sun';
-                if (themeTextMobile) themeTextMobile.textContent = 'Modo Claro';
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                themeIconMobile.classList.remove('fa-moon');
+                themeIconMobile.classList.add('fa-sun');
+                themeTextMobile.textContent = 'Modo Claro';
             } else {
-                if (themeIcon) themeIcon.className = 'fas fa-moon';
-                if (themeIconMobile) themeIconMobile.className = 'fas fa-moon';
-                if (themeTextMobile) themeTextMobile.textContent = 'Modo Escuro';
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                themeIconMobile.classList.remove('fa-sun');
+                themeIconMobile.classList.add('fa-moon');
+                themeTextMobile.textContent = 'Modo Escuro';
             }
         }
 
         function toggleTheme() {
-            const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeUI(newTheme);
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
         }
 
-        // Event listeners para todos os botões de tema
-        document.getElementById('themeToggleBtn').addEventListener('click', toggleTheme);
-        document.getElementById('mobileThemeToggle').addEventListener('click', toggleTheme);
+        // Verificar tema salvo ou preferência do sistema
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            setTheme('light');
+        }
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        mobileThemeToggle.addEventListener('click', toggleTheme);
 
         // ====================
-        // 10. SNAKE GAME
+        // 10. CONTACT FORM
+        // ====================
+        const contactForm = document.getElementById('contactForm');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // Aqui você pode adicionar a lógica para enviar o formulário
+            // Por enquanto, mostra um alerta de sucesso
+            Swal.fire({
+                icon: 'success',
+                title: 'Mensagem enviada!',
+                text: `Obrigado ${name}! Entrarei em contato em breve.`,
+                confirmButtonText: 'OK',
+                background: '#141414',
+                color: '#f8f8f8',
+                iconColor: '#e6c200',
+                confirmButtonColor: '#e6c200',
+                customClass: {
+                    popup: 'swal-custom-popup',
+                    title: 'swal-custom-title',
+                    confirmButton: 'swal-custom-confirm-button',
+                    icon: 'swal-custom-icon'
+                }
+            });
+
+            contactForm.reset();
+        });
+
+        // ====================
+        // 11. SNAKE GAME
         // ====================
         const canvas = document.getElementById('snake-game');
         const ctx = canvas.getContext('2d');
@@ -3868,7 +4057,7 @@
         const finalScoreElement = document.getElementById('final-score');
         const restartGameBtn = document.getElementById('restart-game-btn');
 
-        const gridSize = 20;
+        let gridSize = 20;
         let tileCountX, tileCountY;
         let snake = [];
         let food = {};
@@ -3879,23 +4068,26 @@
         let gameRunning = false;
         let gameLoop;
 
+        highScoreElement.textContent = highScore;
+
         function resizeCanvas() {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+
             tileCountX = Math.floor(canvas.width / gridSize);
             tileCountY = Math.floor(canvas.height / gridSize);
         }
 
         function initGame() {
-            snake = [{x: Math.floor(tileCountX / 2), y: Math.floor(tileCountY / 2)}];
-            generateFood();
+            snake = [
+                {x: Math.floor(tileCountX / 2), y: Math.floor(tileCountY / 2)}
+            ];
             dx = 0;
             dy = 0;
             score = 0;
-            updateScore();
-            highScoreElement.textContent = highScore;
-            gameOverOverlay.classList.remove('visible');
-            gameRunning = false;
+            scoreElement.textContent = score;
+            generateFood();
             drawGame();
         }
 
@@ -4111,7 +4303,7 @@
         restartGameBtn.addEventListener('click', resetGame);
 
         // ====================
-        // 11. INITIALIZATION
+        // 12. INITIALIZATION
         // ====================
         function initAnimations() {
             AOS.init({
@@ -4196,7 +4388,7 @@
         }
 
         // ====================
-        // 12. START EVERYTHING
+        // 13. START EVERYTHING
         // ====================
         document.addEventListener('DOMContentLoaded', () => {
             hidePreloader();
