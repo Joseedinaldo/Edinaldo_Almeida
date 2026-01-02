@@ -672,6 +672,40 @@
             border-left: 1px solid var(--color-border);
         }
 
+        /* Scrollbar customizada para o menu mobile */
+        .mobile-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .mobile-menu::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        .mobile-menu::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+            border-radius: 3px;
+            transition: background 0.3s ease;
+        }
+
+        .mobile-menu::-webkit-scrollbar-thumb:hover {
+            background: var(--color-primary-dark);
+        }
+
+        /* Scrollbar para Firefox */
+        .mobile-menu {
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-primary) rgba(255, 255, 255, 0.05);
+        }
+
+        [data-theme="light"] .mobile-menu::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="light"] .mobile-menu {
+            scrollbar-color: var(--color-primary) rgba(0, 0, 0, 0.05);
+        }
+
         [data-theme="light"] .mobile-menu {
             background: var(--color-bg);
         }
@@ -2806,7 +2840,7 @@
             }
 
             .mobile-nav-item.primary-btn {
-                font-size: 0.8rem;
+                font-size: 0.75rem;
                 padding: 0.65rem;
             }
 
