@@ -2912,9 +2912,21 @@
             <p class="description">
                 criando experiências digitais incríveis com foco em performance, acessibilidade e design moderno.
             </p>
+            <style>
+            @media (max-width: 768px) {
+                .hero-buttons .equal-btn {
+                    width: 100% !important;
+                    max-width: 260px;
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+            </style>
+
             <div class="hero-buttons">
-                <a href="#skills" class="primary-btn">Ver Habilidades →</a>
-                <a href="javascript:void(0);" class="hero-download-btn" id="downloadCvBtnHero">
+                <a href="#skills" class="primary-btn equal-btn">Ver Habilidades →</a>
+                <a href="javascript:void(0);" class="hero-download-btn equal-btn" id="downloadCvBtnHero">
                     <i class="fas fa-download btn-icon"></i>
                     <span class="btn-text">DOWNLOAD CV</span>
                 </a>
