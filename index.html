@@ -667,43 +667,8 @@
             flex-direction: column;
             transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 999;
-            overflow-y: auto;
-            overflow-x: hidden;
+            overflow: hidden;
             border-left: 1px solid var(--color-border);
-        }
-
-        /* Scrollbar customizada para o menu mobile */
-        .mobile-menu::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .mobile-menu::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 3px;
-        }
-
-        .mobile-menu::-webkit-scrollbar-thumb {
-            background: var(--color-primary);
-            border-radius: 3px;
-            transition: background 0.3s ease;
-        }
-
-        .mobile-menu::-webkit-scrollbar-thumb:hover {
-            background: var(--color-primary-dark);
-        }
-
-        /* Scrollbar para Firefox */
-        .mobile-menu {
-            scrollbar-width: thin;
-            scrollbar-color: var(--color-primary) rgba(255, 255, 255, 0.05);
-        }
-
-        [data-theme="light"] .mobile-menu::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.05);
-        }
-
-        [data-theme="light"] .mobile-menu {
-            scrollbar-color: var(--color-primary) rgba(0, 0, 0, 0.05);
         }
 
         [data-theme="light"] .mobile-menu {
@@ -722,6 +687,15 @@
             justify-content: space-between;
             align-items: center;
             flex-shrink: 0;
+            background: var(--color-bg);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="light"] .mobile-menu-header {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .mobile-logo {
@@ -752,13 +726,18 @@
             color: inherit !important;
         }
 
-        /* Container principal do menu mobile */
+        /* Container principal do menu mobile - SCROLLABLE */
         .mobile-nav-container {
             padding: 1rem;
             flex: 1;
             display: flex;
             flex-direction: column;
             gap: 0.25rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            max-height: calc(100vh - 140px);
+            padding-bottom: 1.5rem;
         }
 
         /* Links do menu mobile - Design Limpo */
@@ -774,6 +753,7 @@
             font-size: 0.95rem;
             border-radius: 10px;
             position: relative;
+            flex-shrink: 0;
         }
 
         .mobile-nav-item .nav-icon {
@@ -811,7 +791,8 @@
                 rgba(230, 194, 0, 0.95) 0%, 
                 rgba(255, 215, 0, 0.9) 100%);
             color: #0a0a0a;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
             justify-content: center;
             font-weight: 600;
         }
@@ -826,12 +807,55 @@
             color: #0a0a0a;
         }
 
+        /* Scrollbar personalizada para o menu mobile */
+        .mobile-nav-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .mobile-nav-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        .mobile-nav-container::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+            border-radius: 3px;
+            transition: background 0.3s ease;
+        }
+
+        .mobile-nav-container::-webkit-scrollbar-thumb:hover {
+            background: var(--color-primary-dark);
+        }
+
+        /* Scrollbar para Firefox */
+        .mobile-nav-container {
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-primary) rgba(255, 255, 255, 0.05);
+        }
+
+        [data-theme="light"] .mobile-nav-container::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="light"] .mobile-nav-container {
+            scrollbar-color: var(--color-primary) rgba(0, 0, 0, 0.05);
+        }
+
         /* Toggle de tema no menu mobile */
         .mobile-theme-container {
             padding: 1rem 1.5rem;
             border-top: 1px solid var(--color-border);
             margin-top: auto;
             flex-shrink: 0;
+            background: var(--color-bg);
+            position: sticky;
+            bottom: 0;
+            z-index: 10;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="light"] .mobile-theme-container {
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .mobile-theme-toggle {
@@ -2709,6 +2733,17 @@
             .certificate-modal-body img {
                 max-height: 60vh;
             }
+
+            /* Ajustes para o menu mobile */
+            .mobile-menu {
+                width: 280px;
+                max-width: 85vw;
+            }
+            
+            .mobile-nav-container {
+                max-height: calc(100vh - 140px);
+                padding-bottom: 1.5rem;
+            }
         }
 
         @media (max-width: 576px) {
@@ -2727,7 +2762,8 @@
             }
 
             .mobile-nav-container {
-                padding: 1rem;
+                padding: 0.875rem;
+                max-height: calc(100vh - 130px);
             }
 
             .mobile-nav-item {
@@ -2744,6 +2780,14 @@
                 font-size: 0.85rem;
                 width: 18px;
                 height: 18px;
+            }
+
+            .mobile-menu-header {
+                padding: 1.25rem;
+            }
+            
+            .mobile-theme-container {
+                padding: 0.875rem 1.25rem;
             }
 
             .experience-content {
@@ -2834,6 +2878,11 @@
                 padding: 0.8rem 1.2rem;
             }
 
+            .mobile-nav-container {
+                max-height: calc(100vh - 120px);
+                padding: 0.75rem;
+            }
+
             .mobile-nav-item {
                 font-size: 0.85rem;
                 padding: 0.65rem 0.75rem;
@@ -2848,6 +2897,14 @@
                 font-size: 0.8rem;
                 width: 16px;
                 height: 16px;
+            }
+
+            .mobile-menu-header {
+                padding: 1rem;
+            }
+            
+            .mobile-theme-container {
+                padding: 0.75rem 1rem;
             }
 
             .experience-content {
@@ -2906,6 +2963,11 @@
 
             .menu-toggle.active .hamburger-line:nth-child(3) {
                 transform: translateY(-6px) rotate(-45deg);
+            }
+
+            .mobile-nav-container {
+                max-height: calc(100vh - 110px);
+                padding: 0.6rem;
             }
 
             .mobile-nav-item {
@@ -3090,49 +3152,49 @@
         <div class="mobile-menu" id="mobileMenu">
             <!-- Header do menu mobile -->
             <div class="mobile-menu-header">
-            <div class="mobile-logo">
-                <span class="bracket">&lt;</span>Edinaldo<span class="bracket">/&gt;</span>
-            </div>
-            <button class="close-menu-btn" id="closeMenuBtn" aria-label="Fechar menu">
-                <i class="fas fa-times"></i>
-            </button>
+                <div class="mobile-logo">
+                    <span class="bracket">&lt;</span>Edinaldo<span class="bracket">/&gt;</span>
+                </div>
+                <button class="close-menu-btn" id="closeMenuBtn" aria-label="Fechar menu">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
 
-            <!-- Container principal do menu mobile (scrollable em telas pequenas) -->
-            <div class="mobile-nav-container" role="navigation" aria-label="Menu principal" style="flex: 1 1 auto; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 1rem; padding-bottom: 2.5rem;">
-            <!-- Links do menu mobile com ícones -->
-            <a href="#about" class="mobile-nav-item">
-                <span class="nav-icon"><i class="fas fa-user"></i></span>
-                <span>Sobre</span>
-            </a>
-            <a href="#skills" class="mobile-nav-item">
-                <span class="nav-icon"><i class="fas fa-code"></i></span>
-                <span>Habilidades</span>
-            </a>
-            <a href="#ai" class="mobile-nav-item">
-                <span class="nav-icon"><i class="fas fa-robot" aria-hidden="true"></i></span>
-                <span>IA</span>
-            </a>
-            <a href="#certifications" class="mobile-nav-item">
-                <span class="nav-icon"><i class="fas fa-medal"></i></span>
-                <span>Certificações</span>
-            </a>
-            <a href="#experience" class="mobile-nav-item">
-                <span class="nav-icon"><i class="fas fa-briefcase"></i></span>
-                <span>Experiência</span>
-            </a>
-            <a href="#contact" class="mobile-nav-item">
-                <span class="nav-icon"><i class="fas fa-envelope"></i></span>
-                <span>Contato</span>
-            </a>
-            <a href="#snake-game-section" class="mobile-nav-item">
-                <span class="nav-icon"><i class="fas fa-gamepad"></i></span>
-                <span>Jogo</span>
-            </a>
-            <a href="javascript:void(0);" class="mobile-nav-item primary-btn mobile" id="downloadCvBtnMobile">
-                <span class="nav-icon"><i class="fas fa-download"></i></span>
-                <span class="btn-text">DOWNLOAD CV</span>
-            </a>
+            <!-- Container principal do menu mobile - SCROLLABLE -->
+            <div class="mobile-nav-container" role="navigation" aria-label="Menu principal">
+                <!-- Links do menu mobile com ícones -->
+                <a href="#about" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-user"></i></span>
+                    <span>Sobre</span>
+                </a>
+                <a href="#skills" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-code"></i></span>
+                    <span>Habilidades</span>
+                </a>
+                <a href="#ai" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-robot" aria-hidden="true"></i></span>
+                    <span>IA</span>
+                </a>
+                <a href="#certifications" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-medal"></i></span>
+                    <span>Certificações</span>
+                </a>
+                <a href="#experience" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-briefcase"></i></span>
+                    <span>Experiência</span>
+                </a>
+                <a href="#contact" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-envelope"></i></span>
+                    <span>Contato</span>
+                </a>
+                <a href="#snake-game-section" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-gamepad"></i></span>
+                    <span>Jogo</span>
+                </a>
+                <a href="javascript:void(0);" class="mobile-nav-item primary-btn mobile" id="downloadCvBtnMobile">
+                    <span class="nav-icon"><i class="fas fa-download"></i></span>
+                    <span class="btn-text">DOWNLOAD CV</span>
+                </a>
             </div>
 
             <!-- Toggle de tema no menu mobile -->
