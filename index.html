@@ -372,6 +372,70 @@
         }
 
         /* ===================================================
+           BOTÃO DOWNLOAD CV NA SEÇÃO HERO - MESMO ESTILO DO MENU HAMBURGUER
+           =================================================== */
+        .hero-download-btn {
+            padding: 0.8rem 1.8rem;
+            background: linear-gradient(135deg, 
+                rgba(230, 194, 0, 0.95) 0%, 
+                rgba(255, 215, 0, 0.9) 100%);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 0.85rem;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            letter-spacing: 0.02em;
+            box-shadow: 
+                0 3px 10px rgba(230, 194, 0, 0.2),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            z-index: 1;
+            text-transform: uppercase;
+            min-width: 160px;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .hero-download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 6px 15px rgba(230, 194, 0, 0.25),
+                inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 0.95) 0%, 
+                rgba(255, 237, 78, 0.9) 100%);
+        }
+
+        .hero-download-btn:active {
+            transform: translateY(0);
+            box-shadow: 
+                0 2px 6px rgba(230, 194, 0, 0.2),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-download-btn .btn-icon {
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-download-btn:hover .btn-icon {
+            transform: translateY(1px);
+        }
+
+        .hero-download-btn .btn-text {
+            position: relative;
+            z-index: 2;
+            font-weight: 600;
+        }
+
+        /* ===================================================
            BOTÃO ENVIAR MENSAGEM - COM ANIMAÇÃO DE LUZ NA BORDA
            =================================================== */
         .form-submit-btn {
@@ -2361,7 +2425,7 @@
                 align-items: center;
             }
 
-            .hero-buttons .primary-btn,
+            .hero-buttons .hero-download-btn,
             .hero-buttons .btn-outline {
                 width: 100%;
                 max-width: 260px;
@@ -2536,7 +2600,7 @@
                 width: 100%;
             }
 
-            .hero-buttons .primary-btn,
+            .hero-buttons .hero-download-btn,
             .hero-buttons .btn-outline {
                 width: 100%;
                 max-width: 240px;
@@ -2751,7 +2815,7 @@
                 <li><a href="#contact">Contato</a></li>
                 <li><a href="#snake-game-section">Jogo</a></li>
                 <li>
-                    <a href="javascript:void(0);" class="primary-btn" id="downloadCvBtn">
+                    <a href="javascript:void(0);" class="hero-download-btn primary-btn" id="downloadCvBtn" style="display: none; pointer-events: none; opacity: 0;" aria-hidden="true" tabindex="-1" onclick="return false;" aria-disabled="true">
                         <i class="fas fa-download btn-icon"></i>
                         <span class="btn-text">DOWNLOAD CV</span>
                     </a>
@@ -2850,7 +2914,10 @@
             </p>
             <div class="hero-buttons">
                 <a href="#skills" class="primary-btn">Ver Habilidades →</a>
-                <a href="#contact" class="btn-outline">Entrar em Contato</a>
+                <a href="javascript:void(0);" class="hero-download-btn" id="downloadCvBtnHero">
+                    <i class="fas fa-download btn-icon"></i>
+                    <span class="btn-text">DOWNLOAD CV</span>
+                </a>
             </div>
             <div class="social-links">
                 <a href="https://github.com/Joseedinaldo" target="_blank" aria-label="GitHub">
@@ -3542,9 +3609,10 @@
             }
         }
 
-        // Eventos para os botões de download
+        // Eventos para todos os botões de download
         document.getElementById('downloadCvBtn').addEventListener('click', downloadCV);
         document.getElementById('downloadCvBtnMobile').addEventListener('click', downloadCV);
+        document.getElementById('downloadCvBtnHero').addEventListener('click', downloadCV);
 
         // ====================
         // 5. SCROLL ANIMATIONS
