@@ -3642,15 +3642,22 @@
                         </div>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm">
+                <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+                    <!-- Chave de Acesso Web3Forms -->
+                    <input type="hidden" name="access_key" value="0989086e-663d-468a-8260-299388034870">
+                    <!-- Configurações Adicionais -->
+                    <input type="hidden" name="subject" value="Nova mensagem do seu Portfólio">
+                    <input type="hidden" name="from_name" value="Seu Portfólio">
+                    <input type="hidden" name="to_email" value="edinaldoalmeida98@outlook.com">
+                    
                     <div class="form-group">
-                        <input type="text" id="name" class="form-input" placeholder="Seu Nome" required>
+                        <input type="text" name="name" id="name" class="form-input" placeholder="Seu Nome" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" id="email" class="form-input" placeholder="Seu Email" required>
+                        <input type="email" name="email" id="email" class="form-input" placeholder="Seu Email" required>
                     </div>
                     <div class="form-group">
-                        <textarea id="message" class="form-textarea" placeholder="Sua Mensagem" required></textarea>
+                        <textarea name="message" id="message" class="form-textarea" placeholder="Sua Mensagem" required></textarea>
                     </div>
                     <button type="submit" class="form-submit-btn">
                         <div class="btn-content">
@@ -4106,7 +4113,7 @@
         mobileThemeToggle.addEventListener('click', toggleTheme);
 
         // ====================
-        // 10. CONTACT FORM
+        // 10. CONTACT FORM - WEB3FORMS INTEGRATION (CORRIGIDO)
         // ====================
         const contactForm = document.getElementById('contactForm');
 
@@ -4117,26 +4124,98 @@
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
-            // Aqui você pode adicionar a lógica para enviar o formulário
-            // Por enquanto, mostra um alerta de sucesso
+            // Validar campos
+            if (!name || !email || !message) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Campos obrigatórios',
+                    text: 'Por favor, preencha todos os campos.',
+                    confirmButtonText: 'OK',
+                    background: '#141414',
+                    color: '#f8f8f8',
+                    iconColor: '#ffd700',
+                    confirmButtonColor: '#e6c200',
+                    customClass: {
+                        popup: 'swal-custom-popup',
+                        title: 'swal-custom-title',
+                        confirmButton: 'swal-custom-confirm-button',
+                        icon: 'swal-custom-icon'
+                    }
+                });
+                return;
+            }
+
+            // Mostrar loading
             Swal.fire({
-                icon: 'success',
-                title: 'Mensagem enviada!',
-                text: `Obrigado ${name}! Entrarei em contato em breve.`,
-                confirmButtonText: 'OK',
+                title: 'Enviando mensagem...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                },
                 background: '#141414',
                 color: '#f8f8f8',
-                iconColor: '#e6c200',
-                confirmButtonColor: '#e6c200',
                 customClass: {
                     popup: 'swal-custom-popup',
-                    title: 'swal-custom-title',
-                    confirmButton: 'swal-custom-confirm-button',
-                    icon: 'swal-custom-icon'
+                    title: 'swal-custom-title'
                 }
             });
 
-            contactForm.reset();
+            // Enviar via Web3Forms
+            const formData = new FormData(this);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+            
+            fetch(this.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            }).then(async (response) => {
+                let jsonResponse = await response.json();
+                if (response.status == 200) {
+                    // Mostrar mensagem de sucesso
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Mensagem enviada!',
+                        text: `Obrigado ${name}! Entrarei em contato em breve no seu e-mail edinaldoalmeida98@outlook.com.`,
+                        confirmButtonText: 'OK',
+                        background: '#141414',
+                        color: '#f8f8f8',
+                        iconColor: '#e6c200',
+                        confirmButtonColor: '#e6c200',
+                        customClass: {
+                            popup: 'swal-custom-popup',
+                            title: 'swal-custom-title',
+                            confirmButton: 'swal-custom-confirm-button',
+                            icon: 'swal-custom-icon'
+                        }
+                    });
+                    contactForm.reset();
+                } else {
+                    throw new Error(jsonResponse.message);
+                }
+            }).catch(error => {
+                console.log('Erro ao enviar email:', error);
+                // Mostrar mensagem de erro
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro ao enviar',
+                    text: 'Ocorreu um erro ao enviar sua mensagem. Tente novamente mais tarde.',
+                    confirmButtonText: 'OK',
+                    background: '#141414',
+                    color: '#f8f8f8',
+                    iconColor: '#ff6b6b',
+                    confirmButtonColor: '#ff6b6b',
+                    customClass: {
+                        popup: 'swal-custom-popup',
+                        title: 'swal-custom-title',
+                        confirmButton: 'swal-custom-confirm-button',
+                        icon: 'swal-custom-icon'
+                    }
+                });
+            });
         });
 
         // ====================
