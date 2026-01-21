@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <meta name="color-scheme" content="dark light">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edinaldo Almeida | Desenvolvedor Front-End & Técnico de Informática</title>
@@ -3078,6 +3079,27 @@
                 display: none;
             }
         }
+    
+        /* Garantir que o modo escuro seja legível em todas as telas */
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 70px;
+            }
+            body {
+                font-size: 15px;
+            }
+        }
+
+        /* Suporte para High Contrast e redução de movimento se o usuário preferir */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -3235,7 +3257,28 @@
                     align-items: center;
                 }
             }
-            </style>
+            
+        /* Garantir que o modo escuro seja legível em todas as telas */
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 70px;
+            }
+            body {
+                font-size: 15px;
+            }
+        }
+
+        /* Suporte para High Contrast e redução de movimento se o usuário preferir */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+    </style>
 
             <div class="hero-buttons">
                 <a href="#skills" class="primary-btn equal-btn">Ver Habilidades →</a>
@@ -4101,12 +4144,13 @@
             setTheme(newTheme);
         }
 
-        // Verificar tema salvo ou preferência do sistema
+        // Verificar tema salvo (Modo Escuro é o padrão)
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             setTheme(savedTheme);
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-            setTheme('light');
+        } else {
+            // Se não houver tema salvo, define 'dark' como padrão explicitamente
+            setTheme('dark');
         }
 
         themeToggleBtn.addEventListener('click', toggleTheme);
