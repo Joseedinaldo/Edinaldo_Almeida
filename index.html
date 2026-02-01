@@ -98,6 +98,11 @@
             --ai-gradient-1: #000000;
             --ai-gradient-2: #000000;
             --ai-gradient-3: #000000;
+            /* CORREÇÃO APLICADA: Cores específicas para o botão hamburguer */
+            --hamburger-color-light: #000000;
+            --hamburger-color-dark: #ffffff;
+            --hamburger-bg-light: #f5f5f5;
+            --hamburger-bg-dark: #111111;
         }
 
         /* Dark Mode - Preto profundo e efeito espelhado */
@@ -133,6 +138,9 @@
             --ai-gradient-3: #22D3EE;
             --ai-gradient-4: #34D399;
             --ai-gradient-5: #F472B6;
+            /* CORREÇÃO APLICADA: Manter cores consistentes para o hamburguer */
+            --hamburger-color-light: #000000;
+            --hamburger-color-dark: #ffffff;
         }
 
         /* Efeito espelhado para elementos no modo escuro */
@@ -157,34 +165,6 @@
 
         [data-theme='dark'] .nav-links a::after {
             background: linear-gradient(90deg, #ffffff, #a0a0a0);
-        }
-
-        [data-theme='dark'] .mobile-menu {
-            background: linear-gradient(
-                145deg,
-                rgba(20, 20, 20, 0.95),
-                rgba(10, 10, 10, 0.95)
-            );
-            backdrop-filter: blur(20px);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 
-                -8px 0 32px rgba(0, 0, 0, 0.5),
-                inset 1px 0 0 rgba(255, 255, 255, 0.05);
-        }
-
-        [data-theme='dark'] .mobile-nav-item {
-            color: #ffffff;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        [data-theme='dark'] .mobile-nav-item:hover,
-        [data-theme='dark'] .mobile-nav-item.active {
-            background: linear-gradient(
-                90deg,
-                rgba(255, 255, 255, 0.1),
-                rgba(255, 255, 255, 0.05)
-            );
-            color: #ffffff;
         }
 
         body {
@@ -423,7 +403,7 @@
         }
 
         /* ===================================================
-           MENU HAMBURGUER MELHORADO
+           MENU HAMBURGUER MELHORADO - CORREÇÃO COMPLETA APLICADA
            =================================================== */
         .menu-toggle {
             display: none;
@@ -447,41 +427,70 @@
             color: var(--color-bg);
         }
 
-        /* Hamburger animado moderno */
+        /* CORREÇÃO COMPLETA: Hamburger animado moderno */
         .hamburger {
-            width: 20px;
-            height: 14px;
+            width: 22px;
+            height: 16px;
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
+        /* CORREÇÃO: Linhas com cores sólidas e opacidade total */
         .hamburger-line {
             display: block;
             width: 100%;
             height: 2px;
-            background: var(--color-fg);
-            border-radius: 3px;
+            background: var(--color-fg); /* Usa a cor do texto padrão */
+            border-radius: 2px;
             transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
             transform-origin: center;
+            opacity: 1 !important; /* FORÇA OPACIDADE TOTAL */
         }
 
+        /* CORREÇÃO: Estado ativo (X) - Formato perfeito */
         .menu-toggle.active .hamburger-line:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
-            background: var(--color-primary);
+            transform: translateY(7px) rotate(45deg) scaleX(1.1);
+            background: var(--color-fg); /* Garante cor sólida */
         }
 
         .menu-toggle.active .hamburger-line:nth-child(2) {
             opacity: 0;
+            transform: scaleX(0);
         }
 
         .menu-toggle.active .hamburger-line:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-            background: var(--color-primary);
+            transform: translateY(-7px) rotate(-45deg) scaleX(1.1);
+            background: var(--color-fg); /* Garante cor sólida */
         }
 
-        /* Menu Mobile Melhorado */
+        /* CORREÇÃO: Modo escuro - cores consistentes */
+        [data-theme='dark'] .hamburger-line {
+            background: var(--color-fg); /* Branco no modo escuro */
+        }
+
+        [data-theme='dark'] .menu-toggle.active .hamburger-line:nth-child(1),
+        [data-theme='dark'] .menu-toggle.active .hamburger-line:nth-child(3) {
+            background: var(--color-fg); /* Branco no modo escuro */
+        }
+
+        /* CORREÇÃO: Hover - garante cor sólida no hover */
+        .menu-toggle:hover .hamburger-line {
+            background: var(--color-bg); /* Inverte cor no hover */
+        }
+
+        /* CORREÇÃO: Estado ativo + hover */
+        .menu-toggle.active:hover .hamburger-line {
+            background: var(--color-bg); /* Mantém contraste no hover */
+        }
+
+        [data-theme='dark'] .menu-toggle.active:hover .hamburger-line {
+            background: var(--color-fg); /* Branco no modo escuro */
+            opacity: 0.9;
+        }
+
+        /* Menu Mobile Lateral Profissional */
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
@@ -508,13 +517,12 @@
             width: 320px;
             height: 100vh;
             background: var(--color-bg);
-            border-left: 1px solid var(--color-border);
             display: flex;
             flex-direction: column;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 999;
             overflow-y: auto;
-            box-shadow: var(--shadow-xl);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
             transform: translateX(100%);
         }
 
@@ -538,28 +546,8 @@
             letter-spacing: -0.02em;
         }
 
-        .close-menu-btn {
-            background: none;
-            border: none;
-            color: var(--color-fg);
-            font-size: 1.2rem;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: var(--border-radius);
-            transition: all var(--transition-smooth);
-        }
-
-        .close-menu-btn:hover {
-            background: var(--color-card);
-            transform: rotate(90deg);
-        }
-
         .mobile-nav-container {
-            padding: 1.5rem;
+            padding: 2rem 1.5rem;
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
@@ -570,7 +558,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 1rem 1.5rem;
+            padding: 1.2rem 1.5rem;
             color: var(--color-fg);
             text-decoration: none;
             border-radius: 12px;
@@ -609,8 +597,9 @@
         .mobile-nav-item .nav-icon {
             width: 24px;
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             transition: transform var(--transition-smooth);
+            color: var(--color-primary);
         }
 
         .mobile-nav-item:hover .nav-icon {
@@ -619,7 +608,7 @@
 
         .mobile-download-btn {
             margin-top: auto;
-            padding: 1rem 1.5rem;
+            padding: 1.2rem 1.5rem;
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
             color: var(--color-bg);
             border: none;
@@ -632,7 +621,7 @@
             justify-content: center;
             gap: 0.5rem;
             transition: all var(--transition-smooth);
-            margin: 1rem 1.5rem;
+            margin: 1.5rem;
         }
 
         .mobile-download-btn:hover {
@@ -641,7 +630,7 @@
         }
 
         /* ===================================================
-           HERO SECTION COM ANIMAÇÃO DE IA
+           HERO SECTION - NOME CORRIGIDO SEM ESPAÇAMENTO ENTRE LETRAS
            =================================================== */
         .hero {
             min-height: 100vh;
@@ -667,36 +656,30 @@
             letter-spacing: -0.03em;
         }
 
-        .hero .name {
-            display: inline-block;
-            position: relative;
+        /* CORREÇÃO DO NOME - AGORA COM ESPAÇAMENTO NORMAL ENTRE PALAVRAS */
+        .hero-name {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
         }
 
-        /* CORREÇÃO DO ESPAÇAMENTO DO NOME */
-        .hero-name .letter-space {
+        .name {
             display: inline-block;
-            margin-right: 0.3em;
-            letter-spacing: 0.02em;
+            font-size: inherit;
+            font-weight: inherit;
+            letter-spacing: normal; /* Removido espaçamento entre letras */
         }
 
-        @media (max-width: 768px) {
-            .hero-name .letter-space {
-                margin-right: 0.2em;
-                letter-spacing: 0.01em;
-            }
-        }
-
-        .hero .name span {
-            display: inline-block;
-            transition: color 0.3s ease;
+        .name span {
+            letter-spacing: normal; /* Garante espaçamento normal */
         }
 
         .hero .animated-text {
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 800;
-            margin-bottom: 1.5rem;
             line-height: 1.1;
-            letter-spacing: -0.03em;
+            letter-spacing: normal; /* NORMAL entre as letras */
         }
 
         .hero .subtitle {
@@ -704,6 +687,7 @@
             color: var(--color-secondary);
             margin-bottom: 2rem;
             font-weight: 400;
+            letter-spacing: normal;
         }
 
         .hero .description {
@@ -1440,7 +1424,9 @@
             box-shadow: var(--shadow-lg);
         }
 
-        /* Snake Game Section - COMPLETAMENTE REESCRITO */
+        /* ===================================================
+           SNAKE GAME SECTION - MAPA MENOR E MELHORADO
+           =================================================== */
         .snake-section {
             padding: 5rem 2rem;
             background: var(--color-bg);
@@ -1448,7 +1434,7 @@
         }
 
         .snake-container {
-            max-width: 800px;
+            max-width: 600px; /* Reduzido de 800px para 600px */
             margin: 0 auto;
         }
 
@@ -1459,9 +1445,10 @@
             overflow: hidden;
             border: 2px solid var(--color-border);
             background: var(--color-card);
-            aspect-ratio: 1/1;
+            aspect-ratio: 1/1; /* Mantém quadrado */
             margin: 2rem auto;
             box-shadow: var(--shadow-lg);
+            max-height: 500px; /* Limita altura máxima */
         }
 
         #snake-game {
@@ -1495,14 +1482,14 @@
         }
 
         #game-over-overlay h2 {
-            font-size: 2.5rem;
+            font-size: 2rem; /* Reduzido */
             margin-bottom: 1rem;
             color: #ff4444;
             text-shadow: 0 2px 10px rgba(255, 68, 68, 0.5);
         }
 
         #final-score {
-            font-size: 1.8rem;
+            font-size: 1.5rem; /* Reduzido */
             margin-bottom: 2rem;
             color: #fff;
         }
@@ -1529,7 +1516,7 @@
 
         .snake-stats span {
             display: block;
-            font-size: 2.5rem;
+            font-size: 2rem; /* Reduzido */
             font-weight: 800;
             color: var(--color-primary);
             margin-top: 0.5rem;
@@ -1974,6 +1961,10 @@
             .mobile-menu {
                 display: flex;
             }
+            
+            .snake-container {
+                max-width: 500px; /* Mais reduzido em telas menores */
+            }
         }
 
         @media (min-width: 993px) {
@@ -2015,7 +2006,7 @@
             }
 
             .mobile-menu {
-                width: 100%;
+                width: 280px; /* Ligeiramente menor em mobile */
             }
 
             .section-header h2 {
@@ -2042,10 +2033,15 @@
 
             .snake-game-container {
                 aspect-ratio: 3/2;
+                max-height: 400px;
             }
 
             .snake-stats span {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            
+            .snake-container {
+                max-width: 400px;
             }
         }
 
@@ -2075,6 +2071,20 @@
                 border-right: none;
                 border-bottom: 1px solid var(--color-border);
                 padding-bottom: 1rem;
+            }
+            
+            .mobile-menu {
+                width: 100%;
+                max-width: 320px;
+            }
+            
+            .snake-container {
+                max-width: 100%;
+                padding: 0 1rem;
+            }
+            
+            .snake-game-container {
+                max-height: 350px;
             }
         }
 
@@ -2107,6 +2117,21 @@
 
             .snake-game-container {
                 aspect-ratio: 4/3;
+                max-height: 300px;
+            }
+            
+            .mobile-menu-header {
+                padding: 1.5rem 1rem;
+            }
+            
+            .mobile-nav-container {
+                padding: 1.5rem 1rem;
+            }
+            
+            .snake-controls .primary-btn,
+            .snake-controls .btn-outline {
+                min-width: 120px;
+                padding: 0.8rem 1rem;
             }
         }
 
@@ -2136,6 +2161,14 @@
             .hero-buttons .primary-btn,
             .hero-buttons .btn-outline {
                 padding: 0.8rem 1.5rem;
+            }
+            
+            .mobile-menu {
+                width: 100%;
+            }
+            
+            .snake-game-container {
+                max-height: 250px;
             }
         }
 
@@ -2260,16 +2293,14 @@
             </div>
         </nav>
         
-        <!-- Menu Mobile -->
+        <!-- Menu Mobile Lateral Profissional -->
         <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
         <div class="mobile-menu" id="mobileMenu">
             <div class="mobile-menu-header">
                 <div class="mobile-logo">
                     <span>&lt;</span>Edinaldo<span>/&gt;</span>
                 </div>
-                <button class="close-menu-btn" id="closeMenuBtn" aria-label="Fechar menu">
-                    <i class="fas fa-times"></i>
-                </button>
+                <!-- REMOVIDO O BOTÃO DE FECHAR - AGORA SÓ FECHA CLICANDO NO HAMBÚRGUER OU FORA DO MENU -->
             </div>
 
             <div class="mobile-nav-container">
@@ -2316,9 +2347,8 @@
         <div class="hero-content">
             <h1 class="hero-name">
                 Olá, eu sou<br>
-                <span class="name animated-text" id="animated-name">
-                    <span class="letter-space">Edinaldo</span> <span class="letter-space">Almeida</span>
-                </span>
+                <!-- NOME CORRIGIDO: EDINALDO ALMEIDA (sem espaçamento entre letras) -->
+                <span class="name animated-text" id="animated-name">EDINALDO ALMEIDA</span>
             </h1>
             <p class="hero-subtitle subtitle">Desenvolvedor Front-End & Técnico de Informática</p>
             <p class="description">
@@ -2403,7 +2433,7 @@
                     <ul class="skill-list">
                         <li class="skill-item">
                             <span class="skill-dot"></span>
-                            <span>React & Next.js</span>
+                            <span>React</span>
                         </li>
                         <li class="skill-item">
                             <span class="skill-dot"></span>
@@ -2419,7 +2449,7 @@
                         </li>
                         <li class="skill-item">
                             <span class="skill-dot"></span>
-                            <span>JavaScript ES6+</span>
+                            <span>JavaScript</span>
                         </li>
                     </ul>
                 </div>
@@ -2436,7 +2466,7 @@
                         </li>
                         <li class="skill-item">
                             <span class="skill-dot"></span>
-                            <span>APIs REST</span>
+                            <span>API</span>
                         </li>
                         <li class="skill-item">
                             <span class="skill-dot"></span>
@@ -2601,10 +2631,9 @@
                             <ul class="achievements-list">
                                 <li class="achievement-item">Atendimento N1 com foco na identificação e resolução de problemas de acesso aos sistemas do TRT20</li>
                                 <li class="achievement-item">Suporte especializado a certificados digitais e autenticação em sistemas que exigem assinatura digital</li>
-                                <li class="achievement-item">Instalação, configuração e manutenção de impressoras em rede para todos os setores</li>
-                                <li class="achievement-item">Configuração e atualização de softwares institucionais e pacote Microsoft Office</li>
-                                <li class="achievement-item">Suporte remoto e presencial para resolução de problemas técnicos diversos</li>
-                                <li class="achievement-item">Documentação de procedimentos e manutenção do knowledge base técnico</li>
+                                <li class="achievement-item">Configuraçãode impressoras em rede para os setores</li>
+                                <li class="achievement-item">Configuração e atualização de softwares institucionais</li>
+                                <li class="achievement-item">Suporte remoto para resolução de problemas técnicos diversos</li>
                             </ul>
                         </div>
                         <div style="margin-top: 1.5rem;">
@@ -2650,11 +2679,11 @@
                             <p class="achievements-title"><i class="fas fa-trophy"></i> Principais Conquistas:</p>
                             <ul class="achievements-list">
                                 <li class="achievement-item">Gerenciamento e resolução de mais de 500 incidentes através da plataforma GLPI</li>
-                                <li class="achievement-item">Instalação, configuração e manutenção de 30+ impressoras em rede hospitalar</li>
+                                <li class="achievement-item">Instalação e configuração de impressoras em rede hospitalar</li>
                                 <li class="achievement-item">Suporte técnico especializado para 150+ colaboradores no uso do pacote Microsoft Office</li>
-                                <li class="achievement-item">Garantia de 99.8% de disponibilidade dos sistemas em ambiente hospitalar crítico</li>
-                                <li class="achievement-item">Implementação de procedimentos de backup e recuperação de dados</li>
-                                <li class="achievement-item">Treinamento de novos colaboradores em procedimentos técnicos básicos</li>
+                                <li class="achievement-item">Orientação no uso do sistema de prontuario eletronico</li>
+                                <li class="achievement-item">Identificação de falhas e problemas no sistema de prontuario eletronico</li>
+
                             </ul>
                         </div>
                     </div>
@@ -2691,7 +2720,6 @@
                             <ul class="achievements-list">
                                 <li class="achievement-item">Execução de manutenções preventivas e corretivas em 15 laboratórios de informática</li>
                                 <li class="achievement-item">Instalação e configuração de softwares educacionais específicos conforme solicitado pelos educadores</li>
-                                <li class="achievement-item">Otimização de sistemas e apoio às atividades em sala de aula para 500+ estudantes</li>
                                 <li class="achievement-item">Configuração de ferramentas educacionais para o processo de ensino-aprendizagem</li>
                                 <li class="achievement-item">Suporte técnico a professores e alunos durante aulas práticas</li>
                                 <li class="achievement-item">Documentação técnica dos equipamentos e procedimentos de manutenção</li>
@@ -2763,7 +2791,7 @@
         </div>
     </section>
 
-    <!-- Snake Game Section - COMPLETAMENTE CORRIGIDO -->
+    <!-- Snake Game Section - MAPA MENOR E MELHORADO -->
     <section id="snake-game-section" class="snake-section">
         <div class="container">
             <div class="section-header">
@@ -2911,7 +2939,7 @@
             const nameElement = document.getElementById('animated-name');
             nameElement.innerHTML = '';
             
-            const nameText = 'Edinaldo Almeida';
+            const nameText = 'EDINALDO ALMEIDA';
             const aiColors = [
                 'var(--ai-gradient-1)',
                 'var(--ai-gradient-2)',
@@ -2935,7 +2963,6 @@
                 const span = document.createElement('span');
                 span.textContent = nameText[i];
                 if (nameText[i] !== ' ') {
-                    span.classList.add('letter-space');
                     span.style.setProperty('--letter-index', i);
                     span.style.color = aiColors[i % aiColors.length];
                     span.style.animation = 'aiColorCycle 5s ease-in-out infinite';
@@ -2956,12 +2983,11 @@
             const nameElement = document.getElementById('animated-name');
             nameElement.innerHTML = '';
             
-            const nameText = 'Edinaldo Almeida';
+            const nameText = 'EDINALDO ALMEIDA';
             for (let i = 0; i < nameText.length; i++) {
                 const span = document.createElement('span');
                 span.textContent = nameText[i];
                 if (nameText[i] !== ' ') {
-                    span.classList.add('letter-space');
                     span.style.color = 'var(--color-primary)';
                     span.style.animation = 'none';
                 }
@@ -2975,7 +3001,7 @@
         }
 
         // ====================
-        // 3. MENU HAMBÚRGUER PROFISSIONAL - COMPLETAMENTE REESCRITO
+        // 3. MENU HAMBÚRGUER LATERAL PROFISSIONAL - CORREÇÃO COMPLETA
         // ====================
         let isMenuOpen = false;
 
@@ -2998,7 +3024,7 @@
                     mobileOverlay.classList.add('active');
                 }, 10);
                 
-                // Abrir menu
+                // Abrir menu lateral
                 mobileMenu.classList.add('active');
                 menuToggle.classList.add('active');
                 menuToggle.setAttribute('aria-expanded', 'true');
@@ -3285,7 +3311,7 @@
         });
 
         // ====================
-        // 10. SNAKE GAME - COMPLETAMENTE REESCRITO E FUNCIONAL
+        // 10. SNAKE GAME - MAPA MENOR E MELHORADO
         // ====================
         class SnakeGame {
             constructor() {
@@ -3296,7 +3322,7 @@
                 this.finalScoreElement = document.getElementById('final-score');
                 this.gameOverOverlay = document.getElementById('game-over-overlay');
                 
-                this.gridSize = 20;
+                this.gridSize = 25; // Aumentado para mapa menor
                 this.tileCountX = 0;
                 this.tileCountY = 0;
                 
@@ -3327,6 +3353,7 @@
                 this.canvas.width = container.clientWidth;
                 this.canvas.height = container.clientHeight;
 
+                // Mapa menor: menos tiles
                 this.tileCountX = Math.floor(this.canvas.width / this.gridSize);
                 this.tileCountY = Math.floor(this.canvas.height / this.gridSize);
             }
@@ -3583,17 +3610,6 @@
                     ease: 'power3.out'
                 });
 
-                // Animação das letras do nome
-                const letters = document.querySelectorAll('.letter-animation');
-                gsap.from(letters, {
-                    y: 30,
-                    opacity: 0,
-                    stagger: 0.05,
-                    duration: 0.5,
-                    delay: 0.5,
-                    ease: 'back.out(1.7)'
-                });
-
                 // Animação das seções
                 gsap.utils.toArray('section').forEach((section, i) => {
                     gsap.from(section, {
@@ -3643,17 +3659,11 @@
             // Esconder preloader
             hidePreloader();
 
-            // Menu mobile
+            // Menu mobile - AGORA SÓ O HAMBÚRGUER CONTROLA
             const menuToggle = document.getElementById('menuToggle');
-            const closeMenuBtn = document.getElementById('closeMenuBtn');
             const mobileOverlay = document.getElementById('mobileMenuOverlay');
 
             menuToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleMobileMenu();
-            });
-
-            closeMenuBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 toggleMobileMenu();
             });
@@ -3667,20 +3677,14 @@
             // Tema
             themeToggleBtn.addEventListener('click', toggleTheme);
 
-            // Smooth scroll
-            initSmoothScroll();
-
-            // Scroll events
-            window.addEventListener('scroll', updateHeaderOnScroll);
-            updateHeaderOnScroll();
-
-            // Fechar menu ao clicar em links
+            // Smooth scroll com fechamento de menu ao clicar em links
             document.querySelectorAll('.mobile-nav-item').forEach(link => {
                 link.addEventListener('click', (e) => {
                     if (link.getAttribute('href') && link.getAttribute('href').startsWith('#')) {
                         e.preventDefault();
                         const targetId = link.getAttribute('href');
                         
+                        // Fechar menu
                         toggleMobileMenu();
                         
                         setTimeout(() => {
@@ -3698,6 +3702,13 @@
                     }
                 });
             });
+
+            // Inicializar smooth scroll para outros links
+            initSmoothScroll();
+
+            // Scroll events
+            window.addEventListener('scroll', updateHeaderOnScroll);
+            updateHeaderOnScroll();
 
             // Download CV
             document.getElementById('downloadCvBtn')?.addEventListener('click', downloadCV);
