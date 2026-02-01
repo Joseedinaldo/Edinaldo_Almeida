@@ -55,17 +55,17 @@
             --color-bg: #ffffff;
             --color-fg: #000000;
             /* Cores base do nome EDINALDOALMEIDA (cores fixas e suaves) */
-            --color-primary: #2D5BFF; /* Azul para E */
-            --color-primary-light: #6366F1; /* Índigo para D */
-            --color-primary-dark: #1D4ED8; /* Azul escuro */
-            --color-secondary: #8B5CF6; /* Roxo para I */
-            --color-accent-1: #EC4899; /* Rosa para N */
-            --color-accent-2: #10B981; /* Verde para A */
-            --color-accent-3: #F59E0B; /* Âmbar para L */
-            --color-accent-4: #EF4444; /* Vermelho para M */
-            --color-accent-5: #06B6D4; /* Ciano para D */
-            --color-accent-6: #84CC16; /* Verde lima para O */
-            --color-accent-7: #F97316; /* Laranja para A */
+            --color-primary: #000000;
+            --color-primary-light: #333333;
+            --color-primary-dark: #000000;
+            --color-secondary: #000000;
+            --color-accent-1: #000000;
+            --color-accent-2: #000000;
+            --color-accent-3: #000000;
+            --color-accent-4: #000000;
+            --color-accent-5: #000000;
+            --color-accent-6: #000000;
+            --color-accent-7: #000000;
             --color-border: #e0e0e0;
             --color-card: #f5f5f5;
             --color-muted: #666666;
@@ -83,17 +83,21 @@
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            /* Cores para animação do nome (suaves) */
-            --name-color-1: #2D5BFF; /* Azul */
-            --name-color-2: #8B5CF6; /* Roxo */
-            --name-color-3: #EC4899; /* Rosa */
-            --name-color-4: #10B981; /* Verde */
-            --name-color-5: #F59E0B; /* Âmbar */
-            --name-color-6: #EF4444; /* Vermelho */
-            --name-color-7: #06B6D4; /* Ciano */
-            --name-color-8: #84CC16; /* Verde lima */
-            --name-color-9: #F97316; /* Laranja */
-            --name-color-10: #6366F1; /* Índigo */
+            /* Cores para animação do nome (agora todas pretas no modo claro) */
+            --name-color-1: #000000;
+            --name-color-2: #000000;
+            --name-color-3: #000000;
+            --name-color-4: #000000;
+            --name-color-5: #000000;
+            --name-color-6: #000000;
+            --name-color-7: #000000;
+            --name-color-8: #000000;
+            --name-color-9: #000000;
+            --name-color-10: #000000;
+            /* Cores para gradiente de IA (inicialmente vazias) */
+            --ai-gradient-1: #000000;
+            --ai-gradient-2: #000000;
+            --ai-gradient-3: #000000;
         }
 
         /* Dark Mode - Preto profundo e efeito espelhado */
@@ -113,16 +117,22 @@
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
             /* Cores para animação do nome no dark mode */
-            --name-color-1: #60A5FA; /* Azul claro */
-            --name-color-2: #A78BFA; /* Roxo claro */
-            --name-color-3: #F472B6; /* Rosa claro */
-            --name-color-4: #34D399; /* Verde claro */
-            --name-color-5: #FBBF24; /* Âmbar claro */
-            --name-color-6: #F87171; /* Vermelho claro */
-            --name-color-7: #22D3EE; /* Ciano claro */
-            --name-color-8: #A3E635; /* Verde lima claro */
-            --name-color-9: #FB923C; /* Laranja claro */
-            --name-color-10: #818CF8; /* Índigo claro */
+            --name-color-1: #ffffff;
+            --name-color-2: #ffffff;
+            --name-color-3: #ffffff;
+            --name-color-4: #ffffff;
+            --name-color-5: #ffffff;
+            --name-color-6: #ffffff;
+            --name-color-7: #ffffff;
+            --name-color-8: #ffffff;
+            --name-color-9: #ffffff;
+            --name-color-10: #ffffff;
+            /* Cores inspiradas em IA para o modo escuro */
+            --ai-gradient-1: #60A5FA;
+            --ai-gradient-2: #A78BFA;
+            --ai-gradient-3: #22D3EE;
+            --ai-gradient-4: #34D399;
+            --ai-gradient-5: #F472B6;
         }
 
         /* Efeito espelhado para elementos no modo escuro */
@@ -478,8 +488,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
             opacity: 0;
             visibility: hidden;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -662,6 +672,20 @@
             position: relative;
         }
 
+        /* CORREÇÃO DO ESPAÇAMENTO DO NOME */
+        .hero-name .letter-space {
+            display: inline-block;
+            margin-right: 0.3em;
+            letter-spacing: 0.02em;
+        }
+
+        @media (max-width: 768px) {
+            .hero-name .letter-space {
+                margin-right: 0.2em;
+                letter-spacing: 0.01em;
+            }
+        }
+
         .hero .name span {
             display: inline-block;
             transition: color 0.3s ease;
@@ -815,7 +839,7 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: var(--color-border); /* Linha cinza simples */
+            background: var(--color-border);
         }
 
         .experience-item {
@@ -862,8 +886,6 @@
             transition: all var(--transition-smooth);
         }
 
-        /* REMOVIDO: .experience-content::before - borda colorida removida */
-
         .experience-item.current .experience-content {
             border-color: rgba(16, 185, 129, 0.3);
             box-shadow: 0 4px 20px rgba(16, 185, 129, 0.1);
@@ -898,7 +920,7 @@
         }
 
         .experience-content:hover .company-logo img {
-            transform: scale(1.05); /* Animação mais suave */
+            transform: scale(1.05);
         }
 
         .experience-title h3 {
@@ -996,21 +1018,43 @@
             letter-spacing: -0.02em;
         }
 
-        /* Cores fixas baseadas nas letras do nome EDINALDOALMEIDA */
         .section-header .highlight {
             background: linear-gradient(
                 135deg,
                 var(--color-primary) 0%,
-                var(--color-accent-1) 25%,
-                var(--color-accent-2) 50%,
-                var(--color-accent-3) 75%,
-                var(--color-accent-4) 100%
+                var(--color-primary) 25%,
+                var(--color-primary) 50%,
+                var(--color-primary) 75%,
+                var(--color-primary) 100%
             );
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             background-size: 200% 200%;
-            animation: gradientShift 10s ease infinite;
+        }
+
+        /* Efeito especial para modo escuro - Gradiente IA */
+        [data-theme='dark'] .section-header .highlight {
+            background: linear-gradient(
+                135deg,
+                var(--ai-gradient-1) 0%,
+                var(--ai-gradient-2) 25%,
+                var(--ai-gradient-3) 50%,
+                var(--ai-gradient-4) 75%,
+                var(--ai-gradient-5) 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: aiGradientShift 4s ease infinite;
+        }
+
+        /* Efeito especial para modo escuro - Nome principal */
+        [data-theme='dark'] .hero .name span {
+            color: var(--ai-gradient-1);
+            animation: aiColorCycle 5s ease-in-out infinite;
+            animation-delay: calc(var(--letter-index) * 0.1s);
         }
 
         .section-header p {
@@ -1042,52 +1086,12 @@
             overflow: hidden;
         }
 
-        /* REMOVIDA: Animação de borda giratória dos cards */
-        /* .feature-card::before,
-        .skill-category::before,
-        .ai-card::before,
-        .certification-card::before,
-        .experience-content::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(
-                45deg,
-                var(--name-color-1),
-                var(--name-color-2),
-                var(--name-color-3),
-                var(--name-color-4),
-                var(--name-color-5),
-                var(--name-color-6),
-                var(--name-color-7),
-                var(--name-color-8),
-                var(--name-color-9),
-                var(--name-color-10)
-            );
-            z-index: -1;
-            border-radius: calc(var(--border-radius-lg) + 2px);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .feature-card:hover::before,
-        .skill-category:hover::before,
-        .ai-card:hover::before,
-        .certification-card:hover::before,
-        .experience-content:hover::before {
-            opacity: 1;
-            animation: borderRotate 3s linear infinite;
-        } */
-
         .feature-card:hover,
         .skill-category:hover,
         .ai-card:hover,
         .certification-card:hover,
         .experience-content:hover {
-            border-color: var(--color-primary); /* Mantida a borda colorida no hover */
+            border-color: var(--color-primary);
             transform: translateY(-4px);
             box-shadow: var(--shadow-xl);
         }
@@ -1148,8 +1152,8 @@
         }
 
         .highlight-text {
-            color: var(--color-primary);
-            font-weight: 600;
+            color: #ef4444;
+            font-weight: 700;
         }
 
         /* Skills Section */
@@ -1436,14 +1440,15 @@
             box-shadow: var(--shadow-lg);
         }
 
-        /* Snake Game Section */
+        /* Snake Game Section - COMPLETAMENTE REESCRITO */
         .snake-section {
             padding: 5rem 2rem;
             background: var(--color-bg);
+            position: relative;
         }
 
         .snake-container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
@@ -1452,17 +1457,18 @@
             width: 100%;
             border-radius: var(--border-radius-lg);
             overflow: hidden;
-            border: 1px solid var(--color-border);
+            border: 2px solid var(--color-border);
             background: var(--color-card);
-            aspect-ratio: 3 / 2;
-            margin: 2rem 0;
+            aspect-ratio: 1/1;
+            margin: 2rem auto;
+            box-shadow: var(--shadow-lg);
         }
 
         #snake-game {
             display: block;
             width: 100%;
             height: 100%;
-            background: var(--color-bg);
+            background: #111;
         }
 
         #game-over-overlay {
@@ -1471,7 +1477,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             color: white;
             display: none;
             flex-direction: column;
@@ -1479,23 +1485,54 @@
             align-items: center;
             z-index: 100;
             padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(4px);
         }
 
         #game-over-overlay.visible {
             display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        #game-over-overlay h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ff4444;
+            text-shadow: 0 2px 10px rgba(255, 68, 68, 0.5);
+        }
+
+        #final-score {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: #fff;
         }
 
         .snake-stats {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1rem 0;
-            color: var(--color-muted);
+            justify-content: space-between;
+            margin: 1rem 0 2rem;
+            padding: 1.5rem;
+            background: var(--color-card);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .snake-stats div {
+            text-align: center;
+            flex: 1;
+        }
+
+        .snake-stats div:first-child {
+            border-right: 1px solid var(--color-border);
         }
 
         .snake-stats span {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 800;
             color: var(--color-primary);
-            font-weight: 600;
+            margin-top: 0.5rem;
         }
 
         .snake-controls {
@@ -1503,6 +1540,34 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .snake-controls .primary-btn,
+        .snake-controls .btn-outline {
+            min-width: 140px;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .snake-instructions {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--color-card);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--color-border);
+            text-align: center;
+        }
+
+        .snake-instructions p {
+            margin-bottom: 0.8rem;
+            color: var(--color-muted);
+            font-size: 0.95rem;
+        }
+
+        .snake-instructions p i {
+            color: var(--color-primary);
+            margin-right: 0.5rem;
         }
 
         /* ===================================================
@@ -1812,19 +1877,61 @@
             }
         }
 
-        /* REMOVIDA: Animação de rotação da borda */
-        /* @keyframes borderRotate {
+        /* Animação de gradiente IA para modo escuro */
+        @keyframes aiGradientShift {
             0% {
-                transform: rotate(0deg);
+                background-position: 0% 50%;
+                filter: hue-rotate(0deg);
+            }
+            33% {
+                background-position: 100% 50%;
+                filter: hue-rotate(120deg);
+            }
+            66% {
+                background-position: 50% 100%;
+                filter: hue-rotate(240deg);
             }
             100% {
-                transform: rotate(360deg);
+                background-position: 0% 50%;
+                filter: hue-rotate(360deg);
             }
-        } */
+        }
+
+        /* Animação de ciclo de cores IA para modo escuro */
+        @keyframes aiColorCycle {
+            0% {
+                color: var(--ai-gradient-1);
+                text-shadow: 0 0 10px var(--ai-gradient-1);
+            }
+            25% {
+                color: var(--ai-gradient-2);
+                text-shadow: 0 0 10px var(--ai-gradient-2);
+            }
+            50% {
+                color: var(--ai-gradient-3);
+                text-shadow: 0 0 10px var(--ai-gradient-3);
+            }
+            75% {
+                color: var(--ai-gradient-4);
+                text-shadow: 0 0 10px var(--ai-gradient-4);
+            }
+            100% {
+                color: var(--ai-gradient-1);
+                text-shadow: 0 0 10px var(--ai-gradient-1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
 
         .letter-animation {
             display: inline-block;
-            animation: colorCycle 8s infinite, letterGlow 3s ease-in-out infinite;
         }
 
         /* ===================================================
@@ -1836,7 +1943,7 @@
             }
 
             .menu-toggle {
-                display: flex; /* Mostrar apenas em telas menores que 992px */
+                display: flex;
             }
 
             .download-cv-btn {
@@ -1932,6 +2039,14 @@
                 width: 60px;
                 height: 60px;
             }
+
+            .snake-game-container {
+                aspect-ratio: 3/2;
+            }
+
+            .snake-stats span {
+                font-size: 2rem;
+            }
         }
 
         @media (max-width: 576px) {
@@ -1949,6 +2064,17 @@
 
             .footer-content {
                 padding: 0 1rem;
+            }
+
+            .snake-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .snake-stats div:first-child {
+                border-right: none;
+                border-bottom: 1px solid var(--color-border);
+                padding-bottom: 1rem;
             }
         }
 
@@ -1977,6 +2103,10 @@
                 width: calc(100% - 1rem);
                 top: 0.5rem;
                 border-radius: 40px;
+            }
+
+            .snake-game-container {
+                aspect-ratio: 4/3;
             }
         }
 
@@ -2024,7 +2154,7 @@
         }
 
         .text-gradient {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -2105,6 +2235,7 @@
                     <li><a href="#certifications">Certificações</a></li>
                     <li><a href="#experience">Experiência</a></li>
                     <li><a href="#contact">Contato</a></li>
+                    <li><a href="#snake-game-section">Snake Game</a></li>
                 </ul>
             </div>
 
@@ -2166,18 +2297,16 @@
                     <span class="nav-icon"><i class="fas fa-envelope"></i></span>
                     <span>Contato</span>
                 </a>
+                <a href="#snake-game-section" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-gamepad"></i></span>
+                    <span>Snake Game</span>
+                </a>
                 
                 <!-- Botão Download no Mobile -->
                 <a href="javascript:void(0);" class="mobile-download-btn" id="downloadCvBtnMobile">
                     <i class="fas fa-download"></i>
                     <span>Download CV</span>
                 </a>
-                
-                <!-- Toggle de Tema no Mobile -->
-                <div class="mobile-nav-item" id="themeToggleBtnMobile">
-                    <span class="nav-icon"><i class="fas fa-moon" id="themeIconMobile"></i></span>
-                    <span>Alternar Tema</span>
-                </div>
             </div>
         </div>
     </header>
@@ -2187,7 +2316,9 @@
         <div class="hero-content">
             <h1 class="hero-name">
                 Olá, eu sou<br>
-                <span class="name animated-text" id="animated-name">Edinaldo Almeida</span>
+                <span class="name animated-text" id="animated-name">
+                    <span class="letter-space">Edinaldo</span> <span class="letter-space">Almeida</span>
+                </span>
             </h1>
             <p class="hero-subtitle subtitle">Desenvolvedor Front-End & Técnico de Informática</p>
             <p class="description">
@@ -2196,7 +2327,7 @@
             </p>
             <div class="hero-buttons">
                 <a href="#contact" class="primary-btn">Vamos Conversar</a>
-                <a href="#projects" class="btn-outline">Ver Projetos</a>
+                <a href="#experience" class="btn-outline">Ver Experiência</a>
             </div>
             <div class="social-links">
                 <a href="https://github.com/Joseedinaldo" target="_blank" aria-label="GitHub">
@@ -2632,7 +2763,7 @@
         </div>
     </section>
 
-    <!-- Snake Game Section -->
+    <!-- Snake Game Section - COMPLETAMENTE CORRIGIDO -->
     <section id="snake-game-section" class="snake-section">
         <div class="container">
             <div class="section-header">
@@ -2643,8 +2774,8 @@
             <div class="snake-container">
                 <div class="snake-game-container">
                     <div id="game-over-overlay">
-                        <h2 style="color: white; margin-bottom: 1rem;">Game Over!</h2>
-                        <p id="final-score" style="color: white; margin-bottom: 1.5rem;">Sua pontuação: 0</p>
+                        <h2>Game Over!</h2>
+                        <p id="final-score" class="final-score">Sua pontuação: 0</p>
                         <button id="restart-game-btn" class="primary-btn">Jogar Novamente</button>
                     </div>
                     <canvas id="snake-game"></canvas>
@@ -2659,6 +2790,12 @@
                     <button id="start-game" class="primary-btn">Iniciar Jogo</button>
                     <button id="pause-game" class="btn-outline">Pausar</button>
                     <button id="reset-game" class="btn-outline">Reiniciar</button>
+                </div>
+
+                <div class="snake-instructions">
+                    <p><i class="fas fa-arrow-up"></i> <i class="fas fa-arrow-down"></i> <i class="fas fa-arrow-left"></i> <i class="fas fa-arrow-right"></i> Use as setas do teclado para mover</p>
+                    <p><i class="fas fa-apple-alt"></i> Coma a comida vermelha para pontuar</p>
+                    <p><i class="fas fa-skull-crossbones"></i> Evite bater nas paredes e no próprio corpo</p>
                 </div>
             </div>
         </div>
@@ -2686,6 +2823,7 @@
                         <li><a href="#experience">Experiência</a></li>
                         <li><a href="#certifications">Certificações</a></li>
                         <li><a href="#contact">Contato</a></li>
+                        <li><a href="#snake-game-section">Snake Game</a></li>
                     </ul>
                 </div>
                 
@@ -2751,52 +2889,93 @@
                     setTimeout(() => {
                         preloader.classList.add('hidden');
                         initAnimations();
+                        initIAAnimations();
                     }, 500);
                 }
             }, 100);
         }
 
         // ====================
-        // 2. ANIMAÇÃO DO NOME COM CORES MAIS SUAVES
+        // 2. ANIMAÇÃO DE IA PARA MODO ESCURO
         // ====================
-        function createLetterAnimation() {
+        function initIAAnimations() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            
+            if (currentTheme === 'dark') {
+                applyIAColorAnimations();
+                startIAGradientAnimations();
+            }
+        }
+
+        function applyIAColorAnimations() {
             const nameElement = document.getElementById('animated-name');
-            const name = 'Edinaldo Almeida';
             nameElement.innerHTML = '';
             
-            const colors = [
-                'var(--name-color-1)', // E
-                'var(--name-color-2)', // D
-                'var(--name-color-3)', // I
-                'var(--name-color-4)', // N
-                'var(--name-color-5)', // A
-                'var(--name-color-6)', // L
-                'var(--name-color-7)', // D
-                'var(--name-color-8)', // O
-                'var(--name-color-9)', // (espaço)
-                'var(--name-color-1)', // A
-                'var(--name-color-2)', // L
-                'var(--name-color-3)', // M
-                'var(--name-color-4)', // E
-                'var(--name-color-5)', // I
-                'var(--name-color-6)', // D
-                'var(--name-color-7)'  // A
+            const nameText = 'Edinaldo Almeida';
+            const aiColors = [
+                'var(--ai-gradient-1)',
+                'var(--ai-gradient-2)',
+                'var(--ai-gradient-3)',
+                'var(--ai-gradient-4)',
+                'var(--ai-gradient-5)',
+                'var(--ai-gradient-1)',
+                'var(--ai-gradient-2)',
+                'var(--ai-gradient-3)',
+                'var(--ai-gradient-4)',
+                'var(--ai-gradient-5)',
+                'var(--ai-gradient-1)',
+                'var(--ai-gradient-2)',
+                'var(--ai-gradient-3)',
+                'var(--ai-gradient-4)',
+                'var(--ai-gradient-5)',
+                'var(--ai-gradient-1)'
             ];
             
-            for (let i = 0; i < name.length; i++) {
+            for (let i = 0; i < nameText.length; i++) {
                 const span = document.createElement('span');
-                span.textContent = name[i];
-                if (name[i] !== ' ') {
-                    span.style.color = colors[i % colors.length];
+                span.textContent = nameText[i];
+                if (nameText[i] !== ' ') {
+                    span.classList.add('letter-space');
+                    span.style.setProperty('--letter-index', i);
+                    span.style.color = aiColors[i % aiColors.length];
+                    span.style.animation = 'aiColorCycle 5s ease-in-out infinite';
                     span.style.animationDelay = `${i * 0.1}s`;
-                    span.classList.add('letter-animation');
                 }
                 nameElement.appendChild(span);
             }
         }
 
+        function startIAGradientAnimations() {
+            const highlights = document.querySelectorAll('.section-header .highlight');
+            highlights.forEach(highlight => {
+                highlight.style.animation = 'aiGradientShift 4s ease infinite';
+            });
+        }
+
+        function removeIAAnimations() {
+            const nameElement = document.getElementById('animated-name');
+            nameElement.innerHTML = '';
+            
+            const nameText = 'Edinaldo Almeida';
+            for (let i = 0; i < nameText.length; i++) {
+                const span = document.createElement('span');
+                span.textContent = nameText[i];
+                if (nameText[i] !== ' ') {
+                    span.classList.add('letter-space');
+                    span.style.color = 'var(--color-primary)';
+                    span.style.animation = 'none';
+                }
+                nameElement.appendChild(span);
+            }
+
+            const highlights = document.querySelectorAll('.section-header .highlight');
+            highlights.forEach(highlight => {
+                highlight.style.animation = 'none';
+            });
+        }
+
         // ====================
-        // 3. MENU MOBILE MELHORADO
+        // 3. MENU HAMBÚRGUER PROFISSIONAL - COMPLETAMENTE REESCRITO
         // ====================
         let isMenuOpen = false;
 
@@ -2804,12 +2983,22 @@
             const menuToggle = document.getElementById('menuToggle');
             const mobileMenu = document.getElementById('mobileMenu');
             const mobileOverlay = document.getElementById('mobileMenuOverlay');
+            const html = document.documentElement;
             
             isMenuOpen = !isMenuOpen;
             
             if (isMenuOpen) {
+                // Bloquear scroll da página
+                html.style.overflow = 'hidden';
                 document.body.style.overflow = 'hidden';
-                mobileOverlay.classList.add('active');
+                
+                // Mostrar overlay escuro
+                mobileOverlay.style.display = 'block';
+                setTimeout(() => {
+                    mobileOverlay.classList.add('active');
+                }, 10);
+                
+                // Abrir menu
                 mobileMenu.classList.add('active');
                 menuToggle.classList.add('active');
                 menuToggle.setAttribute('aria-expanded', 'true');
@@ -2826,14 +3015,24 @@
                         item.style.transform = 'translateX(0)';
                     }, 100 + (index * 100));
                 });
+                
+                // Foco total no menu
+                mobileMenu.focus();
+                
             } else {
-                document.body.style.overflow = 'auto';
+                // Restaurar scroll
+                html.style.overflow = '';
+                document.body.style.overflow = '';
+                
+                // Fechar menu
                 mobileMenu.classList.remove('active');
                 menuToggle.classList.remove('active');
                 menuToggle.setAttribute('aria-expanded', 'false');
                 
+                // Remover overlay
+                mobileOverlay.classList.remove('active');
                 setTimeout(() => {
-                    mobileOverlay.classList.remove('active');
+                    mobileOverlay.style.display = 'none';
                 }, 300);
             }
         }
@@ -2886,7 +3085,7 @@
         }
 
         // ====================
-        // 5. SMOOTH SCROLL
+        // 5. SMOOTH SCROLL COM FECHAMENTO DE MENU
         // ====================
         function initSmoothScroll() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2897,11 +3096,14 @@
                         const targetSection = document.querySelector(targetId);
                         
                         if (targetSection) {
-                            closeMobileMenu();
+                            // Fechar menu mobile se estiver aberto
+                            if (isMenuOpen) {
+                                toggleMobileMenu();
+                            }
                             
                             setTimeout(() => {
                                 const headerHeight = header.offsetHeight;
-                                const targetPosition = targetSection.offsetTop - headerHeight;
+                                const targetPosition = targetSection.offsetTop - headerHeight + 20;
                                 
                                 window.scrollTo({
                                     top: targetPosition,
@@ -2915,12 +3117,10 @@
         }
 
         // ====================
-        // 6. THEME TOGGLE
+        // 6. THEME TOGGLE COM ANIMAÇÕES DE IA
         // ====================
         const themeToggleBtn = document.getElementById('themeToggleBtn');
         const themeIcon = document.getElementById('themeIcon');
-        const themeToggleBtnMobile = document.getElementById('themeToggleBtnMobile');
-        const themeIconMobile = document.getElementById('themeIconMobile');
 
         function syncThemeButtons() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -2930,18 +3130,10 @@
                     themeIcon.classList.remove('fa-moon');
                     themeIcon.classList.add('fa-sun');
                 }
-                if (themeIconMobile) {
-                    themeIconMobile.classList.remove('fa-moon');
-                    themeIconMobile.classList.add('fa-sun');
-                }
             } else {
                 if (themeIcon) {
                     themeIcon.classList.remove('fa-sun');
                     themeIcon.classList.add('fa-moon');
-                }
-                if (themeIconMobile) {
-                    themeIconMobile.classList.remove('fa-sun');
-                    themeIconMobile.classList.add('fa-moon');
                 }
             }
         }
@@ -2950,7 +3142,15 @@
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
             syncThemeButtons();
-            createLetterAnimation(); // Re-criar animação com novas cores
+            
+            if (theme === 'dark') {
+                setTimeout(() => {
+                    applyIAColorAnimations();
+                    startIAGradientAnimations();
+                }, 300);
+            } else {
+                removeIAAnimations();
+            }
         }
 
         function toggleTheme() {
@@ -3073,7 +3273,6 @@
                 },
             });
 
-            // Simular envio
             setTimeout(() => {
                 Swal.fire({
                     icon: 'success',
@@ -3086,222 +3285,288 @@
         });
 
         // ====================
-        // 10. SNAKE GAME
+        // 10. SNAKE GAME - COMPLETAMENTE REESCRITO E FUNCIONAL
         // ====================
-        const canvas = document.getElementById('snake-game');
-        const ctx = canvas.getContext('2d');
-        const scoreElement = document.getElementById('score');
-        const highScoreElement = document.getElementById('high-score');
-        const startButton = document.getElementById('start-game');
-        const pauseButton = document.getElementById('pause-game');
-        const resetButton = document.getElementById('reset-game');
-        const gameOverOverlay = document.getElementById('game-over-overlay');
-        const finalScoreElement = document.getElementById('final-score');
-        const restartGameBtn = document.getElementById('restart-game-btn');
-
-        let gridSize = 20;
-        let tileCountX, tileCountY;
-        let snake = [];
-        let food = {};
-        let dx = 0;
-        let dy = 0;
-        let score = 0;
-        let highScore = localStorage.getItem('snakeHighScore') || 0;
-        let gameRunning = false;
-        let gameLoop;
-
-        highScoreElement.textContent = highScore;
-
-        function resizeCanvas() {
-            const container = canvas.parentElement;
-            canvas.width = container.clientWidth;
-            canvas.height = container.clientHeight;
-
-            tileCountX = Math.floor(canvas.width / gridSize);
-            tileCountY = Math.floor(canvas.height / gridSize);
-        }
-
-        function initGame() {
-            snake = [
-                {x: Math.floor(tileCountX / 2), y: Math.floor(tileCountY / 2)}
-            ];
-            dx = 0;
-            dy = 0;
-            score = 0;
-            scoreElement.textContent = score;
-            generateFood();
-            drawGame();
-        }
-
-        function generateFood() {
-            food = {
-                x: Math.floor(Math.random() * tileCountX),
-                y: Math.floor(Math.random() * tileCountY)
-            };
-
-            for (let segment of snake) {
-                if (segment.x === food.x && segment.y === food.y) {
-                    generateFood();
-                    return;
-                }
+        class SnakeGame {
+            constructor() {
+                this.canvas = document.getElementById('snake-game');
+                this.ctx = this.canvas.getContext('2d');
+                this.scoreElement = document.getElementById('score');
+                this.highScoreElement = document.getElementById('high-score');
+                this.finalScoreElement = document.getElementById('final-score');
+                this.gameOverOverlay = document.getElementById('game-over-overlay');
+                
+                this.gridSize = 20;
+                this.tileCountX = 0;
+                this.tileCountY = 0;
+                
+                this.snake = [];
+                this.food = {};
+                this.dx = 0;
+                this.dy = 0;
+                this.score = 0;
+                this.highScore = localStorage.getItem('snakeHighScore') || 0;
+                this.gameRunning = false;
+                this.gameLoop = null;
+                this.speed = 150;
+                
+                this.highScoreElement.textContent = this.highScore;
+                
+                this.init();
             }
-        }
-
-        function updateScore() {
-            scoreElement.textContent = score;
-            if (score > highScore) {
-                highScore = score;
-                highScoreElement.textContent = highScore;
-                localStorage.setItem('snakeHighScore', highScore);
-            }
-        }
-
-        function drawGame() {
-            // Fundo
-            ctx.fillStyle = 'var(--color-bg)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Cobra
-            for (let i = 0; i < snake.length; i++) {
-                const segment = snake[i];
-                ctx.fillStyle = i === 0 ? 'var(--color-primary)' : 'var(--color-primary-dark)';
-                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 1, gridSize - 1);
-            }
-
-            // Comida
-            ctx.fillStyle = 'var(--color-error)';
-            ctx.beginPath();
-            ctx.arc(
-                food.x * gridSize + gridSize/2, 
-                food.y * gridSize + gridSize/2,
-                gridSize/2 - 2, 0, Math.PI * 2
-            );
-            ctx.fill();
-
-            // Grade
-            ctx.strokeStyle = 'var(--color-border)';
-            ctx.lineWidth = 0.5;
             
-            for (let i = 0; i < tileCountX; i++) {
-                ctx.beginPath();
-                ctx.moveTo(i * gridSize, 0);
-                ctx.lineTo(i * gridSize, canvas.height);
-                ctx.stroke();
+            init() {
+                this.resizeCanvas();
+                this.initGame();
+                this.setupEventListeners();
+                this.drawGame();
             }
-            for (let i = 0; i < tileCountY; i++) {
-                ctx.beginPath();
-                ctx.moveTo(0, i * gridSize);
-                ctx.lineTo(canvas.width, i * gridSize);
-                ctx.stroke();
+            
+            resizeCanvas() {
+                const container = this.canvas.parentElement;
+                this.canvas.width = container.clientWidth;
+                this.canvas.height = container.clientHeight;
+
+                this.tileCountX = Math.floor(this.canvas.width / this.gridSize);
+                this.tileCountY = Math.floor(this.canvas.height / this.gridSize);
             }
-        }
-
-        function updateGame() {
-            if (!gameRunning) return;
-
-            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
-            snake.unshift(head);
-
-            if (head.x === food.x && head.y === food.y) {
-                score += 10;
-                updateScore();
-                generateFood();
-            } else {
-                snake.pop();
+            
+            initGame() {
+                this.snake = [
+                    {x: Math.floor(this.tileCountX / 2), y: Math.floor(this.tileCountY / 2)}
+                ];
+                this.dx = 0;
+                this.dy = 0;
+                this.score = 0;
+                this.scoreElement.textContent = this.score;
+                this.generateFood();
             }
+            
+            generateFood() {
+                this.food = {
+                    x: Math.floor(Math.random() * this.tileCountX),
+                    y: Math.floor(Math.random() * this.tileCountY)
+                };
 
-            // Colisão com paredes
-            if (head.x < 0 || head.x >= tileCountX || head.y < 0 || head.y >= tileCountY) {
-                gameOver();
-                return;
-            }
-
-            // Colisão com próprio corpo
-            for (let i = 1; i < snake.length; i++) {
-                if (head.x === snake[i].x && head.y === snake[i].y) {
-                    gameOver();
-                    return;
+                for (let segment of this.snake) {
+                    if (segment.x === this.food.x && segment.y === this.food.y) {
+                        this.generateFood();
+                        return;
+                    }
                 }
             }
+            
+            updateScore() {
+                this.scoreElement.textContent = this.score;
+                if (this.score > this.highScore) {
+                    this.highScore = this.score;
+                    this.highScoreElement.textContent = this.highScore;
+                    localStorage.setItem('snakeHighScore', this.highScore);
+                }
+            }
+            
+            drawGame() {
+                // Fundo
+                this.ctx.fillStyle = '#111';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // Cobra
+                for (let i = 0; i < this.snake.length; i++) {
+                    const segment = this.snake[i];
+                    
+                    if (i === 0) {
+                        // Cabeça
+                        this.ctx.fillStyle = '#10b981';
+                        this.ctx.fillRect(segment.x * this.gridSize, segment.y * this.gridSize, this.gridSize - 1, this.gridSize - 1);
+                        
+                        // Olhos
+                        this.ctx.fillStyle = '#000';
+                        this.ctx.beginPath();
+                        this.ctx.arc(
+                            segment.x * this.gridSize + this.gridSize * 0.7,
+                            segment.y * this.gridSize + this.gridSize * 0.3,
+                            this.gridSize * 0.15, 0, Math.PI * 2
+                        );
+                        this.ctx.fill();
+                        
+                        this.ctx.beginPath();
+                        this.ctx.arc(
+                            segment.x * this.gridSize + this.gridSize * 0.7,
+                            segment.y * this.gridSize + this.gridSize * 0.7,
+                            this.gridSize * 0.15, 0, Math.PI * 2
+                        );
+                        this.ctx.fill();
+                    } else {
+                        // Corpo
+                        this.ctx.fillStyle = '#34d399';
+                        this.ctx.fillRect(segment.x * this.gridSize, segment.y * this.gridSize, this.gridSize - 1, this.gridSize - 1);
+                        
+                        // Detalhes do corpo
+                        this.ctx.fillStyle = '#10b981';
+                        this.ctx.fillRect(
+                            segment.x * this.gridSize + 2,
+                            segment.y * this.gridSize + 2,
+                            this.gridSize - 5,
+                            this.gridSize - 5
+                        );
+                    }
+                }
+
+                // Comida
+                this.ctx.fillStyle = '#ef4444';
+                this.ctx.beginPath();
+                this.ctx.arc(
+                    this.food.x * this.gridSize + this.gridSize/2, 
+                    this.food.y * this.gridSize + this.gridSize/2,
+                    this.gridSize/2 - 2, 0, Math.PI * 2
+                );
+                this.ctx.fill();
+                
+                // Detalhe na comida
+                this.ctx.fillStyle = '#f87171';
+                this.ctx.beginPath();
+                this.ctx.arc(
+                    this.food.x * this.gridSize + this.gridSize/2 - 3, 
+                    this.food.y * this.gridSize + this.gridSize/2 - 3,
+                    this.gridSize/6, 0, Math.PI * 2
+                );
+                this.ctx.fill();
+
+                // Grade
+                this.ctx.strokeStyle = '#333';
+                this.ctx.lineWidth = 0.5;
+                
+                for (let i = 0; i < this.tileCountX; i++) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(i * this.gridSize, 0);
+                    this.ctx.lineTo(i * this.gridSize, this.canvas.height);
+                    this.ctx.stroke();
+                }
+                for (let i = 0; i < this.tileCountY; i++) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(0, i * this.gridSize);
+                    this.ctx.lineTo(this.canvas.width, i * this.gridSize);
+                    this.ctx.stroke();
+                }
+            }
+            
+            update() {
+                if (!this.gameRunning) return;
+
+                const head = {x: this.snake[0].x + this.dx, y: this.snake[0].y + this.dy};
+                this.snake.unshift(head);
+
+                if (head.x === this.food.x && head.y === this.food.y) {
+                    this.score += 10;
+                    this.updateScore();
+                    this.generateFood();
+                } else {
+                    this.snake.pop();
+                }
+
+                // Colisão com paredes
+                if (head.x < 0 || head.x >= this.tileCountX || head.y < 0 || head.y >= this.tileCountY) {
+                    this.gameOver();
+                    return;
+                }
+
+                // Colisão com próprio corpo
+                for (let i = 1; i < this.snake.length; i++) {
+                    if (head.x === this.snake[i].x && head.y === this.snake[i].y) {
+                        this.gameOver();
+                        return;
+                    }
+                }
+            }
+            
+            gameOver() {
+                this.gameRunning = false;
+                clearInterval(this.gameLoop);
+                this.finalScoreElement.textContent = `Sua pontuação: ${this.score}`;
+                this.gameOverOverlay.classList.add('visible');
+            }
+            
+            start() {
+                if (!this.gameRunning) {
+                    this.gameRunning = true;
+                    clearInterval(this.gameLoop);
+                    this.gameLoop = setInterval(() => {
+                        this.update();
+                        this.drawGame();
+                    }, this.speed);
+                    this.gameOverOverlay.classList.remove('visible');
+                }
+            }
+            
+            pause() {
+                this.gameRunning = !this.gameRunning;
+                if (this.gameRunning) {
+                    clearInterval(this.gameLoop);
+                    this.gameLoop = setInterval(() => {
+                        this.update();
+                        this.drawGame();
+                    }, this.speed);
+                    document.getElementById('pause-game').textContent = 'Pausar';
+                } else {
+                    clearInterval(this.gameLoop);
+                    document.getElementById('pause-game').textContent = 'Continuar';
+                }
+            }
+            
+            reset() {
+                clearInterval(this.gameLoop);
+                this.initGame();
+                this.gameOverOverlay.classList.remove('visible');
+                this.gameRunning = false;
+                document.getElementById('pause-game').textContent = 'Pausar';
+                this.drawGame();
+            }
+            
+            setupEventListeners() {
+                // Controles do teclado
+                document.addEventListener('keydown', (e) => {
+                    if([37, 38, 39, 40].includes(e.keyCode)) {
+                        e.preventDefault();
+                    }
+
+                    if (!this.gameRunning && this.dx === 0 && this.dy === 0 && !this.gameOverOverlay.classList.contains('visible')) {
+                        this.start();
+                    }
+
+                    switch(e.key) {
+                        case 'ArrowUp':
+                            if (this.dy !== 1) { this.dx = 0; this.dy = -1; }
+                            break;
+                        case 'ArrowDown':
+                            if (this.dy !== -1) { this.dx = 0; this.dy = 1; }
+                            break;
+                        case 'ArrowLeft':
+                            if (this.dx !== 1) { this.dx = -1; this.dy = 0; }
+                            break;
+                        case 'ArrowRight':
+                            if (this.dx !== -1) { this.dx = 1; this.dy = 0; }
+                            break;
+                        case ' ':
+                            this.pause();
+                            break;
+                    }
+                });
+
+                // Controles dos botões
+                document.getElementById('start-game').addEventListener('click', () => this.start());
+                document.getElementById('pause-game').addEventListener('click', () => this.pause());
+                document.getElementById('reset-game').addEventListener('click', () => this.reset());
+                document.getElementById('restart-game-btn').addEventListener('click', () => this.reset());
+
+                // Redimensionamento
+                window.addEventListener('resize', () => {
+                    this.resizeCanvas();
+                    if (!this.gameRunning) {
+                        this.drawGame();
+                    }
+                });
+            }
         }
-
-        function gameOver() {
-            gameRunning = false;
-            clearInterval(gameLoop);
-            finalScoreElement.textContent = `Sua pontuação: ${score}`;
-            gameOverOverlay.classList.add('visible');
-        }
-
-        function runGame() {
-            updateGame();
-            drawGame();
-        }
-
-        // Controles do teclado
-        document.addEventListener('keydown', (e) => {
-            if([37, 38, 39, 40].includes(e.keyCode)) {
-                e.preventDefault();
-            }
-
-            if (!gameRunning && dx === 0 && dy === 0 && !gameOverOverlay.classList.contains('visible')) {
-                gameRunning = true;
-                clearInterval(gameLoop);
-                gameLoop = setInterval(runGame, 150);
-            }
-
-            switch(e.key) {
-                case 'ArrowUp':
-                    if (dy !== 1) { dx = 0; dy = -1; }
-                    break;
-                case 'ArrowDown':
-                    if (dy !== -1) { dx = 0; dy = 1; }
-                    break;
-                case 'ArrowLeft':
-                    if (dx !== 1) { dx = -1; dy = 0; }
-                    break;
-                case 'ArrowRight':
-                    if (dx !== -1) { dx = 1; dy = 0; }
-                    break;
-            }
-        });
-
-        // Controles dos botões
-        startButton.addEventListener('click', () => {
-            if (!gameRunning) {
-                gameRunning = true;
-                clearInterval(gameLoop);
-                gameLoop = setInterval(runGame, 150);
-                gameOverOverlay.classList.remove('visible');
-            }
-        });
-
-        pauseButton.addEventListener('click', () => {
-            gameRunning = !gameRunning;
-            if (gameRunning) {
-                clearInterval(gameLoop);
-                gameLoop = setInterval(runGame, 150);
-                pauseButton.textContent = 'Pausar';
-            } else {
-                clearInterval(gameLoop);
-                pauseButton.textContent = 'Continuar';
-            }
-        });
-
-        resetButton.addEventListener('click', () => {
-            clearInterval(gameLoop);
-            initGame();
-            gameOverOverlay.classList.remove('visible');
-            gameRunning = false;
-            pauseButton.textContent = 'Pausar';
-        });
-
-        restartGameBtn.addEventListener('click', () => {
-            clearInterval(gameLoop);
-            initGame();
-            gameOverOverlay.classList.remove('visible');
-            gameRunning = false;
-            pauseButton.textContent = 'Pausar';
-        });
 
         // ====================
         // 11. ANIMAÇÕES GSAP
@@ -3375,9 +3640,6 @@
                 setTheme('light');
             }
 
-            // Criar animação do nome
-            createLetterAnimation();
-
             // Esconder preloader
             hidePreloader();
 
@@ -3404,9 +3666,6 @@
 
             // Tema
             themeToggleBtn.addEventListener('click', toggleTheme);
-            if (themeToggleBtnMobile) {
-                themeToggleBtnMobile.addEventListener('click', toggleTheme);
-            }
 
             // Smooth scroll
             initSmoothScroll();
@@ -3428,14 +3687,14 @@
                             const section = document.querySelector(targetId);
                             if (section) {
                                 const headerHeight = header.offsetHeight;
-                                const targetPosition = section.offsetTop - headerHeight;
+                                const targetPosition = section.offsetTop - headerHeight + 20;
                                 
                                 window.scrollTo({
                                     top: targetPosition,
                                     behavior: 'smooth'
                                 });
                             }
-                        }, 300);
+                        }, 350);
                     }
                 });
             });
@@ -3455,16 +3714,7 @@
             });
 
             // Jogo da cobrinha
-            resizeCanvas();
-            initGame();
-            drawGame();
-
-            window.addEventListener('resize', () => {
-                resizeCanvas();
-                if (!gameRunning) {
-                    drawGame();
-                }
-            });
+            const snakeGame = new SnakeGame();
 
             // Inicializar AOS
             if (typeof AOS !== 'undefined') {
