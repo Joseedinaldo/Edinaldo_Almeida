@@ -16,9 +16,6 @@
     <!-- Biblioteca de ícones moderna (Font Awesome 6) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Biblioteca de ícones adicional para mais opções (Phosphor Icons) -->
-    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -28,9 +25,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-    <!-- Biblioteca de ícones Lucide para ícones mais modernos -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
     <!-- SweetAlert2 para notificações modernas -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -54,7 +48,6 @@
         :root {
             --color-bg: #ffffff;
             --color-fg: #000000;
-            /* Cores base do nome EDINALDOALMEIDA (cores fixas e suaves) */
             --color-primary: #000000;
             --color-primary-light: #333333;
             --color-primary-dark: #000000;
@@ -83,7 +76,6 @@
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            /* Cores para animação do nome (agora todas pretas no modo claro) */
             --name-color-1: #000000;
             --name-color-2: #000000;
             --name-color-3: #000000;
@@ -94,15 +86,9 @@
             --name-color-8: #000000;
             --name-color-9: #000000;
             --name-color-10: #000000;
-            /* Cores para gradiente de IA (inicialmente vazias) */
             --ai-gradient-1: #000000;
             --ai-gradient-2: #000000;
             --ai-gradient-3: #000000;
-            /* CORREÇÃO APLICADA: Cores específicas para o botão hamburguer */
-            --hamburger-color-light: #000000;
-            --hamburger-color-dark: #ffffff;
-            --hamburger-bg-light: #f5f5f5;
-            --hamburger-bg-dark: #111111;
         }
 
         /* Dark Mode - Preto profundo e efeito espelhado */
@@ -121,7 +107,6 @@
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-            /* Cores para animação do nome no dark mode */
             --name-color-1: #ffffff;
             --name-color-2: #ffffff;
             --name-color-3: #ffffff;
@@ -132,15 +117,11 @@
             --name-color-8: #ffffff;
             --name-color-9: #ffffff;
             --name-color-10: #ffffff;
-            /* Cores inspiradas em IA para o modo escuro */
             --ai-gradient-1: #60A5FA;
             --ai-gradient-2: #A78BFA;
             --ai-gradient-3: #22D3EE;
             --ai-gradient-4: #34D399;
             --ai-gradient-5: #F472B6;
-            /* CORREÇÃO APLICADA: Manter cores consistentes para o hamburguer */
-            --hamburger-color-light: #000000;
-            --hamburger-color-dark: #ffffff;
         }
 
         /* Efeito espelhado para elementos no modo escuro */
@@ -165,6 +146,37 @@
 
         [data-theme='dark'] .nav-links a::after {
             background: linear-gradient(90deg, #ffffff, #a0a0a0);
+        }
+
+        /* ===================================================
+           ALERTAS EM MODO ESCURO - COR PRETA
+           =================================================== */
+        [data-theme='dark'] .swal2-popup {
+            background: #000000 !important;
+            color: #ffffff !important;
+            border: 1px solid #333333 !important;
+        }
+
+        [data-theme='dark'] .swal2-title {
+            color: #ffffff !important;
+        }
+
+        [data-theme='dark'] .swal2-content {
+            color: #e0e0e0 !important;
+        }
+
+        [data-theme='dark'] .swal2-confirm {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+
+        [data-theme='dark'] .swal2-cancel {
+            background-color: #333333 !important;
+            color: #ffffff !important;
+        }
+
+        [data-theme='dark'] .swal2-html-container {
+            color: #e0e0e0 !important;
         }
 
         body {
@@ -403,7 +415,7 @@
         }
 
         /* ===================================================
-           MENU HAMBURGUER MELHORADO - CORREÇÃO COMPLETA APLICADA
+           MENU HAMBURGUER PROFISSIONAL E MODERNO
            =================================================== */
         .menu-toggle {
             display: none;
@@ -419,6 +431,7 @@
             box-shadow: var(--shadow-sm);
             position: relative;
             z-index: 1001;
+            overflow: hidden;
         }
 
         .menu-toggle:hover {
@@ -427,32 +440,54 @@
             color: var(--color-bg);
         }
 
-        /* CORREÇÃO COMPLETA: Hamburger animado moderno */
-        .hamburger {
-            width: 22px;
-            height: 16px;
+        /* ÍCONE HAMBÚRGUER MODERNO */
+        .hamburger-icon {
+            width: 24px;
+            height: 18px;
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: all 0.3s ease;
         }
 
-        /* CORREÇÃO: Linhas com cores sólidas e opacidade total */
+        /* Linhas do hambúrguer - Design moderno */
         .hamburger-line {
             display: block;
             width: 100%;
             height: 2px;
-            background: var(--color-fg); /* Usa a cor do texto padrão */
-            border-radius: 2px;
-            transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+            background: var(--color-fg);
+            border-radius: 1px;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             transform-origin: center;
-            opacity: 1 !important; /* FORÇA OPACIDADE TOTAL */
         }
 
-        /* CORREÇÃO: Estado ativo (X) - Formato perfeito */
+        /* Linha superior e inferior - mais finas nas pontas */
+        .hamburger-line:nth-child(1),
+        .hamburger-line:nth-child(3) {
+            width: 100%;
+        }
+
+        /* Linha do meio - menor */
+        .hamburger-line:nth-child(2) {
+            width: 70%;
+            margin-left: auto;
+        }
+
+        /* Hover efeito */
+        .menu-toggle:hover .hamburger-line {
+            background: var(--color-bg);
+        }
+
+        .menu-toggle:hover .hamburger-line:nth-child(2) {
+            width: 100%;
+        }
+
+        /* ANIMAÇÃO PARA X - PROFISSIONAL E MODERNO */
         .menu-toggle.active .hamburger-line:nth-child(1) {
-            transform: translateY(7px) rotate(45deg) scaleX(1.1);
-            background: var(--color-fg); /* Garante cor sólida */
+            transform: translateY(8px) rotate(45deg) scaleX(1.1);
+            background: var(--color-fg);
+            width: 100%;
         }
 
         .menu-toggle.active .hamburger-line:nth-child(2) {
@@ -461,33 +496,27 @@
         }
 
         .menu-toggle.active .hamburger-line:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg) scaleX(1.1);
-            background: var(--color-fg); /* Garante cor sólida */
+            transform: translateY(-8px) rotate(-45deg) scaleX(1.1);
+            background: var(--color-fg);
+            width: 100%;
         }
 
-        /* CORREÇÃO: Modo escuro - cores consistentes */
-        [data-theme='dark'] .hamburger-line {
-            background: var(--color-fg); /* Branco no modo escuro */
-        }
-
-        [data-theme='dark'] .menu-toggle.active .hamburger-line:nth-child(1),
-        [data-theme='dark'] .menu-toggle.active .hamburger-line:nth-child(3) {
-            background: var(--color-fg); /* Branco no modo escuro */
-        }
-
-        /* CORREÇÃO: Hover - garante cor sólida no hover */
-        .menu-toggle:hover .hamburger-line {
-            background: var(--color-bg); /* Inverte cor no hover */
-        }
-
-        /* CORREÇÃO: Estado ativo + hover */
+        /* Hover quando ativo */
         .menu-toggle.active:hover .hamburger-line {
-            background: var(--color-bg); /* Mantém contraste no hover */
+            background: var(--color-bg);
+        }
+
+        /* Modo escuro */
+        [data-theme='dark'] .hamburger-line {
+            background: var(--color-fg);
+        }
+
+        [data-theme='dark'] .menu-toggle.active .hamburger-line {
+            background: var(--color-fg);
         }
 
         [data-theme='dark'] .menu-toggle.active:hover .hamburger-line {
-            background: var(--color-fg); /* Branco no modo escuro */
-            opacity: 0.9;
+            background: var(--color-bg);
         }
 
         /* Menu Mobile Lateral Profissional */
@@ -630,7 +659,7 @@
         }
 
         /* ===================================================
-           HERO SECTION - NOME CORRIGIDO SEM ESPAÇAMENTO ENTRE LETRAS
+           HERO SECTION - NOME EM VERMELHO E NEGRITO
            =================================================== */
         .hero {
             min-height: 100vh;
@@ -656,7 +685,7 @@
             letter-spacing: -0.03em;
         }
 
-        /* CORREÇÃO DO NOME - AGORA COM ESPAÇAMENTO NORMAL ENTRE PALAVRAS */
+        /* NOME EM VERMELHO E NEGRITO */
         .hero-name {
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 800;
@@ -668,18 +697,20 @@
             display: inline-block;
             font-size: inherit;
             font-weight: inherit;
-            letter-spacing: normal; /* Removido espaçamento entre letras */
+            letter-spacing: normal;
         }
 
         .name span {
-            letter-spacing: normal; /* Garante espaçamento normal */
+            letter-spacing: normal;
         }
 
         .hero .animated-text {
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 800;
             line-height: 1.1;
-            letter-spacing: normal; /* NORMAL entre as letras */
+            letter-spacing: normal;
+            color: #ff0000 !important;
+            font-weight: 900 !important;
         }
 
         .hero .subtitle {
@@ -809,7 +840,7 @@
         }
 
         /* ===================================================
-           EXPERIENCE SECTION MELHORADA - SEM CORES NAS BORDAS
+           EXPERIENCE SECTION MELHORADA
            =================================================== */
         .experience-timeline {
             position: relative;
@@ -1034,11 +1065,10 @@
             animation: aiGradientShift 4s ease infinite;
         }
 
-        /* Efeito especial para modo escuro - Nome principal */
-        [data-theme='dark'] .hero .name span {
-            color: var(--ai-gradient-1);
-            animation: aiColorCycle 5s ease-in-out infinite;
-            animation-delay: calc(var(--letter-index) * 0.1s);
+        /* Estilo para o nome em modo escuro - também vermelho */
+        [data-theme='dark'] .hero .animated-text {
+            color: #ff0000 !important;
+            font-weight: 900 !important;
         }
 
         .section-header p {
@@ -1054,7 +1084,7 @@
             margin: 0 auto;
         }
 
-        /* Cards Minimalistas SEM animação giratória */
+        /* Cards Minimalistas */
         .feature-card,
         .skill-category,
         .ai-card,
@@ -1425,7 +1455,7 @@
         }
 
         /* ===================================================
-           SNAKE GAME SECTION - MAPA MENOR E MELHORADO
+           SNAKE GAME SECTION
            =================================================== */
         .snake-section {
             padding: 5rem 2rem;
@@ -1434,7 +1464,7 @@
         }
 
         .snake-container {
-            max-width: 600px; /* Reduzido de 800px para 600px */
+            max-width: 600px;
             margin: 0 auto;
         }
 
@@ -1445,10 +1475,10 @@
             overflow: hidden;
             border: 2px solid var(--color-border);
             background: var(--color-card);
-            aspect-ratio: 1/1; /* Mantém quadrado */
+            aspect-ratio: 1/1;
             margin: 2rem auto;
             box-shadow: var(--shadow-lg);
-            max-height: 500px; /* Limita altura máxima */
+            max-height: 500px;
         }
 
         #snake-game {
@@ -1482,14 +1512,14 @@
         }
 
         #game-over-overlay h2 {
-            font-size: 2rem; /* Reduzido */
+            font-size: 2rem;
             margin-bottom: 1rem;
             color: #ff4444;
             text-shadow: 0 2px 10px rgba(255, 68, 68, 0.5);
         }
 
         #final-score {
-            font-size: 1.5rem; /* Reduzido */
+            font-size: 1.5rem;
             margin-bottom: 2rem;
             color: #fff;
         }
@@ -1516,7 +1546,7 @@
 
         .snake-stats span {
             display: block;
-            font-size: 2rem; /* Reduzido */
+            font-size: 2rem;
             font-weight: 800;
             color: var(--color-primary);
             margin-top: 0.5rem;
@@ -1535,6 +1565,67 @@
             min-width: 140px;
             text-align: center;
             justify-content: center;
+        }
+
+        /* ===================================================
+           CONTROLES DO JOGO DA COBRINHA PARA MOBILE
+           =================================================== */
+        .snake-mobile-controls {
+            display: none;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 2rem;
+            touch-action: manipulation;
+        }
+
+        .snake-mobile-controls button {
+            background: var(--color-card);
+            border: 2px solid var(--color-border);
+            border-radius: 12px;
+            font-size: 1.5rem;
+            color: var(--color-fg);
+            cursor: pointer;
+            transition: all var(--transition-smooth);
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 70px;
+        }
+
+        .snake-mobile-controls button:active {
+            background: var(--color-primary);
+            color: var(--color-bg);
+            transform: scale(0.95);
+        }
+
+        .mobile-control-up {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        .mobile-control-left {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .mobile-control-center {
+            grid-column: 2;
+            grid-row: 2;
+            font-size: 1rem !important;
+            background: var(--color-primary) !important;
+            color: var(--color-bg) !important;
+        }
+
+        .mobile-control-right {
+            grid-column: 3;
+            grid-row: 2;
+        }
+
+        .mobile-control-down {
+            grid-column: 2;
+            grid-row: 3;
         }
 
         .snake-instructions {
@@ -1884,7 +1975,7 @@
             }
         }
 
-        /* Animação de ciclo de cores IA para modo escuro */
+        /* Animação de ciclo de cores IA para modo escuro - REMOVIDA */
         @keyframes aiColorCycle {
             0% {
                 color: var(--ai-gradient-1);
@@ -1963,7 +2054,12 @@
             }
             
             .snake-container {
-                max-width: 500px; /* Mais reduzido em telas menores */
+                max-width: 500px;
+            }
+            
+            /* Mostrar controles mobile em telas menores */
+            .snake-mobile-controls {
+                display: grid;
             }
         }
 
@@ -1977,6 +2073,10 @@
             }
             
             .mobile-menu-overlay {
+                display: none;
+            }
+            
+            .snake-mobile-controls {
                 display: none;
             }
         }
@@ -2006,7 +2106,7 @@
             }
 
             .mobile-menu {
-                width: 280px; /* Ligeiramente menor em mobile */
+                width: 280px;
             }
 
             .section-header h2 {
@@ -2042,6 +2142,11 @@
             
             .snake-container {
                 max-width: 400px;
+            }
+            
+            /* Esconder instrução das setas do teclado em mobile */
+            .snake-instructions p:first-child {
+                display: none;
             }
         }
 
@@ -2085,6 +2190,11 @@
             
             .snake-game-container {
                 max-height: 350px;
+            }
+            
+            .snake-mobile-controls button {
+                padding: 1rem;
+                min-height: 60px;
             }
         }
 
@@ -2133,6 +2243,16 @@
                 min-width: 120px;
                 padding: 0.8rem 1rem;
             }
+            
+            .snake-mobile-controls {
+                gap: 8px;
+            }
+            
+            .snake-mobile-controls button {
+                padding: 0.8rem;
+                min-height: 50px;
+                font-size: 1.2rem;
+            }
         }
 
         @media (max-width: 360px) {
@@ -2169,6 +2289,16 @@
             
             .snake-game-container {
                 max-height: 250px;
+            }
+            
+            .snake-mobile-controls {
+                gap: 5px;
+            }
+            
+            .snake-mobile-controls button {
+                padding: 0.7rem;
+                min-height: 45px;
+                font-size: 1rem;
             }
         }
 
@@ -2283,11 +2413,12 @@
                     <span>Download CV</span>
                 </a>
                 
+                <!-- Menu Hambúrguer Moderno -->
                 <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
-                    <div class="hamburger">
-                        <div class="hamburger-line"></div>
-                        <div class="hamburger-line"></div>
-                        <div class="hamburger-line"></div>
+                    <div class="hamburger-icon">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
                     </div>
                 </button>
             </div>
@@ -2300,7 +2431,6 @@
                 <div class="mobile-logo">
                     <span>&lt;</span>Edinaldo<span>/&gt;</span>
                 </div>
-                <!-- REMOVIDO O BOTÃO DE FECHAR - AGORA SÓ FECHA CLICANDO NO HAMBÚRGUER OU FORA DO MENU -->
             </div>
 
             <div class="mobile-nav-container">
@@ -2347,7 +2477,7 @@
         <div class="hero-content">
             <h1 class="hero-name">
                 Olá, eu sou<br>
-                <!-- NOME CORRIGIDO: EDINALDO ALMEIDA (sem espaçamento entre letras) -->
+                <!-- NOME EM VERMELHO E NEGRITO -->
                 <span class="name animated-text" id="animated-name">EDINALDO ALMEIDA</span>
             </h1>
             <p class="hero-subtitle subtitle">Desenvolvedor Front-End & Técnico de Informática</p>
@@ -2631,7 +2761,7 @@
                             <ul class="achievements-list">
                                 <li class="achievement-item">Atendimento N1 com foco na identificação e resolução de problemas de acesso aos sistemas do TRT20</li>
                                 <li class="achievement-item">Suporte especializado a certificados digitais e autenticação em sistemas que exigem assinatura digital</li>
-                                <li class="achievement-item">Configuraçãode impressoras em rede para os setores</li>
+                                <li class="achievement-item">Configuração de impressoras em rede para os setores</li>
                                 <li class="achievement-item">Configuração e atualização de softwares institucionais</li>
                                 <li class="achievement-item">Suporte remoto para resolução de problemas técnicos diversos</li>
                             </ul>
@@ -2643,7 +2773,8 @@
                                 <span style="background: rgba(59, 130, 246, 0.1); color: var(--color-info); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">Office 365</span>
                                 <span style="background: rgba(245, 158, 11, 0.1); color: var(--color-warning); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">Certificados Digitais</span>
                                 <span style="background: rgba(239, 68, 68, 0.1); color: var(--color-error); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">Redes TCP/IP</span>
-                                <span style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">Sistemas Judiciais</span>
+                                <span style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">GLPI</span>
+                                <span style="background: rgba(16, 185, 129, 0.1); color: var(--color-success); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">Sistemas Judiciais</span>
                             </div>
                         </div>
                     </div>
@@ -2681,10 +2812,23 @@
                                 <li class="achievement-item">Gerenciamento e resolução de mais de 500 incidentes através da plataforma GLPI</li>
                                 <li class="achievement-item">Instalação e configuração de impressoras em rede hospitalar</li>
                                 <li class="achievement-item">Suporte técnico especializado para 150+ colaboradores no uso do pacote Microsoft Office</li>
-                                <li class="achievement-item">Orientação no uso do sistema de prontuario eletronico</li>
-                                <li class="achievement-item">Identificação de falhas e problemas no sistema de prontuario eletronico</li>
-
+                                <li class="achievement-item">Orientação no uso do sistema de prontuário eletrônico</li>
+                                <li class="achievement-item">Identificação de falhas e problemas no sistema de prontuário eletrônico</li>
+                                <li class="achievement-item">Gerenciamento de ativos de TI da unidade hospitalar</li>
+                                <li class="achievement-item">Configuração e manutenção de redes TCP/IP</li>
+                                <li class="achievement-item">Suporte ao sistema CADSUS para cadastro de pacientes</li>
                             </ul>
+                        </div>
+                        <div style="margin-top: 1.5rem;">
+                            <p class="achievements-title"><i class="fas fa-star"></i> Tecnologias Utilizadas:</p>
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+                                <span style="background: rgba(16, 185, 129, 0.1); color: var(--color-success); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">GLPI</span>
+                                <span style="background: rgba(239, 68, 68, 0.1); color: var(--color-error); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">Redes TCP/IP</span>
+                                <span style="background: rgba(59, 130, 246, 0.1); color: var(--color-info); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">Sistema de Prontuário Eletrônico</span>
+                                <span style="background: rgba(245, 158, 11, 0.1); color: var(--color-warning); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">CADSUS</span>
+                                <span style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">Windows Server</span>
+                                <span style="background: rgba(16, 185, 129, 0.1); color: var(--color-success); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">Office 365</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2699,9 +2843,9 @@
                             <div class="experience-title">
                                 <h3>
                                     Estagiário Técnico
-                                    <span class="status-badge internship">
-                                        <i class="fas fa-graduation-cap"></i>
-                                        Estágio
+                                    <span class="status-badge ended">
+                                        <i class="fas fa-circle"></i>
+                                        Encerrado
                                     </span>
                                 </h3>
                                 <p class="experience-company">IFS - Instituto Federal de Sergipe</p>
@@ -2791,12 +2935,12 @@
         </div>
     </section>
 
-    <!-- Snake Game Section - MAPA MENOR E MELHORADO -->
+    <!-- Snake Game Section - COM CONTROLES PARA MOBILE -->
     <section id="snake-game-section" class="snake-section">
         <div class="container">
             <div class="section-header">
                 <h2>Jogo da <span class="highlight">Cobrinha</span></h2>
-                <p>Um momento de diversão - controle a cobra com as setas do teclado</p>
+                <p>Um momento de diversão - controle a cobra com as setas do teclado ou os botões touch</p>
             </div>
             
             <div class="snake-container">
@@ -2820,8 +2964,28 @@
                     <button id="reset-game" class="btn-outline">Reiniciar</button>
                 </div>
 
+                <!-- CONTROLES TOUCH PARA MOBILE -->
+                <div class="snake-mobile-controls">
+                    <button class="mobile-control-up" data-direction="up">
+                        <i class="fas fa-arrow-up"></i>
+                    </button>
+                    <button class="mobile-control-left" data-direction="left">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button class="mobile-control-center" id="mobile-pause">
+                        <i class="fas fa-pause"></i>
+                    </button>
+                    <button class="mobile-control-right" data-direction="right">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="mobile-control-down" data-direction="down">
+                        <i class="fas fa-arrow-down"></i>
+                    </button>
+                </div>
+
                 <div class="snake-instructions">
                     <p><i class="fas fa-arrow-up"></i> <i class="fas fa-arrow-down"></i> <i class="fas fa-arrow-left"></i> <i class="fas fa-arrow-right"></i> Use as setas do teclado para mover</p>
+                    <p><i class="fas fa-mobile-alt"></i> Em dispositivos móveis, use os botões touch acima</p>
                     <p><i class="fas fa-apple-alt"></i> Coma a comida vermelha para pontuar</p>
                     <p><i class="fas fa-skull-crossbones"></i> Evite bater nas paredes e no próprio corpo</p>
                 </div>
@@ -2917,59 +3081,28 @@
                     setTimeout(() => {
                         preloader.classList.add('hidden');
                         initAnimations();
-                        initIAAnimations();
                     }, 500);
                 }
             }, 100);
         }
 
         // ====================
-        // 2. ANIMAÇÃO DE IA PARA MODO ESCURO
+        // 2. ANIMAÇÃO DE IA PARA MODO ESCURO - REMOVIDA PARA O NOME
         // ====================
         function initIAAnimations() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             
             if (currentTheme === 'dark') {
-                applyIAColorAnimations();
                 startIAGradientAnimations();
             }
         }
 
         function applyIAColorAnimations() {
+            // REMOVIDO: Não aplica mais animações de cores no nome
             const nameElement = document.getElementById('animated-name');
-            nameElement.innerHTML = '';
-            
-            const nameText = 'EDINALDO ALMEIDA';
-            const aiColors = [
-                'var(--ai-gradient-1)',
-                'var(--ai-gradient-2)',
-                'var(--ai-gradient-3)',
-                'var(--ai-gradient-4)',
-                'var(--ai-gradient-5)',
-                'var(--ai-gradient-1)',
-                'var(--ai-gradient-2)',
-                'var(--ai-gradient-3)',
-                'var(--ai-gradient-4)',
-                'var(--ai-gradient-5)',
-                'var(--ai-gradient-1)',
-                'var(--ai-gradient-2)',
-                'var(--ai-gradient-3)',
-                'var(--ai-gradient-4)',
-                'var(--ai-gradient-5)',
-                'var(--ai-gradient-1)'
-            ];
-            
-            for (let i = 0; i < nameText.length; i++) {
-                const span = document.createElement('span');
-                span.textContent = nameText[i];
-                if (nameText[i] !== ' ') {
-                    span.style.setProperty('--letter-index', i);
-                    span.style.color = aiColors[i % aiColors.length];
-                    span.style.animation = 'aiColorCycle 5s ease-in-out infinite';
-                    span.style.animationDelay = `${i * 0.1}s`;
-                }
-                nameElement.appendChild(span);
-            }
+            // Garantir que o nome está em vermelho e negrito
+            nameElement.style.color = '#ff0000';
+            nameElement.style.fontWeight = '900';
         }
 
         function startIAGradientAnimations() {
@@ -2981,18 +3114,9 @@
 
         function removeIAAnimations() {
             const nameElement = document.getElementById('animated-name');
-            nameElement.innerHTML = '';
-            
-            const nameText = 'EDINALDO ALMEIDA';
-            for (let i = 0; i < nameText.length; i++) {
-                const span = document.createElement('span');
-                span.textContent = nameText[i];
-                if (nameText[i] !== ' ') {
-                    span.style.color = 'var(--color-primary)';
-                    span.style.animation = 'none';
-                }
-                nameElement.appendChild(span);
-            }
+            // Garantir que o nome está em vermelho e negrito
+            nameElement.style.color = '#ff0000';
+            nameElement.style.fontWeight = '900';
 
             const highlights = document.querySelectorAll('.section-header .highlight');
             highlights.forEach(highlight => {
@@ -3001,7 +3125,7 @@
         }
 
         // ====================
-        // 3. MENU HAMBÚRGUER LATERAL PROFISSIONAL - CORREÇÃO COMPLETA
+        // 3. MENU HAMBÚRGUER MODERNO
         // ====================
         let isMenuOpen = false;
 
@@ -3014,22 +3138,18 @@
             isMenuOpen = !isMenuOpen;
             
             if (isMenuOpen) {
-                // Bloquear scroll da página
                 html.style.overflow = 'hidden';
                 document.body.style.overflow = 'hidden';
                 
-                // Mostrar overlay escuro
                 mobileOverlay.style.display = 'block';
                 setTimeout(() => {
                     mobileOverlay.classList.add('active');
                 }, 10);
                 
-                // Abrir menu lateral
                 mobileMenu.classList.add('active');
                 menuToggle.classList.add('active');
                 menuToggle.setAttribute('aria-expanded', 'true');
                 
-                // Animar itens do menu
                 const menuItems = document.querySelectorAll('.mobile-nav-item');
                 menuItems.forEach((item, index) => {
                     item.style.opacity = '0';
@@ -3042,20 +3162,16 @@
                     }, 100 + (index * 100));
                 });
                 
-                // Foco total no menu
                 mobileMenu.focus();
                 
             } else {
-                // Restaurar scroll
                 html.style.overflow = '';
                 document.body.style.overflow = '';
                 
-                // Fechar menu
                 mobileMenu.classList.remove('active');
                 menuToggle.classList.remove('active');
                 menuToggle.setAttribute('aria-expanded', 'false');
                 
-                // Remover overlay
                 mobileOverlay.classList.remove('active');
                 setTimeout(() => {
                     mobileOverlay.style.display = 'none';
@@ -3081,7 +3197,6 @@
                 header.classList.remove('scrolled');
             }
 
-            // Atualizar link ativo
             const sections = document.querySelectorAll('section[id]');
             const scrollY = window.pageYOffset + 100;
 
@@ -3091,7 +3206,6 @@
                 const sectionId = section.getAttribute('id');
 
                 if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                    // Desktop
                     document.querySelectorAll('.nav-links a').forEach(link => {
                         link.classList.remove('active');
                         if (link.getAttribute('href') === `#${sectionId}`) {
@@ -3099,7 +3213,6 @@
                         }
                     });
 
-                    // Mobile
                     document.querySelectorAll('.mobile-nav-item').forEach(link => {
                         link.classList.remove('active');
                         if (link.getAttribute('href') === `#${sectionId}`) {
@@ -3122,7 +3235,6 @@
                         const targetSection = document.querySelector(targetId);
                         
                         if (targetSection) {
-                            // Fechar menu mobile se estiver aberto
                             if (isMenuOpen) {
                                 toggleMobileMenu();
                             }
@@ -3143,7 +3255,7 @@
         }
 
         // ====================
-        // 6. THEME TOGGLE COM ANIMAÇÕES DE IA
+        // 6. THEME TOGGLE SEM ANIMAÇÕES DE IA NO NOME
         // ====================
         const themeToggleBtn = document.getElementById('themeToggleBtn');
         const themeIcon = document.getElementById('themeIcon');
@@ -3169,9 +3281,13 @@
             localStorage.setItem('theme', theme);
             syncThemeButtons();
             
+            // Sempre garantir que o nome está em vermelho e negrito
+            const nameElement = document.getElementById('animated-name');
+            nameElement.style.color = '#ff0000';
+            nameElement.style.fontWeight = '900';
+            
             if (theme === 'dark') {
                 setTimeout(() => {
-                    applyIAColorAnimations();
                     startIAGradientAnimations();
                 }, 300);
             } else {
@@ -3311,7 +3427,7 @@
         });
 
         // ====================
-        // 10. SNAKE GAME - MAPA MENOR E MELHORADO
+        // 10. SNAKE GAME - COM CONTROLES PARA MOBILE
         // ====================
         class SnakeGame {
             constructor() {
@@ -3322,7 +3438,7 @@
                 this.finalScoreElement = document.getElementById('final-score');
                 this.gameOverOverlay = document.getElementById('game-over-overlay');
                 
-                this.gridSize = 25; // Aumentado para mapa menor
+                this.gridSize = 25;
                 this.tileCountX = 0;
                 this.tileCountY = 0;
                 
@@ -3353,7 +3469,6 @@
                 this.canvas.width = container.clientWidth;
                 this.canvas.height = container.clientHeight;
 
-                // Mapa menor: menos tiles
                 this.tileCountX = Math.floor(this.canvas.width / this.gridSize);
                 this.tileCountY = Math.floor(this.canvas.height / this.gridSize);
             }
@@ -3393,20 +3508,16 @@
             }
             
             drawGame() {
-                // Fundo
                 this.ctx.fillStyle = '#111';
                 this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-                // Cobra
                 for (let i = 0; i < this.snake.length; i++) {
                     const segment = this.snake[i];
                     
                     if (i === 0) {
-                        // Cabeça
                         this.ctx.fillStyle = '#10b981';
                         this.ctx.fillRect(segment.x * this.gridSize, segment.y * this.gridSize, this.gridSize - 1, this.gridSize - 1);
                         
-                        // Olhos
                         this.ctx.fillStyle = '#000';
                         this.ctx.beginPath();
                         this.ctx.arc(
@@ -3424,11 +3535,9 @@
                         );
                         this.ctx.fill();
                     } else {
-                        // Corpo
                         this.ctx.fillStyle = '#34d399';
                         this.ctx.fillRect(segment.x * this.gridSize, segment.y * this.gridSize, this.gridSize - 1, this.gridSize - 1);
                         
-                        // Detalhes do corpo
                         this.ctx.fillStyle = '#10b981';
                         this.ctx.fillRect(
                             segment.x * this.gridSize + 2,
@@ -3439,7 +3548,6 @@
                     }
                 }
 
-                // Comida
                 this.ctx.fillStyle = '#ef4444';
                 this.ctx.beginPath();
                 this.ctx.arc(
@@ -3449,7 +3557,6 @@
                 );
                 this.ctx.fill();
                 
-                // Detalhe na comida
                 this.ctx.fillStyle = '#f87171';
                 this.ctx.beginPath();
                 this.ctx.arc(
@@ -3459,7 +3566,6 @@
                 );
                 this.ctx.fill();
 
-                // Grade
                 this.ctx.strokeStyle = '#333';
                 this.ctx.lineWidth = 0.5;
                 
@@ -3491,13 +3597,11 @@
                     this.snake.pop();
                 }
 
-                // Colisão com paredes
                 if (head.x < 0 || head.x >= this.tileCountX || head.y < 0 || head.y >= this.tileCountY) {
                     this.gameOver();
                     return;
                 }
 
-                // Colisão com próprio corpo
                 for (let i = 1; i < this.snake.length; i++) {
                     if (head.x === this.snake[i].x && head.y === this.snake[i].y) {
                         this.gameOver();
@@ -3534,9 +3638,11 @@
                         this.drawGame();
                     }, this.speed);
                     document.getElementById('pause-game').textContent = 'Pausar';
+                    document.getElementById('mobile-pause').innerHTML = '<i class="fas fa-pause"></i>';
                 } else {
                     clearInterval(this.gameLoop);
                     document.getElementById('pause-game').textContent = 'Continuar';
+                    document.getElementById('mobile-pause').innerHTML = '<i class="fas fa-play"></i>';
                 }
             }
             
@@ -3546,32 +3652,39 @@
                 this.gameOverOverlay.classList.remove('visible');
                 this.gameRunning = false;
                 document.getElementById('pause-game').textContent = 'Pausar';
+                document.getElementById('mobile-pause').innerHTML = '<i class="fas fa-pause"></i>';
                 this.drawGame();
             }
             
+            changeDirection(dx, dy) {
+                if ((dx !== 0 && this.dx !== -dx) || (dy !== 0 && this.dy !== -dy)) {
+                    this.dx = dx;
+                    this.dy = dy;
+                    
+                    if (!this.gameRunning && this.dx === 0 && this.dy === 0 && !this.gameOverOverlay.classList.contains('visible')) {
+                        this.start();
+                    }
+                }
+            }
+            
             setupEventListeners() {
-                // Controles do teclado
                 document.addEventListener('keydown', (e) => {
                     if([37, 38, 39, 40].includes(e.keyCode)) {
                         e.preventDefault();
                     }
 
-                    if (!this.gameRunning && this.dx === 0 && this.dy === 0 && !this.gameOverOverlay.classList.contains('visible')) {
-                        this.start();
-                    }
-
                     switch(e.key) {
                         case 'ArrowUp':
-                            if (this.dy !== 1) { this.dx = 0; this.dy = -1; }
+                            this.changeDirection(0, -1);
                             break;
                         case 'ArrowDown':
-                            if (this.dy !== -1) { this.dx = 0; this.dy = 1; }
+                            this.changeDirection(0, 1);
                             break;
                         case 'ArrowLeft':
-                            if (this.dx !== 1) { this.dx = -1; this.dy = 0; }
+                            this.changeDirection(-1, 0);
                             break;
                         case 'ArrowRight':
-                            if (this.dx !== -1) { this.dx = 1; this.dy = 0; }
+                            this.changeDirection(1, 0);
                             break;
                         case ' ':
                             this.pause();
@@ -3579,13 +3692,32 @@
                     }
                 });
 
-                // Controles dos botões
                 document.getElementById('start-game').addEventListener('click', () => this.start());
                 document.getElementById('pause-game').addEventListener('click', () => this.pause());
                 document.getElementById('reset-game').addEventListener('click', () => this.reset());
                 document.getElementById('restart-game-btn').addEventListener('click', () => this.reset());
+                document.getElementById('mobile-pause').addEventListener('click', () => this.pause());
 
-                // Redimensionamento
+                document.querySelectorAll('.snake-mobile-controls button[data-direction]').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const direction = button.getAttribute('data-direction');
+                        switch(direction) {
+                            case 'up':
+                                this.changeDirection(0, -1);
+                                break;
+                            case 'down':
+                                this.changeDirection(0, 1);
+                                break;
+                            case 'left':
+                                this.changeDirection(-1, 0);
+                                break;
+                            case 'right':
+                                this.changeDirection(1, 0);
+                                break;
+                        }
+                    });
+                });
+
                 window.addEventListener('resize', () => {
                     this.resizeCanvas();
                     if (!this.gameRunning) {
@@ -3602,7 +3734,6 @@
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
                 
-                // Animação do hero
                 gsap.from('.hero h1', {
                     y: 50,
                     opacity: 0,
@@ -3610,7 +3741,6 @@
                     ease: 'power3.out'
                 });
 
-                // Animação das seções
                 gsap.utils.toArray('section').forEach((section, i) => {
                     gsap.from(section, {
                         scrollTrigger: {
@@ -3626,7 +3756,6 @@
                     });
                 });
 
-                // Animação dos cards de experiência
                 gsap.utils.toArray('.experience-item').forEach((item, i) => {
                     gsap.from(item, {
                         scrollTrigger: {
@@ -3648,7 +3777,6 @@
         // 12. EVENT LISTENERS
         // ====================
         document.addEventListener('DOMContentLoaded', () => {
-            // Inicializar tema
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme) {
                 setTheme(savedTheme);
@@ -3656,10 +3784,8 @@
                 setTheme('light');
             }
 
-            // Esconder preloader
             hidePreloader();
 
-            // Menu mobile - AGORA SÓ O HAMBÚRGUER CONTROLA
             const menuToggle = document.getElementById('menuToggle');
             const mobileOverlay = document.getElementById('mobileMenuOverlay');
 
@@ -3674,17 +3800,14 @@
                 }
             });
 
-            // Tema
             themeToggleBtn.addEventListener('click', toggleTheme);
 
-            // Smooth scroll com fechamento de menu ao clicar em links
             document.querySelectorAll('.mobile-nav-item').forEach(link => {
                 link.addEventListener('click', (e) => {
                     if (link.getAttribute('href') && link.getAttribute('href').startsWith('#')) {
                         e.preventDefault();
                         const targetId = link.getAttribute('href');
                         
-                        // Fechar menu
                         toggleMobileMenu();
                         
                         setTimeout(() => {
@@ -3703,19 +3826,15 @@
                 });
             });
 
-            // Inicializar smooth scroll para outros links
             initSmoothScroll();
 
-            // Scroll events
             window.addEventListener('scroll', updateHeaderOnScroll);
             updateHeaderOnScroll();
 
-            // Download CV
             document.getElementById('downloadCvBtn')?.addEventListener('click', downloadCV);
             document.getElementById('downloadCvBtnMobile')?.addEventListener('click', downloadCV);
             document.getElementById('footerDownloadCv')?.addEventListener('click', downloadCV);
 
-            // Modal de certificados
             closeModalBtn.addEventListener('click', closeCertificateModal);
 
             certificateModal.addEventListener('click', (e) => {
@@ -3724,10 +3843,8 @@
                 }
             });
 
-            // Jogo da cobrinha
             const snakeGame = new SnakeGame();
 
-            // Inicializar AOS
             if (typeof AOS !== 'undefined') {
                 AOS.init({
                     duration: 800,
@@ -3737,7 +3854,6 @@
                 });
             }
 
-            // Tecla ESC para fechar modais
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     if (isMenuOpen) {
