@@ -22,7 +22,8 @@
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- EmailJS v4 -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -3081,7 +3082,7 @@
         }
 
         // ====================
-        // 2. ANIMAÇÃO DE IA PARA MODO ESCURO - REMOVIDA PARA O NOME
+        // 2. ANIMAÇÃO DE IA PARA MODO ESCURO
         // ====================
         function initIAAnimations() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -3092,9 +3093,7 @@
         }
 
         function applyIAColorAnimations() {
-            // REMOVIDO: Não aplica mais animações de cores no nome
             const nameElement = document.getElementById('animated-name');
-            // Garantir que o nome está em vermelho e negrito
             nameElement.style.color = '#ff0000';
             nameElement.style.fontWeight = '900';
         }
@@ -3108,7 +3107,6 @@
 
         function removeIAAnimations() {
             const nameElement = document.getElementById('animated-name');
-            // Garantir que o nome está em vermelho e negrito
             nameElement.style.color = '#ff0000';
             nameElement.style.fontWeight = '900';
 
@@ -3249,7 +3247,7 @@
         }
 
         // ====================
-        // 6. THEME TOGGLE SEM ANIMAÇÕES DE IA NO NOME
+        // 6. THEME TOGGLE
         // ====================
         const themeToggleBtn = document.getElementById('themeToggleBtn');
         const themeIcon = document.getElementById('themeIcon');
@@ -3275,7 +3273,6 @@
             localStorage.setItem('theme', theme);
             syncThemeButtons();
             
-            // Sempre garantir que o nome está em vermelho e negrito
             const nameElement = document.getElementById('animated-name');
             nameElement.style.color = '#ff0000';
             nameElement.style.fontWeight = '900';
@@ -3380,17 +3377,39 @@
         }
 
         // ====================
-        // 9. CONTACT FORM
+        // 9. CONFIGURAÇÃO EMAILJS - IMPORTANTE: VOCÊ PRECISA CONFIGURAR!
+        // ====================
+        
+        // Configuração do EmailJS - SUBSTITUA COM SEUS DADOS REAIS DO EMAILJS
+        const EMAILJS_CONFIG = {
+            SERVICE_ID: 'service_y8dpb4m', // Este é o Service ID da sua imagem
+            TEMPLATE_ID: 'template_jufbms7', // Você precisa criar um template no EmailJS
+            PUBLIC_KEY: 'z51g0MM2Me6G1sSqV' // Sua Public Key do EmailJS
+        };
+
+        // Inicializar EmailJS
+        (function() {
+            if (EMAILJS_CONFIG.PUBLIC_KEY !== 'YOUR_PUBLIC_KEY_HERE') {
+                emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+                console.log('EmailJS inicializado com sucesso');
+            } else {
+                console.warn('EmailJS não inicializado: configure sua Public Key');
+            }
+        })();
+
+        // ====================
+        // 10. CONTACT FORM COM EMAILJS
         // ====================
         const contactForm = document.getElementById('contactForm');
 
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
 
+            // Validação
             if (!name || !email || !message) {
                 Swal.fire({
                     icon: 'warning',
@@ -3401,6 +3420,30 @@
                 return;
             }
 
+            // Validação de email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Email inválido',
+                    text: 'Por favor, insira um endereço de email válido.',
+                    confirmButtonText: 'OK',
+                });
+                return;
+            }
+
+            // Verificar se EmailJS está configurado
+            if (EMAILJS_CONFIG.PUBLIC_KEY === 'YOUR_PUBLIC_KEY_HERE') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Configuração necessária',
+                    html: 'O formulário de contato ainda não está configurado.<br><br>Por favor, configure o EmailJS com:<br>1. Service ID: ' + EMAILJS_CONFIG.SERVICE_ID + '<br>2. Template ID<br>3. Public Key',
+                    confirmButtonText: 'Entendi',
+                });
+                return;
+            }
+
+            // Mostrar loading
             Swal.fire({
                 title: 'Enviando mensagem...',
                 allowOutsideClick: false,
@@ -3409,19 +3452,65 @@
                 },
             });
 
-            setTimeout(() => {
+            try {
+                // Preparar dados para envio
+                const templateParams = {
+                    name: name,
+                    email: email,
+                    message: message,
+                    to_email: 'edinaldoalmeida98@outlook.com', // Seu email
+                    from_name: name,
+                    reply_to: email,
+                    date: new Date().toLocaleString('pt-BR')
+                };
+
+                // Enviar email usando EmailJS
+                const response = await emailjs.send(
+                    EMAILJS_CONFIG.SERVICE_ID,
+                    EMAILJS_CONFIG.TEMPLATE_ID,
+                    templateParams
+                );
+
+                console.log('Email enviado com sucesso:', response);
+
+                // Sucesso
                 Swal.fire({
                     icon: 'success',
                     title: 'Mensagem enviada!',
-                    text: `Obrigado ${name}! Entrarei em contato em breve.`,
+                    html: `Obrigado <strong>${name}</strong>!<br>Entrarei em contato em breve.`,
                     confirmButtonText: 'OK',
                 });
+
+                // Limpar formulário
                 contactForm.reset();
-            }, 1500);
+
+            } catch (error) {
+                console.error('Erro ao enviar email:', error);
+                
+                // Tratamento de erros
+                let errorMessage = 'Ocorreu um erro ao enviar a mensagem. ';
+                
+                if (error.status === 0) {
+                    errorMessage += 'Verifique sua conexão com a internet.';
+                } else if (error.status === 400) {
+                    errorMessage += 'Dados inválidos no formulário.';
+                } else if (error.status === 401) {
+                    errorMessage += 'Chave de API inválida. Configure corretamente o EmailJS.';
+                } else {
+                    errorMessage += 'Tente novamente mais tarde.';
+                }
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro ao enviar',
+                    text: errorMessage,
+                    confirmButtonText: 'OK',
+                });
+            }
         });
 
         // ====================
-        // 10. SNAKE GAME - COM CONTROLES PARA MOBILE
+        // 11. SNAKE GAME - COM CONTROLES PARA MOBILE
         // ====================
         class SnakeGame {
             constructor() {
@@ -3722,7 +3811,7 @@
         }
 
         // ====================
-        // 11. ANIMAÇÕES GSAP
+        // 12. ANIMAÇÕES GSAP
         // ====================
         function initAnimations() {
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
@@ -3768,7 +3857,7 @@
         }
 
         // ====================
-        // 12. EVENT LISTENERS
+        // 13. EVENT LISTENERS
         // ====================
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
