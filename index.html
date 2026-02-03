@@ -1125,8 +1125,8 @@
             margin-bottom: 1.5rem;
             color: var(--color-primary);
             background: var(--color-bg);
-            border-radius: 50%;
             border: 1px solid var(--color-border);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1346,113 +1346,225 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* Contact Section */
+        /* ===================================================
+           CONTACT SECTION - PÍLULAS DE CONTATO COM ANIMAÇÃO
+           =================================================== */
         .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-        }
-
-        .contact-item {
             display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
+            flex-direction: column;
+            gap: 3rem;
+            align-items: center;
         }
 
-        .contact-icon {
-            width: 48px;
-            height: 48px;
+        .contact-pills-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+            width: 100%;
+            max-width: 650px;
+            align-items: center;
+        }
+
+        .contact-pill {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 80px;
+            padding: 1.8rem 3rem;
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+            transition: all var(--transition-smooth);
+            text-decoration: none;
+            color: var(--color-fg);
+            width: 100%;
+            max-width: 600px;
+            min-height: 90px;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Regras de animação movidas para baixo para evitar conflitos */
+
+        /* Efeitos de hover corrigidos */
+        .contact-pill:hover {
+            background: var(--color-primary);
+            color: var(--color-bg);
+            transform: translateY(-4px) scale(1.02);
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .contact-pill:hover .contact-pill-icon {
+            color: var(--color-bg);
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .contact-pill:hover .contact-pill-detail {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Modo claro - quando hover, texto fica branco */
+        [data-theme='light'] .contact-pill:hover .contact-pill-title,
+        [data-theme='light'] .contact-pill:hover .contact-pill-detail {
+            color: #ffffff;
+        }
+
+        /* Modo escuro - quando hover, texto fica preto */
+        [data-theme='dark'] .contact-pill:hover .contact-pill-title,
+        [data-theme='dark'] .contact-pill:hover .contact-pill-detail {
+            color: #000000;
+        }
+
+        .contact-pill-icon {
+            color: var(--color-primary);
+            font-size: 1.8rem;
+            min-width: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            background: var(--color-card);
-            border: 1px solid var(--color-border);
-            color: var(--color-primary);
-            font-size: 1.2rem;
-            flex-shrink: 0;
             transition: all var(--transition-smooth);
+            z-index: 1;
         }
 
-        .contact-item:hover .contact-icon {
-            background: var(--color-primary);
-            color: var(--color-bg);
-            transform: rotate(5deg);
+        .contact-pill-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex: 1;
+            z-index: 1;
         }
 
-        .contact-details h3 {
+        .contact-pill-title {
             font-weight: 600;
-            margin-bottom: 0.4rem;
             font-size: 1.1rem;
-        }
-
-        .contact-details p {
-            color: var(--color-muted);
-            font-size: 1rem;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .form-input,
-        .form-textarea {
-            padding: 0.9rem 1.2rem;
-            background: var(--color-card);
-            border: 1px solid var(--color-border);
-            border-radius: var(--border-radius-lg);
+            margin-bottom: 0.4rem;
             color: var(--color-fg);
-            font-family: inherit;
+            transition: color var(--transition-smooth);
+        }
+
+        .contact-pill-detail {
             font-size: 1rem;
-            transition: all var(--transition-smooth);
-        }
-
-        .form-input:focus,
-        .form-textarea:focus {
-            outline: none;
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .form-input::placeholder,
-        .form-textarea::placeholder {
             color: var(--color-muted);
+            transition: color var(--transition-smooth);
+            word-break: break-word;
+            line-height: 1.4;
+            opacity: 1 !important;
         }
 
-        .form-submit-btn {
-            padding: 1rem 2rem;
+        /* GARANTIR QUE TODOS OS CARDS TENHAM A MESMA OPACIDADE */
+        .contact-pill, 
+        .contact-pill * {
+            opacity: 1 !important;
+        }
+
+        /* ANIMAÇÃO DE LUZ NA BORDA - SOMENTE NO MODO ESCURO */
+        [data-theme='dark'] .contact-pill::before,
+        [data-theme='dark'] .contact-pill::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffffff, transparent);
+            z-index: 2;
+            opacity: 0 !important; /* Escondido por padrão */
+            transition: opacity 0.3s ease;
+        }
+
+        [data-theme='dark'] .contact-pill::before {
+            top: -1px;
+            left: -100%;
+            animation: lightBorder 3s ease-in-out infinite;
+        }
+
+        [data-theme='dark'] .contact-pill::after {
+            bottom: -1px;
+            right: -100%;
+            animation: lightBorder 3s ease-in-out infinite 1.5s;
+        }
+
+        /* Mostrar animação no hover - SOMENTE NO MODO ESCURO */
+        [data-theme='dark'] .contact-pill:hover::before,
+        [data-theme='dark'] .contact-pill:hover::after {
+            opacity: 1 !important;
+            animation: lightBorderFast 1.5s ease-in-out infinite;
+        }
+
+        .contact-actions {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .contact-action-btn {
+            padding: 1.2rem 3rem;
             background: var(--color-primary);
             color: var(--color-bg);
             border: none;
             border-radius: var(--border-radius);
             font-weight: 500;
             cursor: pointer;
+            text-decoration: none;
             transition: all var(--transition-smooth);
-            display: flex;
+            display: inline-flex;
             align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+            min-width: 220px;
             justify-content: center;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .form-submit-btn:hover {
+        .contact-action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .contact-action-btn:hover::before {
+            left: 100%;
+        }
+
+        .contact-action-btn:hover {
             background: var(--color-primary-light);
             color: var(--color-bg);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* ===================================================
+           ANIMAÇÃO DA LUZ NA BORDA
+           =================================================== */
+        @keyframes lightBorder {
+            0% {
+                left: -100%;
+            }
+            50% {
+                left: 150%;
+            }
+            100% {
+                left: -100%;
+            }
+        }
+
+        @keyframes lightBorderFast {
+            0% {
+                left: -100%;
+            }
+            50% {
+                left: 150%;
+            }
+            100% {
+                left: -100%;
+            }
         }
 
         /* ===================================================
@@ -2062,6 +2174,11 @@
             .snake-mobile-controls {
                 display: grid;
             }
+            
+            .contact-pill {
+                max-width: 550px;
+                padding: 1.6rem 2.5rem;
+            }
         }
 
         @media (min-width: 993px) {
@@ -2149,6 +2266,22 @@
             .snake-instructions p:first-child {
                 display: none;
             }
+            
+            .contact-pill {
+                max-width: 500px;
+                padding: 1.4rem 2rem;
+                border-radius: 70px;
+            }
+            
+            .contact-action-btn {
+                min-width: 200px;
+                padding: 1.1rem 2.5rem;
+            }
+            
+            .contact-pill-icon {
+                font-size: 1.6rem;
+                min-width: 40px;
+            }
         }
 
         @media (max-width: 576px) {
@@ -2196,6 +2329,38 @@
             .snake-mobile-controls button {
                 padding: 1rem;
                 min-height: 60px;
+            }
+            
+            .contact-pill {
+                max-width: 100%;
+                padding: 1.2rem 1.8rem;
+                border-radius: 60px;
+                gap: 1.2rem;
+            }
+            
+            .contact-pill-icon {
+                font-size: 1.5rem;
+                min-width: 35px;
+            }
+            
+            .contact-actions {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+            
+            .contact-action-btn {
+                width: 100%;
+                max-width: 280px;
+                padding: 1rem 2rem;
+            }
+            
+            .contact-pill-title {
+                font-size: 1.05rem;
+            }
+            
+            .contact-pill-detail {
+                font-size: 0.95rem;
             }
         }
 
@@ -2254,6 +2419,24 @@
                 min-height: 50px;
                 font-size: 1.2rem;
             }
+            
+            .contact-pill {
+                padding: 1rem 1.5rem;
+                border-radius: 50px;
+            }
+            
+            .contact-pill-icon {
+                font-size: 1.4rem;
+                min-width: 30px;
+            }
+            
+            .contact-pill-title {
+                font-size: 1rem;
+            }
+            
+            .contact-pill-detail {
+                font-size: 0.9rem;
+            }
         }
 
         @media (max-width: 360px) {
@@ -2300,6 +2483,16 @@
                 padding: 0.7rem;
                 min-height: 45px;
                 font-size: 1rem;
+            }
+            
+            .contact-pill {
+                padding: 0.9rem 1.2rem;
+                gap: 1rem;
+            }
+            
+            .contact-pill-icon {
+                font-size: 1.3rem;
+                min-width: 25px;
             }
         }
 
@@ -2872,7 +3065,7 @@
 
     <div class="section-divider"></div>
 
-    <!-- Contact Section -->
+    <!-- Contact Section - PÍLULAS DE CONTATO COM ANIMAÇÃO -->
     <section id="contact">
         <div class="container">
             <div class="section-header">
@@ -2881,51 +3074,52 @@
             </div>
             
             <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
+                <div class="contact-pills-container">
+                    <!-- Email -->
+                    <a href="mailto:edinaldoalmeida98@outlook.com" class="contact-pill">
+                        <div class="contact-pill-icon">
                             <i class="far fa-envelope"></i>
                         </div>
-                        <div class="contact-details">
-                            <h3>Email</h3>
-                            <p>edinaldoalmeida98@outlook.com</p>
+                        <div class="contact-pill-content">
+                            <span class="contact-pill-title">Email</span>
+                            <span class="contact-pill-detail">edinaldoalmeida98@outlook.com</span>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
+                    </a>
+                    
+                    <!-- Telefone -->
+                    <a href="tel:+5579999178206" class="contact-pill">
+                        <div class="contact-pill-icon">
                             <i class="fas fa-phone"></i>
                         </div>
-                        <div class="contact-details">
-                            <h3>Telefone</h3>
-                            <p>(79) 99917-8206</p>
+                        <div class="contact-pill-content">
+                            <span class="contact-pill-title">Telefone</span>
+                            <span class="contact-pill-detail">(79) 99917-8206</span>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
+                    </a>
+                    
+                    <!-- LinkedIn (GitHub foi removido conforme solicitado) -->
+                    <a href="https://www.linkedin.com/in/edinaldo-almeida-b67194276/" target="_blank" class="contact-pill">
+                        <div class="contact-pill-icon">
+                            <i class="fab fa-linkedin-in"></i>
                         </div>
-                        <div class="contact-details">
-                            <h3>Localização</h3>
-                            <p>Aracaju, Sergipe, Brasil</p>
+                        <div class="contact-pill-content">
+                            <span class="contact-pill-title">LinkedIn</span>
+                            <span class="contact-pill-detail">/edinaldo-almeida</span>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <input type="text" name="name" id="name" class="form-input" placeholder="Seu Nome" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" id="email" class="form-input" placeholder="Seu Email" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="message" id="message" class="form-textarea" placeholder="Sua Mensagem" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="form-submit-btn">
-                        <i class="fas fa-paper-plane"></i>
-                        <span>Enviar Mensagem</span>
-                    </button>
-                </form>
+                <!-- Botões de Ação -->
+                <div class="contact-actions">
+                    <a href="mailto:edinaldoalmeida98@outlook.com" class="contact-action-btn">
+                        <i class="far fa-envelope"></i>
+                        <span>Enviar Email</span>
+                    </a>
+                    <a href="javascript:void(0);" class="contact-action-btn" id="whatsappContact">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -3076,6 +3270,7 @@
                     setTimeout(() => {
                         preloader.classList.add('hidden');
                         initAnimations();
+                        initContactAnimations();
                     }, 500);
                 }
             }, 100);
@@ -3117,7 +3312,28 @@
         }
 
         // ====================
-        // 3. MENU HAMBÚRGUER MODERNO
+        // 3. ANIMAÇÃO DOS CARDS DE CONTATO
+        // ====================
+        function initContactAnimations() {
+            const contactPills = document.querySelectorAll('.contact-pill');
+            
+            contactPills.forEach((pill, index) => {
+                // Adiciona atraso para cada pílula
+                pill.style.animationDelay = `${index * 0.5}s`;
+                
+                // Adiciona animação de entrada
+                gsap.from(pill, {
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.8,
+                    delay: index * 0.2,
+                    ease: "power3.out"
+                });
+            });
+        }
+
+        // ====================
+        // 4. MENU HAMBÚRGUER MODERNO
         // ====================
         let isMenuOpen = false;
 
@@ -3178,7 +3394,7 @@
         }
 
         // ====================
-        // 4. HEADER SCROLL EFFECT
+        // 5. HEADER SCROLL EFFECT
         // ====================
         const header = document.getElementById('mainHeader');
 
@@ -3216,7 +3432,7 @@
         }
 
         // ====================
-        // 5. SMOOTH SCROLL COM FECHAMENTO DE MENU
+        // 6. SMOOTH SCROLL COM FECHAMENTO DE MENU
         // ====================
         function initSmoothScroll() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -3247,7 +3463,7 @@
         }
 
         // ====================
-        // 6. THEME TOGGLE
+        // 7. THEME TOGGLE
         // ====================
         const themeToggleBtn = document.getElementById('themeToggleBtn');
         const themeIcon = document.getElementById('themeIcon');
@@ -3293,7 +3509,7 @@
         }
 
         // ====================
-        // 7. MODAL DE CERTIFICADOS
+        // 8. MODAL DE CERTIFICADOS
         // ====================
         const certificateModal = document.getElementById('certificateModal');
         const modalTitle = document.getElementById('modalCertificateTitle');
@@ -3331,7 +3547,7 @@
         }
 
         // ====================
-        // 8. DOWNLOAD CV
+        // 9. DOWNLOAD CV
         // ====================
         function downloadCV() {
             try {
@@ -3377,137 +3593,20 @@
         }
 
         // ====================
-        // 9. CONFIGURAÇÃO EMAILJS - IMPORTANTE: VOCÊ PRECISA CONFIGURAR!
+        // 10. CONFIGURAÇÃO WHATSAPP
         // ====================
-        
-        // Configuração do EmailJS - SUBSTITUA COM SEUS DADOS REAIS DO EMAILJS
-        const EMAILJS_CONFIG = {
-            SERVICE_ID: 'service_y8dpb4m', // Este é o Service ID da sua imagem
-            TEMPLATE_ID: 'template_s6ml0h2', // Você precisa criar um template no EmailJS
-            PUBLIC_KEY: 'z51g0MM2Me6G1sSqV' // Sua Public Key do EmailJS
-        };
-
-        // Inicializar EmailJS
-        (function() {
-            if (EMAILJS_CONFIG.PUBLIC_KEY !== 'YOUR_PUBLIC_KEY_HERE') {
-                emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-                console.log('EmailJS inicializado com sucesso');
-            } else {
-                console.warn('EmailJS não inicializado: configure sua Public Key');
-            }
-        })();
-
-        // ====================
-        // 10. CONTACT FORM COM EMAILJS
-        // ====================
-        const contactForm = document.getElementById('contactForm');
-
-        contactForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
-
-            // Validação
-            if (!name || !email || !message) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Campos obrigatórios',
-                    text: 'Por favor, preencha todos os campos.',
-                    confirmButtonText: 'OK',
-                });
-                return;
-            }
-
-            // Validação de email
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Email inválido',
-                    text: 'Por favor, insira um endereço de email válido.',
-                    confirmButtonText: 'OK',
-                });
-                return;
-            }
-
-            // Verificar se EmailJS está configurado
-            if (EMAILJS_CONFIG.PUBLIC_KEY === 'YOUR_PUBLIC_KEY_HERE') {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Configuração necessária',
-                    html: 'O formulário de contato ainda não está configurado.<br><br>Por favor, configure o EmailJS com:<br>1. Service ID: ' + EMAILJS_CONFIG.SERVICE_ID + '<br>2. Template ID<br>3. Public Key',
-                    confirmButtonText: 'Entendi',
-                });
-                return;
-            }
-
-            // Mostrar loading
-            Swal.fire({
-                title: 'Enviando mensagem...',
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                },
-            });
-
-            try {
-                // Preparar dados para envio
-                const templateParams = {
-                    name: name,
-                    email: email,
-                    message: message,
-                    to_email: 'edinaldoalmeida98@outlook.com', // Seu email
-                    from_name: name,
-                    reply_to: email,
-                    date: new Date().toLocaleString('pt-BR')
-                };
-
-                // Enviar email usando EmailJS
-                const response = await emailjs.send(
-                    EMAILJS_CONFIG.SERVICE_ID,
-                    EMAILJS_CONFIG.TEMPLATE_ID,
-                    templateParams
-                );
-
-                console.log('Email enviado com sucesso:', response);
-
-                // Sucesso
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Mensagem enviada!',
-                    html: `Obrigado <strong>${name}</strong>!<br>Entrarei em contato em breve.`,
-                    confirmButtonText: 'OK',
-                });
-
-                // Limpar formulário
-                contactForm.reset();
-
-            } catch (error) {
-                console.error('Erro ao enviar email:', error);
-                
-                // Tratamento de erros
-                let errorMessage = 'Ocorreu um erro ao enviar a mensagem. ';
-                
-                if (error.status === 0) {
-                    errorMessage += 'Verifique sua conexão com a internet.';
-                } else if (error.status === 400) {
-                    errorMessage += 'Dados inválidos no formulário.';
-                } else if (error.status === 401) {
-                    errorMessage += 'Chave de API inválida. Configure corretamente o EmailJS.';
-                } else {
-                    errorMessage += 'Tente novamente mais tarde.';
-                }
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro ao enviar',
-                    text: errorMessage,
-                    confirmButtonText: 'OK',
+        function initWhatsApp() {
+            const whatsappBtn = document.getElementById('whatsappContact');
+            if (whatsappBtn) {
+                whatsappBtn.addEventListener('click', function() {
+                    const phoneNumber = '5579999178206';
+                    const message = 'Olá Edinaldo! Vi seu portfólio e gostaria de conversar sobre...';
+                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                    
+                    window.open(whatsappUrl, '_blank');
                 });
             }
-        });
+        }
 
         // ====================
         // 11. SNAKE GAME - COM CONTROLES PARA MOBILE
@@ -3868,6 +3967,7 @@
             }
 
             hidePreloader();
+            initWhatsApp();
 
             const menuToggle = document.getElementById('menuToggle');
             const mobileOverlay = document.getElementById('mobileMenuOverlay');
