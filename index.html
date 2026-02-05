@@ -1346,7 +1346,14 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* Contact Section */
+        /* Contact Section - REMODELLED */
+        .contact-section {
+            background: var(--color-card);
+            border-radius: var(--border-radius-lg);
+            padding: 3rem;
+            margin-top: 2rem;
+        }
+
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1357,102 +1364,77 @@
             display: flex;
             gap: 1.5rem;
             align-items: flex-start;
+            padding: 1.5rem;
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-lg);
+            transition: all var(--transition-smooth);
+        }
+
+        .contact-item:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
         }
 
         .contact-icon {
-            width: 48px;
-            height: 48px;
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background: var(--color-card);
-            border: 1px solid var(--color-border);
-            color: var(--color-primary);
-            font-size: 1.2rem;
+            background: var(--color-primary);
+            color: var(--color-bg);
+            font-size: 1.5rem;
             flex-shrink: 0;
             transition: all var(--transition-smooth);
         }
 
         .contact-item:hover .contact-icon {
-            background: var(--color-primary);
-            color: var(--color-bg);
-            transform: rotate(5deg);
+            transform: rotate(15deg) scale(1.1);
+            background: var(--color-primary-light);
+        }
+
+        .contact-details {
+            flex: 1;
         }
 
         .contact-details h3 {
             font-weight: 600;
-            margin-bottom: 0.4rem;
-            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            color: var(--color-fg);
         }
 
         .contact-details p {
             color: var(--color-muted);
             font-size: 1rem;
+            margin-bottom: 0.5rem;
+            word-break: break-word;
         }
 
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .form-input,
-        .form-textarea {
-            padding: 0.9rem 1.2rem;
-            background: var(--color-card);
-            border: 1px solid var(--color-border);
-            border-radius: var(--border-radius-lg);
-            color: var(--color-fg);
-            font-family: inherit;
-            font-size: 1rem;
-            transition: all var(--transition-smooth);
-        }
-
-        .form-input:focus,
-        .form-textarea:focus {
-            outline: none;
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .form-input::placeholder,
-        .form-textarea::placeholder {
-            color: var(--color-muted);
-        }
-
-        .form-submit-btn {
-            padding: 1rem 2rem;
-            background: var(--color-primary);
-            color: var(--color-bg);
-            border: none;
-            border-radius: var(--border-radius);
-            font-weight: 500;
-            cursor: pointer;
-            transition: all var(--transition-smooth);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+        .contact-link {
+            display: inline-block;
             margin-top: 0.5rem;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all var(--transition-smooth);
         }
 
-        .form-submit-btn:hover {
-            background: var(--color-primary-light);
-            color: var(--color-bg);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+        .contact-link:hover {
+            color: var(--color-primary-light);
+            text-decoration: underline;
+        }
+
+        .contact-action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         /* ===================================================
@@ -2149,6 +2131,15 @@
             .snake-instructions p:first-child {
                 display: none;
             }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .contact-item {
+                padding: 1.2rem;
+            }
         }
 
         @media (max-width: 576px) {
@@ -2196,6 +2187,23 @@
             .snake-mobile-controls button {
                 padding: 1rem;
                 min-height: 60px;
+            }
+            
+            .contact-section {
+                padding: 2rem 1.5rem;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .contact-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
             }
         }
 
@@ -2253,6 +2261,17 @@
                 padding: 0.8rem;
                 min-height: 50px;
                 font-size: 1.2rem;
+            }
+            
+            .contact-action-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .contact-action-buttons .primary-btn,
+            .contact-action-buttons .btn-outline {
+                width: 100%;
+                justify-content: center;
             }
         }
 
@@ -2487,7 +2506,7 @@
                 Combinando expertise técnica com um olhar atento para design e usabilidade.
             </p>
             <div class="hero-buttons">
-                <a href="#contact" class="primary-btn">Vamos Conversar</a>
+                <a href="#contact" class="primary-btn">Entre em Contato</a>
                 <a href="#experience" class="btn-outline">Ver Experiência</a>
             </div>
             <div class="social-links">
@@ -2872,16 +2891,17 @@
 
     <div class="section-divider"></div>
 
-    <!-- Contact Section -->
+    <!-- Contact Section - REORGANIZADA -->
     <section id="contact">
         <div class="container">
             <div class="section-header">
                 <h2>Entre em <span class="highlight">Contato</span></h2>
-                <p>Vamos conversar sobre seu próximo projeto ou oportunidade</p>
+                <p>Estou sempre aberto a novas oportunidades e projetos interessantes</p>
             </div>
             
-            <div class="contact-grid">
-                <div class="contact-info">
+            <div class="contact-section">
+                <div class="contact-grid">
+                    <!-- Email -->
                     <div class="contact-item">
                         <div class="contact-icon">
                             <i class="far fa-envelope"></i>
@@ -2889,8 +2909,13 @@
                         <div class="contact-details">
                             <h3>Email</h3>
                             <p>edinaldoalmeida98@outlook.com</p>
+                            <a href="mailto:edinaldoalmeida98@outlook.com" class="contact-link">
+                                Enviar email
+                            </a>
                         </div>
                     </div>
+                    
+                    <!-- Telefone -->
                     <div class="contact-item">
                         <div class="contact-icon">
                             <i class="fas fa-phone"></i>
@@ -2898,34 +2923,40 @@
                         <div class="contact-details">
                             <h3>Telefone</h3>
                             <p>(79) 99917-8206</p>
+                            <a href="tel:+5579999178206" class="contact-link">
+                                Ligar agora
+                            </a>
                         </div>
                     </div>
+                    
+                    <!-- Localização -->
                     <div class="contact-item">
                         <div class="contact-icon">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="contact-details">
                             <h3>Localização</h3>
-                            <p>Aracaju, Sergipe, Brasil</p>
+                            <p>Aracaju, Sergipe</p>
+                            <p>Brasil</p>
                         </div>
                     </div>
                 </div>
                 
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <input type="text" name="name" id="name" class="form-input" placeholder="Seu Nome" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" id="email" class="form-input" placeholder="Seu Email" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="message" id="message" class="form-textarea" placeholder="Sua Mensagem" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="form-submit-btn">
-                        <i class="fas fa-paper-plane"></i>
-                        <span>Enviar Mensagem</span>
-                    </button>
-                </form>
+                <!-- Redes Sociais -->
+                <div class="contact-action-buttons">
+                    <a href="https://github.com/Joseedinaldo" target="_blank" class="btn-outline">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/edinaldo-almeida-b67194276/" target="_blank" class="btn-outline">
+                        <i class="fab fa-linkedin-in"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="mailto:edinaldoalmeida98@outlook.com" class="primary-btn">
+                        <i class="far fa-envelope"></i>
+                        <span>Enviar Email</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -3377,140 +3408,11 @@
         }
 
         // ====================
-        // 9. CONFIGURAÇÃO EMAILJS - IMPORTANTE: VOCÊ PRECISA CONFIGURAR!
+        // 9. REMOVED: FORMULÁRIO DE CONTATO E EMAILJS CONFIG
         // ====================
-        
-        // Configuração do EmailJS - SUBSTITUA COM SEUS DADOS REAIS DO EMAILJS
-        const EMAILJS_CONFIG = {
-            SERVICE_ID: 'service_y8dpb4m', // Este é o Service ID da sua imagem
-            TEMPLATE_ID: 'template_s6ml0h2', // Você precisa criar um template no EmailJS
-            PUBLIC_KEY: 'z51g0MM2Me6G1sSqV' // Sua Public Key do EmailJS
-        };
-
-        // Inicializar EmailJS
-        (function() {
-            if (EMAILJS_CONFIG.PUBLIC_KEY !== 'YOUR_PUBLIC_KEY_HERE') {
-                emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-                console.log('EmailJS inicializado com sucesso');
-            } else {
-                console.warn('EmailJS não inicializado: configure sua Public Key');
-            }
-        })();
 
         // ====================
-        // 10. CONTACT FORM COM EMAILJS
-        // ====================
-        const contactForm = document.getElementById('contactForm');
-
-        contactForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
-
-            // Validação
-            if (!name || !email || !message) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Campos obrigatórios',
-                    text: 'Por favor, preencha todos os campos.',
-                    confirmButtonText: 'OK',
-                });
-                return;
-            }
-
-            // Validação de email
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Email inválido',
-                    text: 'Por favor, insira um endereço de email válido.',
-                    confirmButtonText: 'OK',
-                });
-                return;
-            }
-
-            // Verificar se EmailJS está configurado
-            if (EMAILJS_CONFIG.PUBLIC_KEY === 'YOUR_PUBLIC_KEY_HERE') {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Configuração necessária',
-                    html: 'O formulário de contato ainda não está configurado.<br><br>Por favor, configure o EmailJS com:<br>1. Service ID: ' + EMAILJS_CONFIG.SERVICE_ID + '<br>2. Template ID<br>3. Public Key',
-                    confirmButtonText: 'Entendi',
-                });
-                return;
-            }
-
-            // Mostrar loading
-            Swal.fire({
-                title: 'Enviando mensagem...',
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                },
-            });
-
-            try {
-                // Preparar dados para envio
-                const templateParams = {
-                    name: name,
-                    email: email,
-                    message: message,
-                    to_email: 'edinaldoalmeida98@outlook.com', // Seu email
-                    from_name: name,
-                    reply_to: email,
-                    date: new Date().toLocaleString('pt-BR')
-                };
-
-                // Enviar email usando EmailJS
-                const response = await emailjs.send(
-                    EMAILJS_CONFIG.SERVICE_ID,
-                    EMAILJS_CONFIG.TEMPLATE_ID,
-                    templateParams
-                );
-
-                console.log('Email enviado com sucesso:', response);
-
-                // Sucesso
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Mensagem enviada!',
-                    html: `Obrigado <strong>${name}</strong>!<br>Entrarei em contato em breve.`,
-                    confirmButtonText: 'OK',
-                });
-
-                // Limpar formulário
-                contactForm.reset();
-
-            } catch (error) {
-                console.error('Erro ao enviar email:', error);
-                
-                // Tratamento de erros
-                let errorMessage = 'Ocorreu um erro ao enviar a mensagem. ';
-                
-                if (error.status === 0) {
-                    errorMessage += 'Verifique sua conexão com a internet.';
-                } else if (error.status === 400) {
-                    errorMessage += 'Dados inválidos no formulário.';
-                } else if (error.status === 401) {
-                    errorMessage += 'Chave de API inválida. Configure corretamente o EmailJS.';
-                } else {
-                    errorMessage += 'Tente novamente mais tarde.';
-                }
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro ao enviar',
-                    text: errorMessage,
-                    confirmButtonText: 'OK',
-                });
-            }
-        });
-
-        // ====================
-        // 11. SNAKE GAME - COM CONTROLES PARA MOBILE
+        // 10. SNAKE GAME - COM CONTROLES PARA MOBILE
         // ====================
         class SnakeGame {
             constructor() {
@@ -3811,7 +3713,7 @@
         }
 
         // ====================
-        // 12. ANIMAÇÕES GSAP
+        // 11. ANIMAÇÕES GSAP
         // ====================
         function initAnimations() {
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
@@ -3857,7 +3759,7 @@
         }
 
         // ====================
-        // 13. EVENT LISTENERS
+        // 12. EVENT LISTENERS
         // ====================
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
