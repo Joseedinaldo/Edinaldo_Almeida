@@ -347,7 +347,8 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
         }
 
-        header::before {
+        /* REMOVIDO: Efeito de luz que passa sobre o header */
+        /* header::before {
             content: '';
             position: absolute;
             top: 0;
@@ -367,7 +368,7 @@
         header:hover::before {
             left: 100%;
             transition: 0.8s;
-        }
+        } */
 
         header.scrolled {
             box-shadow: var(--shadow-xl);
@@ -598,7 +599,8 @@
             backdrop-filter: blur(10px) !important;
         }
 
-        .download-cv-btn::before {
+        /* REMOVIDO: Efeito de luz que passa no botão */
+        /* .download-cv-btn::before {
             content: '';
             position: absolute;
             top: 0;
@@ -616,7 +618,7 @@
 
         .download-cv-btn:hover::before {
             left: 100%;
-        }
+        } */
 
         /* Garantir que no modo escuro o texto seja sempre visível */
         [data-theme='dark'] .download-cv-btn {
@@ -1702,8 +1704,8 @@
             opacity: 1 !important;
         }
 
-        /* ANIMAÇÃO DE LUZ NA BORDA - SOMENTE NO MODO ESCURO */
-        [data-theme='dark'] .contact-pill::before,
+        /* REMOVIDO: ANIMAÇÃO DE LUZ NA BORDA - SOMENTE NO MODO ESCURO */
+        /* [data-theme='dark'] .contact-pill::before,
         [data-theme='dark'] .contact-pill::after {
             content: '';
             position: absolute;
@@ -1727,12 +1729,12 @@
             animation: lightBorder 3s ease-in-out infinite 1.5s;
         }
 
-        /* Mostrar animação no hover - SOMENTE NO MODO ESCURO */
+        Mostrar animação no hover - SOMENTE NO MODO ESCURO
         [data-theme='dark'] .contact-pill:hover::before,
         [data-theme='dark'] .contact-pill:hover::after {
             opacity: 1 !important;
             animation: lightBorderFast 1.5s ease-in-out infinite;
-        }
+        } */
 
         .contact-actions {
             display: flex;
@@ -1762,7 +1764,8 @@
             overflow: hidden;
         }
 
-        .contact-action-btn::before {
+        /* REMOVIDO: Efeito de luz que passa no botão de ação */
+        /* .contact-action-btn::before {
             content: '';
             position: absolute;
             top: 0;
@@ -1775,7 +1778,7 @@
 
         .contact-action-btn:hover::before {
             left: 100%;
-        }
+        } */
 
         .contact-action-btn:hover {
             background: var(--color-primary-light);
@@ -1789,9 +1792,9 @@
         }
 
         /* ===================================================
-           ANIMAÇÃO DA LUZ NA BORDA
+           ANIMAÇÃO DA LUZ NA BORDA (REMOVIDA)
            =================================================== */
-        @keyframes lightBorder {
+        /* @keyframes lightBorder {
             0% {
                 left: -100%;
             }
@@ -1813,7 +1816,7 @@
             100% {
                 left: -100%;
             }
-        }
+        } */
 
         /* ===================================================
            SNAKE GAME SECTION
