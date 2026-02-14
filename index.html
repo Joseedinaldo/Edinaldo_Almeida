@@ -251,7 +251,7 @@
         }
 
         /* ===================================================
-           HEADER E NAVEGAÇÃO - DESIGN MINIMALISTA E ELEGANTE
+           HEADER E NAVEGAÇÃO - DESIGN PROFISSIONAL MELHORADO
            =================================================== */
         header {
             position: fixed;
@@ -291,6 +291,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            flex-shrink: 0;
         }
 
         .logo {
@@ -300,43 +301,68 @@
             text-decoration: none;
             letter-spacing: -0.02em;
             transition: color var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
         }
 
         .logo:hover {
             color: var(--color-primary-light);
         }
 
-        /* Menu em formato de pílula */
+        /* Menu Principal - Design Profissional */
+        .nav-main-container {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+            min-width: 0;
+        }
+
         .nav-links-container {
             background: var(--color-card);
             border-radius: 50px;
-            padding: 0.5rem 1.5rem;
+            padding: 0.5rem;
             display: flex;
-            gap: 1rem;
             border: 1px solid var(--color-border);
             box-shadow: var(--shadow-sm);
             transition: all var(--transition-smooth);
+            max-width: 100%;
+            margin: 0 auto;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.8rem;
             list-style: none;
             align-items: center;
             margin: 0;
-            padding: 0;
+            padding: 0 1rem;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .nav-links::-webkit-scrollbar {
+            display: none;
         }
 
         .nav-links a {
             color: var(--color-fg);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             padding: 0.5rem 0;
             position: relative;
-            transition: color var(--transition-smooth);
+            transition: all var(--transition-smooth);
             letter-spacing: 0.01em;
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .nav-links a::after {
@@ -361,11 +387,62 @@
             color: var(--color-primary);
         }
 
-        /* Controles do Header */
+        /* Indicador de scroll para menu */
+        .nav-scroll-indicator {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            background: linear-gradient(90deg, transparent, var(--color-card));
+            display: none;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .nav-scroll-indicator i {
+            color: var(--color-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Botão Download CV dentro do menu */
+        .nav-links-container .download-cv-btn {
+            padding: 0.7rem 1.5rem;
+            background: var(--color-primary);
+            color: var(--color-bg);
+            border: none;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all var(--transition-smooth);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-sm);
+            height: 40px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-left: 0.5rem;
+        }
+
+        .nav-links-container .download-cv-btn:hover {
+            background: var(--color-primary-light);
+            color: var(--color-bg);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Controles do Header - BOTÃO TEMA AFASTADO MAIS PARA A DIREITA */
         .header-controls {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem; /* Aumentado de 1rem para 1.5rem */
+            flex-shrink: 0;
         }
 
         .theme-toggle-btn {
@@ -382,6 +459,8 @@
             color: var(--color-fg);
             font-size: 1rem;
             box-shadow: var(--shadow-sm);
+            flex-shrink: 0;
+            margin-left: 0.5rem; /* Adicionado para afastar mais */
         }
 
         .theme-toggle-btn:hover {
@@ -391,41 +470,15 @@
             border-color: var(--color-primary);
         }
 
-        .download-cv-btn {
-            padding: 0.7rem 1.5rem;
-            background: var(--color-primary);
-            color: var(--color-bg);
-            border: none;
-            border-radius: 50px;
-            font-weight: 500;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all var(--transition-smooth);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .download-cv-btn:hover {
-            background: var(--color-primary-light);
-            color: var(--color-bg);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* ===================================================
-           MENU HAMBURGUER PROFISSIONAL E MODERNO
-           =================================================== */
+        /* Menu Hambúrguer Moderno */
         .menu-toggle {
             display: none;
             background: var(--color-card);
             border: 1px solid var(--color-border);
             border-radius: 50px;
             cursor: pointer;
-            width: 48px;
-            height: 48px;
+            width: 40px;
+            height: 40px;
             align-items: center;
             justify-content: center;
             transition: all var(--transition-smooth);
@@ -433,6 +486,7 @@
             position: relative;
             z-index: 1001;
             overflow: hidden;
+            flex-shrink: 0;
         }
 
         .menu-toggle:hover {
@@ -443,8 +497,8 @@
 
         /* ÍCONE HAMBÚRGUER MODERNO */
         .hamburger-icon {
-            width: 24px;
-            height: 18px;
+            width: 20px;
+            height: 16px;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -461,12 +515,6 @@
             border-radius: 1px;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             transform-origin: center;
-        }
-
-        /* Linha superior e inferior - mais finas nas pontas */
-        .hamburger-line:nth-child(1),
-        .hamburger-line:nth-child(3) {
-            width: 100%;
         }
 
         /* Linha do meio - menor */
@@ -486,7 +534,7 @@
 
         /* ANIMAÇÃO PARA X - PROFISSIONAL E MODERNO */
         .menu-toggle.active .hamburger-line:nth-child(1) {
-            transform: translateY(8px) rotate(45deg) scaleX(1.1);
+            transform: translateY(7px) rotate(45deg) scaleX(1.1);
             background: var(--color-fg);
             width: 100%;
         }
@@ -497,26 +545,13 @@
         }
 
         .menu-toggle.active .hamburger-line:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg) scaleX(1.1);
+            transform: translateY(-7px) rotate(-45deg) scaleX(1.1);
             background: var(--color-fg);
             width: 100%;
         }
 
         /* Hover quando ativo */
         .menu-toggle.active:hover .hamburger-line {
-            background: var(--color-bg);
-        }
-
-        /* Modo escuro */
-        [data-theme='dark'] .hamburger-line {
-            background: var(--color-fg);
-        }
-
-        [data-theme='dark'] .menu-toggle.active .hamburger-line {
-            background: var(--color-fg);
-        }
-
-        [data-theme='dark'] .menu-toggle.active:hover .hamburger-line {
             background: var(--color-bg);
         }
 
@@ -660,8 +695,9 @@
         }
 
         /* ===================================================
-           HERO SECTION - NOME EM VERMELHO E NEGRITO
+           RESTANTE DO CSS (mantido igual)
            =================================================== */
+        /* HERO SECTION - NOME EM VERMELHO E NEGRITO */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -1125,8 +1161,8 @@
             margin-bottom: 1.5rem;
             color: var(--color-primary);
             background: var(--color-bg);
-            border-radius: 50%;
             border: 1px solid var(--color-border);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1346,95 +1382,223 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* Contact Section - REMODELLED */
-        .contact-section {
-            background: var(--color-card);
-            border-radius: var(--border-radius-lg);
-            padding: 3rem;
-            margin-top: 2rem;
-        }
-
+        /* ===================================================
+           CONTACT SECTION - PÍLULAS DE CONTATO COM ANIMAÇÃO
+           =================================================== */
         .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-        }
-
-        .contact-item {
             display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
-            padding: 1.5rem;
-            background: var(--color-bg);
+            flex-direction: column;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .contact-pills-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+            width: 100%;
+            max-width: 650px;
+            align-items: center;
+        }
+
+        .contact-pill {
+            background: var(--color-card);
             border: 1px solid var(--color-border);
-            border-radius: var(--border-radius-lg);
+            border-radius: 80px;
+            padding: 1.8rem 3rem;
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
             transition: all var(--transition-smooth);
+            text-decoration: none;
+            color: var(--color-fg);
+            width: 100%;
+            max-width: 600px;
+            min-height: 90px;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
         }
 
-        .contact-item:hover {
+        /* Efeitos de hover corrigidos */
+        .contact-pill:hover {
+            background: var(--color-primary);
+            color: var(--color-bg);
+            transform: translateY(-4px) scale(1.02);
             border-color: var(--color-primary);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-xl);
         }
 
-        .contact-icon {
-            width: 60px;
-            height: 60px;
+        .contact-pill:hover .contact-pill-icon {
+            color: var(--color-bg);
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .contact-pill:hover .contact-pill-detail {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Modo claro - quando hover, texto fica branco */
+        [data-theme='light'] .contact-pill:hover .contact-pill-title,
+        [data-theme='light'] .contact-pill:hover .contact-pill-detail {
+            color: #ffffff;
+        }
+
+        /* Modo escuro - quando hover, texto fica preto */
+        [data-theme='dark'] .contact-pill:hover .contact-pill-title,
+        [data-theme='dark'] .contact-pill:hover .contact-pill-detail {
+            color: #000000;
+        }
+
+        .contact-pill-icon {
+            color: var(--color-primary);
+            font-size: 1.8rem;
+            min-width: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
+            transition: all var(--transition-smooth);
+            z-index: 1;
+        }
+
+        .contact-pill-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex: 1;
+            z-index: 1;
+        }
+
+        .contact-pill-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
+            color: var(--color-fg);
+            transition: color var(--transition-smooth);
+        }
+
+        .contact-pill-detail {
+            font-size: 1rem;
+            color: var(--color-muted);
+            transition: color var(--transition-smooth);
+            word-break: break-word;
+            line-height: 1.4;
+            opacity: 1 !important;
+        }
+
+        /* GARANTIR QUE TODOS OS CARDS TENHAM A MESMA OPACIDADE */
+        .contact-pill, 
+        .contact-pill * {
+            opacity: 1 !important;
+        }
+
+        /* ANIMAÇÃO DE LUZ NA BORDA - SOMENTE NO MODO ESCURO */
+        [data-theme='dark'] .contact-pill::before,
+        [data-theme='dark'] .contact-pill::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffffff, transparent);
+            z-index: 2;
+            opacity: 0 !important; /* Escondido por padrão */
+            transition: opacity 0.3s ease;
+        }
+
+        [data-theme='dark'] .contact-pill::before {
+            top: -1px;
+            left: -100%;
+            animation: lightBorder 3s ease-in-out infinite;
+        }
+
+        [data-theme='dark'] .contact-pill::after {
+            bottom: -1px;
+            right: -100%;
+            animation: lightBorder 3s ease-in-out infinite 1.5s;
+        }
+
+        /* Mostrar animação no hover - SOMENTE NO MODO ESCURO */
+        [data-theme='dark'] .contact-pill:hover::before,
+        [data-theme='dark'] .contact-pill:hover::after {
+            opacity: 1 !important;
+            animation: lightBorderFast 1.5s ease-in-out infinite;
+        }
+
+        .contact-actions {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .contact-action-btn {
+            padding: 1.2rem 3rem;
             background: var(--color-primary);
             color: var(--color-bg);
-            font-size: 1.5rem;
-            flex-shrink: 0;
-            transition: all var(--transition-smooth);
-        }
-
-        .contact-item:hover .contact-icon {
-            transform: rotate(15deg) scale(1.1);
-            background: var(--color-primary-light);
-        }
-
-        .contact-details {
-            flex: 1;
-        }
-
-        .contact-details h3 {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-            color: var(--color-fg);
-        }
-
-        .contact-details p {
-            color: var(--color-muted);
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            word-break: break-word;
-        }
-
-        .contact-link {
-            display: inline-block;
-            margin-top: 0.5rem;
-            color: var(--color-primary);
-            text-decoration: none;
+            border: none;
+            border-radius: var(--border-radius);
             font-weight: 500;
-            font-size: 0.95rem;
+            cursor: pointer;
+            text-decoration: none;
             transition: all var(--transition-smooth);
-        }
-
-        .contact-link:hover {
-            color: var(--color-primary-light);
-            text-decoration: underline;
-        }
-
-        .contact-action-buttons {
-            display: flex;
+            display: inline-flex;
+            align-items: center;
             gap: 1rem;
-            margin-top: 2rem;
+            font-size: 1.1rem;
+            min-width: 220px;
             justify-content: center;
-            flex-wrap: wrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .contact-action-btn:hover::before {
+            left: 100%;
+        }
+
+        .contact-action-btn:hover {
+            background: var(--color-primary-light);
+            color: var(--color-bg);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* ===================================================
+           ANIMAÇÃO DA LUZ NA BORDA
+           =================================================== */
+        @keyframes lightBorder {
+            0% {
+                left: -100%;
+            }
+            50% {
+                left: 150%;
+            }
+            100% {
+                left: -100%;
+            }
+        }
+
+        @keyframes lightBorderFast {
+            0% {
+                left: -100%;
+            }
+            50% {
+                left: 150%;
+            }
+            100% {
+                left: -100%;
+            }
         }
 
         /* ===================================================
@@ -1996,10 +2160,35 @@
         }
 
         /* ===================================================
-           RESPONSIVIDADE
+           RESPONSIVIDADE - MELHORADA
            =================================================== */
-        @media (max-width: 992px) {
-            .nav-links-container {
+        @media (max-width: 1200px) {
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .nav-links {
+                gap: 1.2rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.82rem;
+            }
+            
+            .nav-links-container .download-cv-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 1050px) {
+            .nav-main-container {
                 display: none;
             }
 
@@ -2007,10 +2196,12 @@
                 display: flex;
             }
 
-            .download-cv-btn {
+            .nav-links-container {
                 display: none;
             }
+        }
 
+        @media (max-width: 992px) {
             .experience-timeline {
                 padding-left: 0;
             }
@@ -2044,9 +2235,14 @@
             .snake-mobile-controls {
                 display: grid;
             }
+            
+            .contact-pill {
+                max-width: 550px;
+                padding: 1.6rem 2.5rem;
+            }
         }
 
-        @media (min-width: 993px) {
+        @media (min-width: 1051px) {
             .menu-toggle {
                 display: none;
             }
@@ -2132,13 +2328,20 @@
                 display: none;
             }
             
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+            .contact-pill {
+                max-width: 500px;
+                padding: 1.4rem 2rem;
+                border-radius: 70px;
             }
             
-            .contact-item {
-                padding: 1.2rem;
+            .contact-action-btn {
+                min-width: 200px;
+                padding: 1.1rem 2.5rem;
+            }
+            
+            .contact-pill-icon {
+                font-size: 1.6rem;
+                min-width: 40px;
             }
         }
 
@@ -2189,21 +2392,36 @@
                 min-height: 60px;
             }
             
-            .contact-section {
-                padding: 2rem 1.5rem;
+            .contact-pill {
+                max-width: 100%;
+                padding: 1.2rem 1.8rem;
+                border-radius: 60px;
+                gap: 1.2rem;
             }
             
-            .contact-item {
+            .contact-pill-icon {
+                font-size: 1.5rem;
+                min-width: 35px;
+            }
+            
+            .contact-actions {
                 flex-direction: column;
-                text-align: center;
                 align-items: center;
-                gap: 1rem;
+                gap: 1.5rem;
             }
             
-            .contact-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
+            .contact-action-btn {
+                width: 100%;
+                max-width: 280px;
+                padding: 1rem 2rem;
+            }
+            
+            .contact-pill-title {
+                font-size: 1.05rem;
+            }
+            
+            .contact-pill-detail {
+                font-size: 0.95rem;
             }
         }
 
@@ -2263,15 +2481,22 @@
                 font-size: 1.2rem;
             }
             
-            .contact-action-buttons {
-                flex-direction: column;
-                align-items: stretch;
+            .contact-pill {
+                padding: 1rem 1.5rem;
+                border-radius: 50px;
             }
             
-            .contact-action-buttons .primary-btn,
-            .contact-action-buttons .btn-outline {
-                width: 100%;
-                justify-content: center;
+            .contact-pill-icon {
+                font-size: 1.4rem;
+                min-width: 30px;
+            }
+            
+            .contact-pill-title {
+                font-size: 1rem;
+            }
+            
+            .contact-pill-detail {
+                font-size: 0.9rem;
             }
         }
 
@@ -2283,6 +2508,8 @@
             .theme-toggle-btn {
                 width: 36px;
                 height: 36px;
+                font-size: 0.9rem;
+                margin-left: 0.3rem; /* Ajuste para telas muito pequenas */
             }
 
             .menu-toggle {
@@ -2319,6 +2546,16 @@
                 padding: 0.7rem;
                 min-height: 45px;
                 font-size: 1rem;
+            }
+            
+            .contact-pill {
+                padding: 0.9rem 1.2rem;
+                gap: 1rem;
+            }
+            
+            .contact-pill-icon {
+                font-size: 1.3rem;
+                min-width: 25px;
             }
         }
 
@@ -2400,7 +2637,7 @@
         </div>
     </div>
 
-    <!-- Header com Navegação Elegante -->
+    <!-- Header com Navegação Profissional -->
     <header id="mainHeader">
         <nav>
             <div class="logo-container">
@@ -2409,29 +2646,38 @@
                 </a>
             </div>
 
-            <!-- Menu Principal em formato de pílula -->
-            <div class="nav-links-container">
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#about">Sobre</a></li>
-                    <li><a href="#skills">Habilidades</a></li>
-                    <li><a href="#ai">IA</a></li>
-                    <li><a href="#certifications">Certificações</a></li>
-                    <li><a href="#experience">Experiência</a></li>
-                    <li><a href="#contact">Contato</a></li>
-                    <li><a href="#snake-game-section">Snake Game</a></li>
-                </ul>
+            <!-- Menu Principal - Design Profissional -->
+            <div class="nav-main-container">
+                <div class="nav-links-container">
+                    <ul class="nav-links" id="navLinks">
+                        <li><a href="#about">Sobre</a></li>
+                        <li><a href="#skills">Habilidades</a></li>
+                        <li><a href="#ai">IA</a></li>
+                        <li><a href="#itsm">Chamados</a></li>
+                        <li><a href="#certifications">Certificações</a></li>
+                        <li><a href="#experience">Experiência</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                        <li><a href="#snake-game-section">Snake Game</a></li>
+                    </ul>
+                    
+                    <!-- Botão Download CV dentro do menu -->
+                    <a href="javascript:void(0);" class="download-cv-btn" id="downloadCvBtn">
+                        <i class="fas fa-download"></i>
+                        <span>Download CV</span>
+                    </a>
+                    
+                    <!-- Indicador de scroll -->
+                    <div class="nav-scroll-indicator" id="navScrollIndicator">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
             </div>
 
-            <!-- Controles -->
+            <!-- Controles - BOTÃO TEMA AFASTADO PARA A DIREITA -->
             <div class="header-controls">
                 <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Alternar tema">
                     <i class="fas fa-moon" id="themeIcon"></i>
                 </button>
-                
-                <a href="javascript:void(0);" class="download-cv-btn" id="downloadCvBtn">
-                    <i class="fas fa-download"></i>
-                    <span>Download CV</span>
-                </a>
                 
                 <!-- Menu Hambúrguer Moderno -->
                 <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
@@ -2465,6 +2711,10 @@
                 <a href="#ai" class="mobile-nav-item">
                     <span class="nav-icon"><i class="fas fa-robot"></i></span>
                     <span>IA</span>
+                </a>
+                <a href="#itsm" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-ticket-alt"></i></span>
+                    <span>Chamados</span>
                 </a>
                 <a href="#certifications" class="mobile-nav-item">
                     <span class="nav-icon"><i class="fas fa-medal"></i></span>
@@ -2506,7 +2756,7 @@
                 Combinando expertise técnica com um olhar atento para design e usabilidade.
             </p>
             <div class="hero-buttons">
-                <a href="#contact" class="primary-btn">Entre em Contato</a>
+                <a href="#contact" class="primary-btn">Vamos Conversar</a>
                 <a href="#experience" class="btn-outline">Ver Experiência</a>
             </div>
             <div class="social-links">
@@ -2640,7 +2890,24 @@
                             <span class="skill-dot"></span>
                             <span>Vercel</span>
                         </li>
-                      
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-microchip"></i> Suporte Técnico</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item">
+                            <i class="fas fa-desktop" style="color: var(--color-primary); font-size: 0.9rem; margin-right: 8px;"></i>
+                            <span>Formatação de Máquinas</span>
+                        </li>
+                        <li class="skill-item">
+                            <i class="fas fa-print" style="color: var(--color-primary); font-size: 0.9rem; margin-right: 8px;"></i>
+                            <span>Configuração de Impressoras</span>
+                        </li>
+                       
+                        <li class="skill-item">
+                            <i class="fas fa-user-shield" style="color: var(--color-primary); font-size: 0.9rem; margin-right: 8px;"></i>
+                            <span>Certificados Digitais</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -2679,6 +2946,36 @@
                     <div class="ai-focus">
                         <i class="fas fa-code"></i>
                         <span>Desenvolvimento</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ITSM Section -->
+    <section id="itsm">
+        <div class="container">
+            <div class="section-header">
+                <h2>Plataformas de <span class="highlight">Gerenciamento de Chamados</span></h2>
+                <p>Experiência com ferramentas líderes de mercado para suporte</p>
+            </div>
+            <div class="ai-grid">
+                <div class="ai-card">
+                    <h3 class="ai-title">GLPI</h3>
+                    <p class="ai-description">Gestão completa de ativos de TI, inventário automatizado e sistema de helpdesk integrado.</p>
+                    <div class="ai-focus">
+                        <i class="fas fa-ticket-alt"></i>
+                        <span>Gestão de Chamados</span>
+                    </div>
+                </div>
+                <div class="ai-card">
+                    <h3 class="ai-title">Assyst</h3>
+                    <p class="ai-description">Plataforma robusta para gerenciamento de serviços de TI, focada em processos ITIL e eficiência operacional.</p>
+                    <div class="ai-focus">
+                        <i class="fas fa-project-diagram"></i>
+                        <span>Governança de TI</span>
                     </div>
                 </div>
             </div>
@@ -2814,7 +3111,7 @@
                         </div>
                         <div class="experience-period">
                             <i class="far fa-calendar-alt"></i>
-                            <span>Março 2024 - Março 2025 • 1 ano</span>
+                            <span>Março 2024 - Maio 2025 • 1 ano e 3 meses</span>
                         </div>
                         <p class="experience-description">
                             Atuei como plantonista técnico na Maternidade Municipal Lourdes Nogueira, 
@@ -2823,7 +3120,7 @@
                         <div>
                             <p class="achievements-title"><i class="fas fa-trophy"></i> Principais Conquistas:</p>
                             <ul class="achievements-list">
-                                <li class="achievement-item">Gerenciamento e resolução de mais de 500 incidentes através da plataforma GLPI</li>
+                                <li class="achievement-item">Gerenciamento e resolução de mais de 100 incidentes através da plataforma GLPI</li>
                                 <li class="achievement-item">Instalação e configuração de impressoras em rede hospitalar</li>
                                 <li class="achievement-item">Suporte técnico especializado para 150+ colaboradores no uso do pacote Microsoft Office</li>
                                 <li class="achievement-item">Orientação no uso do sistema de prontuário eletrônico</li>
@@ -2876,7 +3173,7 @@
                         <div>
                             <p class="achievements-title"><i class="fas fa-trophy"></i> Principais Atividades:</p>
                             <ul class="achievements-list">
-                                <li class="achievement-item">Execução de manutenções preventivas e corretivas em 15 laboratórios de informática</li>
+                                <li class="achievement-item">Execução de manutenções preventivas e corretivas emlaboratórios de informática</li>
                                 <li class="achievement-item">Instalação e configuração de softwares educacionais específicos conforme solicitado pelos educadores</li>
                                 <li class="achievement-item">Configuração de ferramentas educacionais para o processo de ensino-aprendizagem</li>
                                 <li class="achievement-item">Suporte técnico a professores e alunos durante aulas práticas</li>
@@ -2891,70 +3188,59 @@
 
     <div class="section-divider"></div>
 
-    <!-- Contact Section - REORGANIZADA -->
+    <!-- Contact Section - PÍLULAS DE CONTATO COM ANIMAÇÃO -->
     <section id="contact">
         <div class="container">
             <div class="section-header">
                 <h2>Entre em <span class="highlight">Contato</span></h2>
-                <p>Estou sempre aberto a novas oportunidades e projetos interessantes</p>
+                <p>Vamos conversar sobre seu próximo projeto ou oportunidade</p>
             </div>
             
-            <div class="contact-section">
-                <div class="contact-grid">
+            <div class="contact-grid">
+                <div class="contact-pills-container">
                     <!-- Email -->
-                    <div class="contact-item">
-                        <div class="contact-icon">
+                    <a href="mailto:edinaldoalmeida98@outlook.com" class="contact-pill">
+                        <div class="contact-pill-icon">
                             <i class="far fa-envelope"></i>
                         </div>
-                        <div class="contact-details">
-                            <h3>Email</h3>
-                            <p>edinaldoalmeida98@outlook.com</p>
-                            <a href="mailto:edinaldoalmeida98@outlook.com" class="contact-link">
-                                Enviar email
-                            </a>
+                        <div class="contact-pill-content">
+                            <span class="contact-pill-title">Email</span>
+                            <span class="contact-pill-detail">edinaldoalmeida98@outlook.com</span>
                         </div>
-                    </div>
+                    </a>
                     
                     <!-- Telefone -->
-                    <div class="contact-item">
-                        <div class="contact-icon">
+                    <a href="tel:+5579999178206" class="contact-pill">
+                        <div class="contact-pill-icon">
                             <i class="fas fa-phone"></i>
                         </div>
-                        <div class="contact-details">
-                            <h3>Telefone</h3>
-                            <p>(79) 99917-8206</p>
-                            <a href="tel:+5579999178206" class="contact-link">
-                                Ligar agora
-                            </a>
+                        <div class="contact-pill-content">
+                            <span class="contact-pill-title">Telefone</span>
+                            <span class="contact-pill-detail">(79) 99917-8206</span>
                         </div>
-                    </div>
+                    </a>
                     
-                    <!-- Localização -->
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
+                    <!-- LinkedIn (GitHub foi removido conforme solicitado) -->
+                    <a href="https://www.linkedin.com/in/edinaldo-almeida-b67194276/" target="_blank" class="contact-pill">
+                        <div class="contact-pill-icon">
+                            <i class="fab fa-linkedin-in"></i>
                         </div>
-                        <div class="contact-details">
-                            <h3>Localização</h3>
-                            <p>Aracaju, Sergipe</p>
-                            <p>Brasil</p>
+                        <div class="contact-pill-content">
+                            <span class="contact-pill-title">LinkedIn</span>
+                            <span class="contact-pill-detail">/edinaldo-almeida</span>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 
-                <!-- Redes Sociais -->
-                <div class="contact-action-buttons">
-                    <a href="https://github.com/Joseedinaldo" target="_blank" class="btn-outline">
-                        <i class="fab fa-github"></i>
-                        <span>GitHub</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/edinaldo-almeida-b67194276/" target="_blank" class="btn-outline">
-                        <i class="fab fa-linkedin-in"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="mailto:edinaldoalmeida98@outlook.com" class="primary-btn">
+                <!-- Botões de Ação -->
+                <div class="contact-actions">
+                    <a href="mailto:edinaldoalmeida98@outlook.com" class="contact-action-btn">
                         <i class="far fa-envelope"></i>
                         <span>Enviar Email</span>
+                    </a>
+                    <a href="javascript:void(0);" class="contact-action-btn" id="whatsappContact">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp</span>
                     </a>
                 </div>
             </div>
@@ -3053,6 +3339,7 @@
                         <li><a href="#skills">Node.js</a></li>
                         <li><a href="#skills">PostgreSQL</a></li>
                         <li><a href="#ai">Inteligência Artificial</a></li>
+                        <li><a href="#itsm">Gerenciamento de Chamados</a></li>
                     </ul>
                 </div>
                 
@@ -3107,44 +3394,41 @@
                     setTimeout(() => {
                         preloader.classList.add('hidden');
                         initAnimations();
+                        initContactAnimations();
+                        initNavScroll();
                     }, 500);
                 }
             }, 100);
         }
 
         // ====================
-        // 2. ANIMAÇÃO DE IA PARA MODO ESCURO
+        // 2. NAVEGAÇÃO HORIZONTAL - INDICADOR DE SCROLL
         // ====================
-        function initIAAnimations() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
+        function initNavScroll() {
+            const navLinks = document.getElementById('navLinks');
+            const scrollIndicator = document.getElementById('navScrollIndicator');
             
-            if (currentTheme === 'dark') {
-                startIAGradientAnimations();
+            if (!navLinks || !scrollIndicator) return;
+            
+            function updateScrollIndicator() {
+                const hasHorizontalScroll = navLinks.scrollWidth > navLinks.clientWidth;
+                const isAtEnd = navLinks.scrollLeft + navLinks.clientWidth >= navLinks.scrollWidth - 10;
+                
+                if (hasHorizontalScroll && !isAtEnd) {
+                    scrollIndicator.style.display = 'flex';
+                } else {
+                    scrollIndicator.style.display = 'none';
+                }
             }
-        }
-
-        function applyIAColorAnimations() {
-            const nameElement = document.getElementById('animated-name');
-            nameElement.style.color = '#ff0000';
-            nameElement.style.fontWeight = '900';
-        }
-
-        function startIAGradientAnimations() {
-            const highlights = document.querySelectorAll('.section-header .highlight');
-            highlights.forEach(highlight => {
-                highlight.style.animation = 'aiGradientShift 4s ease infinite';
-            });
-        }
-
-        function removeIAAnimations() {
-            const nameElement = document.getElementById('animated-name');
-            nameElement.style.color = '#ff0000';
-            nameElement.style.fontWeight = '900';
-
-            const highlights = document.querySelectorAll('.section-header .highlight');
-            highlights.forEach(highlight => {
-                highlight.style.animation = 'none';
-            });
+            
+            // Verificar quando o menu é rolado
+            navLinks.addEventListener('scroll', updateScrollIndicator);
+            
+            // Verificar quando a janela é redimensionada
+            window.addEventListener('resize', updateScrollIndicator);
+            
+            // Verificar inicialmente
+            updateScrollIndicator();
         }
 
         // ====================
@@ -3345,7 +3629,7 @@
                             <i class="fas fa-external-link-alt"></i>
                             <span>Abrir Certificado</span>
                         </a>
-                    </div>
+                </div>
                 `;
             }
             
@@ -3408,8 +3692,20 @@
         }
 
         // ====================
-        // 9. REMOVED: FORMULÁRIO DE CONTATO E EMAILJS CONFIG
+        // 9. CONFIGURAÇÃO WHATSAPP
         // ====================
+        function initWhatsApp() {
+            const whatsappBtn = document.getElementById('whatsappContact');
+            if (whatsappBtn) {
+                whatsappBtn.addEventListener('click', function() {
+                    const phoneNumber = '5579999178206';
+                    const message = 'Olá Edinaldo! Vi seu portfólio e gostaria de conversar sobre...';
+                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                    
+                    window.open(whatsappUrl, '_blank');
+                });
+            }
+        }
 
         // ====================
         // 10. SNAKE GAME - COM CONTROLES PARA MOBILE
@@ -3759,7 +4055,26 @@
         }
 
         // ====================
-        // 12. EVENT LISTENERS
+        // 12. ANIMAÇÃO DOS CARDS DE CONTATO
+        // ====================
+        function initContactAnimations() {
+            const contactPills = document.querySelectorAll('.contact-pill');
+            
+            contactPills.forEach((pill, index) => {
+                pill.style.animationDelay = `${index * 0.5}s`;
+                
+                gsap.from(pill, {
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.8,
+                    delay: index * 0.2,
+                    ease: "power3.out"
+                });
+            });
+        }
+
+        // ====================
+        // 13. EVENT LISTENERS
         // ====================
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
@@ -3770,6 +4085,7 @@
             }
 
             hidePreloader();
+            initWhatsApp();
 
             const menuToggle = document.getElementById('menuToggle');
             const mobileOverlay = document.getElementById('mobileMenuOverlay');
