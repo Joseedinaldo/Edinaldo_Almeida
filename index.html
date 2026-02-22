@@ -20,17 +20,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+    <!-- AOS (Animate on Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- EmailJS v4 -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+    <!-- jsPDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-    <!-- SweetAlert2 para notificações modernas -->
+    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- GSAP para animações avançadas -->
+    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
@@ -53,13 +55,6 @@
             --color-primary-light: #333333;
             --color-primary-dark: #000000;
             --color-secondary: #000000;
-            --color-accent-1: #000000;
-            --color-accent-2: #000000;
-            --color-accent-3: #000000;
-            --color-accent-4: #000000;
-            --color-accent-5: #000000;
-            --color-accent-6: #000000;
-            --color-accent-7: #000000;
             --color-border: #e0e0e0;
             --color-card: #f5f5f5;
             --color-muted: #666666;
@@ -125,9 +120,6 @@
             --ai-gradient-5: #F472B6;
         }
 
-        /* Efeito espelhado turvo para elementos no modo escuro - MENU PROFISSIONAL ELEGANTE */
-        /* Estilos de tema escuro removidos para usar a nova estrutura unificada */
-
         [data-theme='dark'] .nav-links a {
             color: rgba(255, 255, 255, 0.85) !important;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9) !important;
@@ -159,21 +151,19 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.5) !important;
         }
 
-        /* Botões no modo escuro - efeito espelhado profissional */
-        /* Estilos de botões escuros removidos */
+        [data-theme='dark'] .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
 
-        [data-theme='dark'] .theme-toggle-btn:hover,
-        [data-theme='dark'] .download-cv-btn:hover {
-            background: linear-gradient(
-                145deg,
-                rgba(55, 55, 55, 0.95),
-                rgba(35, 35, 35, 0.95)
-            ) !important;
-            border-color: rgba(255, 255, 255, 0.15) !important;
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.6),
-                0 0 20px rgba(255, 255, 255, 0.03),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+        [data-theme='dark'] .theme-toggle-btn i {
+            color: #ffffff !important;
+        }
+
+        [data-theme='dark'] .download-cv-btn {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            color: #ffffff !important;
         }
 
         [data-theme='dark'] .menu-toggle {
@@ -190,29 +180,6 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
         }
 
-        [data-theme='dark'] .menu-toggle:hover {
-            background: linear-gradient(
-                145deg,
-                rgba(55, 55, 55, 0.95),
-                rgba(35, 35, 35, 0.95)
-            ) !important;
-            border-color: rgba(255, 255, 255, 0.15) !important;
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.6),
-                0 0 20px rgba(255, 255, 255, 0.03),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-        }
-
-        /* Estilo de logo escuro removido */
-
-        [data-theme='dark'] .logo:hover {
-            background: rgba(255, 255, 255, 0.07) !important;
-            border-color: rgba(255, 255, 255, 0.15) !important;
-        }
-
-        /* ===================================================
-           ALERTAS EM MODO ESCURO - COR PRETA
-           =================================================== */
         [data-theme='dark'] .swal2-popup {
             background: #000000 !important;
             color: #ffffff !important;
@@ -250,9 +217,38 @@
             font-weight: 400;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            /* Prevenir sobreposição do header */
+            transition: background-color 0.5s ease, color 0.5s ease;
             padding-top: calc(var(--header-height) + 4rem);
+        }
+
+        body, 
+        header, 
+        .nav-links-container,
+        .theme-toggle-btn,
+        .download-cv-btn,
+        .menu-toggle,
+        .mobile-menu,
+        .feature-card,
+        .skill-category,
+        .ai-card,
+        .certification-card,
+        .experience-content,
+        .contact-pill,
+        .contact-action-btn,
+        .terminal-container,
+        footer,
+        .section-divider,
+        .preloader,
+        .certificate-modal-content,
+        .swal2-popup {
+            transition: background-color 0.5s ease, 
+                        color 0.5s ease, 
+                        border-color 0.5s ease, 
+                        box-shadow 0.5s ease;
+        }
+
+        i, .fa-sun, .fa-moon {
+            transition: color 0.5s ease, background-color 0.5s ease;
         }
 
         html {
@@ -275,6 +271,7 @@
             align-items: center;
             z-index: 9999;
             transition: opacity 0.5s ease;
+            animation: fadeIn 0.5s ease;
         }
 
         .preloader.hidden {
@@ -284,6 +281,7 @@
 
         .preloader-content {
             text-align: center;
+            animation: zoomIn 0.8s ease;
         }
 
         .preloader-logo {
@@ -314,6 +312,62 @@
         }
 
         /* ===================================================
+           ANIMAÇÕES DE ENTRADA
+           =================================================== */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* ===================================================
            HEADER E NAVEGAÇÃO - DESIGN PROFISSIONAL MELHORADO
            =================================================== */
         header {
@@ -329,12 +383,13 @@
             border: 1px solid #e0e0e0;
             height: auto;
             min-height: var(--header-height);
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             display: flex;
             align-items: center;
             margin-top: 0;
             padding: 0.5rem 0;
+            animation: slideInUp 0.8s ease;
         }
 
         [data-theme='dark'] header {
@@ -346,29 +401,6 @@
                 0 10px 30px rgba(0, 0, 0, 0.5),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
         }
-
-        /* REMOVIDO: Efeito de luz que passa sobre o header */
-        /* header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.1),
-                transparent
-            );
-            transition: 0.5s;
-            pointer-events: none;
-        }
-
-        header:hover::before {
-            left: 100%;
-            transition: 0.8s;
-        } */
 
         header.scrolled {
             box-shadow: var(--shadow-xl);
@@ -386,7 +418,6 @@
             position: relative;
         }
 
-        /* Logo - Elegante e profissional */
         .logo-container {
             display: flex;
             align-items: center;
@@ -400,20 +431,12 @@
             color: var(--color-primary);
             text-decoration: none;
             letter-spacing: -0.02em;
-            transition: color var(--transition-smooth);
+            transition: color 0.5s ease;
             display: flex;
             align-items: center;
             gap: 0.25rem;
         }
 
-        .logo:hover {
-            color: var(--color-primary-light);
-            border-color: var(--color-border);
-            background: rgba(0, 0, 0, 0.05);
-            transform: translateY(-1px);
-        }
-
-        /* Menu Principal - Design Profissional */
         .nav-main-container {
             display: flex;
             align-items: center;
@@ -429,7 +452,7 @@
             display: flex;
             border: 1px solid var(--color-border);
             box-shadow: var(--shadow-sm);
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             max-width: 100%;
             margin: 0 auto;
             align-items: center;
@@ -462,7 +485,7 @@
             font-size: 0.9rem;
             padding: 0.5rem 0;
             position: relative;
-            transition: all var(--transition-smooth);
+            transition: color 0.5s ease;
             letter-spacing: 0.01em;
             white-space: nowrap;
             flex-shrink: 0;
@@ -486,17 +509,10 @@
 
         .nav-links a:hover::after {
             width: 100%;
-            animation: navLoading 1s infinite linear;
         }
 
         .nav-links a.active::after {
             width: 100%;
-        }
-
-        @keyframes navLoading {
-            0% { left: 0; width: 0; }
-            50% { left: 0; width: 100%; }
-            100% { left: 100%; width: 0; }
         }
 
         @media (max-width: 1200px) {
@@ -523,7 +539,6 @@
             transform: translateY(-1px);
         }
 
-        /* Indicador de scroll para menu */
         .nav-scroll-indicator {
             position: absolute;
             right: 0;
@@ -544,7 +559,6 @@
             font-size: 0.8rem;
         }
 
-        /* Botão Download CV dentro do menu */
         .nav-links-container .download-cv-btn {
             padding: 0.7rem 1.5rem;
             background: var(--color-primary);
@@ -554,7 +568,7 @@
             font-weight: 500;
             cursor: pointer;
             text-decoration: none;
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             font-size: 0.9rem;
             display: flex;
             align-items: center;
@@ -566,18 +580,10 @@
             margin-left: 0.5rem;
         }
 
-        .nav-links-container .download-cv-btn:hover {
-            background: var(--color-primary-light);
-            color: var(--color-bg);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Controles do Header - BOTÃO TEMA AFASTADO MAIS PARA A DIREITA */
         .header-controls {
             display: flex;
             align-items: center;
-            gap: 1.5rem; /* Aumentado de 1rem para 1.5rem */
+            gap: 1.5rem;
             flex-shrink: 0;
         }
 
@@ -591,22 +597,14 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             color: var(--color-fg);
             font-size: 1rem;
             box-shadow: var(--shadow-sm);
             flex-shrink: 0;
-            margin-left: 0.5rem; /* Adicionado para afastar mais */
+            margin-left: 0.5rem;
         }
 
-        .theme-toggle-btn:hover {
-            background: var(--color-primary);
-            color: var(--color-bg);
-            transform: rotate(15deg) scale(1.05);
-            border-color: var(--color-primary);
-            box-shadow: var(--shadow-lg);
-        }
-        /* Menu Hambúrguer Moderno */
         .menu-toggle {
             display: none;
             background: var(--color-bg);
@@ -617,7 +615,7 @@
             height: 40px;
             align-items: center;
             justify-content: center;
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             position: relative;
             z-index: 1001;
@@ -625,21 +623,10 @@
             flex-shrink: 0;
         }
 
-        .menu-toggle:hover {
-            border-color: var(--color-primary);
-            background: rgba(0, 0, 0, 0.03);
-            transform: scale(1.05);
-        }
-
-        [data-theme='dark'] .menu-toggle:hover {
-            background: rgba(255, 255, 255, 0.08);
-        }
-
         .menu-toggle:active {
             transform: scale(0.95);
         }
 
-        /* ÍCONE HAMBÚRGUER CASUAL */
         .hamburger-icon {
             width: 20px;
             height: 16px;
@@ -662,18 +649,11 @@
             position: relative;
         }
 
-        /* Linha do meio - menor */
         .hamburger-line:nth-child(2) {
             width: 70%;
             margin-left: auto;
         }
 
-        /* Hover efeito */
-        .menu-toggle:hover .hamburger-line {
-            background: var(--color-primary);
-        }
-
-        /* ANIMAÇÃO PARA X - SIMPLES */
         .menu-toggle.active .hamburger-line:nth-child(1) {
             transform: translateY(7px) rotate(45deg) scaleX(1.1);
             background: var(--color-fg);
@@ -691,12 +671,6 @@
             width: 100%;
         }
 
-        /* Hover quando ativo */
-        .menu-toggle.active:hover .hamburger-line {
-            background: var(--color-bg);
-        }
-
-        /* Menu Mobile Lateral Profissional */
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
@@ -720,17 +694,16 @@
         .mobile-menu {
             position: fixed;
             top: 0;
-            right: 0;
+            right: -300px;
             width: 300px;
             height: 100vh;
             background: var(--color-bg);
             display: flex;
             flex-direction: column;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.5s ease;
             z-index: 1000;
             overflow-y: auto;
             box-shadow: -2px 0 20px rgba(0, 0, 0, 0.1);
-            transform: translateX(100%);
             border-left: 1px solid var(--color-border);
         }
 
@@ -741,7 +714,7 @@
         }
 
         .mobile-menu.active {
-            transform: translateX(0);
+            right: 0;
         }
 
         .mobile-menu-header {
@@ -775,20 +748,26 @@
             color: var(--color-fg);
             text-decoration: none;
             border-radius: 12px;
-            transition: all var(--transition-smooth);
+            transition: background-color 0.5s ease, color 0.5s ease, transform 0.3s ease;
             font-weight: 500;
             background: transparent;
+            transform: translateX(20px);
+            opacity: 0;
         }
 
-        .mobile-nav-item:hover {
-            background: rgba(0, 0, 0, 0.05);
-            color: var(--color-primary);
-            transform: translateX(5px);
+        .mobile-menu.active .mobile-nav-item {
+            transform: translateX(0);
+            opacity: 1;
         }
 
-        [data-theme='dark'] .mobile-nav-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
+        .mobile-nav-item:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-nav-item:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-nav-item:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-nav-item:nth-child(4) { transition-delay: 0.4s; }
+        .mobile-nav-item:nth-child(5) { transition-delay: 0.5s; }
+        .mobile-nav-item:nth-child(6) { transition-delay: 0.6s; }
+        .mobile-nav-item:nth-child(7) { transition-delay: 0.7s; }
+        .mobile-nav-item:nth-child(8) { transition-delay: 0.8s; }
 
         .mobile-nav-item.active {
             background: rgba(0, 0, 0, 0.08);
@@ -804,15 +783,10 @@
             width: 24px;
             text-align: center;
             font-size: 1.2rem;
-            transition: transform var(--transition-smooth);
+            transition: transform 0.5s ease;
             color: var(--color-primary);
         }
 
-        .mobile-nav-item:hover .nav-icon {
-            transform: scale(1.1);
-        }
-
-        /* Botão Download no Mobile - CASUAL */
         .mobile-download-btn {
             margin-top: auto;
             padding: 1.2rem 1.5rem;
@@ -827,7 +801,7 @@
             align-items: center;
             justify-content: center;
             gap: 0.8rem;
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             margin: 2rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
@@ -842,19 +816,13 @@
             color: #000 !important;
         }
 
-        .mobile-download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-        }
-
         .mobile-download-btn:active {
             transform: scale(0.98);
         }
 
         /* ===================================================
-           RESTANTE DO CSS (mantido igual)
+           HERO SECTION
            =================================================== */
-        /* HERO SECTION - NOME EM VERMELHO E NEGRITO */
         .hero {
             min-height: calc(100vh - var(--header-height) - 4rem);
             display: flex;
@@ -878,9 +846,9 @@
             margin-bottom: 1.5rem;
             line-height: 1.1;
             letter-spacing: -0.03em;
+            animation: slideInLeft 1s ease;
         }
 
-        /* NOME EM VERMELHO E NEGRITO */
         .hero-name {
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 800;
@@ -915,6 +883,7 @@
             margin-bottom: 2rem;
             font-weight: 400;
             letter-spacing: normal;
+            animation: slideInRight 1s ease;
         }
 
         .hero .description {
@@ -923,6 +892,7 @@
             max-width: 36rem;
             margin: 0 auto 3rem;
             line-height: 1.6;
+            animation: fadeIn 1.2s ease;
         }
 
         .hero-buttons {
@@ -931,6 +901,7 @@
             justify-content: center;
             margin-bottom: 3rem;
             flex-wrap: wrap;
+            animation: zoomIn 1s ease;
         }
 
         .primary-btn {
@@ -942,23 +913,15 @@
             font-weight: 600;
             cursor: pointer;
             text-decoration: none;
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
             box-shadow: var(--shadow-md);
         }
 
-        .primary-btn:hover {
-            background: var(--color-primary-light);
-            color: var(--color-bg);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-xl);
-            gap: 0.8rem;
-        }
-
         .primary-btn:active {
-            transform: scale(0.98) translateY(-3px);
+            transform: scale(0.98);
         }
 
         .btn-outline {
@@ -970,27 +933,21 @@
             font-weight: 600;
             cursor: pointer;
             text-decoration: none;
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
         }
 
-        .btn-outline:hover {
-            border-color: var(--color-primary);
-            color: var(--color-primary);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-
         .btn-outline:active {
-            transform: scale(0.98) translateY(-3px);
+            transform: scale(0.98);
         }
 
         .social-links {
             display: flex;
             gap: 1.2rem;
             justify-content: center;
+            animation: slideInUp 1s ease;
         }
 
         .social-links a {
@@ -1002,17 +959,9 @@
             justify-content: center;
             border-radius: 50%;
             border: 1px solid var(--color-border);
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             text-decoration: none;
             background: rgba(var(--color-primary-rgb, 0, 0, 0), 0.03);
-        }
-
-        .social-links a:hover {
-            color: var(--color-primary);
-            border-color: var(--color-primary);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: var(--shadow-md);
-            background: rgba(var(--color-primary-rgb, 0, 0, 0), 0.05);
         }
 
         /* ===================================================
@@ -1071,6 +1020,9 @@
             position: relative;
             padding-left: 4rem;
             margin-bottom: 3rem;
+            animation: slideInUp 0.8s ease;
+            animation-timeline: view();
+            animation-range: entry 0% cover 30%;
         }
 
         .experience-item:last-child {
@@ -1087,13 +1039,8 @@
             border: 3px solid var(--color-primary);
             border-radius: 50%;
             z-index: 2;
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             box-shadow: 0 0 0 3px var(--color-card);
-        }
-
-        .experience-item:hover .timeline-dot {
-            transform: scale(1.4);
-            background: var(--color-primary);
         }
 
         .experience-item.current .timeline-dot {
@@ -1108,7 +1055,7 @@
             padding: 2rem;
             position: relative;
             overflow: hidden;
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
         }
 
         .experience-item.current .experience-content {
@@ -1134,18 +1081,14 @@
             border: 1px solid var(--color-border);
             overflow: hidden;
             flex-shrink: 0;
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
         }
 
         .company-logo img {
             width: 80%;
             height: 80%;
             object-fit: contain;
-            transition: transform var(--transition-smooth);
-        }
-
-        .experience-content:hover .company-logo img {
-            transform: scale(1.05);
+            transition: transform 0.5s ease;
         }
 
         .experience-title h3 {
@@ -1219,10 +1162,6 @@
             line-height: 1.4;
         }
 
-        .achievement-item:hover::before {
-            animation: bounce 0.5s ease;
-        }
-
         /* ===================================================
            SEÇÕES GERAIS COM TÍTULOS COLORIDOS
            =================================================== */
@@ -1231,7 +1170,6 @@
             position: relative;
         }
 
-        /* Ajustar primeira seção após hero */
         #about {
             padding-top: 6rem;
         }
@@ -1239,6 +1177,7 @@
         .section-header {
             text-align: center;
             margin-bottom: 4rem;
+            animation: fadeIn 1s ease;
         }
 
         .section-header h2 {
@@ -1263,7 +1202,6 @@
             background-size: 200% 200%;
         }
 
-        /* Efeito especial para modo escuro - Gradiente IA */
         [data-theme='dark'] .section-header .highlight {
             background: linear-gradient(
                 135deg,
@@ -1280,7 +1218,6 @@
             animation: aiGradientShift 4s ease infinite;
         }
 
-        /* Estilo para o nome em modo escuro - também vermelho */
         [data-theme='dark'] .hero .animated-text {
             color: #ff0000 !important;
             font-weight: 900 !important;
@@ -1300,7 +1237,6 @@
             margin: 0 auto;
         }
 
-        /* Cards Minimalistas */
         .feature-card,
         .skill-category,
         .ai-card,
@@ -1310,23 +1246,36 @@
             border: 1px solid var(--color-border);
             border-radius: var(--border-radius-lg);
             padding: 2rem;
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             position: relative;
             height: 100%;
             overflow: hidden;
         }
 
-        .feature-card:hover,
-        .skill-category:hover,
-        .ai-card:hover,
-        .certification-card:hover,
-        .experience-content:hover {
-            border-color: var(--color-primary);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
+        .feature-card {
+            animation: slideInUp 0.8s ease;
+            animation-timeline: view();
+            animation-range: entry 0% cover 30%;
         }
 
-        /* About Section */
+        .skill-category {
+            animation: slideInLeft 0.8s ease;
+            animation-timeline: view();
+            animation-range: entry 0% cover 30%;
+        }
+
+        .ai-card {
+            animation: zoomIn 0.8s ease;
+            animation-timeline: view();
+            animation-range: entry 0% cover 30%;
+        }
+
+        .certification-card {
+            animation: slideInRight 0.8s ease;
+            animation-timeline: view();
+            animation-range: entry 0% cover 30%;
+        }
+
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1346,13 +1295,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
-            transition: all var(--transition-smooth);
-        }
-
-        .feature-card:hover .feature-icon {
-            background: var(--color-primary);
-            color: var(--color-bg);
-            transform: rotate(5deg);
+            transition: all 0.5s ease;
         }
 
         .feature-card h3 {
@@ -1374,6 +1317,9 @@
             line-height: 1.8;
             position: relative;
             overflow: hidden;
+            animation: slideInUp 0.8s ease;
+            animation-timeline: view();
+            animation-range: entry 0% cover 30%;
         }
 
         .about-text p {
@@ -1386,7 +1332,6 @@
             font-weight: 700;
         }
 
-        /* Skills Section */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1413,16 +1358,11 @@
             gap: 0.75rem;
             padding: 0.75rem 0;
             border-bottom: 1px solid var(--color-border);
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
         }
 
         .skill-item:last-child {
             border-bottom: none;
-        }
-
-        .skill-item:hover {
-            color: var(--color-primary);
-            transform: translateX(4px);
         }
 
         .skill-dot {
@@ -1430,14 +1370,9 @@
             height: 6px;
             background: var(--color-primary);
             border-radius: 50%;
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
         }
 
-        .skill-item:hover .skill-dot {
-            transform: scale(1.5);
-        }
-
-        /* IA Section */
         .ai-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1453,12 +1388,7 @@
             padding: 0.5rem;
             background: var(--color-bg);
             border: 1px solid var(--color-border);
-            transition: all var(--transition-smooth);
-        }
-
-        .ai-card:hover .ai-logo {
-            transform: scale(1.05);
-            border-color: var(--color-primary);
+            transition: all 0.5s ease;
         }
 
         .ai-title {
@@ -1484,7 +1414,6 @@
             font-weight: 500;
         }
 
-        /* Certifications Section */
         .certifications-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1502,12 +1431,7 @@
             background: var(--color-bg);
             border: 1px solid var(--color-border);
             padding: 0.5rem;
-            transition: all var(--transition-smooth);
-        }
-
-        .certification-card:hover .certification-logo {
-            transform: scale(1.05);
-            border-color: var(--color-primary);
+            transition: all 0.5s ease;
         }
 
         .certification-icon {
@@ -1548,21 +1472,14 @@
             font-weight: 500;
             cursor: pointer;
             text-decoration: none;
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .certification-view-btn:hover {
-            background: var(--color-primary-light);
-            color: var(--color-bg);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
         .certification-view-btn:active {
-            transform: scale(0.98) translateY(-2px);
+            transform: scale(0.98);
         }
 
         /* ===================================================
@@ -1592,7 +1509,7 @@
             display: flex;
             align-items: center;
             gap: 1.8rem;
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             text-decoration: none;
             color: var(--color-fg);
             width: 100%;
@@ -1601,36 +1518,9 @@
             box-shadow: var(--shadow-sm);
             position: relative;
             overflow: hidden;
-        }
-
-        /* Efeitos de hover corrigidos */
-        .contact-pill:hover {
-            background: var(--color-primary);
-            color: var(--color-bg);
-            transform: translateY(-4px) scale(1.02);
-            border-color: var(--color-primary);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .contact-pill:hover .contact-pill-icon {
-            color: var(--color-bg);
-            transform: scale(1.15) rotate(5deg);
-        }
-
-        .contact-pill:hover .contact-pill-detail {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* Modo claro - quando hover, texto fica branco */
-        [data-theme='light'] .contact-pill:hover .contact-pill-title,
-        [data-theme='light'] .contact-pill:hover .contact-pill-detail {
-            color: #ffffff;
-        }
-
-        /* Modo escuro - quando hover, texto fica preto */
-        [data-theme='dark'] .contact-pill:hover .contact-pill-title,
-        [data-theme='dark'] .contact-pill:hover .contact-pill-detail {
-            color: #000000;
+            animation: slideInLeft 0.8s ease;
+            animation-timeline: view();
+            animation-range: entry 0% cover 30%;
         }
 
         .contact-pill-icon {
@@ -1640,7 +1530,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             z-index: 1;
         }
 
@@ -1657,55 +1547,22 @@
             font-size: 1.1rem;
             margin-bottom: 0.4rem;
             color: var(--color-fg);
-            transition: color var(--transition-smooth);
+            transition: color 0.5s ease;
         }
 
         .contact-pill-detail {
             font-size: 1rem;
             color: var(--color-muted);
-            transition: color var(--transition-smooth);
+            transition: color 0.5s ease;
             word-break: break-word;
             line-height: 1.4;
             opacity: 1 !important;
         }
 
-        /* GARANTIR QUE TODOS OS CARDS TENHAM A MESMA OPACIDADE */
         .contact-pill, 
         .contact-pill * {
             opacity: 1 !important;
         }
-
-        /* REMOVIDO: ANIMAÇÃO DE LUZ NA BORDA - SOMENTE NO MODO ESCURO */
-        /* [data-theme='dark'] .contact-pill::before,
-        [data-theme='dark'] .contact-pill::after {
-            content: '';
-            position: absolute;
-            width: 60%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ffffff, transparent);
-            z-index: 2;
-            opacity: 0 !important;
-            transition: opacity 0.3s ease;
-        }
-
-        [data-theme='dark'] .contact-pill::before {
-            top: -1px;
-            left: -100%;
-            animation: lightBorder 3s ease-in-out infinite;
-        }
-
-        [data-theme='dark'] .contact-pill::after {
-            bottom: -1px;
-            right: -100%;
-            animation: lightBorder 3s ease-in-out infinite 1.5s;
-        }
-
-        Mostrar animação no hover - SOMENTE NO MODO ESCURO
-        [data-theme='dark'] .contact-pill:hover::before,
-        [data-theme='dark'] .contact-pill:hover::after {
-            opacity: 1 !important;
-            animation: lightBorderFast 1.5s ease-in-out infinite;
-        } */
 
         .contact-actions {
             display: flex;
@@ -1724,7 +1581,7 @@
             font-weight: 500;
             cursor: pointer;
             text-decoration: none;
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             display: inline-flex;
             align-items: center;
             gap: 1rem;
@@ -1733,254 +1590,210 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-        }
-
-        /* REMOVIDO: Efeito de luz que passa no botão de ação */
-        /* .contact-action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.7s ease;
-        }
-
-        .contact-action-btn:hover::before {
-            left: 100%;
-        } */
-
-        .contact-action-btn:hover {
-            background: var(--color-primary-light);
-            color: var(--color-bg);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-xl);
+            animation: zoomIn 0.8s ease;
+            animation-timeline: view();
+            animation-range: entry 0% cover 30%;
         }
 
         .contact-action-btn:active {
-            transform: scale(0.98) translateY(-3px);
+            transform: scale(0.98);
         }
 
         /* ===================================================
-           ANIMAÇÃO DA LUZ NA BORDA (REMOVIDA)
+           TERMINAL INTERATIVO - SEM IMAGEM, MAIS LARGO E REFINADO
            =================================================== */
-        /* @keyframes lightBorder {
-            0% {
-                left: -100%;
-            }
-            50% {
-                left: 150%;
-            }
-            100% {
-                left: -100%;
-            }
-        }
-
-        @keyframes lightBorderFast {
-            0% {
-                left: -100%;
-            }
-            50% {
-                left: 150%;
-            }
-            100% {
-                left: -100%;
-            }
-        } */
-
-        /* ===================================================
-           SNAKE GAME SECTION
-           =================================================== */
-        .snake-section {
+        .terminal-section {
             padding: 5rem 2rem;
             background: var(--color-bg);
             position: relative;
         }
 
-        .snake-container {
-            max-width: 600px;
+        .terminal-container {
+            max-width: 1000px; /* Aumentado de 800px para 1000px */
             margin: 0 auto;
-        }
-
-        .snake-game-container {
-            position: relative;
-            width: 100%;
+            background: var(--color-card);
+            border: 2px solid var(--color-border);
             border-radius: var(--border-radius-lg);
             overflow: hidden;
-            border: 2px solid var(--color-border);
-            background: var(--color-card);
-            aspect-ratio: 1/1;
-            margin: 2rem auto;
             box-shadow: var(--shadow-lg);
-            max-height: 500px;
+            transition: all 0.5s ease;
+            animation: zoomIn 0.8s ease;
+            animation-timeline: view();
+            animation-range: entry 0% cover 30%;
         }
 
-        #snake-game {
-            display: block;
-            width: 100%;
-            height: 100%;
-            background: #111;
-        }
-
-        #game-over-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            color: white;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            padding: 2rem;
-            text-align: center;
-            backdrop-filter: blur(4px);
-        }
-
-        #game-over-overlay.visible {
+        .terminal-header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem 1.5rem;
             display: flex;
-            animation: fadeIn 0.3s ease;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid var(--color-border);
         }
 
-        #game-over-overlay h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #ff4444;
-            text-shadow: 0 2px 10px rgba(255, 68, 68, 0.5);
+        .terminal-dots {
+            display: flex;
+            gap: 0.5rem;
         }
 
-        #final-score {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red {
+            background: #ff5f56;
+        }
+
+        .terminal-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .terminal-dot.green {
+            background: #27c93f;
+        }
+
+        .terminal-title {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            font-family: monospace;
+            flex: 1;
+            text-align: center;
+        }
+
+        .terminal-body {
+            padding: 2rem;
+            min-height: 400px;
+            max-height: 500px;
+            overflow-y: auto;
+            background: var(--color-bg);
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        [data-theme='light'] .terminal-header {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        [data-theme='light'] .terminal-title {
+            color: var(--color-fg);
+        }
+
+        .terminal-output {
+            margin-bottom: 1.5rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .terminal-output-line {
+            margin-bottom: 0.5rem;
+            color: var(--color-fg);
+        }
+
+        [data-theme='dark'] .terminal-output-line {
+            color: #00ff00;
+        }
+
+        .terminal-output-line.success {
+            color: var(--color-success);
+        }
+
+        .terminal-output-line.error {
+            color: var(--color-error);
+        }
+
+        .terminal-output-line.info {
+            color: var(--color-info);
+        }
+
+        .terminal-output-line.warning {
+            color: var(--color-warning);
+        }
+
+        .terminal-prompt {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .terminal-prompt-sign {
+            color: var(--color-success);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .terminal-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--color-fg);
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            outline: none;
+            min-width: 200px;
+        }
+
+        [data-theme='dark'] .terminal-input {
+            color: #00ff00;
+        }
+
+        .terminal-input::placeholder {
+            color: var(--color-muted);
+            opacity: 0.5;
+        }
+
+        .terminal-suggestions {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--color-card);
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            font-size: 0.9rem;
+        }
+
+        .terminal-suggestions-title {
+            color: var(--color-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .terminal-suggestions-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            color: var(--color-muted);
+        }
+
+        .terminal-suggestions-list span {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid var(--color-border);
+        }
+
+        [data-theme='dark'] .terminal-suggestions-list span {
+            background: rgba(255, 255, 255, 0.1);
             color: #fff;
         }
 
-        .snake-stats {
-            display: flex;
-            justify-content: space-between;
-            margin: 1rem 0 2rem;
-            padding: 1.5rem;
-            background: var(--color-card);
-            border-radius: var(--border-radius-lg);
-            border: 1px solid var(--color-border);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .snake-stats div {
-            text-align: center;
-            flex: 1;
-        }
-
-        .snake-stats div:first-child {
-            border-right: 1px solid var(--color-border);
-        }
-
-        .snake-stats span {
-            display: block;
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--color-primary);
-            margin-top: 0.5rem;
-        }
-
-        .snake-controls {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-
-        .snake-controls .primary-btn,
-        .snake-controls .btn-outline {
-            min-width: 140px;
-            text-align: center;
-            justify-content: center;
-        }
-
-        /* ===================================================
-           CONTROLES DO JOGO DA COBRINHA PARA MOBILE
-           =================================================== */
-        .snake-mobile-controls {
-            display: none;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 2rem;
-            touch-action: manipulation;
-        }
-
-        .snake-mobile-controls button {
-            background: var(--color-card);
-            border: 2px solid var(--color-border);
-            border-radius: 12px;
-            font-size: 1.5rem;
-            color: var(--color-fg);
-            cursor: pointer;
-            transition: all var(--transition-smooth);
-            padding: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 70px;
-        }
-
-        .snake-mobile-controls button:active {
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.2rem;
             background: var(--color-primary);
-            color: var(--color-bg);
-            transform: scale(0.95);
+            animation: blink 1s infinite;
+            margin-left: 2px;
+            vertical-align: middle;
         }
 
-        .mobile-control-up {
-            grid-column: 2;
-            grid-row: 1;
-        }
-
-        .mobile-control-left {
-            grid-column: 1;
-            grid-row: 2;
-        }
-
-        .mobile-control-center {
-            grid-column: 2;
-            grid-row: 2;
-            font-size: 1rem !important;
-            background: var(--color-primary) !important;
-            color: var(--color-bg) !important;
-        }
-
-        .mobile-control-right {
-            grid-column: 3;
-            grid-row: 2;
-        }
-
-        .mobile-control-down {
-            grid-column: 2;
-            grid-row: 3;
-        }
-
-        .snake-instructions {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: var(--color-card);
-            border-radius: var(--border-radius-lg);
-            border: 1px solid var(--color-border);
-            text-align: center;
-        }
-
-        .snake-instructions p {
-            margin-bottom: 0.8rem;
-            color: var(--color-muted);
-            font-size: 0.95rem;
-        }
-
-        .snake-instructions p i {
-            color: var(--color-primary);
-            margin-right: 0.5rem;
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
 
         /* ===================================================
@@ -2044,12 +1857,7 @@
             align-items: center;
             justify-content: center;
             border-radius: var(--border-radius-lg);
-            transition: all var(--transition-smooth);
-        }
-
-        .certificate-modal-close:hover {
-            background: var(--color-card);
-            color: var(--color-fg);
+            transition: all 0.5s ease;
         }
 
         .certificate-modal-body {
@@ -2071,6 +1879,7 @@
             background: var(--color-card);
             border-top: 1px solid var(--color-border);
             padding: 4rem 2rem 2rem;
+            animation: fadeIn 1s ease;
         }
 
         .footer-content {
@@ -2126,12 +1935,8 @@
         .footer-links a {
             color: var(--color-muted);
             text-decoration: none;
-            transition: color var(--transition-smooth);
+            transition: color 0.5s ease;
             font-size: 0.95rem;
-        }
-
-        .footer-links a:hover {
-            color: var(--color-primary);
         }
 
         .footer-bottom {
@@ -2168,14 +1973,8 @@
             justify-content: center;
             border-radius: 50%;
             border: 1px solid var(--color-border);
-            transition: all var(--transition-smooth);
+            transition: all 0.5s ease;
             text-decoration: none;
-        }
-
-        .footer-social a:hover {
-            color: var(--color-primary);
-            border-color: var(--color-primary);
-            transform: translateY(-2px);
         }
 
         /* ===================================================
@@ -2219,17 +2018,6 @@
             to {
                 opacity: 1;
                 transform: scale(1) translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
             }
         }
 
@@ -2290,7 +2078,6 @@
             }
         }
 
-        /* Animação de gradiente IA para modo escuro */
         @keyframes aiGradientShift {
             0% {
                 background-position: 0% 50%;
@@ -2310,17 +2097,26 @@
             }
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
         .letter-animation {
             display: inline-block;
+        }
+
+        /* ===================================================
+           VIEW TIMELINE ANIMATIONS
+           =================================================== */
+        @supports (animation-timeline: view()) {
+            .feature-card,
+            .skill-category,
+            .ai-card,
+            .certification-card,
+            .experience-item,
+            .about-text,
+            .contact-pill,
+            .contact-action-btn,
+            .terminal-container {
+                animation-timeline: view();
+                animation-range: entry 0% cover 30%;
+            }
         }
 
         /* ===================================================
@@ -2390,13 +2186,9 @@
                 display: flex;
             }
             
-            .snake-container {
-                max-width: 500px;
-            }
-            
-            /* Mostrar controles mobile em telas menores */
-            .snake-mobile-controls {
-                display: grid;
+            .terminal-container {
+                max-width: 100%;
+                margin: 0 1rem;
             }
             
             .contact-pill {
@@ -2415,10 +2207,6 @@
             }
             
             .mobile-menu-overlay {
-                display: none;
-            }
-            
-            .snake-mobile-controls {
                 display: none;
             }
         }
@@ -2472,23 +2260,11 @@
                 width: 60px;
                 height: 60px;
             }
-
-            .snake-game-container {
-                aspect-ratio: 3/2;
-                max-height: 400px;
-            }
-
-            .snake-stats span {
-                font-size: 1.8rem;
-            }
             
-            .snake-container {
-                max-width: 400px;
-            }
-            
-            /* Esconder instrução das setas do teclado em mobile */
-            .snake-instructions p:first-child {
-                display: none;
+            .terminal-body {
+                min-height: 350px;
+                max-height: 450px;
+                padding: 1.5rem;
             }
             
             .contact-pill {
@@ -2539,35 +2315,29 @@
             .footer-content {
                 padding: 0 1rem;
             }
-
-            .snake-stats {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .snake-stats div:first-child {
-                border-right: none;
-                border-bottom: 1px solid var(--color-border);
-                padding-bottom: 1rem;
-            }
             
             .mobile-menu {
                 width: 100%;
                 max-width: 280px;
             }
             
-            .snake-container {
-                max-width: 100%;
-                padding: 0 1rem;
-            }
-            
-            .snake-game-container {
-                max-height: 350px;
-            }
-            
-            .snake-mobile-controls button {
+            .terminal-body {
+                min-height: 300px;
+                max-height: 400px;
                 padding: 1rem;
-                min-height: 60px;
+                font-size: 0.85rem;
+            }
+            
+            .terminal-header {
+                padding: 0.8rem 1rem;
+            }
+            
+            .terminal-prompt {
+                flex-wrap: wrap;
+            }
+            
+            .terminal-input {
+                min-width: 150px;
             }
             
             .contact-pill {
@@ -2644,11 +2414,6 @@
                 border-radius: 40px;
             }
 
-            .snake-game-container {
-                aspect-ratio: 4/3;
-                max-height: 300px;
-            }
-            
             .mobile-menu-header {
                 padding: 1.5rem 1rem;
             }
@@ -2657,20 +2422,20 @@
                 padding: 1.5rem 1rem;
             }
             
-            .snake-controls .primary-btn,
-            .snake-controls .btn-outline {
-                min-width: 120px;
-                padding: 0.8rem 1rem;
-            }
-            
-            .snake-mobile-controls {
-                gap: 8px;
-            }
-            
-            .snake-mobile-controls button {
+            .terminal-body {
+                min-height: 280px;
+                max-height: 350px;
                 padding: 0.8rem;
-                min-height: 50px;
-                font-size: 1.2rem;
+                font-size: 0.8rem;
+            }
+            
+            .terminal-suggestions-list {
+                gap: 0.5rem;
+            }
+            
+            .terminal-suggestions-list span {
+                padding: 0.2rem 0.5rem;
+                font-size: 0.8rem;
             }
             
             .contact-pill {
@@ -2705,7 +2470,7 @@
                 width: 36px;
                 height: 36px;
                 font-size: 0.9rem;
-                margin-left: 0.3rem; /* Ajuste para telas muito pequenas */
+                margin-left: 0.3rem;
             }
 
             .menu-toggle {
@@ -2730,18 +2495,14 @@
                 width: 100%;
             }
             
-            .snake-game-container {
-                max-height: 250px;
+            .terminal-body {
+                min-height: 250px;
+                padding: 0.6rem;
+                font-size: 0.75rem;
             }
             
-            .snake-mobile-controls {
-                gap: 5px;
-            }
-            
-            .snake-mobile-controls button {
-                padding: 0.7rem;
-                min-height: 45px;
-                font-size: 1rem;
+            .terminal-input {
+                min-width: 120px;
             }
             
             .contact-pill {
@@ -2783,7 +2544,6 @@
             max-width: var(--max-width);
         }
 
-        /* Scrollbar personalizada */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -2853,7 +2613,7 @@
                         <li><a href="#certifications">Certificações</a></li>
                         <li><a href="#experience">Experiência</a></li>
                         <li><a href="#contact">Contato</a></li>
-                        <li><a href="#snake-game-section">Snake Game</a></li>
+                        <li><a href="#terminal-section">Terminal</a></li>
                     </ul>
                     
                     <!-- Botão Download CV dentro do menu -->
@@ -2924,9 +2684,9 @@
                     <span class="nav-icon"><i class="fas fa-envelope"></i></span>
                     <span>Contato</span>
                 </a>
-                <a href="#snake-game-section" class="mobile-nav-item">
-                    <span class="nav-icon"><i class="fas fa-gamepad"></i></span>
-                    <span>Snake Game</span>
+                <a href="#terminal-section" class="mobile-nav-item">
+                    <span class="nav-icon"><i class="fas fa-terminal"></i></span>
+                    <span>Terminal</span>
                 </a>
                 
                 <!-- Botão Download no Mobile -->
@@ -2970,28 +2730,28 @@
     </section>
 
     <!-- About Section -->
-    <section id="about">
+    <section id="about" data-aos="fade-up">
         <div class="container">
             <div class="section-header">
                 <h2><span class="highlight">Sobre</span> Mim</h2>
                 <p>Desenvolvedor apaixonado por tecnologia e inovação</p>
             </div>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card" data-aos="fade-right" data-aos-delay="100">
                     <div class="feature-icon">
                         <i class="fas fa-code"></i>
                     </div>
                     <h3>Desenvolvimento Web</h3>
                     <p>Criação de aplicações modernas e responsivas com foco em performance, acessibilidade e melhores práticas.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="feature-icon">
                         <i class="fas fa-paint-brush"></i>
                     </div>
                     <h3>UI/UX Design</h3>
                     <p>Design de interfaces intuitivas e experiências do usuário que combinam estética e funcionalidade.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-aos="fade-left" data-aos-delay="300">
                     <div class="feature-icon">
                         <i class="fas fa-rocket"></i>
                     </div>
@@ -2999,7 +2759,7 @@
                     <p>Otimização de aplicações para máxima velocidade e eficiência, garantindo a melhor experiência.</p>
                 </div>
             </div>
-            <div class="about-text">
+            <div class="about-text" data-aos="zoom-in">
                 <p>
                     Com formação técnica em Informática e experiência prática em desenvolvimento front-end, 
                     atuo na criação de soluções digitais que unem tecnologia de ponta e design cuidadoso. 
@@ -3017,14 +2777,14 @@
     <div class="section-divider"></div>
 
     <!-- Skills Section -->
-    <section id="skills">
+    <section id="skills" data-aos="fade-up">
         <div class="container">
             <div class="section-header">
                 <h2><span class="highlight">Habilidades</span> & Tecnologias</h2>
                 <p>Tecnologias e ferramentas que domino e utilizo diariamente</p>
             </div>
             <div class="skills-grid">
-                <div class="skill-category">
+                <div class="skill-category" data-aos="flip-left" data-aos-delay="100">
                     <h3><i class="fas fa-laptop-code"></i> Frontend</h3>
                     <ul class="skill-list">
                         <li class="skill-item">
@@ -3049,7 +2809,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="skill-category">
+                <div class="skill-category" data-aos="flip-up" data-aos-delay="200">
                     <h3><i class="fas fa-server"></i> Backend & Banco de Dados</h3>
                     <ul class="skill-list">
                         <li class="skill-item">
@@ -3064,10 +2824,9 @@
                             <span class="skill-dot"></span>
                             <span>API</span>
                         </li>
-                       
                     </ul>
                 </div>
-                <div class="skill-category">
+                <div class="skill-category" data-aos="flip-right" data-aos-delay="300">
                     <h3><i class="fas fa-tools"></i> Ferramentas</h3>
                     <ul class="skill-list">
                         <li class="skill-item">
@@ -3088,7 +2847,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="skill-category">
+                <div class="skill-category" data-aos="flip-down" data-aos-delay="400">
                     <h3><i class="fas fa-microchip"></i> Suporte Técnico</h3>
                     <ul class="skill-list">
                         <li class="skill-item">
@@ -3099,10 +2858,17 @@
                             <i class="fas fa-print" style="color: var(--color-primary); font-size: 0.9rem; margin-right: 8px;"></i>
                             <span>Configuração de Impressoras</span>
                         </li>
-                       
                         <li class="skill-item">
                             <i class="fas fa-user-shield" style="color: var(--color-primary); font-size: 0.9rem; margin-right: 8px;"></i>
                             <span>Certificados Digitais</span>
+                        </li>
+                        <li class="skill-item">
+                            <i class="fas fa-network-wired" style="color: var(--color-primary); font-size: 0.9rem; margin-right: 8px;"></i>
+                            <span>Active Directory (AD)</span>
+                        </li>
+                        <li class="skill-item">
+                            <i class="fas fa-server" style="color: var(--color-primary); font-size: 0.9rem; margin-right: 8px;"></i>
+                            <span>Admin Center</span>
                         </li>
                     </ul>
                 </div>
@@ -3113,14 +2879,14 @@
     <div class="section-divider"></div>
 
     <!-- IA Section -->
-    <section id="ai">
+    <section id="ai" data-aos="fade-up">
         <div class="container">
             <div class="section-header">
                 <h2><span class="highlight">Entusiasta</span> de IA</h2>
                 <p>Explorando e aplicando as mais avançadas ferramentas de Inteligência Artificial</p>
             </div>
             <div class="ai-grid">
-                <div class="ai-card">
+                <div class="ai-card" data-aos="zoom-in-right" data-aos-delay="100">
                     <h3 class="ai-title">ChatGPT</h3>
                     <p class="ai-description">Assistente de IA para conversação natural, resolução de problemas e geração de conteúdo criativo.</p>
                     <div class="ai-focus">
@@ -3128,7 +2894,7 @@
                         <span>Conversação & Criatividade</span>
                     </div>
                 </div>
-                <div class="ai-card">
+                <div class="ai-card" data-aos="zoom-in-up" data-aos-delay="200">
                     <h3 class="ai-title">Gemini</h3>
                     <p class="ai-description">Modelo multimodal do Google para compreensão integrada de texto, imagens e áudio.</p>
                     <div class="ai-focus">
@@ -3136,7 +2902,7 @@
                         <span>Multimodalidade</span>
                     </div>
                 </div>
-                <div class="ai-card">
+                <div class="ai-card" data-aos="zoom-in-left" data-aos-delay="300">
                     <h3 class="ai-title">GitHub Copilot</h3>
                     <p class="ai-description">Assistente de programação que sugere código em tempo real diretamente no editor.</p>
                     <div class="ai-focus">
@@ -3151,14 +2917,14 @@
     <div class="section-divider"></div>
 
     <!-- ITSM Section -->
-    <section id="itsm">
+    <section id="itsm" data-aos="fade-up">
         <div class="container">
             <div class="section-header">
                 <h2>Plataformas de <span class="highlight">Gerenciamento de Chamados</span></h2>
                 <p>Experiência com ferramentas líderes de mercado para suporte</p>
             </div>
             <div class="ai-grid">
-                <div class="ai-card">
+                <div class="ai-card" data-aos="fade-right" data-aos-delay="100">
                     <h3 class="ai-title">GLPI</h3>
                     <p class="ai-description">Gestão completa de ativos de TI, inventário automatizado e sistema de helpdesk integrado.</p>
                     <div class="ai-focus">
@@ -3166,7 +2932,7 @@
                         <span>Gestão de Chamados</span>
                     </div>
                 </div>
-                <div class="ai-card">
+                <div class="ai-card" data-aos="fade-left" data-aos-delay="200">
                     <h3 class="ai-title">Assyst</h3>
                     <p class="ai-description">Plataforma robusta para gerenciamento de serviços de TI, focada em processos ITIL e eficiência operacional.</p>
                     <div class="ai-focus">
@@ -3181,14 +2947,14 @@
     <div class="section-divider"></div>
 
     <!-- Certifications Section -->
-    <section id="certifications">
+    <section id="certifications" data-aos="fade-up">
         <div class="container">
             <div class="section-header">
                 <h2>Minhas <span class="highlight">Certificações</span></h2>
                 <p>Certificados obtidos em cursos e treinamentos relevantes para minha carreira</p>
             </div>
             <div class="certifications-grid">
-                <div class="certification-card">
+                <div class="certification-card" data-aos="flip-left" data-aos-delay="100">
                     <div class="certification-icon"><i class="fas fa-graduation-cap"></i></div>
                     <h3 class="certification-title">Técnico em Informática</h3>
                     <p class="certification-issuer">Instituto Federal de Sergipe - IFS</p>
@@ -3199,7 +2965,7 @@
                     </button>
                 </div>
 
-                <div class="certification-card">
+                <div class="certification-card" data-aos="flip-up" data-aos-delay="200">
                     <div class="certification-icon"><i class="fas fa-laptop-code"></i></div>
                     <h3 class="certification-title">Object-Oriented Developer</h3>
                     <p class="certification-issuer">Faculdade Descomplica</p>
@@ -3210,7 +2976,7 @@
                     </button>
                 </div>
 
-                <div class="certification-card">
+                <div class="certification-card" data-aos="flip-right" data-aos-delay="300">
                     <div class="certification-icon"><i class="fas fa-laptop-code"></i></div>
                     <h3 class="certification-title">Programmer</h3>
                     <p class="certification-issuer">Faculdade Descomplica</p>
@@ -3227,7 +2993,7 @@
     <div class="section-divider"></div>
 
     <!-- Experience Section Melhorada -->
-    <section id="experience">
+    <section id="experience" data-aos="fade-up">
         <div class="container">
             <div class="section-header">
                 <h2><span class="highlight">Experiência</span> Profissional</h2>
@@ -3237,7 +3003,7 @@
             <div class="experience-timeline">
                 <div class="timeline-line"></div>
 
-                <div class="experience-item current">
+                <div class="experience-item current" data-aos="fade-right">
                     <div class="timeline-dot"></div>
                     <div class="experience-content">
                         <div class="experience-header">
@@ -3287,7 +3053,7 @@
                     </div>
                 </div>
 
-                <div class="experience-item">
+                <div class="experience-item" data-aos="fade-left">
                     <div class="timeline-dot"></div>
                     <div class="experience-content">
                         <div class="experience-header">
@@ -3340,7 +3106,7 @@
                     </div>
                 </div>
 
-                <div class="experience-item">
+                <div class="experience-item" data-aos="fade-right">
                     <div class="timeline-dot"></div>
                     <div class="experience-content">
                         <div class="experience-header">
@@ -3369,7 +3135,7 @@
                         <div>
                             <p class="achievements-title"><i class="fas fa-trophy"></i> Principais Atividades:</p>
                             <ul class="achievements-list">
-                                <li class="achievement-item">Execução de manutenções preventivas e corretivas emlaboratórios de informática</li>
+                                <li class="achievement-item">Execução de manutenções preventivas e corretivas em laboratórios de informática</li>
                                 <li class="achievement-item">Instalação e configuração de softwares educacionais específicos conforme solicitado pelos educadores</li>
                                 <li class="achievement-item">Configuração de ferramentas educacionais para o processo de ensino-aprendizagem</li>
                                 <li class="achievement-item">Suporte técnico a professores e alunos durante aulas práticas</li>
@@ -3385,7 +3151,7 @@
     <div class="section-divider"></div>
 
     <!-- Contact Section - PÍLULAS DE CONTATO COM ANIMAÇÃO -->
-    <section id="contact">
+    <section id="contact" data-aos="fade-up">
         <div class="container">
             <div class="section-header">
                 <h2>Entre em <span class="highlight">Contato</span></h2>
@@ -3395,7 +3161,7 @@
             <div class="contact-grid">
                 <div class="contact-pills-container">
                     <!-- Email -->
-                    <a href="mailto:edinaldoalmeida98@outlook.com" class="contact-pill">
+                    <a href="mailto:edinaldoalmeida98@outlook.com" class="contact-pill" data-aos="fade-right" data-aos-delay="100">
                         <div class="contact-pill-icon">
                             <i class="far fa-envelope"></i>
                         </div>
@@ -3406,7 +3172,7 @@
                     </a>
                     
                     <!-- Telefone -->
-                    <a href="tel:+5579999178206" class="contact-pill">
+                    <a href="tel:+5579999178206" class="contact-pill" data-aos="fade-right" data-aos-delay="200">
                         <div class="contact-pill-icon">
                             <i class="fas fa-phone"></i>
                         </div>
@@ -3417,7 +3183,7 @@
                     </a>
                     
                     <!-- LinkedIn -->
-                    <a href="https://www.linkedin.com/in/edinaldo-almeida-b67194276/" target="_blank" class="contact-pill">
+                    <a href="https://www.linkedin.com/in/edinaldo-almeida-b67194276/" target="_blank" class="contact-pill" data-aos="fade-right" data-aos-delay="300">
                         <div class="contact-pill-icon">
                             <i class="fab fa-linkedin-in"></i>
                         </div>
@@ -3430,11 +3196,11 @@
                 
                 <!-- Botões de Ação -->
                 <div class="contact-actions">
-                    <a href="mailto:edinaldoalmeida98@outlook.com" class="contact-action-btn">
+                    <a href="mailto:edinaldoalmeida98@outlook.com" class="contact-action-btn" data-aos="zoom-in" data-aos-delay="100">
                         <i class="far fa-envelope"></i>
                         <span>Enviar Email</span>
                     </a>
-                    <a href="javascript:void(0);" class="contact-action-btn" id="whatsappContact">
+                    <a href="javascript:void(0);" class="contact-action-btn" id="whatsappContact" data-aos="zoom-in" data-aos-delay="200">
                         <i class="fab fa-whatsapp"></i>
                         <span>WhatsApp</span>
                     </a>
@@ -3443,66 +3209,61 @@
         </div>
     </section>
 
-    <!-- Snake Game Section - COM CONTROLES PARA MOBILE -->
-    <section id="snake-game-section" class="snake-section">
+    <!-- Terminal Interativo - SEM IMAGEM, MAIS LARGO E COM API GITHUB -->
+    <section id="terminal-section" class="terminal-section" data-aos="fade-up">
         <div class="container">
             <div class="section-header">
-                <h2>Jogo da <span class="highlight">Cobrinha</span></h2>
-                <p>Um momento de diversão - controle a cobra com as setas do teclado ou os botões touch</p>
+                <h2>Terminal <span class="highlight">Interativo</span></h2>
+                <p>Digite suas perguntas e descubra mais sobre mim (incluindo comando 'github')</p>
             </div>
             
-            <div class="snake-container">
-                <div class="snake-game-container">
-                    <div id="game-over-overlay">
-                        <h2>Game Over!</h2>
-                        <p id="final-score" class="final-score">Sua pontuação: 0</p>
-                        <button id="restart-game-btn" class="primary-btn">Jogar Novamente</button>
+            <div class="terminal-container" data-aos="flip-up">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
                     </div>
-                    <canvas id="snake-game"></canvas>
+                    <div class="terminal-title">edinaldo@portfolio:~$</div>
                 </div>
                 
-                <div class="snake-stats">
-                    <div>Pontuação: <span id="score">0</span></div>
-                    <div>Recorde: <span id="high-score">0</span></div>
-                </div>
-                
-                <div class="snake-controls">
-                    <button id="start-game" class="primary-btn">Iniciar Jogo</button>
-                    <button id="pause-game" class="btn-outline">Pausar</button>
-                    <button id="reset-game" class="btn-outline">Reiniciar</button>
-                </div>
-
-                <!-- CONTROLES TOUCH PARA MOBILE -->
-                <div class="snake-mobile-controls">
-                    <button class="mobile-control-up" data-direction="up">
-                        <i class="fas fa-arrow-up"></i>
-                    </button>
-                    <button class="mobile-control-left" data-direction="left">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <button class="mobile-control-center" id="mobile-pause">
-                        <i class="fas fa-pause"></i>
-                    </button>
-                    <button class="mobile-control-right" data-direction="right">
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                    <button class="mobile-control-down" data-direction="down">
-                        <i class="fas fa-arrow-down"></i>
-                    </button>
-                </div>
-
-                <div class="snake-instructions">
-                    <p><i class="fas fa-arrow-up"></i> <i class="fas fa-arrow-down"></i> <i class="fas fa-arrow-left"></i> <i class="fas fa-arrow-right"></i> Use as setas do teclado para mover</p>
-                    <p><i class="fas fa-mobile-alt"></i> Em dispositivos móveis, use os botões touch acima</p>
-                    <p><i class="fas fa-apple-alt"></i> Coma a comida vermelha para pontuar</p>
-                    <p><i class="fas fa-skull-crossbones"></i> Evite bater nas paredes e no próprio corpo</p>
+                <div class="terminal-body" id="terminalBody">
+                    <div class="terminal-output" id="terminalOutput">
+                        <div class="terminal-output-line info">Bem-vindo ao terminal interativo de Edinaldo Almeida!</div>
+                        <div class="terminal-output-line info">Digite 'help' para ver os comandos disponíveis.</div>
+                        <div class="terminal-output-line info">Digite 'clear' para limpar o terminal.</div>
+                        <div class="terminal-output-line info">Digite 'github' para ver meus últimos repositórios (via API).</div>
+                    </div>
+                    
+                    <div class="terminal-prompt">
+                        <span class="terminal-prompt-sign">$</span>
+                        <input type="text" class="terminal-input" id="terminalInput" placeholder="Digite um comando..." autofocus>
+                        <span class="terminal-cursor"></span>
+                    </div>
+                    
+                    <div class="terminal-suggestions">
+                        <div class="terminal-suggestions-title">
+                            <i class="fas fa-lightbulb"></i> Comandos disponíveis:
+                        </div>
+                        <div class="terminal-suggestions-list">
+                            <span>help</span>
+                            <span>clear</span>
+                            <span>idade</span>
+                            <span>experiencias</span>
+                            <span>habilidades</span>
+                            <span>contato</span>
+                            <span>certificacoes</span>
+                            <span>sobre</span>
+                            <span>github</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer Profissional -->
-    <footer>
+    <footer data-aos="fade-up">
         <div class="footer-content">
             <div class="footer-grid">
                 <div class="footer-brand">
@@ -3523,7 +3284,7 @@
                         <li><a href="#experience">Experiência</a></li>
                         <li><a href="#certifications">Certificações</a></li>
                         <li><a href="#contact">Contato</a></li>
-                        <li><a href="#snake-game-section">Snake Game</a></li>
+                        <li><a href="#terminal-section">Terminal</a></li>
                     </ul>
                 </div>
                 
@@ -3617,13 +3378,8 @@
                 }
             }
             
-            // Verificar quando o menu é rolado
             navLinks.addEventListener('scroll', updateScrollIndicator);
-            
-            // Verificar quando a janela é redimensionada
             window.addEventListener('resize', updateScrollIndicator);
-            
-            // Verificar inicialmente
             updateScrollIndicator();
         }
 
@@ -3770,11 +3526,13 @@
                 if (themeIcon) {
                     themeIcon.classList.remove('fa-moon');
                     themeIcon.classList.add('fa-sun');
+                    themeIcon.style.color = '#ffffff';
                 }
             } else {
                 if (themeIcon) {
                     themeIcon.classList.remove('fa-sun');
                     themeIcon.classList.add('fa-moon');
+                    themeIcon.style.color = '';
                 }
             }
         }
@@ -3782,18 +3540,29 @@
         function setTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
-            syncThemeButtons();
-            
-            const nameElement = document.getElementById('animated-name');
-            nameElement.style.color = '#ff0000';
-            nameElement.style.fontWeight = '900';
             
             if (theme === 'dark') {
+                if (themeIcon) {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                    themeIcon.style.color = '#ffffff';
+                }
                 setTimeout(() => {
                     startIAGradientAnimations();
                 }, 300);
             } else {
+                if (themeIcon) {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                    themeIcon.style.color = '';
+                }
                 removeIAAnimations();
+            }
+            
+            const nameElement = document.getElementById('animated-name');
+            if (nameElement) {
+                nameElement.style.color = '#ff0000';
+                nameElement.style.fontWeight = '900';
             }
         }
 
@@ -3801,13 +3570,14 @@
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             setTheme(newTheme);
-            
-            // Animação suave do botão
-            gsap.to(themeToggleBtn, {
-                rotation: 360,
-                duration: 0.5,
-                ease: "power2.out"
-            });
+        }
+
+        function startIAGradientAnimations() {
+            console.log('IA gradient animations started');
+        }
+
+        function removeIAAnimations() {
+            console.log('IA gradient animations removed');
         }
 
         // ====================
@@ -3818,7 +3588,7 @@
         const modalBody = document.getElementById('certificateModalBody');
         const closeModalBtn = document.getElementById('closeCertificateModal');
 
-        function openCertificateModal(title, url, type) {
+        window.openCertificateModal = function(title, url, type) {
             modalTitle.textContent = title;
             
             if (type === 'image') {
@@ -3832,13 +3602,13 @@
                             <i class="fas fa-external-link-alt"></i>
                             <span>Abrir Certificado</span>
                         </a>
-                </div>
+                    </div>
                 `;
             }
             
             certificateModal.classList.add('active');
             document.body.style.overflow = 'hidden';
-        }
+        };
 
         function closeCertificateModal() {
             certificateModal.classList.remove('active');
@@ -3917,369 +3687,258 @@
         }
 
         // ====================
-        // 10. SNAKE GAME - COM CONTROLES PARA MOBILE
+        // 10. TERMINAL INTERATIVO (COM API GITHUB)
         // ====================
-        class SnakeGame {
+        class InteractiveTerminal {
             constructor() {
-                this.canvas = document.getElementById('snake-game');
-                this.ctx = this.canvas.getContext('2d');
-                this.scoreElement = document.getElementById('score');
-                this.highScoreElement = document.getElementById('high-score');
-                this.finalScoreElement = document.getElementById('final-score');
-                this.gameOverOverlay = document.getElementById('game-over-overlay');
+                this.terminalBody = document.getElementById('terminalBody');
+                this.terminalOutput = document.getElementById('terminalOutput');
+                this.terminalInput = document.getElementById('terminalInput');
+                this.commandHistory = [];
+                this.historyIndex = -1;
                 
-                this.gridSize = 25;
-                this.tileCountX = 0;
-                this.tileCountY = 0;
-                
-                this.snake = [];
-                this.food = {};
-                this.dx = 0;
-                this.dy = 0;
-                this.score = 0;
-                this.highScore = localStorage.getItem('snakeHighScore') || 0;
-                this.gameRunning = false;
-                this.gameLoop = null;
-                this.speed = 150;
-                
-                this.highScoreElement.textContent = this.highScore;
+                this.commands = {
+                    help: this.showHelp.bind(this),
+                    clear: this.clearTerminal.bind(this),
+                    idade: this.showAge.bind(this),
+                    experiencias: this.showExperiences.bind(this),
+                    habilidades: this.showSkills.bind(this),
+                    contato: this.showContact.bind(this),
+                    certificacoes: this.showCertifications.bind(this),
+                    sobre: this.showAbout.bind(this),
+                    github: this.showGitHub.bind(this)
+                };
                 
                 this.init();
             }
             
             init() {
-                this.resizeCanvas();
-                this.initGame();
-                this.setupEventListeners();
-                this.drawGame();
-            }
-            
-            resizeCanvas() {
-                const container = this.canvas.parentElement;
-                this.canvas.width = container.clientWidth;
-                this.canvas.height = container.clientHeight;
-
-                this.tileCountX = Math.floor(this.canvas.width / this.gridSize);
-                this.tileCountY = Math.floor(this.canvas.height / this.gridSize);
-            }
-            
-            initGame() {
-                this.snake = [
-                    {x: Math.floor(this.tileCountX / 2), y: Math.floor(this.tileCountY / 2)}
-                ];
-                this.dx = 0;
-                this.dy = 0;
-                this.score = 0;
-                this.scoreElement.textContent = this.score;
-                this.generateFood();
-            }
-            
-            generateFood() {
-                this.food = {
-                    x: Math.floor(Math.random() * this.tileCountX),
-                    y: Math.floor(Math.random() * this.tileCountY)
-                };
-
-                for (let segment of this.snake) {
-                    if (segment.x === this.food.x && segment.y === this.food.y) {
-                        this.generateFood();
-                        return;
-                    }
-                }
-            }
-            
-            updateScore() {
-                this.scoreElement.textContent = this.score;
-                if (this.score > this.highScore) {
-                    this.highScore = this.score;
-                    this.highScoreElement.textContent = this.highScore;
-                    localStorage.setItem('snakeHighScore', this.highScore);
-                }
-            }
-            
-            drawGame() {
-                this.ctx.fillStyle = '#111';
-                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-                for (let i = 0; i < this.snake.length; i++) {
-                    const segment = this.snake[i];
-                    
-                    if (i === 0) {
-                        this.ctx.fillStyle = '#10b981';
-                        this.ctx.fillRect(segment.x * this.gridSize, segment.y * this.gridSize, this.gridSize - 1, this.gridSize - 1);
-                        
-                        this.ctx.fillStyle = '#000';
-                        this.ctx.beginPath();
-                        this.ctx.arc(
-                            segment.x * this.gridSize + this.gridSize * 0.7,
-                            segment.y * this.gridSize + this.gridSize * 0.3,
-                            this.gridSize * 0.15, 0, Math.PI * 2
-                        );
-                        this.ctx.fill();
-                        
-                        this.ctx.beginPath();
-                        this.ctx.arc(
-                            segment.x * this.gridSize + this.gridSize * 0.7,
-                            segment.y * this.gridSize + this.gridSize * 0.7,
-                            this.gridSize * 0.15, 0, Math.PI * 2
-                        );
-                        this.ctx.fill();
-                    } else {
-                        this.ctx.fillStyle = '#34d399';
-                        this.ctx.fillRect(segment.x * this.gridSize, segment.y * this.gridSize, this.gridSize - 1, this.gridSize - 1);
-                        
-                        this.ctx.fillStyle = '#10b981';
-                        this.ctx.fillRect(
-                            segment.x * this.gridSize + 2,
-                            segment.y * this.gridSize + 2,
-                            this.gridSize - 5,
-                            this.gridSize - 5
-                        );
-                    }
-                }
-
-                this.ctx.fillStyle = '#ef4444';
-                this.ctx.beginPath();
-                this.ctx.arc(
-                    this.food.x * this.gridSize + this.gridSize/2, 
-                    this.food.y * this.gridSize + this.gridSize/2,
-                    this.gridSize/2 - 2, 0, Math.PI * 2
-                );
-                this.ctx.fill();
-                
-                this.ctx.fillStyle = '#f87171';
-                this.ctx.beginPath();
-                this.ctx.arc(
-                    this.food.x * this.gridSize + this.gridSize/2 - 3, 
-                    this.food.y * this.gridSize + this.gridSize/2 - 3,
-                    this.gridSize/6, 0, Math.PI * 2
-                );
-                this.ctx.fill();
-
-                this.ctx.strokeStyle = '#333';
-                this.ctx.lineWidth = 0.5;
-                
-                for (let i = 0; i < this.tileCountX; i++) {
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(i * this.gridSize, 0);
-                    this.ctx.lineTo(i * this.gridSize, this.canvas.height);
-                    this.ctx.stroke();
-                }
-                for (let i = 0; i < this.tileCountY; i++) {
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(0, i * this.gridSize);
-                    this.ctx.lineTo(this.canvas.width, i * this.gridSize);
-                    this.ctx.stroke();
-                }
-            }
-            
-            update() {
-                if (!this.gameRunning) return;
-
-                const head = {x: this.snake[0].x + this.dx, y: this.snake[0].y + this.dy};
-                this.snake.unshift(head);
-
-                if (head.x === this.food.x && head.y === this.food.y) {
-                    this.score += 10;
-                    this.updateScore();
-                    this.generateFood();
-                } else {
-                    this.snake.pop();
-                }
-
-                if (head.x < 0 || head.x >= this.tileCountX || head.y < 0 || head.y >= this.tileCountY) {
-                    this.gameOver();
-                    return;
-                }
-
-                for (let i = 1; i < this.snake.length; i++) {
-                    if (head.x === this.snake[i].x && head.y === this.snake[i].y) {
-                        this.gameOver();
-                        return;
-                    }
-                }
-            }
-            
-            gameOver() {
-                this.gameRunning = false;
-                clearInterval(this.gameLoop);
-                this.finalScoreElement.textContent = `Sua pontuação: ${this.score}`;
-                this.gameOverOverlay.classList.add('visible');
-            }
-            
-            start() {
-                if (!this.gameRunning) {
-                    this.gameRunning = true;
-                    clearInterval(this.gameLoop);
-                    this.gameLoop = setInterval(() => {
-                        this.update();
-                        this.drawGame();
-                    }, this.speed);
-                    this.gameOverOverlay.classList.remove('visible');
-                }
-            }
-            
-            pause() {
-                this.gameRunning = !this.gameRunning;
-                if (this.gameRunning) {
-                    clearInterval(this.gameLoop);
-                    this.gameLoop = setInterval(() => {
-                        this.update();
-                        this.drawGame();
-                    }, this.speed);
-                    document.getElementById('pause-game').textContent = 'Pausar';
-                    document.getElementById('mobile-pause').innerHTML = '<i class="fas fa-pause"></i>';
-                } else {
-                    clearInterval(this.gameLoop);
-                    document.getElementById('pause-game').textContent = 'Continuar';
-                    document.getElementById('mobile-pause').innerHTML = '<i class="fas fa-play"></i>';
-                }
-            }
-            
-            reset() {
-                clearInterval(this.gameLoop);
-                this.initGame();
-                this.gameOverOverlay.classList.remove('visible');
-                this.gameRunning = false;
-                document.getElementById('pause-game').textContent = 'Pausar';
-                document.getElementById('mobile-pause').innerHTML = '<i class="fas fa-pause"></i>';
-                this.drawGame();
-            }
-            
-            changeDirection(dx, dy) {
-                if ((dx !== 0 && this.dx !== -dx) || (dy !== 0 && this.dy !== -dy)) {
-                    this.dx = dx;
-                    this.dy = dy;
-                    
-                    if (!this.gameRunning && this.dx === 0 && this.dy === 0 && !this.gameOverOverlay.classList.contains('visible')) {
-                        this.start();
-                    }
-                }
-            }
-            
-            setupEventListeners() {
-                document.addEventListener('keydown', (e) => {
-                    if([37, 38, 39, 40].includes(e.keyCode)) {
+                this.terminalInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        this.processCommand();
+                    } else if (e.key === 'ArrowUp') {
                         e.preventDefault();
-                    }
-
-                    switch(e.key) {
-                        case 'ArrowUp':
-                            this.changeDirection(0, -1);
-                            break;
-                        case 'ArrowDown':
-                            this.changeDirection(0, 1);
-                            break;
-                        case 'ArrowLeft':
-                            this.changeDirection(-1, 0);
-                            break;
-                        case 'ArrowRight':
-                            this.changeDirection(1, 0);
-                            break;
-                        case ' ':
-                            this.pause();
-                            break;
+                        this.navigateHistory('up');
+                    } else if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        this.navigateHistory('down');
                     }
                 });
+                
+                this.terminalInput.focus();
+                
+                this.terminalBody.addEventListener('click', () => {
+                    this.terminalInput.focus();
+                });
+            }
+            
+            processCommand() {
+                const input = this.terminalInput.value.trim();
+                if (input === '') return;
+                
+                this.commandHistory.push(input);
+                this.historyIndex = this.commandHistory.length;
+                
+                this.addOutputLine(`$ ${input}`, 'info');
+                
+                const command = input.toLowerCase();
+                if (this.commands[command]) {
+                    this.commands[command]();
+                } else {
+                    this.addOutputLine(`Comando não reconhecido: "${input}". Digite 'help' para ver os comandos disponíveis.`, 'error');
+                }
+                
+                this.terminalInput.value = '';
+                
+                this.scrollToBottom();
+            }
+            
+            navigateHistory(direction) {
+                if (this.commandHistory.length === 0) return;
+                
+                if (direction === 'up') {
+                    this.historyIndex = Math.max(0, this.historyIndex - 1);
+                } else {
+                    this.historyIndex = Math.min(this.commandHistory.length, this.historyIndex + 1);
+                }
+                
+                if (this.historyIndex < this.commandHistory.length) {
+                    this.terminalInput.value = this.commandHistory[this.historyIndex];
+                } else {
+                    this.terminalInput.value = '';
+                }
+            }
+            
+            addOutputLine(text, type = 'normal') {
+                const line = document.createElement('div');
+                line.className = `terminal-output-line ${type}`;
+                line.textContent = text;
+                this.terminalOutput.appendChild(line);
+            }
+            
+            addOutputLines(lines) {
+                lines.forEach(line => {
+                    this.addOutputLine(line.text, line.type);
+                });
+            }
+            
+            scrollToBottom() {
+                this.terminalBody.scrollTop = this.terminalBody.scrollHeight;
+            }
+            
+            showHelp() {
+                this.addOutputLines([
+                    { text: '=== Comandos disponíveis ===', type: 'success' },
+                    { text: 'help          - Mostra esta ajuda', type: 'normal' },
+                    { text: 'clear         - Limpa o terminal', type: 'normal' },
+                    { text: 'idade         - Mostra minha idade', type: 'normal' },
+                    { text: 'experiencias   - Lista minhas experiências profissionais', type: 'normal' },
+                    { text: 'habilidades    - Mostra minhas habilidades técnicas', type: 'normal' },
+                    { text: 'contato       - Exibe informações de contato', type: 'normal' },
+                    { text: 'certificacoes - Lista minhas certificações', type: 'normal' },
+                    { text: 'sobre         - Informações sobre mim', type: 'normal' },
+                    { text: 'github        - Busca meus últimos repositórios no GitHub (via API)', type: 'normal' },
+                ]);
+            }
+            
+            clearTerminal() {
+                this.terminalOutput.innerHTML = '';
+                this.addOutputLine('Terminal limpo. Digite help para ver os comandos.', 'info');
+            }
+            
+            showAge() {
+                const birthDate = new Date('2005-05-06');
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const monthDiff = today.getMonth() - birthDate.getMonth();
+                
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                
+                this.addOutputLines([
+                    { text: `Idade: ${age} anos`, type: 'success' },
+                    { text: `Data de nascimento: 06/05/2005`, type: 'info' }
+                ]);
+            }
+            
+            showExperiences() {
+                this.addOutputLines([
+                    { text: '=== Experiências Profissionais ===', type: 'success' },
+                    { text: '1. Técnico de Suporte - Getinfo / TRT20 (Mar 2025 - Presente)', type: 'normal' },
+                    { text: '   • Suporte N1 no Tribunal Regional do Trabalho da 20ª Região', type: 'info' },
+                    { text: '   • Configuração de certificados digitais e sistemas judiciais', type: 'info' },
+                    { text: '', type: 'normal' },
+                    { text: '2. Técnico de Informática - INTS (Mar 2024 - Maio 2025)', type: 'normal' },
+                    { text: '   • Suporte 24/7 em ambiente hospitalar', type: 'info' },
+                    { text: '   • Gerenciamento de mais de 100 incidentes via GLPI', type: 'info' },
+                    { text: '', type: 'normal' },
+                    { text: '3. Estagiário Técnico - IFS (Fev 2023 - Fev 2024)', type: 'normal' },
+                    { text: '   • Manutenção de laboratórios de informática', type: 'info' },
+                    { text: '   • Suporte a professores e alunos', type: 'info' }
+                ]);
+            }
+            
+            showSkills() {
+                this.addOutputLines([
+                    { text: '=== Habilidades Técnicas ===', type: 'success' },
+                    { text: 'Frontend:', type: 'normal' },
+                    { text: '  • React, TypeScript, Tailwind CSS, HTML5, CSS3, JavaScript', type: 'info' },
+                    { text: '', type: 'normal' },
+                    { text: 'Backend & Banco de Dados:', type: 'normal' },
+                    { text: '  • Node.js, PostgreSQL, APIs REST', type: 'info' },
+                    { text: '', type: 'normal' },
+                    { text: 'Ferramentas:', type: 'normal' },
+                    { text: '  • Git & GitHub, VS Code, Figma, Vercel', type: 'info' },
+                    { text: '', type: 'normal' },
+                    { text: 'Suporte Técnico:', type: 'normal' },
+                    { text: '  • Formatação de Máquinas, Configuração de Impressoras', type: 'info' },
+                    { text: '  • Certificados Digitais, Redes TCP/IP, GLPI', type: 'info' },
+                    { text: '  • Active Directory (AD), Admin Center', type: 'info' }
+                ]);
+            }
+            
+            showContact() {
+                this.addOutputLines([
+                    { text: '=== Informações de Contato ===', type: 'success' },
+                    { text: 'Email: edinaldoalmeida98@outlook.com', type: 'info' },
+                    { text: 'Telefone: (79) 99917-8206', type: 'info' },
+                    { text: 'LinkedIn: /edinaldo-almeida', type: 'info' },
+                    { text: 'GitHub: /Joseedinaldo', type: 'info' }
+                ]);
+            }
+            
+            showCertifications() {
+                this.addOutputLines([
+                    { text: '=== Certificações ===', type: 'success' },
+                    { text: '• Técnico em Informática - IFS (2024)', type: 'info' },
+                    { text: '• Object-Oriented Developer - Descomplica (2025)', type: 'info' },
+                    { text: '• Programmer - Descomplica (2025)', type: 'info' }
+                ]);
+            }
+            
+            showAbout() {
+                this.addOutputLines([
+                    { text: '=== Sobre Mim ===', type: 'success' },
+                    { text: 'Olá! Sou Edinaldo Almeida, Desenvolvedor Front-End e Técnico de Informática.', type: 'normal' },
+                    { text: 'Com formação técnica em Informática pelo IFS e experiência prática em desenvolvimento front-end,', type: 'normal' },
+                    { text: 'atuo na criação de soluções digitais que unem tecnologia de ponta e design cuidadoso.', type: 'normal' },
+                    { text: '', type: 'normal' },
+                    { text: 'Meu objetivo é transformar ideias em produtos digitais que não apenas funcionam perfeitamente,', type: 'normal' },
+                    { text: 'mas também encantam os usuários. Acredito na aprendizagem contínua e na aplicação prática', type: 'normal' },
+                    { text: 'de novas tecnologias, sempre buscando soluções eficientes para desafios complexos.', type: 'normal' }
+                ]);
+            }
 
-                document.getElementById('start-game').addEventListener('click', () => this.start());
-                document.getElementById('pause-game').addEventListener('click', () => this.pause());
-                document.getElementById('reset-game').addEventListener('click', () => this.reset());
-                document.getElementById('restart-game-btn').addEventListener('click', () => this.reset());
-                document.getElementById('mobile-pause').addEventListener('click', () => this.pause());
-
-                document.querySelectorAll('.snake-mobile-controls button[data-direction]').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const direction = button.getAttribute('data-direction');
-                        switch(direction) {
-                            case 'up':
-                                this.changeDirection(0, -1);
-                                break;
-                            case 'down':
-                                this.changeDirection(0, 1);
-                                break;
-                            case 'left':
-                                this.changeDirection(-1, 0);
-                                break;
-                            case 'right':
-                                this.changeDirection(1, 0);
-                                break;
+            showGitHub() {
+                this.addOutputLine('Buscando repositórios do GitHub...', 'info');
+                const username = 'Joseedinaldo';
+                fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=5`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro na API');
                         }
+                        return response.json();
+                    })
+                    .then(data => {
+                        this.addOutputLine('=== Últimos repositórios no GitHub ===', 'success');
+                        if (data.length === 0) {
+                            this.addOutputLine('Nenhum repositório encontrado.', 'info');
+                        } else {
+                            data.forEach(repo => {
+                                let description = repo.description ? repo.description.substring(0, 60) : 'Sem descrição';
+                                let stars = repo.stargazers_count;
+                                let lang = repo.language || 'N/A';
+                                this.addOutputLine(`• ${repo.name} (⭐ ${stars}) - ${lang}`, 'info');
+                                this.addOutputLine(`  ${description}`, 'normal');
+                                this.addOutputLine(`  ${repo.html_url}`, 'info');
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        this.addOutputLine('Erro ao conectar com a API do GitHub. Tente novamente mais tarde.', 'error');
+                        console.error(error);
                     });
-                });
-
-                window.addEventListener('resize', () => {
-                    this.resizeCanvas();
-                    if (!this.gameRunning) {
-                        this.drawGame();
-                    }
-                });
             }
         }
 
         // ====================
-        // 11. ANIMAÇÕES GSAP
+        // 11. ANIMAÇÕES GSAP (COMPLEMENTAR)
         // ====================
         function initAnimations() {
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
                 
-                gsap.from('.hero h1', {
-                    y: 50,
-                    opacity: 0,
-                    duration: 1,
-                    ease: 'power3.out'
-                });
-
-                gsap.utils.toArray('section').forEach((section, i) => {
-                    gsap.from(section, {
-                        scrollTrigger: {
-                            trigger: section,
-                            start: 'top 80%',
-                            toggleActions: 'play none none reverse'
-                        },
-                        y: 50,
-                        opacity: 0,
-                        duration: 0.8,
-                        delay: i * 0.1,
-                        ease: 'power2.out'
-                    });
-                });
-
-                gsap.utils.toArray('.experience-item').forEach((item, i) => {
-                    gsap.from(item, {
-                        scrollTrigger: {
-                            trigger: item,
-                            start: 'top 85%',
-                            toggleActions: 'play none none reverse'
-                        },
-                        x: i % 2 === 0 ? -30 : 30,
-                        opacity: 0,
-                        duration: 0.8,
-                        delay: i * 0.2,
-                        ease: 'power2.out'
-                    });
-                });
+                // Hero já tem animação via CSS, mas podemos adicionar algo extra se quiser
+                // gsap.from('.hero h1', { ... }) etc.
             }
         }
 
         // ====================
-        // 12. ANIMAÇÃO DOS CARDS DE CONTATO
+        // 12. ANIMAÇÃO DOS CARDS DE CONTATO (já feita pelo AOS)
         // ====================
         function initContactAnimations() {
-            const contactPills = document.querySelectorAll('.contact-pill');
-            
-            contactPills.forEach((pill, index) => {
-                pill.style.animationDelay = `${index * 0.5}s`;
-                
-                gsap.from(pill, {
-                    opacity: 0,
-                    y: 30,
-                    duration: 0.8,
-                    delay: index * 0.2,
-                    ease: "power3.out"
-                });
-            });
+            // Não necessário, pois AOS já cobre
         }
 
         // ====================
@@ -4341,7 +4000,6 @@
             window.addEventListener('scroll', updateHeaderOnScroll);
             updateHeaderOnScroll();
 
-            // Event listeners para download CV em todos os botões
             document.getElementById('downloadCvBtn')?.addEventListener('click', downloadCV);
             document.getElementById('downloadCvBtnMobile')?.addEventListener('click', downloadCV);
             document.getElementById('footerDownloadCv')?.addEventListener('click', downloadCV);
@@ -4354,7 +4012,7 @@
                 }
             });
 
-            const snakeGame = new SnakeGame();
+            const terminal = new InteractiveTerminal();
 
             if (typeof AOS !== 'undefined') {
                 AOS.init({
@@ -4386,7 +4044,6 @@
                 const headerHeight = header.offsetHeight;
                 document.body.style.paddingTop = headerHeight + 'px';
                 
-                // Ajustar também o scroll suave
                 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                     anchor.addEventListener('click', function(e) {
                         if (this.getAttribute('href') !== '#' && this.getAttribute('href').startsWith('#')) {
@@ -4395,7 +4052,6 @@
                             const targetSection = document.querySelector(targetId);
                             
                             if (targetSection) {
-                                // Fechar menu mobile se aberto
                                 if (isMenuOpen) {
                                     toggleMobileMenu();
                                 }
@@ -4415,7 +4071,6 @@
             }
         }
 
-        // Chamar a função no carregamento e no redimensionamento
         window.addEventListener('load', adjustBodyPadding);
         window.addEventListener('resize', adjustBodyPadding);
     </script>
