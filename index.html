@@ -7,6 +7,9 @@
     <title>Edinaldo Almeida | Desenvolvedor Front-End & Técnico de Informática</title>
     <meta name="description" content="Portfolio profissional de Edinaldo Almeida - Desenvolvedor Front-End e Técnico de Informática especializado em React, TypeScript e soluções web modernas.">
 
+    <!-- Content Security Policy (segurança) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com;">
+
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -19,9 +22,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <!-- AOS (Animate on Scroll) -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- EmailJS v4 -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -485,10 +485,16 @@
             font-size: 0.9rem;
             padding: 0.5rem 0;
             position: relative;
-            transition: color 0.5s ease;
+            transition: all 0.3s ease;
             letter-spacing: 0.01em;
             white-space: nowrap;
             flex-shrink: 0;
+        }
+
+        /* Hover animado do menu */
+        .nav-links a:hover {
+            transform: scale(1.05) translateY(-2px);
+            color: var(--color-primary);
         }
 
         .nav-links a::after {
@@ -1020,9 +1026,6 @@
             position: relative;
             padding-left: 4rem;
             margin-bottom: 3rem;
-            animation: slideInUp 0.8s ease;
-            animation-timeline: view();
-            animation-range: entry 0% cover 30%;
         }
 
         .experience-item:last-child {
@@ -1177,7 +1180,6 @@
         .section-header {
             text-align: center;
             margin-bottom: 4rem;
-            animation: fadeIn 1s ease;
         }
 
         .section-header h2 {
@@ -1241,39 +1243,76 @@
         .skill-category,
         .ai-card,
         .certification-card,
-        .experience-content {
+        .experience-content,
+        .contact-pill,
+        .contact-action-btn {
             background: var(--color-card);
             border: 1px solid var(--color-border);
             border-radius: var(--border-radius-lg);
             padding: 2rem;
-            transition: all 0.5s ease;
+            transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
             position: relative;
             height: 100%;
             overflow: hidden;
+            will-change: transform, box-shadow, border-color;
         }
 
-        .feature-card {
-            animation: slideInUp 0.8s ease;
-            animation-timeline: view();
-            animation-range: entry 0% cover 30%;
+        /* Efeitos hover nos cards */
+        .feature-card:hover,
+        .skill-category:hover,
+        .ai-card:hover,
+        .certification-card:hover,
+        .experience-content:hover,
+        .contact-pill:hover,
+        .contact-action-btn:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-xl), 0 0 0 2px var(--color-primary) inset;
+            border-color: transparent;
         }
 
-        .skill-category {
-            animation: slideInLeft 0.8s ease;
-            animation-timeline: view();
-            animation-range: entry 0% cover 30%;
+        .feature-card:hover .feature-icon,
+        .skill-category:hover i,
+        .ai-card:hover .ai-focus i,
+        .certification-card:hover .certification-icon {
+            transform: scale(1.2) rotate(5deg);
+            color: var(--color-primary);
         }
 
-        .ai-card {
-            animation: zoomIn 0.8s ease;
-            animation-timeline: view();
-            animation-range: entry 0% cover 30%;
+        .feature-icon,
+        .skill-category i,
+        .ai-focus i,
+        .certification-icon,
+        .contact-pill-icon {
+            transition: transform 0.3s ease, color 0.3s ease;
         }
 
-        .certification-card {
-            animation: slideInRight 0.8s ease;
-            animation-timeline: view();
-            animation-range: entry 0% cover 30%;
+        .feature-card::before,
+        .skill-category::before,
+        .ai-card::before,
+        .certification-card::before,
+        .experience-content::before,
+        .contact-pill::before,
+        .contact-action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .feature-card:hover::before,
+        .skill-category:hover::before,
+        .ai-card:hover::before,
+        .certification-card:hover::before,
+        .experience-content:hover::before,
+        .contact-pill:hover::before,
+        .contact-action-btn:hover::before {
+            left: 100%;
         }
 
         .features-grid {
@@ -1317,9 +1356,13 @@
             line-height: 1.8;
             position: relative;
             overflow: hidden;
-            animation: slideInUp 0.8s ease;
-            animation-timeline: view();
-            animation-range: entry 0% cover 30%;
+            transition: all 0.4s ease;
+        }
+
+        .about-text:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-primary);
         }
 
         .about-text p {
@@ -1371,6 +1414,11 @@
             background: var(--color-primary);
             border-radius: 50%;
             transition: all 0.5s ease;
+        }
+
+        .skill-category:hover .skill-dot {
+            transform: scale(1.5);
+            background: var(--color-accent);
         }
 
         .ai-grid {
@@ -1438,6 +1486,7 @@
             font-size: 2rem;
             color: var(--color-primary);
             margin-bottom: 1.2rem;
+            transition: transform 0.3s ease;
         }
 
         .certification-title {
@@ -1518,9 +1567,10 @@
             box-shadow: var(--shadow-sm);
             position: relative;
             overflow: hidden;
-            animation: slideInLeft 0.8s ease;
-            animation-timeline: view();
-            animation-range: entry 0% cover 30%;
+        }
+
+        .contact-pill:hover .contact-pill-icon {
+            transform: scale(1.1) translateX(5px);
         }
 
         .contact-pill-icon {
@@ -1590,17 +1640,22 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-            animation: zoomIn 0.8s ease;
-            animation-timeline: view();
-            animation-range: entry 0% cover 30%;
         }
 
         .contact-action-btn:active {
             transform: scale(0.98);
         }
 
+        .contact-action-btn:hover i {
+            transform: translateX(5px) scale(1.1);
+        }
+
+        .contact-action-btn i {
+            transition: transform 0.3s ease;
+        }
+
         /* ===================================================
-           TERMINAL INTERATIVO - SEM IMAGEM, MAIS LARGO E REFINADO
+           TERMINAL INTERATIVO - ELEGANTE E PROFISSIONAL
            =================================================== */
         .terminal-section {
             padding: 5rem 2rem;
@@ -1609,7 +1664,7 @@
         }
 
         .terminal-container {
-            max-width: 1000px; /* Aumentado de 800px para 1000px */
+            max-width: 1000px;
             margin: 0 auto;
             background: var(--color-card);
             border: 2px solid var(--color-border);
@@ -1617,9 +1672,12 @@
             overflow: hidden;
             box-shadow: var(--shadow-lg);
             transition: all 0.5s ease;
-            animation: zoomIn 0.8s ease;
-            animation-timeline: view();
-            animation-range: entry 0% cover 30%;
+        }
+
+        .terminal-container:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl), 0 0 0 2px var(--color-primary);
+            border-color: transparent;
         }
 
         .terminal-header {
@@ -1774,11 +1832,19 @@
             padding: 0.2rem 0.8rem;
             border-radius: 20px;
             border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+            cursor: default;
         }
 
         [data-theme='dark'] .terminal-suggestions-list span {
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
+        }
+
+        .terminal-suggestions-list span:hover {
+            background: var(--color-primary);
+            color: var(--color-bg);
+            transform: scale(1.05);
         }
 
         .terminal-cursor {
@@ -1879,7 +1945,6 @@
             background: var(--color-card);
             border-top: 1px solid var(--color-border);
             padding: 4rem 2rem 2rem;
-            animation: fadeIn 1s ease;
         }
 
         .footer-content {
@@ -2099,24 +2164,6 @@
 
         .letter-animation {
             display: inline-block;
-        }
-
-        /* ===================================================
-           VIEW TIMELINE ANIMATIONS
-           =================================================== */
-        @supports (animation-timeline: view()) {
-            .feature-card,
-            .skill-category,
-            .ai-card,
-            .certification-card,
-            .experience-item,
-            .about-text,
-            .contact-pill,
-            .contact-action-btn,
-            .terminal-container {
-                animation-timeline: view();
-                animation-range: entry 0% cover 30%;
-            }
         }
 
         /* ===================================================
@@ -2730,28 +2777,28 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" data-aos="fade-up">
+    <section id="about">
         <div class="container">
             <div class="section-header">
                 <h2><span class="highlight">Sobre</span> Mim</h2>
                 <p>Desenvolvedor apaixonado por tecnologia e inovação</p>
             </div>
             <div class="features-grid">
-                <div class="feature-card" data-aos="fade-right" data-aos-delay="100">
+                <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-code"></i>
                     </div>
                     <h3>Desenvolvimento Web</h3>
                     <p>Criação de aplicações modernas e responsivas com foco em performance, acessibilidade e melhores práticas.</p>
                 </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-paint-brush"></i>
                     </div>
                     <h3>UI/UX Design</h3>
                     <p>Design de interfaces intuitivas e experiências do usuário que combinam estética e funcionalidade.</p>
                 </div>
-                <div class="feature-card" data-aos="fade-left" data-aos-delay="300">
+                <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-rocket"></i>
                     </div>
@@ -2759,7 +2806,7 @@
                     <p>Otimização de aplicações para máxima velocidade e eficiência, garantindo a melhor experiência.</p>
                 </div>
             </div>
-            <div class="about-text" data-aos="zoom-in">
+            <div class="about-text">
                 <p>
                     Com formação técnica em Informática e experiência prática em desenvolvimento front-end, 
                     atuo na criação de soluções digitais que unem tecnologia de ponta e design cuidadoso. 
@@ -2777,14 +2824,14 @@
     <div class="section-divider"></div>
 
     <!-- Skills Section -->
-    <section id="skills" data-aos="fade-up">
+    <section id="skills">
         <div class="container">
             <div class="section-header">
                 <h2><span class="highlight">Habilidades</span> & Tecnologias</h2>
                 <p>Tecnologias e ferramentas que domino e utilizo diariamente</p>
             </div>
             <div class="skills-grid">
-                <div class="skill-category" data-aos="flip-left" data-aos-delay="100">
+                <div class="skill-category">
                     <h3><i class="fas fa-laptop-code"></i> Frontend</h3>
                     <ul class="skill-list">
                         <li class="skill-item">
@@ -2809,7 +2856,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="skill-category" data-aos="flip-up" data-aos-delay="200">
+                <div class="skill-category">
                     <h3><i class="fas fa-server"></i> Backend & Banco de Dados</h3>
                     <ul class="skill-list">
                         <li class="skill-item">
@@ -2826,7 +2873,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="skill-category" data-aos="flip-right" data-aos-delay="300">
+                <div class="skill-category">
                     <h3><i class="fas fa-tools"></i> Ferramentas</h3>
                     <ul class="skill-list">
                         <li class="skill-item">
@@ -2847,7 +2894,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="skill-category" data-aos="flip-down" data-aos-delay="400">
+                <div class="skill-category">
                     <h3><i class="fas fa-microchip"></i> Suporte Técnico</h3>
                     <ul class="skill-list">
                         <li class="skill-item">
@@ -2879,14 +2926,14 @@
     <div class="section-divider"></div>
 
     <!-- IA Section -->
-    <section id="ai" data-aos="fade-up">
+    <section id="ai">
         <div class="container">
             <div class="section-header">
                 <h2><span class="highlight">Entusiasta</span> de IA</h2>
                 <p>Explorando e aplicando as mais avançadas ferramentas de Inteligência Artificial</p>
             </div>
             <div class="ai-grid">
-                <div class="ai-card" data-aos="zoom-in-right" data-aos-delay="100">
+                <div class="ai-card">
                     <h3 class="ai-title">ChatGPT</h3>
                     <p class="ai-description">Assistente de IA para conversação natural, resolução de problemas e geração de conteúdo criativo.</p>
                     <div class="ai-focus">
@@ -2894,7 +2941,7 @@
                         <span>Conversação & Criatividade</span>
                     </div>
                 </div>
-                <div class="ai-card" data-aos="zoom-in-up" data-aos-delay="200">
+                <div class="ai-card">
                     <h3 class="ai-title">Gemini</h3>
                     <p class="ai-description">Modelo multimodal do Google para compreensão integrada de texto, imagens e áudio.</p>
                     <div class="ai-focus">
@@ -2902,7 +2949,7 @@
                         <span>Multimodalidade</span>
                     </div>
                 </div>
-                <div class="ai-card" data-aos="zoom-in-left" data-aos-delay="300">
+                <div class="ai-card">
                     <h3 class="ai-title">GitHub Copilot</h3>
                     <p class="ai-description">Assistente de programação que sugere código em tempo real diretamente no editor.</p>
                     <div class="ai-focus">
@@ -2917,14 +2964,14 @@
     <div class="section-divider"></div>
 
     <!-- ITSM Section -->
-    <section id="itsm" data-aos="fade-up">
+    <section id="itsm">
         <div class="container">
             <div class="section-header">
                 <h2>Plataformas de <span class="highlight">Gerenciamento de Chamados</span></h2>
                 <p>Experiência com ferramentas líderes de mercado para suporte</p>
             </div>
             <div class="ai-grid">
-                <div class="ai-card" data-aos="fade-right" data-aos-delay="100">
+                <div class="ai-card">
                     <h3 class="ai-title">GLPI</h3>
                     <p class="ai-description">Gestão completa de ativos de TI, inventário automatizado e sistema de helpdesk integrado.</p>
                     <div class="ai-focus">
@@ -2932,7 +2979,7 @@
                         <span>Gestão de Chamados</span>
                     </div>
                 </div>
-                <div class="ai-card" data-aos="fade-left" data-aos-delay="200">
+                <div class="ai-card">
                     <h3 class="ai-title">Assyst</h3>
                     <p class="ai-description">Plataforma robusta para gerenciamento de serviços de TI, focada em processos ITIL e eficiência operacional.</p>
                     <div class="ai-focus">
@@ -2947,14 +2994,14 @@
     <div class="section-divider"></div>
 
     <!-- Certifications Section -->
-    <section id="certifications" data-aos="fade-up">
+    <section id="certifications">
         <div class="container">
             <div class="section-header">
                 <h2>Minhas <span class="highlight">Certificações</span></h2>
                 <p>Certificados obtidos em cursos e treinamentos relevantes para minha carreira</p>
             </div>
             <div class="certifications-grid">
-                <div class="certification-card" data-aos="flip-left" data-aos-delay="100">
+                <div class="certification-card">
                     <div class="certification-icon"><i class="fas fa-graduation-cap"></i></div>
                     <h3 class="certification-title">Técnico em Informática</h3>
                     <p class="certification-issuer">Instituto Federal de Sergipe - IFS</p>
@@ -2965,7 +3012,7 @@
                     </button>
                 </div>
 
-                <div class="certification-card" data-aos="flip-up" data-aos-delay="200">
+                <div class="certification-card">
                     <div class="certification-icon"><i class="fas fa-laptop-code"></i></div>
                     <h3 class="certification-title">Object-Oriented Developer</h3>
                     <p class="certification-issuer">Faculdade Descomplica</p>
@@ -2976,7 +3023,7 @@
                     </button>
                 </div>
 
-                <div class="certification-card" data-aos="flip-right" data-aos-delay="300">
+                <div class="certification-card">
                     <div class="certification-icon"><i class="fas fa-laptop-code"></i></div>
                     <h3 class="certification-title">Programmer</h3>
                     <p class="certification-issuer">Faculdade Descomplica</p>
@@ -2993,7 +3040,7 @@
     <div class="section-divider"></div>
 
     <!-- Experience Section Melhorada -->
-    <section id="experience" data-aos="fade-up">
+    <section id="experience">
         <div class="container">
             <div class="section-header">
                 <h2><span class="highlight">Experiência</span> Profissional</h2>
@@ -3003,7 +3050,7 @@
             <div class="experience-timeline">
                 <div class="timeline-line"></div>
 
-                <div class="experience-item current" data-aos="fade-right">
+                <div class="experience-item current">
                     <div class="timeline-dot"></div>
                     <div class="experience-content">
                         <div class="experience-header">
@@ -3053,7 +3100,7 @@
                     </div>
                 </div>
 
-                <div class="experience-item" data-aos="fade-left">
+                <div class="experience-item">
                     <div class="timeline-dot"></div>
                     <div class="experience-content">
                         <div class="experience-header">
@@ -3106,7 +3153,7 @@
                     </div>
                 </div>
 
-                <div class="experience-item" data-aos="fade-right">
+                <div class="experience-item">
                     <div class="timeline-dot"></div>
                     <div class="experience-content">
                         <div class="experience-header">
@@ -3151,7 +3198,7 @@
     <div class="section-divider"></div>
 
     <!-- Contact Section - PÍLULAS DE CONTATO COM ANIMAÇÃO -->
-    <section id="contact" data-aos="fade-up">
+    <section id="contact">
         <div class="container">
             <div class="section-header">
                 <h2>Entre em <span class="highlight">Contato</span></h2>
@@ -3161,7 +3208,7 @@
             <div class="contact-grid">
                 <div class="contact-pills-container">
                     <!-- Email -->
-                    <a href="mailto:edinaldoalmeida98@outlook.com" class="contact-pill" data-aos="fade-right" data-aos-delay="100">
+                    <a href="mailto:edinaldoalmeida98@outlook.com" class="contact-pill">
                         <div class="contact-pill-icon">
                             <i class="far fa-envelope"></i>
                         </div>
@@ -3172,7 +3219,7 @@
                     </a>
                     
                     <!-- Telefone -->
-                    <a href="tel:+5579999178206" class="contact-pill" data-aos="fade-right" data-aos-delay="200">
+                    <a href="tel:+5579999178206" class="contact-pill">
                         <div class="contact-pill-icon">
                             <i class="fas fa-phone"></i>
                         </div>
@@ -3183,7 +3230,7 @@
                     </a>
                     
                     <!-- LinkedIn -->
-                    <a href="https://www.linkedin.com/in/edinaldo-almeida-b67194276/" target="_blank" class="contact-pill" data-aos="fade-right" data-aos-delay="300">
+                    <a href="https://www.linkedin.com/in/edinaldo-almeida-b67194276/" target="_blank" class="contact-pill">
                         <div class="contact-pill-icon">
                             <i class="fab fa-linkedin-in"></i>
                         </div>
@@ -3196,11 +3243,11 @@
                 
                 <!-- Botões de Ação -->
                 <div class="contact-actions">
-                    <a href="mailto:edinaldoalmeida98@outlook.com" class="contact-action-btn" data-aos="zoom-in" data-aos-delay="100">
+                    <a href="mailto:edinaldoalmeida98@outlook.com" class="contact-action-btn">
                         <i class="far fa-envelope"></i>
                         <span>Enviar Email</span>
                     </a>
-                    <a href="javascript:void(0);" class="contact-action-btn" id="whatsappContact" data-aos="zoom-in" data-aos-delay="200">
+                    <a href="javascript:void(0);" class="contact-action-btn" id="whatsappContact">
                         <i class="fab fa-whatsapp"></i>
                         <span>WhatsApp</span>
                     </a>
@@ -3209,15 +3256,15 @@
         </div>
     </section>
 
-    <!-- Terminal Interativo - SEM IMAGEM, MAIS LARGO E COM API GITHUB -->
-    <section id="terminal-section" class="terminal-section" data-aos="fade-up">
+    <!-- Terminal Interativo - ELEGANTE E PROFISSIONAL -->
+    <section id="terminal-section" class="terminal-section">
         <div class="container">
             <div class="section-header">
                 <h2>Terminal <span class="highlight">Interativo</span></h2>
                 <p>Digite suas perguntas e descubra mais sobre mim (incluindo comando 'github')</p>
             </div>
             
-            <div class="terminal-container" data-aos="flip-up">
+            <div class="terminal-container">
                 <div class="terminal-header">
                     <div class="terminal-dots">
                         <span class="terminal-dot red"></span>
@@ -3263,7 +3310,7 @@
     </section>
 
     <!-- Footer Profissional -->
-    <footer data-aos="fade-up">
+    <footer>
         <div class="footer-content">
             <div class="footer-grid">
                 <div class="footer-brand">
@@ -3351,7 +3398,6 @@
                     setTimeout(() => {
                         preloader.classList.add('hidden');
                         initAnimations();
-                        initContactAnimations();
                         initNavScroll();
                     }, 500);
                 }
@@ -3687,7 +3733,7 @@
         }
 
         // ====================
-        // 10. TERMINAL INTERATIVO (COM API GITHUB)
+        // 10. TERMINAL INTERATIVO (COM API GITHUB E SEGURANÇA)
         // ====================
         class InteractiveTerminal {
             constructor() {
@@ -3736,16 +3782,19 @@
                 const input = this.terminalInput.value.trim();
                 if (input === '') return;
                 
-                this.commandHistory.push(input);
+                // Sanitização básica para evitar injeção de script
+                const sanitizedInput = input.replace(/[<>]/g, '');
+                
+                this.commandHistory.push(sanitizedInput);
                 this.historyIndex = this.commandHistory.length;
                 
-                this.addOutputLine(`$ ${input}`, 'info');
+                this.addOutputLine(`$ ${sanitizedInput}`, 'info');
                 
-                const command = input.toLowerCase();
+                const command = sanitizedInput.toLowerCase();
                 if (this.commands[command]) {
                     this.commands[command]();
                 } else {
-                    this.addOutputLine(`Comando não reconhecido: "${input}". Digite 'help' para ver os comandos disponíveis.`, 'error');
+                    this.addOutputLine(`Comando não reconhecido: "${sanitizedInput}". Digite 'help' para ver os comandos disponíveis.`, 'error');
                 }
                 
                 this.terminalInput.value = '';
@@ -3772,7 +3821,7 @@
             addOutputLine(text, type = 'normal') {
                 const line = document.createElement('div');
                 line.className = `terminal-output-line ${type}`;
-                line.textContent = text;
+                line.textContent = text; // textContent já é seguro
                 this.terminalOutput.appendChild(line);
             }
             
@@ -3929,20 +3978,115 @@
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
                 
-                // Hero já tem animação via CSS, mas podemos adicionar algo extra se quiser
-                // gsap.from('.hero h1', { ... }) etc.
+                // Animações de entrada mais rápidas e sofisticadas
+                // Hero
+                gsap.from('.hero h1', {
+                    scrollTrigger: {
+                        trigger: '.hero',
+                        start: 'top top',
+                        end: 'bottom top',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.8,
+                    ease: 'power3.out'
+                });
+                
+                gsap.from('.hero .subtitle', {
+                    scrollTrigger: {
+                        trigger: '.hero',
+                        start: 'top top',
+                        end: 'bottom top',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.8,
+                    delay: 0.2,
+                    ease: 'power3.out'
+                });
+                
+                gsap.from('.hero .description', {
+                    scrollTrigger: {
+                        trigger: '.hero',
+                        start: 'top top',
+                        end: 'bottom top',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.8,
+                    delay: 0.4,
+                    ease: 'power3.out'
+                });
+                
+                gsap.from('.hero-buttons', {
+                    scrollTrigger: {
+                        trigger: '.hero',
+                        start: 'top top',
+                        end: 'bottom top',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.8,
+                    delay: 0.6,
+                    ease: 'power3.out'
+                });
+                
+                gsap.from('.social-links', {
+                    scrollTrigger: {
+                        trigger: '.hero',
+                        start: 'top top',
+                        end: 'bottom top',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.8,
+                    delay: 0.8,
+                    ease: 'power3.out'
+                });
+
+                // Seções com efeito parallax suave e escala
+                gsap.utils.toArray('section:not(.hero)').forEach(section => {
+                    gsap.from(section, {
+                        scrollTrigger: {
+                            trigger: section,
+                            start: 'top 80%',
+                            end: 'bottom 20%',
+                            toggleActions: 'play none none reverse'
+                        },
+                        opacity: 0,
+                        y: 40,
+                        scale: 0.98,
+                        duration: 0.7,
+                        ease: 'power2.out'
+                    });
+                });
+
+                // Cards com stagger
+                gsap.utils.toArray('.feature-card, .skill-category, .ai-card, .certification-card, .experience-content, .contact-pill').forEach(card => {
+                    gsap.from(card, {
+                        scrollTrigger: {
+                            trigger: card,
+                            start: 'top 85%',
+                            end: 'bottom 15%',
+                            toggleActions: 'play none none reverse'
+                        },
+                        opacity: 0,
+                        y: 30,
+                        scale: 0.95,
+                        duration: 0.6,
+                        ease: 'back.out(1.2)'
+                    });
+                });
             }
         }
 
         // ====================
-        // 12. ANIMAÇÃO DOS CARDS DE CONTATO (já feita pelo AOS)
-        // ====================
-        function initContactAnimations() {
-            // Não necessário, pois AOS já cobre
-        }
-
-        // ====================
-        // 13. EVENT LISTENERS
+        // 12. EVENT LISTENERS
         // ====================
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
@@ -4014,15 +4158,6 @@
 
             const terminal = new InteractiveTerminal();
 
-            if (typeof AOS !== 'undefined') {
-                AOS.init({
-                    duration: 800,
-                    easing: 'ease-in-out',
-                    once: true,
-                    mirror: false
-                });
-            }
-
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     if (isMenuOpen) {
@@ -4036,7 +4171,7 @@
         });
 
         // ====================
-        // 14. AJUSTE DINÂMICO DO PADDING PARA HEADER FIXO
+        // 13. AJUSTE DINÂMICO DO PADDING PARA HEADER FIXO
         // ====================
         function adjustBodyPadding() {
             const header = document.getElementById('mainHeader');
